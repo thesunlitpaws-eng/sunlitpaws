@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FF6B35">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" type="image/png" href="/assets/images/logo.png">
+  <title><%= lang === 'zh' ? '常见问题解答 | sunlitpaws - 专业猫爬架制造商' : 'FAQ | sunlitpaws - Professional Cat Tree Manufacturer' %></title>
+  <meta name="description" content="<%= lang === 'zh' ? '专业猫爬架制造商常见问题解答 - 工厂实力、认证资质、MOQ报价、定制流程、质量控制、物流运输全解析。' : 'Expert FAQ from a professional cat tree manufacturer - Factory strength, certifications, MOQ, customization, quality control, and logistics.' %>">
+  <meta name="keywords" content="猫爬架常见问题, 宠物用品OEM, MOQ报价, 定制流程, 质量认证">
+  <link rel="canonical" href="https://sunlitpaws.com/resources/faq/">
+  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com/resources/faq/?lang=en">
+  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com/resources/faq/?lang=zh">
+  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com/resources/faq/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= lang === 'zh' ? '常见问题解答 | sunlitpaws' : 'FAQ | sunlitpaws' %>">
+  <meta property="og:description" content="专业猫爬架制造商常见问题解答 - 工厂实力、认证资质、MOQ报价、定制流程全解析。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sunlitpaws.com/resources/faq/">
+  <meta property="og:site_name" content="sunlitpaws">
+  <meta property="og:image" content="/uploads/large/2d6d9b50-11d6-4006-a944-57de64f75963.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="常见问题解答 | sunlitpaws">
+  <meta name="twitter:description" content="专业猫爬架制造商常见问题解答 - 工厂实力、认证资质、MOQ报价全解析。">
+
+  <!-- JSON-LD: FAQPage (动态注入) -->
+  <script type="application/ld+json" id="faq-ldjson"></script>
+  <script>var __SSR_LANG__ = '<%= lang %>';</script>
+
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body { padding-top: 80px; }
+
+    /* Hero */
+    .faq-hero {
+      background: linear-gradient(135deg, #0d1117 0%, #1a2540 50%, #0d1117 100%);
+      padding: 80px 0 70px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .faq-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at center, rgba(255,107,53,0.06) 0%, transparent 60%);
+      animation: faqPulse 8s ease-in-out infinite;
+    }
+    @keyframes faqPulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.1);} }
+    .faq-hero-badge {
+      display: inline-block;
+      background: rgba(255,107,53,0.15);
+      color: #FF6B35;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,107,53,0.3);
+      margin-bottom: 20px;
+    }
+    .faq-hero h1 { color: #fff; font-size: 48px; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
+    .faq-hero p { color: #94a3b8; font-size: 18px; max-width: 600px; margin: 0 auto; }
+    .faq-hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .faq-hero-stat { text-align: center; }
+    .faq-hero-stat .num { color: #FF6B35; font-size: 28px; font-weight: 800; }
+    .faq-hero-stat .label { color: #64748b; font-size: 12px; margin-top: 4px; }
+
+    /* Layout */
+    .faq-container { max-width: 1200px; margin: 0 auto; padding: 60px 24px; }
+
+    /* Tab bar */
+    .faq-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 8px;
+    }
+    .faq-tab {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: #64748b;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .faq-tab:hover { background: #fff; color: #1a1a2e; }
+    .faq-tab.active { background: #fff; color: #FF6B35; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .nav-link.active { color: #FF6B35; font-weight: 600; }
+
+    /* Section */
+    .faq-section { margin-bottom: 8px; }
+    .faq-section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #FF6B35;
+    }
+    .faq-section-icon { font-size: 24px; }
+    .faq-section-title { font-size: 22px; font-weight: 700; color: #1a1a2e; }
+
+    /* FAQ items */
+    .faq-card {
+      border: 1px solid #e8eaf0;
+      border-radius: 12px;
+      margin-bottom: 6px;
+      overflow: hidden;
+      background: #fff;
+      transition: box-shadow 0.3s;
+    }
+    .faq-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      color: #1a1a2e;
+      background: #fff;
+      transition: background 0.2s;
+    }
+    .faq-q:hover { background: #fafafa; }
+    .faq-q .q-text { flex: 1; line-height: 1.5; }
+    .faq-q .q-num {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #FF6B35, #ff8c5a);
+      color: #fff;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .faq-card.open .q-num { background: #1a1a2e; }
+    .faq-q .q-toggle {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f0f0f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #FF6B35;
+      font-weight: 300;
+      margin-top: 2px;
+      transition: transform 0.3s, background 0.2s;
+    }
+    .faq-card.open .q-toggle { transform: rotate(45deg); background: #FF6B35; color: #fff; }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      background: #fafbfc;
+      opacity: 0;
+    }
+    .faq-card.open .faq-a { max-height: 2000px; opacity: 1; }
+    .faq-a-inner {
+      padding: 0 20px 10px;
+      font-size: 14px;
+      line-height: 1.8;
+      color: #4a5568;
+      border-top: 1px solid #f0f0f5;
+      padding-top: 12px;
+      white-space: pre-line;
+    }
+    .faq-a-inner strong { color: #1a1a2e; }
+    .faq-a-inner p { margin: 0 0 12px; }
+    .faq-a-inner .faq-img { max-width: 100%; border-radius: 8px; margin: 12px 0; }
+
+    /* CTA */
+    .faq-cta-band {
+      background: linear-gradient(135deg, #FF6B35, #ff8c5a);
+      border-radius: 16px;
+      padding: 48px;
+      text-align: center;
+      color: #fff;
+      margin-top: 60px;
+    }
+    .faq-cta-band h2 { font-size: 28px; margin-bottom: 12px; }
+    .faq-cta-band p { font-size: 16px; opacity: 0.9; margin-bottom: 24px; }
+    .faq-cta-band .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: #fff;
+      color: #FF6B35;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .faq-cta-band .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+    /* Loading */
+    .faq-loading { text-align: center; padding: 60px; color: #94a3b8; font-size: 16px; }
+    .faq-loading::after { content: '...'; animation: faqDots 1.5s infinite; }
+    @keyframes faqDots { 0%{content:'.';} 33%{content:'..';} 66%{content:'...';} }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .faq-hero h1 { font-size: 32px; }
+      .faq-hero-stats { gap: 20px; }
+      .faq-tabs { gap: 4px; }
+      .faq-tab { padding: 6px 12px; font-size: 13px; }
+      .faq-q { font-size: 14px; padding: 14px 16px; }
+      .faq-a-inner { font-size: 13px; }
+      .faq-cta-band { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img src="/assets/images/logo.png" alt="sunlitpaws" class="logo-img">
+        <div class="logo-text">
+          <span class="logo-en">sunlitpaws</span>
+          <span class="logo-cn">河北炳临科技</span>
+        </div>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="/#home" class="nav-link">Home</a>
+        <a href="/#about" class="nav-link">About Us</a>
+        <a href="/#products" class="nav-link">Products</a>
+        <a href="/#solutions" class="nav-link">Solutions</a>
+        <a href="/#cases" class="nav-link">Cases</a>
+        <a href="/#news" class="nav-link">News</a>
+        <a href="faq.html" class="nav-link active">FAQ</a>
+        <a href="/#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switcher" id="langSwitcher">
+          <button class="lang-btn" id="langBtn">🌐 <%= (typeof lang !== 'undefined' ? lang : 'en').toUpperCase() %></button>
+          <div class="lang-dropdown" id="langDropdown">
+            <button onclick="setLang('en')">English</button>
+            <button onclick="setLang('zh')">中文</button>
+            <button onclick="setLang('es')">Español</button>
+            <button onclick="setLang('fr')">Français</button>
+            <button onclick="setLang('de')">Deutsch</button>
+            <button onclick="setLang('ja')">日本語</button>
+            <button onclick="setLang('ko')">한국어</button>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="faq-hero">
+    <div class="faq-container" style="padding-top:0;padding-bottom:0;">
+      <div class="faq-hero-badge">Help Center</div>
+      <h1 data-i18n="faq.hero.title">常见问题解答</h1>
+      <p data-i18n="faq.hero.sub">专业猫爬架OEM/ODM制造商，为全球采购商提供一站式解答</p>
+      <div class="faq-hero-stats">
+        <div class="faq-hero-stat">
+          <div class="num">19</div>
+          <div class="label" data-i18n="faq.stat1">精选问答</div>
+        </div>
+        <div class="faq-hero-stat">
+          <div class="num">8</div>
+          <div class="label" data-i18n="faq.stat2">专业分类</div>
+        </div>
+        <div class="faq-hero-stat">
+          <div class="num">24h</div>
+          <div class="label" data-i18n="faq.stat3">客服响应</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Content -->
+  <div class="faq-container">
+    <div class="faq-tabs" id="faqTabs">
+      <button class="faq-tab active" data-section="">全部</button>
+      <button class="faq-tab" data-section="工厂实力与资质">🏭 工厂实力</button>
+      <button class="faq-tab" data-section="产品与定制服务">📦 产品定制</button>
+      <button class="faq-tab" data-section="质量控制与测试">🔧 质量控制</button>
+      <button class="faq-tab" data-section="生产与物流">🚛 物流运输</button>
+      <button class="faq-tab" data-section="商务条款与合作">💰 商务合作</button>
+      <button class="faq-tab" data-section="出口服务与认证">🌍 出口认证</button>
+      <button class="faq-tab" data-section="市场信息与趋势">📊 市场趋势</button>
+      <button class="faq-tab" data-section="合作流程与联系方式">🤝 合作联系</button>
+    </div>
+    <div id="faqContent"><div class="faq-loading">加载中</div></div>
+    <div class="faq-cta-band">
+      <h2 data-i18n="faq.cta.title">还有其他问题？</h2>
+      <p data-i18n="faq.cta.sub">我们的国际销售团队随时为您提供专业解答</p>
+      <a href="/#contact" class="btn" data-i18n="faq.cta.btn">立即咨询</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col"><h4>sunlitpaws Co., Ltd.</h4><p>专业OEM/ODM宠物用品制造商</p></div>
+        <div class="footer-col"><h4>Products</h4><ul><li><a href="/#products">Cat Trees</a></li><li><a href="/#products">Pet Beds</a></li><li><a href="/#products">Pet Carriers</a></li></ul></div>
+        <div class="footer-col"><h4>Contact</h4><p>Shandong, China</p><p>+86 138 0000 0000</p><p>sales@sunlitpaws.com</p></div>
+        <div class="footer-col"><h4>Links</h4><ul><li><a href="/#about">About Us</a></li><li><a href="faq.html">FAQ</a></li><li><a href="/#contact">Get Quote</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><p>© 2024 sunlitpaws Co., Ltd.</p></div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Language System ──────────────────────────────────────────
+    const i18n = {
+      en: {
+        'faq.hero.title': 'Frequently Asked Questions',
+        'faq.hero.sub': 'Professional cat tree OEM/ODM manufacturer — your complete FAQ guide',
+        'faq.stat1': 'Q&A Topics',
+        'faq.stat2': 'Categories',
+        'faq.stat3': 'Response Time',
+        'faq.cta.title': 'Still Have Questions?',
+        'faq.cta.sub': 'Our international sales team is ready to help',
+        'faq.cta.btn': 'Contact Us Now',
+        'faq.hero.badge': 'Help Center',
+        'tab.all': '全部',
+        'section.工厂实力与资质': '🏭 Factory & Credentials',
+        'section.产品与定制服务': '📦 Products & Customization',
+        'section.质量控制与测试': '🔧 Quality Control',
+        'section.生产与物流': '🚛 Production & Logistics',
+        'section.商务条款与合作': '💰 Business & Cooperation',
+        'section.出口服务与认证': '🌍 Export & Certification',
+        'section.市场信息与趋势': '📊 Market Insights',
+        'section.合作流程与联系方式': '🤝 Cooperation & Contact',
+      },
+      zh: {},
+      es: { 'faq.hero.title': 'Preguntas Frecuentes', 'faq.hero.sub': 'Fabricante profesional de árboles para gatos OEM/ODM', 'faq.stat1': 'Temas', 'faq.stat2': 'Categorías', 'faq.stat3': 'Respuesta', 'faq.cta.title': '¿Otras preguntas?', 'faq.cta.sub': 'Nuestro equipo de ventas está listo para ayudar', 'faq.cta.btn': 'Contáctenos' },
+      fr: { 'faq.hero.title': 'Questions Fréquentes', 'faq.hero.sub': 'Fabricant professionnel OEM/ODM d\'arbres à chat', 'faq.stat1': 'Sujets', 'faq.stat2': 'Catégories', 'faq.stat3': 'Réponse', 'faq.cta.title': 'D\'autres questions?', 'faq.cta.sub': 'Notre équipe commerciale est prête à vous aider', 'faq.cta.btn': 'Contactez-nous' },
+      de: { 'faq.hero.title': 'Häufige Fragen', 'faq.hero.sub': 'Professioneller Katzenbaum OEM/ODM Hersteller', 'faq.stat1': 'Themen', 'faq.stat2': 'Kategorien', 'faq.stat3': 'Antwort', 'faq.cta.title': 'Weitere Fragen?', 'faq.cta.sub': 'Unser Vertriebsteam hilft gerne', 'faq.cta.btn': 'Kontakt' },
+      ja: { 'faq.hero.title': 'よくある質問', 'faq.hero.sub': 'プロフェッショナルなキャットツリーOEM/ODMメーカー', 'faq.stat1': 'トピック', 'faq.stat2': 'カテゴリー', 'faq.stat3': '応答', 'faq.cta.title': '他にご質問は?', 'faq.cta.sub': '営業チームがいつでもお手伝いします', 'faq.cta.btn': 'お問い合わせ' },
+      ko: { 'faq.hero.title': '자주 묻는 질문', 'faq.hero.sub': '전문 고양이 스크래치 트리 OEM/ODM 제조업체', 'faq.stat1': '주제', 'faq.stat2': '카테고리', 'faq.stat3': '응답', 'faq.cta.title': '다른 질문이 있으신가요?', 'faq.cta.sub': '영업팀이 언제든지 도와드리겠습니다', 'faq.cta.btn': '문의하기' },
+    };
+
+    // ── Hamburger ───────────────────────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('nav');
+    hamburger.addEventListener('click', function() {
+      this.classList.toggle('open');
+      nav.classList.toggle('mobile-open');
+    });
+
+    // ── Language Switcher ───────────────────────────────────────
+    const langBtn = document.getElementById('langBtn');
+    const langDropdown = document.getElementById('langDropdown');
+    langBtn.addEventListener('click', function(e) { e.stopPropagation(); langDropdown.style.display = langDropdown.style.display === 'block' ? 'none' : 'block'; });
+    document.addEventListener('click', function() { langDropdown.style.display = 'none'; });
+
+    // Read SSR-injected lang, fallback to 'en'
+    let currentLang = (typeof __SSR_LANG__ !== 'undefined' ? __SSR_LANG__ : 'en');
+    function setLang(lang) {
+      currentLang = lang;
+      langBtn.textContent = lang.toUpperCase();
+      langDropdown.style.display = 'none';
+      applyI18n();
+      loadFAQs();
+    }
+
+    function applyI18n() {
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[currentLang] && i18n[currentLang][key]) {
+          el.textContent = i18n[currentLang][key];
+        }
+      });
+      // Update tab labels
+      document.querySelectorAll('.faq-tab[data-section]').forEach(function(tab) {
+        var section = tab.getAttribute('data-section');
+        if (section === '') {
+          tab.textContent = currentLang === 'zh' ? '全部' : 'All';
+        } else {
+          var sectionKey = 'section.' + section;
+          tab.textContent = (i18n[currentLang] && i18n[currentLang][sectionKey]) || section;
+        }
+      });
+    }
+
+    // ── FAQ Data & Render ───────────────────────────────────────
+    const SECTION_ORDER = [
+      '工厂实力与资质','产品与定制服务','质量控制与测试',
+      '生产与物流','商务条款与合作','出口服务与认证',
+      '市场信息与趋势','合作流程与联系方式'
+    ];
+
+    const SECTION_ICONS = {
+      '工厂实力与资质': '🏭','产品与定制服务': '📦',
+      '质量控制与测试': '🔧','生产与物流': '🚛',
+      '商务条款与合作': '💰','出口服务与认证': '🌍',
+      '市场信息与趋势': '📊','合作流程与联系方式': '🤝',
+      'Factory Strength & Credentials': '🏭','Products & Customization': '📦',
+      'Quality Control & Testing': '🔧','Production & Logistics': '🚛',
+      'Business Terms & Cooperation': '💰','Export Services & Certification': '🌍',
+      'Market Insights & Trends': '📊','Cooperation Process & Contact': '🤝',
+    };
+
+    function getSectionTitle(section) {
+      var sectionKey = 'section.' + section;
+      return (i18n[currentLang] && i18n[currentLang][sectionKey]) || section || '其他';
+    }
+
+    function groupBySection(faqs) {
+      var groups = {};
+      SECTION_ORDER.forEach(function(s) { groups[s] = []; });
+      faqs.forEach(function(f) {
+        var s = f.section || '';
+        if (!groups[s]) groups[s] = [];
+        groups[s].push(f);
+      });
+      // Remove empty sections
+      Object.keys(groups).forEach(function(k) {
+        if (groups[k].length === 0) delete groups[k];
+      });
+      return groups;
+    }
+
+    function renderFAQ(groups, filterSection) {
+      var html = '';
+      var sections = filterSection ? { [filterSection]: groups[filterSection] || [] } : groups;
+      var idx = 0;
+      for (var section in sections) {
+        var items = sections[section];
+        if (!items || items.length === 0) continue;
+        var icon = SECTION_ICONS[section] || '📋';
+        html += '<div class="faq-section">';
+        html += '<div class="faq-section-header">';
+        html += '<span class="faq-section-icon">' + icon + '</span>';
+        html += '<h2 class="faq-section-title">' + getSectionTitle(section) + '</h2>';
+        html += '</div>';
+        items.forEach(function(item) {
+          idx++;
+          var num = String(idx).padStart(2, '0');
+          html += '<div class="faq-card" data-section="' + section + '">';
+          html += '<div class="faq-q" onclick="toggleFaq(this)">';
+          html += '<span class="q-num">' + num + '</span>';
+          html += '<span class="q-text">' + (item.question || '') + '</span>';
+          html += '<span class="q-toggle">+</span>';
+          html += '</div>';
+          html += '<div class="faq-a"><div class="faq-a-inner">' + (item.answer || '') + '</div></div>';
+          html += '</div>';
+        });
+        html += '</div>';
+      }
+      return html || '<p style="text-align:center;color:#94a3b8;padding:60px;">暂无FAQ内容</p>';
+    }
+
+    function toggleFaq(el) {
+      var card = el.closest('.faq-card');
+      console.log('点击问题, card:', card);
+      var wasOpen = card.classList.contains('open');
+      console.log('之前是否打开:', wasOpen);
+      // Close all in same section
+      document.querySelectorAll('.faq-card').forEach(function(c) { c.classList.remove('open'); });
+      if (!wasOpen) {
+        card.classList.add('open');
+        console.log('添加open类');
+        // 检查答案区域
+        var answerDiv = card.querySelector('.faq-a');
+        var answerInner = card.querySelector('.faq-a-inner');
+        console.log('答案区域:', answerDiv);
+        console.log('答案内容:', answerInner ? answerInner.textContent.substring(0, 50) + '...' : '未找到');
+      }
+    }
+
+    let allFAQs = [];
+
+    // ── FAQPage JSON-LD ──────────────────────────────────────────
+    function injectFAQJsonLd(faqs) {
+      if (!faqs || !faqs.length) return;
+      var lang = currentLang || 'zh';
+      var faqItems = faqs.map(function(f) {
+        return {
+          "@type": "Question",
+          "name": f.question || f.question_en || '',
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": f.answer || f.answer_en || ''
+          }
+        };
+      });
+      var ldData = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqItems
+      };
+      var el = document.getElementById('faq-ldjson');
+      if (el) el.textContent = JSON.stringify(ldData);
+    }
+
+    async function loadFAQs() {
+      var el = document.getElementById('faqContent');
+      el.innerHTML = '<div class="faq-loading">加载中</div>';
+      try {
+        var res = await fetch('/api/site/faqs?lang=' + currentLang + '&t=' + Date.now());
+        if (!res.ok) throw new Error('fetch failed');
+        allFAQs = await res.json();
+        console.log('FAQ数据加载成功:', allFAQs.length, '条');
+        console.log('第一条FAQ:', allFAQs[0]);
+        var groups = groupBySection(allFAQs);
+        console.log('分组结果:', groups);
+        var renderedHtml = renderFAQ(groups, currentFilter);
+        console.log('渲染HTML长度:', renderedHtml.length);
+        // 调试：检查渲染的HTML是否包含答案
+        if (renderedHtml.includes('faq-a-inner')) {
+          console.log('✅ 渲染HTML包含答案区域');
+        } else {
+          console.log('❌ 渲染HTML不包含答案区域');
+        }
+        el.innerHTML = renderedHtml;
+        console.log('渲染完成');
+
+        // 注入 FAQPage JSON-LD 结构化数据
+        injectFAQJsonLd(allFAQs);
+      } catch(e) {
+        console.error('加载失败:', e);
+        el.innerHTML = '<p style="text-align:center;color:#ef4444;padding:40px;">加载失败: ' + e.message + '</p>';
+      }
+    }
+
+    // ── Tab Filter ───────────────────────────────────────────────
+    var currentFilter = '';
+    document.getElementById('faqTabs').addEventListener('click', function(e) {
+      if (!e.target.classList.contains('faq-tab')) return;
+      document.querySelectorAll('.faq-tab').forEach(function(t) { t.classList.remove('active'); });
+      e.target.classList.add('active');
+      currentFilter = e.target.getAttribute('data-section') || '';
+      var groups = groupBySection(allFAQs);
+      document.getElementById('faqContent').innerHTML = renderFAQ(groups, currentFilter);
+    });
+
+    // ── Scroll highlight active tab ──────────────────────────────
+    window.addEventListener('scroll', function() {
+      var cards = document.querySelectorAll('.faq-card');
+      cards.forEach(function(card) {
+        var rect = card.getBoundingClientRect();
+        if (rect.top < 200 && rect.bottom > 200) {
+          var section = card.getAttribute('data-section');
+          document.querySelectorAll('.faq-tab').forEach(function(t) {
+            t.classList.toggle('active', t.getAttribute('data-section') === section);
+          });
+        }
+      });
+    });
+
+    // ── Init ────────────────────────────────────────────────────
+    applyI18n();
+    loadFAQs();
+  </script>
+</body>
+</html>

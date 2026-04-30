@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF6B35" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" href="/assets/images/logo.png" />
+
+  <!-- 动态 SEO -->
+  <title><%= currentSolution ? (lang === 'zh' ? (currentSolution.title_zh || currentSolution.title_en || 'Solutions') : (currentSolution.title_en || 'Solutions')) + ' | sunlitpaws' : (lang === 'zh' ? '解决方案 | sunlitpaws' : 'Solutions | sunlitpaws') %></title>
+  <meta name="description" content="<%= lang === 'zh' ? '为宠物品牌、电商卖家和零售分销商量身定制的解决方案。OEM/ODM、FBA Ready、批发计划。' : 'Tailored solutions for pet brands, e-commerce sellers, and retail distributors. OEM/ODM, FBA-ready, and wholesale programs.' %>" />
+  <meta name="keywords" content="pet products OEM, pet brand solutions, e-commerce pet supply, wholesale pet products" />
+  <link rel="canonical" href="https://sunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>" />
+  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= currentSolution ? (lang === 'zh' ? (currentSolution.title_zh || currentSolution.title_en || 'Solutions') : (currentSolution.title_en || 'Solutions')) : (lang === 'zh' ? '解决方案' : 'Solutions') %> | sunlitpaws" />
+  <meta property="og:description" content="Tailored solutions for pet brands, e-commerce sellers, and retail distributors." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>" />
+  <meta property="og:site_name" content="sunlitpaws" />
+  <meta property="og:image" content="<%= (currentSolution && currentSolution.img) ? currentSolution.img : (solutions && solutions[0] && solutions[0].img ? solutions[0].img : 'https://placehold.co/1200x630/FF6B35/ffffff?text=Pet+Business+Solutions') %>" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= currentSolution ? (lang === 'zh' ? (currentSolution.title_zh || currentSolution.title_en || 'Solutions') : (currentSolution.title_en || 'Solutions')) : (lang === 'zh' ? '解决方案' : 'Solutions') %> | sunlitpaws" />
+  <meta name="twitter:description" content="Tailored solutions for pet brands, e-commerce sellers, and retail distributors." />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    body { padding-top: 80px; }
+    .sol-hero {
+      background: linear-gradient(135deg, #fff8f4 0%, #fff0e8 100%);
+      padding: 60px 0;
+      text-align: center;
+    }
+    .sol-hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 16px; }
+    .sol-hero p { font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+    .sol-detail { padding: 60px 0; }
+    .sol-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .sol-detail.reverse { direction: rtl; }
+    .sol-detail.reverse > * { direction: ltr; }
+    .sol-detail-img { border-radius: 16px; overflow: hidden; background: #f0ebe5; }
+    .sol-detail-img img { width: 100%; height: 100%; max-height: 420px; object-fit: cover; display: block; }
+    .sol-detail-text h2 { font-size: 32px; font-weight: 700; margin-bottom: 16px; }
+    .sol-detail-text p { font-size: 16px; line-height: 1.8; color: var(--text-secondary); margin-bottom: 24px; }
+    .sol-detail-list { list-style: none; padding: 0; margin-bottom: 32px; }
+    .sol-detail-list li { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--bg-light); font-size: 15px; }
+    .sol-detail-list li::before { content: '✓'; color: var(--primary); font-weight: 700; width: 20px; }
+    .sol-cta-band { background: var(--primary); color: #fff; padding: 48px 0; text-align: center; border-radius: 16px; margin: 0 0 60px; }
+    .sol-cta-band h2 { font-size: 32px; margin-bottom: 12px; }
+    .sol-cta-band p { margin-bottom: 24px; opacity: 0.9; }
+    @media (max-width: 768px) { .sol-detail-grid { grid-template-columns: 1fr; direction: ltr; } }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img src="/assets/images/logo.png" alt="Bingling Technology" class="logo-img">
+        <div class="logo-text">
+          <span class="logo-en">Bingling Technology</span>
+          <span class="logo-cn">河北炳临科技</span>
+        </div>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="/#home" class="nav-link">Home</a>
+        <a href="/#about" class="nav-link">About Us</a>
+        <a href="/#products" class="nav-link">Products</a>
+        <a href="/#solutions" class="nav-link active">Solutions</a>
+        <a href="/#cases" class="nav-link">Cases</a>
+        <a href="/#news" class="nav-link">News</a>
+        <a href="/#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switcher" id="langSwitcher">
+          <button class="lang-btn" id="langBtn">🌐 EN</button>
+          <div class="lang-dropdown" id="langDropdown">
+            <button onclick="setLang('en')">English</button>
+            <button onclick="setLang('zh')">中文</button>
+            <button onclick="setLang('es')">Español</button>
+            <button onclick="setLang('fr')">Français</button>
+            <button onclick="setLang('de')">Deutsch</button>
+            <button onclick="setLang('ja')">日本語</button>
+            <button onclick="setLang('ko')">한국어</button>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="sol-hero">
+      <div class="container">
+        <h1><%= lang === 'zh' ? '为每种商业模式量身定制的解决方案' : 'Tailored Solutions for Every Business Model' %></h1>
+        <p><%= lang === 'zh' ? '我们了解您的独特挑战，提供定制化的制造合作，推动业务增长。' : 'We understand your unique challenges and deliver customized manufacturing partnerships that drive growth.' %></p>
+      </div>
+    </section>
+
+    <div class="container" style="padding: 60px 0;">
+      <a href="/#solutions" style="display:inline-flex;align-items:center;gap:8px;color:var(--primary);font-size:14px;text-decoration:none;margin-bottom:32px;">← Back to Solutions</a>
+    </div>
+
+    <section class="sol-detail">
+      <div class="container">
+        <div class="sol-detail-grid" id="solGrid">
+          <% if (currentSolution) { %>
+            <!-- SSR 渲染详情页 -->
+            <div class="sol-detail-img"><img src="<%= currentSolution.img || '' %>" alt="<%= currentSolution.title || '' %>"></div>
+            <div class="sol-detail-text">
+              <h2><%= lang === 'en' && currentSolution.title_en ? currentSolution.title_en : currentSolution.title %></h2>
+              <% if (currentSolution.subtitle) { %><p style="font-size:14px;color:#FF6B35;font-weight:600;margin-bottom:8px;"><%= currentSolution.subtitle %></p><% } %>
+              <p><%= lang === 'en' && currentSolution.desc_en ? currentSolution.desc_en : currentSolution.desc %></p>
+              <% if (currentSolution.items && currentSolution.items.length) { %>
+                <ul class="sol-detail-list">
+                  <% currentSolution.items.forEach(function(item) { %><li><%= item %></li><% }); %>
+                </ul>
+              <% } %>
+              <a href="/#contact" class="btn btn-primary"><%= lang === 'zh' ? '获取专属报价' : 'Request Custom Plan' %> →</a>
+            </div>
+          <% } else if (solutions && solutions.length) { %>
+            <!-- SSR 渲染列表页 -->
+            <% solutions.forEach(function(sol) { %>
+              <% var sSlug = sol.slug || sol.id; %>
+              <div class="sol-card" style="background:#fff;border-radius:16px;padding:32px;margin-bottom:24px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+                <h3 style="font-size:24px;margin-bottom:12px;"><%= lang === 'en' && sol.title_en ? sol.title_en : sol.title %></h3>
+                <p style="color:#666;margin-bottom:20px;line-height:1.6;"><%= (lang === 'en' && sol.desc_en ? sol.desc_en : sol.desc || '').substring(0, 150) %>...</p>
+                <a href="/solutions/<%= sSlug %>/" style="color:var(--primary);font-weight:600;text-decoration:none;"><%= lang === 'zh' ? '了解更多 →' : 'Learn More →' %></a>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <!-- Filled by JS -->
+          <% } %>
+        </div>
+      </div>
+    </section>
+
+    <section class="sol-cta-band" style="margin: 0 20px 60px; max-width: calc(100% - 40px); border-radius: 16px;">
+      <div class="container">
+        <h2>Ready to Build Your Custom Solution?</h2>
+        <p>Tell us about your business and we'll design a tailored manufacturing plan for you.</p>
+        <a href="/#contact" class="btn btn-lg" style="background:#fff;color:var(--primary);border:none;font-weight:600;"><%= lang === 'zh' ? '获取您的专属报价' : 'Get Your Custom Quote' %> →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="logo logo-white">
+          <img src="/assets/images/logo.png" alt="Bingling Technology" class="logo-img logo-img-footer">
+          <div class="logo-text">
+            <span class="logo-en">Bingling Technology</span>
+            <span class="logo-cn">河北炳临科技</span>
+          </div>
+        </a>
+        <p class="footer-desc">Professional pet products manufacturer and exporter.</p>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 sunlitpaws Co., Ltd. Co., Ltd. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="/app.js"></script>
+  <script>
+    // 动态加载解决方案 - 支持语义化 URL
+    (function() {
+      console.log('loadSolutions: 开始加载...');
+      fetch('/api/site/solutions?t=' + Date.now())
+        .then(function(res) {
+          console.log('loadSolutions: 响应状态', res.status);
+          return res.json();
+        })
+        .then(function(solutions) {
+          console.log('loadSolutions: 获取到', solutions.length, '条数据');
+          if (!solutions || !solutions.length) {
+            console.log('loadSolutions: 无数据');
+            return;
+          }
+
+          var params = new URLSearchParams(window.location.search);
+          var sid = params.get('id');
+          var slug = params.get('slug');
+          window.__SOLUTION_LANG = params.get('lang') || localStorage.getItem('preferredLang') || 'en';
+
+          // 从 URL 路径解析：/solutions/:slug/
+          if (!sid && !slug) {
+            var pathParts = window.location.pathname.split('/').filter(Boolean);
+            if (pathParts.length >= 2 && pathParts[0] === 'solutions') {
+              slug = pathParts[1].replace(/\/$/, '');
+            }
+          }
+
+          // 根据 slug 或 id 找到解决方案
+          var initial = null;
+          if (slug) {
+            for (var i = 0; i < solutions.length; i++) {
+              if (solutions[i].slug === slug) { initial = solutions[i]; break; }
+            }
+          }
+          if (!initial && sid) {
+            for (var i = 0; i < solutions.length; i++) {
+              if (solutions[i].id === sid) { initial = solutions[i]; break; }
+            }
+          }
+          
+          // 判断是列表页还是详情页
+          var isDetailPage = !!(sid || slug);
+          
+          if (!initial) initial = solutions[0];
+
+          console.log('loadSolutions: 渲染 slug', initial && initial.slug, 'isDetailPage=', isDetailPage);
+
+          // 生成 tab 导航
+          var tabsEl = document.getElementById('solTabs');
+          if (tabsEl) {
+            var tabsHtml = '';
+            for (var i = 0; i < solutions.length; i++) {
+              var s = solutions[i];
+              var active = s.id === initial.id ? ' active' : '';
+              var sSlug = s.slug || s.id;
+              var sUrl = '/solutions/' + sSlug + '/?lang=' + window.__SOLUTION_LANG;
+              tabsHtml += '<a href="' + sUrl + '" class="sol-tab-btn' + active + '">' + (window.__SOLUTION_LANG === 'en' && s.title_en ? s.title_en : s.title) + '</a>';
+            }
+            tabsEl.innerHTML = tabsHtml;
+          }
+          
+          // 列表页渲染：显示所有解决方案卡片
+          if (!isDetailPage) {
+            var grid = document.getElementById('solGrid');
+            if (grid) {
+              var listHtml = '';
+              for (var i = 0; i < solutions.length; i++) {
+                var sol = solutions[i];
+                var sTitle = window.__SOLUTION_LANG === 'en' && sol.title_en ? sol.title_en : sol.title;
+                var sDesc = window.__SOLUTION_LANG === 'en' && sol.desc_en ? sol.desc_en : (sol.desc || '');
+                var sSlug = sol.slug || sol.id;
+                listHtml += '<div class="sol-card" style="background:#fff;border-radius:16px;padding:32px;margin-bottom:24px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">' +
+                  '<h3 style="font-size:24px;margin-bottom:12px;">' + sTitle + '</h3>' +
+                  '<p style="color:#666;margin-bottom:20px;line-height:1.6;">' + (sDesc.substring(0, 120) || 'Tailored solutions for pet brands.') + '</p>' +
+                  '<a href="/solutions/' + sSlug + '/?lang=' + window.__SOLUTION_LANG + '" style="color:var(--primary);font-weight:600;text-decoration:none;">' + (window.__SOLUTION_LANG === 'en' ? 'Learn More →' : '了解更多 →') + '</a>' +
+                  '</div>';
+              }
+              grid.innerHTML = listHtml;
+            }
+            return;
+          }
+
+          // 渲染函数
+          window.renderSolution = function(id, list, cSlug) {
+            var s = null;
+            for (var k = 0; k < list.length; k++) {
+              if (list[k].id === id) { s = list[k]; break; }
+            }
+            if (!s) s = list[0];
+            if (!s) return;
+
+            updateSolutionSEO(s);
+
+            var grid = document.getElementById('solGrid');
+            if (!grid) return;
+
+            var itemsHtml = '';
+            if (Array.isArray(s.items)) {
+              for (var m = 0; m < s.items.length; m++) {
+                itemsHtml += '<li>' + s.items[m] + '</li>';
+              }
+            }
+
+            grid.innerHTML = '<div class="sol-detail-img"><img src="' + (s.img || '') + '" alt="' + (s.title || '') + '"></div>' +
+              '<div class="sol-detail-text"><h2>' + (s.title || '') + '</h2>' +
+              '<p style="font-size:14px;color:#FF6B35;font-weight:600;margin-bottom:8px;">' + (s.subtitle || '') + '</p>' +
+              '<p>' + (s.desc || '') + '</p>' +
+              '<ul class="sol-detail-list">' + itemsHtml + '</ul>' +
+              '<a href="/#contact" class="btn btn-primary">' + (window.__SOLUTION_LANG === 'en' ? 'Request Custom Plan' : 'Request Custom Plan') + ' →</a></div>';
+          };
+
+          // SEO 更新函数
+          window.updateSolutionSEO = function(s) {
+            var lang = localStorage.getItem('preferredLang') || 'zh';
+            var title = (lang === 'en' && s.title_en) ? s.title_en : (s.title || 'Solutions');
+            var desc = ((lang === 'en' && s.desc_en) ? s.desc_en : (s.desc || '')).substring(0, 160);
+            var slug = s.slug || s.id;
+            var url = 'https://sunlitpaws.com/solutions/' + slug + '/';
+            var image = s.img || '';
+
+            document.title = title + ' | sunlitpaws Co., Ltd.';
+            document.querySelector('meta[name="description"]').setAttribute('content', desc || 'Tailored solutions for pet brands.');
+            document.querySelector('meta[name="keywords"]').setAttribute('content', title + ', pet OEM solutions, ' + (lang==='en'?'wholesale pet products':'宠物用品OEM'));
+            document.querySelector('link[rel="canonical"]').setAttribute('href', url);
+            document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+            document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
+            document.querySelector('meta[property="og:url"]').setAttribute('content', url);
+            document.querySelector('meta[property="og:type"]').setAttribute('content', 'website');
+
+            if (image) {
+              var ogImage = document.querySelector('meta[property="og:image"]');
+              if (!ogImage) {
+                ogImage = document.createElement('meta');
+                ogImage.setAttribute('property', 'og:image');
+                document.head.appendChild(ogImage);
+              }
+              ogImage.setAttribute('content', image);
+            }
+
+            document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
+            document.querySelector('meta[name="twitter:description"]').setAttribute('content', desc);
+
+            // 结构化数据：Service schema
+            var structuredData = {
+              "@context": "https://schema.org/",
+              "@type": "Service",
+              "name": title,
+              "description": desc,
+              "url": url,
+              "provider": {
+                "@type": "Organization",
+                "name": "sunlitpaws Co., Ltd.",
+                "url": "https://sunlitpaws.com",
+                "logo": { "@type": "ImageObject", "url": "https://sunlitpaws.com/assets/images/logo.png" }
+              }
+            };
+
+            var ldJson = document.querySelector('script[type="application/ld+json"]');
+            if (!ldJson) {
+              ldJson = document.createElement('script');
+              ldJson.setAttribute('type', 'application/ld+json');
+              document.head.appendChild(ldJson);
+            }
+            ldJson.textContent = JSON.stringify(structuredData);
+          };
+
+          window.renderSolution(initial.id, solutions, initial.slug);
+        })
+        .catch(function(e) {
+          console.error('loadSolutions: 错误', e);
+        });
+    })();
+
+  </script>
+</body>
+</html>

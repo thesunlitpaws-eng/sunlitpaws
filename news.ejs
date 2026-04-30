@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF6B35" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" href="/assets/images/logo.png" />
+
+  <!-- 动态 SEO -->
+  <title><%= article ? ((lang === 'zh' ? article.title_zh || article.title : article.title_en || article.title) || 'News') + ' | sunlitpaws' : (lang === 'zh' ? '新闻动态 | sunlitpaws' : 'News | sunlitpaws') %></title>
+  <meta name="description" content="<%= lang === 'zh' ? 'sunlitpaws最新公司动态、行业洞察和宠物产品趋势。' : 'Latest company news, industry insights, and pet product trends from sunlitpaws.' %>" />
+  <meta name="keywords" content="pet industry news, pet product trends, sunlitpaws news" />
+  <link rel="canonical" href="https://sunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>" />
+  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= article ? (lang === 'zh' ? (article.title || article.title_en || '新闻') : (article.title_en || article.title || 'News')) : (lang === 'zh' ? '新闻动态' : 'News') %> | sunlitpaws" />
+  <meta property="og:description" content="Latest company news, industry insights, and pet product trends from sunlitpaws." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>" />
+  <meta property="og:site_name" content="sunlitpaws" />
+  <meta property="og:image" content="<%= (article && article.image) ? article.image : 'https://placehold.co/1200x630/FF6B35/ffffff?text=News+from+sunlitpaws' %>" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="News | sunlitpaws" />
+  <meta name="twitter:description" content="Latest company news and industry insights." />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    body { padding-top: 80px; }
+    .news-detail-hero { background: linear-gradient(135deg, #fff8f4 0%, #fff0e8 100%); padding: 60px 0 40px; }
+    .news-detail-hero .container { max-width: 800px; }
+    .news-detail-cat { display: inline-block; background: var(--primary); color: #fff; font-size: 12px; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; }
+    .news-detail-hero h1 { font-size: 40px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+    .news-detail-meta { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; display: flex; gap: 16px; }
+    .news-detail-hero { position: relative; }
+    .news-detail-hero .img-container { width: 100%; max-width: 800px; height: 480px; overflow: hidden; border-radius: 16px; background: #f0ebe5; margin: 0 auto 0; }
+    .news-detail-hero img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
+    .news-detail-body { padding: 48px 0; max-width: 800px; margin: 0 auto; }
+    .news-detail-content { font-size: 17px; line-height: 1.9; color: var(--text-secondary); }
+    .news-detail-content p { margin-bottom: 24px; }
+    .news-detail-content h2 { font-size: 24px; font-weight: 700; color: var(--text); margin: 40px 0 16px; }
+    .news-detail-content ul { padding-left: 24px; margin-bottom: 24px; }
+    .news-detail-content li { margin-bottom: 8px; }
+    .news-related { background: var(--bg-light); padding: 60px 0; }
+    .news-related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 32px; }
+    .news-related-card { background: #fff; border-radius: 12px; overflow: hidden; text-decoration: none; transition: transform 0.3s, box-shadow 0.3s; display: block; }
+    .news-related-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+    .news-related-card .img-wrap { width: 100%; height: 180px; overflow: hidden; background: #f0ebe5; border-radius: 12px 12px 0 0; }
+    .news-related-card img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .news-related-card-body { padding: 16px; }
+    .news-related-card-body .date { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+    .news-related-card-body h4 { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.4; }
+    /* Mobile */
+    @media (max-width: 768px) {
+      .news-detail-hero { padding: 40px 0 24px; }
+      .news-detail-hero h1 { font-size: clamp(22px, 6vw, 40px); }
+      .news-detail-hero .img-container { height: 240px; }
+      .news-related-grid { grid-template-columns: 1fr; gap: 16px; }
+    }
+    .news-loading { text-align: center; padding: 60px; color: var(--text-muted); }
+  </style>
+
+  <% if (article) { %>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Article",
+    "headline": "<%= (lang === 'en' && article.title_en) ? article.title_en.replace(/"/g, '&quot;') : (article.title || '').replace(/"/g, '&quot;') %>",
+    "description": "<%= (lang === 'en' && article.excerpt_en) ? article.excerpt_en.replace(/"/g, '&quot;').substring(0,200) : ((article.excerpt || article.content || '').substring(0,200)).replace(/"/g, '&quot;') %>",
+    "image": "<%= article.image ? (article.image.startsWith('http') ? article.image : 'https://sunlitpaws.com' + article.image) : '' %>",
+    "datePublished": "<%= article.date || '' %>",
+    "dateModified": "<%= article.date || '' %>",
+    "author": {
+      "@type": "Organization",
+      "name": "sunlitpaws Co., Ltd.",
+      "url": "https://sunlitpaws.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "sunlitpaws Co., Ltd.",
+      "url": "https://sunlitpaws.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sunlitpaws.com/assets/images/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://sunlitpaws.com/blog/<%= article.slug %>/"
+    }
+  }
+  </script>
+  <% } %>
+
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img src="/assets/images/logo.png" alt="Sunlitpaws" class="logo-img">
+        <div class="logo-text">
+          <span class="logo-en">Sunlitpaws</span>
+          <span class="logo-cn">河北炳临科技</span>
+        </div>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="/#home" class="nav-link">Home</a>
+        <a href="/#about" class="nav-link">About Us</a>
+        <a href="/#products" class="nav-link">Products</a>
+        <a href="/#solutions" class="nav-link">Solutions</a>
+        <a href="/#cases" class="nav-link">Cases</a>
+        <a href="/#news" class="nav-link active">News</a>
+        <a href="/#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switcher" id="langSwitcher">
+          <button class="lang-btn" id="langBtn">🌐 EN</button>
+          <div class="lang-dropdown" id="langDropdown">
+            <button onclick="setLang('en')">English</button>
+            <button onclick="setLang('zh')">中文</button>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="news-detail-hero">
+      <div class="container" id="newsHero">
+        <% if (article) { %>
+          <% var artTitle = (lang === 'zh' && article.title_zh) ? article.title_zh : (article.title || 'News'); %>
+          <% var artContent = (lang === 'zh' && article.content_zh) ? article.content_zh : (article.content || article.excerpt || ''); %>
+          <a href="/#news" style="display:inline-flex;align-items:center;gap:8px;color:var(--primary);font-size:14px;text-decoration:none;margin-bottom:24px;">← Back to News</a>
+          <span class="news-detail-cat"><%= article.category || 'News' %></span>
+          <h1><%= artTitle %></h1>
+          <div class="news-detail-meta"><span>📅 <%= article.date || '' %></span></div>
+          <div class="img-container"><img src="<%= article.image || '' %>" alt="<%= artTitle %>"></div>
+        <% } else { %>
+          <div class="news-loading">Loading...</div>
+        <% } %>
+      </div>
+    </section>
+    <div class="news-detail-body">
+      <div class="container" id="newsContent">
+        <% if (article) { %>
+          <div class="news-detail-content"><%= artContent %></div>
+        <% } %>
+      </div>
+    </div>
+    <section class="news-related">
+      <div class="container">
+        <h2 style="font-size:28px;font-weight:700;">More News</h2>
+        <div class="news-related-grid" id="relatedNews"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="logo logo-white">
+          <img src="/assets/images/logo.png" alt="Sunlitpaws" class="logo-img logo-img-footer">
+          <div class="logo-text">
+            <span class="logo-en">Sunlitpaws</span>
+            <span class="logo-cn">河北炳临科技</span>
+          </div>
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Sunlitpaws Co., Ltd. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="/app.js"></script>
+  <script>
+    async function loadNewsDetail() {
+      const params = new URLSearchParams(window.location.search);
+      const nid = params.get('id');
+      const slug = params.get('slug');
+
+      let news = null;
+      let newsList = [];
+
+      try {
+        const res = await fetch('/api/site/news?t=' + Date.now());
+        newsList = await res.json();
+
+        if (nid) {
+          news = newsList.find(n => n.id === nid);
+        } else if (slug) {
+          news = newsList.find(n => n.slug === slug);
+        } else {
+          // 从 URL 路径解析：/blog/:slug/
+          const pathParts = window.location.pathname.split('/').filter(Boolean);
+          if (pathParts.length >= 2 && pathParts[0] === 'blog') {
+            const sl = pathParts[1].replace(/\/$/, '');
+            news = newsList.find(n => n.slug === sl);
+          }
+        }
+
+        if (!news) {
+          document.getElementById('newsHero').innerHTML = '<p style="color:var(--text-muted)">News not found. <a href="/#news">Back to News</a></p>';
+          return;
+        }
+
+        // 更新 SEO
+        updateNewsSEO(news);
+
+        // Update page
+        const lang = localStorage.getItem('preferredLang') || 'zh';
+        const title = (lang === 'zh' && news.title_zh) ? news.title_zh : news.title;
+        const displayContent = (lang === 'zh' && news.content_zh) ? news.content_zh : (news.content || news.excerpt || '');
+        document.getElementById('newsHero').innerHTML = `
+          <a href="/#news" style="display:inline-flex;align-items:center;gap:8px;color:var(--primary);font-size:14px;text-decoration:none;margin-bottom:24px;">← Back to News</a>
+          <span class="news-detail-cat">${news.category || 'News'}</span>
+          <h1>${title}</h1>
+          <div class="news-detail-meta"><span>📅 ${news.date || ''}</span></div>
+          <div class="img-container"><img src="${news.image || ''}" alt="${title}"></div>`;
+        document.getElementById('newsContent').innerHTML = `<div class="news-detail-content">${displayContent}</div>`;
+
+        // Related news
+        const related = newsList.filter(n => n.id !== news.id).slice(0, 3);
+        document.getElementById('relatedNews').innerHTML = related.map(n => {
+          const nSlug = n.slug || n.id;
+          const nUrl = '/blog/' + nSlug + '/';
+          return `<a href="${nUrl}" class="news-related-card">
+            <div class="img-wrap"><img src="${n.image || ''}" alt="${n.title}"></div>
+            <div class="news-related-card-body">
+              <div class="date">${n.date || ''}</div>
+              <h4>${n.title}</h4>
+            </div>
+          </a>`;
+        }).join('');
+      } catch (e) {
+        console.error(e);
+        document.getElementById('newsHero').innerHTML = '<p style="color:var(--text-muted)">Failed to load news. <a href="/#news">Back to News</a></p>';
+      }
+    }
+
+    function updateNewsSEO(news) {
+      const lang = localStorage.getItem('preferredLang') || 'zh';
+      const title = (lang === 'en' && news.title_en) ? news.title_en : (news.title || 'News');
+      const desc = ((lang === 'en' && news.excerpt_en) ? news.excerpt_en : (news.excerpt || '')).substring(0, 160);
+      const slug = news.slug || news.id;
+      const url = `https://sunlitpaws.com/blog/${slug}/`;
+      const image = news.image || '';
+
+      document.title = `${title} | sunlitpaws News`;
+      document.querySelector('meta[name="description"]').setAttribute('content', desc || 'Latest industry news and insights.');
+      document.querySelector('meta[name="keywords"]').setAttribute('content', title + ', pet industry news, ' + (lang==='en'?'pet products trends':'宠物行业动态'));
+      document.querySelector('link[rel="canonical"]').setAttribute('href', url);
+      document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+      document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
+      document.querySelector('meta[property="og:url"]').setAttribute('content', url);
+      document.querySelector('meta[property="og:type"]').setAttribute('content', 'article');
+
+      if (image) {
+        let ogImage = document.querySelector('meta[property="og:image"]');
+        if (!ogImage) {
+          ogImage = document.createElement('meta');
+          ogImage.setAttribute('property', 'og:image');
+          document.head.appendChild(ogImage);
+        }
+        ogImage.setAttribute('content', image);
+      }
+
+      document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
+      document.querySelector('meta[name="twitter:description"]').setAttribute('content', desc);
+
+      // 结构化数据：NewsArticle schema
+      const structuredData = {
+        "@context": "https://schema.org/",
+        "@type": "NewsArticle",
+        "headline": title,
+        "description": desc,
+        "image": image,
+        "datePublished": news.date || '',
+        "dateModified": news.date || '',
+        "author": { "@type": "Organization", "name": "sunlitpaws Co., Ltd." },
+        "publisher": {
+          "@type": "Organization",
+          "name": "sunlitpaws Co., Ltd.",
+          "url": "https://sunlitpaws.com",
+          "logo": { "@type": "ImageObject", "url": "https://sunlitpaws.com/assets/images/logo.png" }
+        }
+      };
+
+      let ldJson = document.querySelector('script[type="application/ld+json"]');
+      if (!ldJson) {
+        ldJson = document.createElement('script');
+        ldJson.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(ldJson);
+      }
+      ldJson.textContent = JSON.stringify(structuredData);
+    }
+
+    loadNewsDetail();
+  </script>
+</body>
+</html>

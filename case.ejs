@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF6B35" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" href="/assets/images/logo.png" />
+
+  <!-- 动态 SEO -->
+  <title><%= currentCase ? (lang === 'zh' ? (currentCase.title || currentCase.title_en || '成功案例') : (currentCase.title_en || currentCase.title || 'Success Case')) + ' | sunlitpaws' : (lang === 'zh' ? '成功案例 | sunlitpaws' : 'Success Case | sunlitpaws') %></title>
+  <meta name="description" content="<%= currentCase ? ((lang === 'zh' ? (currentCase.narrative || currentCase.narrative_en || '') : (currentCase.narrative_en || currentCase.narrative || ''))).substring(0, 160) : (lang === 'zh' ? '全球宠物品牌和零售商的成功案例。' : 'Success stories from global pet brands and retailers.') %>" />
+  <meta name="keywords" content="pet products case study, OEM success story, pet manufacturer partnership" />
+  <link rel="canonical" href="https://sunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>" />
+  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= currentCase ? (lang === 'zh' ? (currentCase.title || currentCase.title_en || '成功案例') : (currentCase.title_en || currentCase.title || 'Success Case')) : (lang === 'zh' ? '成功案例' : 'Success Case') %> | sunlitpaws" />
+  <meta property="og:description" content="Success stories from global pet brands and retailers." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://sunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>" />
+  <meta property="og:site_name" content="sunlitpaws" />
+  <meta property="og:image" content="<%= (currentCase && (currentCase.image || currentCase.beforeImage)) ? (currentCase.image || currentCase.beforeImage) : (cases && cases[0] && (cases[0].image || cases[0].beforeImage) ? (cases[0].image || cases[0].beforeImage) : 'https://placehold.co/1200x630/FF6B35/ffffff?text=Success+Case') %>" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= currentCase ? (lang === 'zh' ? (currentCase.title || currentCase.title_en || '成功案例') : (currentCase.title_en || currentCase.title || 'Success Case')) : (lang === 'zh' ? '成功案例' : 'Success Case') %> | sunlitpaws" />
+  <meta name="twitter:description" content="Success stories from global pet brands and retailers." />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    body { padding-top: 80px; }
+    .case-detail-hero { background: linear-gradient(135deg, #fff8f4 0%, #fff0e8 100%); padding: 60px 0; }
+    .case-detail-hero .container { display: flex; flex-direction: column; align-items: center; }
+    .case-detail-img { width: 100%; max-width: 800px; height: 480px; border-radius: 16px; overflow: hidden; margin: 0 auto 40px; }
+    .case-detail-img img { width: 100%; height: 100%; object-fit: contain; object-position: center; background: #f0ebe5; display: block; }
+    .case-detail-intro { width: 100%; max-width: 800px; text-align: center; }
+    .case-meta-badge { display: inline-block; background: var(--primary); color: #fff; font-size: 12px; padding: 4px 14px; border-radius: 20px; margin-bottom: 16px; }
+    .case-detail-intro h1 { font-size: 40px; font-weight: 700; margin-bottom: 12px; }
+    .case-detail-body { padding: 60px 0; }
+    .case-result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 32px 0; }
+    .case-result-card { background: var(--bg-light); border-radius: 12px; padding: 24px; text-align: center; }
+    .case-result-card .num { font-size: 40px; font-weight: 700; color: var(--primary); }
+    .case-result-card .lbl { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+    .case-narrative { font-size: 16px; line-height: 1.9; color: var(--text-secondary); margin-bottom: 32px; }
+    .case-detail-sect { padding: 40px 0; border-top: 1px solid var(--bg-light); }
+    .case-detail-sect h2 { font-size: 24px; font-weight: 700; margin-bottom: 20px; }
+    .case-challenges { list-style: none; padding: 0; }
+    .case-challenges li { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--bg-light); font-size: 15px; }
+    .case-challenges li::before { content: '🔍'; }
+    .case-results-list { list-style: none; padding: 0; }
+    .case-results-list li { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--bg-light); font-size: 15px; }
+    .case-results-list li::before { content: '✅'; }
+    .case-cta-band { background: var(--primary); color: #fff; padding: 48px; text-align: center; border-radius: 16px; margin: 0 0 60px; }
+    .case-cta-band h2 { font-size: 28px; margin-bottom: 12px; }
+    @media (max-width: 768px) { .case-detail-img { width: 100%; height: 260px; } .case-result-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img src="/assets/images/logo.png" alt="Bingling Technology" class="logo-img">
+        <div class="logo-text">
+          <span class="logo-en">Bingling Technology</span>
+          <span class="logo-cn">河北炳临科技</span>
+        </div>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="/#home" class="nav-link">Home</a>
+        <a href="/#about" class="nav-link">About Us</a>
+        <a href="/#products" class="nav-link">Products</a>
+        <a href="/#solutions" class="nav-link">Solutions</a>
+        <a href="/#cases" class="nav-link active">Cases</a>
+        <a href="/#news" class="nav-link">News</a>
+        <a href="/#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switcher" id="langSwitcher">
+          <button class="lang-btn" id="langBtn">
+            <span class="lang-current"><%= lang === 'zh' ? 'ZH' : 'EN' %></span>
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </button>
+          <div class="lang-dropdown" id="langDropdown">
+            <button class="lang-option <%= lang === 'en' ? 'active' : '' %>" data-lang="en">English</button>
+            <button class="lang-option <%= lang === 'zh' ? 'active' : '' %>" data-lang="zh">中文</button>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="case-detail-hero">
+      <div class="container">
+        <a href="/#cases" style="display:inline-flex;align-items:center;gap:8px;color:var(--primary);font-size:14px;text-decoration:none;margin-bottom:24px;">← <%= lang === 'zh' ? '返回案例列表' : 'Back to Cases' %></a>
+        <div id="caseDetail">
+          <% if (currentCase) { %>
+            <!-- SSR 渲染案例详情 -->
+            <div class="case-detail-img"><img src="<%= currentCase.img || currentCase.image || '' %>" alt="<%= currentCase.title || currentCase.client || '' %>"></div>
+            <div class="case-detail-intro">
+              <span class="case-meta-badge"><%= lang === 'en' && currentCase.badge_en ? currentCase.badge_en : (currentCase.badge || currentCase.tag || '') %></span>
+              <span style="font-size:14px;color:#666;"><%= currentCase.country || '' %> · <%= currentCase.cat || currentCase.category || '' %></span>
+              <h1><%= lang === 'zh' ? (currentCase.title || currentCase.title_en || currentCase.client || '') : (currentCase.title_en || currentCase.title || currentCase.client || '') %></h1>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </section>
+    <div class="container case-detail-body" id="caseBody">
+      <% if (currentCase) { %>
+        <!-- SSR 渲染案例内容 -->
+        <% if (currentCase.results) { %>
+          <div class="case-result-grid">
+            <% currentCase.results.split('|').forEach(function(r) { %>
+              <% var parts = r.trim().split(' '); %>
+              <div class="case-result-card"><div class="num"><%= parts[0] || '' %></div><div class="lbl"><%= parts.slice(1).join(' ') || '' %></div></div>
+            <% }); %>
+          </div>
+        <% } %>
+        <div class="case-narrative">
+          <h2><%= lang === 'zh' ? '项目概述' : 'Project Overview' %></h2>
+          <p><%= lang === 'zh' ? (currentCase.narrative || currentCase.narrative_en || '') : (currentCase.narrative_en || currentCase.narrative || '') %></p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px">
+          <% if (currentCase.challenges && currentCase.challenges.length) { %>
+            <div class="case-detail-sect">
+              <h3><%= lang === 'zh' ? '面临的挑战' : 'The Challenge' %></h3>
+              <ul class="case-challenges"><% (lang === 'zh' ? currentCase.challenges : (currentCase.challenges_en && currentCase.challenges_en.length ? currentCase.challenges_en : currentCase.challenges)).forEach(function(x) { %><li><%= x %></li><% }); %></ul>
+            </div>
+          <% } %>
+          <% if (currentCase.outcomes && currentCase.outcomes.length) { %>
+            <div class="case-detail-sect">
+              <h3><%= lang === 'zh' ? '成果与收获' : 'The Outcome' %></h3>
+              <ul class="case-results-list"><% (lang === 'zh' ? currentCase.outcomes : (currentCase.outcomes_en && currentCase.outcomes_en.length ? currentCase.outcomes_en : currentCase.outcomes)).forEach(function(x) { %><li><%= x %></li><% }); %></ul>
+            </div>
+          <% } %>
+        </div>
+        <% if (currentCase.testimonials) { %>
+          <blockquote class="case-testimonial"><p><%= currentCase.testimonials %></p></blockquote>
+        <% } %>
+      <% } %>
+    </div>
+    <div class="container">
+      <div class="case-cta-band">
+        <h2><%= lang === 'zh' ? '成为下一个成功案例' : 'Become Our Next Success Story' %></h2>
+        <p><%= lang === 'zh' ? '加入200+全球品牌，信赖我们作为您的制造合作伙伴。' : 'Join 200+ global brands who trust us as their manufacturing partner.' %></p>
+        <a href="/#contact" class="btn btn-lg" style="background:#fff;color:var(--primary);border:none;font-weight:600;"><%= lang === 'zh' ? '开启您的旅程' : 'Start Your Journey' %> →</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="logo logo-white">
+          <img src="/assets/images/logo.png" alt="Bingling Technology" class="logo-img logo-img-footer">
+          <div class="logo-text">
+            <span class="logo-en">Bingling Technology</span>
+            <span class="logo-cn">河北炳临科技</span>
+          </div>
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 sunlitpaws Co., Ltd. Co., Ltd. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="/app.js"></script>
+  <script>
+    // 动态加载案例 - 仅在SSR未渲染时执行
+    (function() {
+      // 检查SSR是否已渲染内容
+      var caseDetail = document.getElementById('caseDetail');
+      var caseBody = document.getElementById('caseBody');
+      var hasSSRContent = caseDetail && caseDetail.querySelector('h1') && caseDetail.querySelector('h1').textContent.trim();
+      
+      // 如果SSR已渲染内容，不执行客户端渲染
+      if (hasSSRContent) {
+        console.log('case.ejs: SSR已渲染，跳过客户端渲染');
+        return;
+      }
+      
+      console.log('case.ejs: SSR无内容，执行客户端渲染');
+      fetch('/api/site/cases?t=' + Date.now())
+        .then(function(res) { return res.json(); })
+        .then(function(cases) {
+          console.log('loadCases: 获取到', cases.length, '条数据');
+          if (!cases || !cases.length) return;
+
+          var params = new URLSearchParams(window.location.search);
+          var cid = params.get('id');
+          var slug = params.get('slug');
+
+          // 从 URL 路径解析：/company/cases/:slug/
+          if (!cid && !slug) {
+            var pathParts = window.location.pathname.split('/').filter(Boolean);
+            if (pathParts.length >= 3 && pathParts[0] === 'company' && pathParts[1] === 'cases') {
+              slug = pathParts[2].replace(/\/$/, '');
+            }
+          }
+
+          // 根据 slug 或 id 找到案例
+          var initialCase = null;
+          if (slug) {
+            for (var i = 0; i < cases.length; i++) {
+              if (cases[i].slug === slug) { initialCase = cases[i]; break; }
+            }
+          }
+          if (!initialCase && cid) {
+            for (var i = 0; i < cases.length; i++) {
+              if (cases[i].id === cid) { initialCase = cases[i]; break; }
+            }
+          }
+          if (!initialCase) initialCase = cases[0];
+
+          window.renderCase = function(c) {
+            if (!c) c = cases[0];
+            if (!c) return;
+
+            // 更新 SEO
+            updateCaseSEO(c);
+
+            document.title = (c.title || c.client || '') + ' | Success Case | sunlitpaws';
+
+            var detail = document.getElementById('caseDetail');
+            var body = document.getElementById('caseBody');
+
+            if (detail) {
+              detail.innerHTML = '<div class="case-detail-img"><img src="' + (c.img || '') + '" alt="' + (c.title || c.client || '') + '"></div><div class="case-detail-intro"><span class="case-meta-badge">' + (c.badge || '') + '</span><span style="font-size:14px;color:#666;">' + (c.country || '') + ' · ' + (c.cat || c.category || '') + '</span><h1>' + (c.title || c.client || '') + '</h1></div>';
+            }
+
+            if (body) {
+              var resultsStr = typeof c.results === 'string' ? c.results : '';
+              var resultsHtml = resultsStr ? resultsStr.split('|').map(function(r) {
+                var parts = r.trim().split(' ');
+                var num = parts[0] || '';
+                var lbl = parts.slice(1).join(' ') || '';
+                return '<div class="case-result-card"><div class="num">' + num + '</div><div class="lbl">' + lbl + '</div></div>';
+              }).join('') : '';
+
+              var challengesHtml = Array.isArray(c.challenges) ? c.challenges.map(function(x) { return '<li>' + x + '</li>'; }).join('') : '';
+              var outcomesHtml = Array.isArray(c.outcomes) ? c.outcomes.map(function(x) { return '<li>' + x + '</li>'; }).join('') : '';
+
+              body.innerHTML = '<div class="case-result-grid">' + resultsHtml + '</div><div class="case-narrative"><h2>Project Overview</h2><p>' + (c.narrative || '') + '</p></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px"><div class="case-detail-sect"><h3><%= lang === 'zh' ? '面临的挑战' : 'The Challenge' %></h3><ul>' + challengesHtml + '</ul></div><div class="case-detail-sect"><h3><%= lang === 'zh' ? '成果与收获' : 'The Outcome' %></h3><ul>' + outcomesHtml + '</ul></div></div>' + (c.testimonials ? '<blockquote class="case-testimonial"><p>' + c.testimonials + '</p></blockquote>' : '');
+            }
+
+            var nav = document.getElementById('caseNav');
+            if (nav) {
+              var navHtml = '';
+              for (var j = 0; j < cases.length; j++) {
+                var cs = cases[j];
+                var active = cs.id === c.id ? ' active' : '';
+                var csSlug = cs.slug || cs.id;
+                var csUrl = '/company/cases/' + csSlug + '/';
+                navHtml += '<a href="' + csUrl + '" class="case-nav-item' + active + '">' + (cs.title || cs.client || '') + '<br><small>' + (cs.country || '') + '</small></a>';
+              }
+              nav.innerHTML = navHtml;
+            }
+          };
+
+          window.updateCaseSEO = function(c) {
+            var lang = localStorage.getItem('preferredLang') || 'zh';
+            var title = (lang === 'en' && c.title_en) ? c.title_en : (c.title || c.client || 'Success Case');
+            var desc = ((lang === 'en' && c.narrative_en) ? c.narrative_en : (c.narrative || '')).substring(0, 160);
+            var slug = c.slug || c.id;
+            var url = 'https://sunlitpaws.com/company/cases/' + slug + '/';
+            var image = c.img || '';
+
+            // Title + description
+            document.title = title + ' | Success Case | sunlitpaws';
+            document.querySelector('meta[name="description"]').setAttribute('content', desc || 'Success stories from global pet brands.');
+            document.querySelector('meta[name="keywords"]').setAttribute('content', title + ', pet OEM case study, ' + (c.country||'') + ' pet market');
+            document.querySelector('link[rel="canonical"]').setAttribute('href', url);
+
+            // Open Graph
+            document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+            document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
+            document.querySelector('meta[property="og:url"]').setAttribute('content', url);
+            document.querySelector('meta[property="og:type"]').setAttribute('content', 'article');
+
+            // Dynamic og:image
+            if (image) {
+              var ogImage = document.querySelector('meta[property="og:image"]');
+              if (!ogImage) {
+                ogImage = document.createElement('meta');
+                ogImage.setAttribute('property', 'og:image');
+                document.head.appendChild(ogImage);
+              }
+              ogImage.setAttribute('content', image);
+            }
+
+            // Twitter Card
+            document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
+            document.querySelector('meta[name="twitter:description"]').setAttribute('content', desc);
+
+            // 结构化数据：Article schema
+            var structuredData = {
+              "@context": "https://schema.org/",
+              "@type": "Article",
+              "headline": title,
+              "description": desc,
+              "image": image,
+              "datePublished": c.date || '',
+              "author": { "@type": "Organization", "name": "sunlitpaws Co., Ltd." },
+              "publisher": {
+                "@type": "Organization",
+                "name": "sunlitpaws Co., Ltd.",
+                "url": "https://sunlitpaws.com",
+                "logo": { "@type": "ImageObject", "url": "https://sunlitpaws.com/assets/images/logo.png" }
+              }
+            };
+
+            var ldJson = document.querySelector('script[type="application/ld+json"]');
+            if (!ldJson) {
+              ldJson = document.createElement('script');
+              ldJson.setAttribute('type', 'application/ld+json');
+              document.head.appendChild(ldJson);
+            }
+            ldJson.textContent = JSON.stringify(structuredData);
+          };
+
+          window.renderCase(initialCase);
+        })
+        .catch(function(e) { console.error('loadCases: 错误', e); });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理员登录 - sunlitpaws</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .login-box {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 48px 40px;
+    width: 420px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  }
+  .logo {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .logo-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #FF6B35, #ff8c5a);
+    border-radius: 16px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  .logo h1 {
+    color: #1a1a1a;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .logo p {
+    color: #6b7280;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    color: #374151;
+    font-size: 13px;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 14px 16px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    color: #1a1a1a;
+    font-size: 15px;
+    transition: all 0.3s;
+  }
+  .form-group input:focus {
+    outline: none;
+    border-color: #FF6B35;
+    box-shadow: 0 0 0 3px rgba(255,107,53,0.15);
+  }
+  .form-group input::placeholder {
+    color: #9ca3af;
+  }
+  .btn-login {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #FF6B35, #e85a2a);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 8px;
+  }
+  .btn-login:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(255,107,53,0.35);
+  }
+  .btn-login:active { transform: translateY(0); }
+  .btn-login:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .error-msg {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #dc2626;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 16px;
+    display: none;
+  }
+  .footer-hint {
+    text-align: center;
+    margin-top: 24px;
+    color: #9ca3af;
+    font-size: 12px;
+  }
+  .footer-hint span { color: #6b7280; }
+</style>
+</head>
+<body>
+<div class="login-box">
+  <div class="logo">
+    <div class="logo-icon">🐾</div>
+    <h1>sunlitpaws</h1>
+    <p>网站后台管理系统</p>
+  </div>
+  <div class="error-msg" id="errorMsg"></div>
+  <form id="loginForm">
+    <div class="form-group">
+      <label>用户名</label>
+      <input type="text" id="username" placeholder="请输入用户名" autocomplete="username" required>
+    </div>
+    <div class="form-group">
+      <label>密码</label>
+      <input type="password" id="password" placeholder="请输入密码" autocomplete="current-password" required>
+    </div>
+    <button type="submit" class="btn-login" id="loginBtn">登 录</button>
+  </form>
+  <div class="footer-hint">
+    默认账号: <span>admin</span> / <span>admin123</span>
+  </div>
+</div>
+<script>
+const form = document.getElementById('loginForm');
+const errorMsg = document.getElementById('errorMsg');
+const loginBtn = document.getElementById('loginBtn');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errorMsg.style.display = 'none';
+  loginBtn.disabled = true;
+  loginBtn.textContent = '登录中...';
+
+  try {
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      localStorage.setItem('admin_token', data.token);
+      localStorage.setItem('admin_user', data.username);
+      window.location.href = '/admin/dashboard.html';
+    } else {
+      errorMsg.textContent = data.message || '登录失败，请检查账号密码';
+      errorMsg.style.display = 'block';
+      loginBtn.disabled = false;
+      loginBtn.textContent = '登 录';
+    }
+  } catch (err) {
+    errorMsg.textContent = '网络错误，请稍后重试';
+    errorMsg.style.display = 'block';
+    loginBtn.disabled = false;
+    loginBtn.textContent = '登 录';
+  }
+});
+
+// 如果已登录直接跳转
+if (localStorage.getItem('admin_token')) {
+  fetch('/api/admin/me', { headers: { 'x-session': localStorage.getItem('admin_token') } })
+    .then(r => r.json())
+    .then(d => { if (d.loggedIn) window.location.href = '/admin/dashboard.html'; });
+}
+</script>
+</body>
+</html>

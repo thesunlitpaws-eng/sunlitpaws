@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF6B35" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" href="/assets/images/logo.png" />
+
+  <title><%= pageTitle %> | sunlitpaws Co., Ltd.</title>
+  <meta name="description" content="<%= pageDesc %>" />
+  <link rel="canonical" href="https://sunlitpaws.com/blog/" />
+  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com/blog/?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com/blog/?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com/blog/" />
+
+  <meta property="og:title" content="<%= pageTitle %> | sunlitpaws" />
+  <meta property="og:description" content="<%= pageDesc %>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sunlitpaws.com/blog/" />
+  <meta property="og:site_name" content="sunlitpaws" />
+  <meta property="og:image" content="<%= (news && news[0] && news[0].image) ? news[0].image : '' %>" />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    body { padding-top: 80px; }
+    .blog-list-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 40px;
+    }
+    @media(max-width: 900px) { .blog-list-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(max-width: 600px) { .blog-list-grid { grid-template-columns: 1fr; } }
+  </style>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <img src="assets/images/logo.png" alt="sunlitpaws" class="logo-img">
+      <div class="logo-text">
+        <span class="logo-en">sunlitpaws</span>
+        <span class="logo-cn">河北炳临科技</span>
+      </div>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="#home" class="nav-link active" data-i18n="nav.home">Home</a>
+      <a href="#about" class="nav-link" data-i18n="nav.about">About Us</a>
+      
+      <a href="#products" class="nav-link" data-i18n="nav.products">Products</a>
+      <a href="#solutions" class="nav-link" data-i18n="nav.solutions">Solutions</a>
+      <a href="#cases" class="nav-link" data-i18n="nav.cases">Cases</a>
+      <a href="#news" class="nav-link" data-i18n="nav.news">News</a>
+      <a href="#faq" class="nav-link" data-i18n="nav.faq">FAQ</a>
+      <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn" id="langBtn">
+          <span class="lang-flag">🌐</span>
+          <span class="lang-current">EN</span>
+          <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        </button>
+        <div class="lang-dropdown" id="langDropdown">
+          <button class="lang-option active" data-lang="en">English</button>
+          <button class="lang-option" data-lang="zh">中文</button>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="openInquiry()" data-i18n="nav.cta">Get Quote</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+  <main>
+    <section class="section" style="padding-top: 40px;">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: 32px;">
+          <span class="section-tag" data-i18n="news.tag">News</span>
+          <h1 class="section-title"><%= pageTitle %></h1>
+          <p class="section-sub"><%= pageDesc %></p>
+        </div>
+
+        <div class="blog-list-grid" id="blogList">
+          <% var sortedNews = news.slice().sort(function(a,b){ return new Date(b.date||b.createdAt) - new Date(a.date||a.createdAt); }); %>
+          <% sortedNews.forEach(function(n, i) { %>
+          <% var nTitle = (lang === 'en' && n.title_en) ? n.title_en : (n.title || ''); %>
+          <% var nDesc = (lang === 'en' && n.content_en) ? n.content_en : (n.content || ''); %>
+          <% var nSlug = n.slug || n.id; %>
+          <% var nDate = n.date || (n.createdAt ? n.createdAt.split('T')[0] : ''); %>
+          <% var nImg = n.image || 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=600&q=80'; %>
+          <% var nCat = n.category || 'company'; %>
+          <% var catLabel = lang === 'zh' ? {company:'公司新闻',industry:'行业动态',product:'产品发布'}[nCat] || nCat : nCat.charAt(0).toUpperCase() + nCat.slice(1); %>
+          <article class="news-card reveal" style="--delay:<%= i * 0.08 %>s">
+            <a href="/blog/<%= nSlug %>/" class="news-img-wrap">
+              <img src="<%= nImg %>" alt="<%= nTitle %>" loading="lazy"
+                   onerror="this.src='https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=600&q=80'" />
+            </a>
+            <div class="news-info">
+              <span class="news-cat"><%= catLabel %></span>
+              <span class="news-date"><%= nDate %></span>
+              <h3><a href="/blog/<%= nSlug %>/"><%= nTitle %></a></h3>
+              <p><%= nDesc.substring(0, 120) %><%= nDesc.length > 120 ? '...' : '' %></p>
+              <a href="/blog/<%= nSlug %>/" class="news-readmore"><%= lang === 'zh' ? '阅读更多 →' : 'Read More →' %></a>
+            </div>
+          </article>
+          <% }); %>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo logo-white">
+        <img src="assets/images/logo.png" alt="sunlitpaws" class="logo-img logo-img-footer">
+        <div class="logo-text">
+          <span class="logo-en">sunlitpaws</span>
+          <span class="logo-cn">河北炳临科技</span>
+        </div>
+      </a>
+      <p class="footer-desc" data-i18n="footer.desc">Professional pet products manufacturer and exporter. Serving global buyers with quality, reliability, and innovation since 2014.</p>
+      <div class="footer-certs">
+        <span class="cert-badge">ISO 9001</span>
+        <span class="cert-badge">ISO 22000</span>
+        <span class="cert-badge">FDA</span>
+        <span class="cert-badge">BSCI</span>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4 data-i18n="footer.products">Products</h4>
+        <a href="#products" data-i18n="footer.food">Pet Food</a>
+        <a href="#products" data-i18n="footer.toys">Pet Toys</a>
+        <a href="#products" data-i18n="footer.supplies">Pet Supplies</a>
+        <a href="#" onclick="openInquiry()" data-i18n="footer.catalog">Product Catalog</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.company">Company</h4>
+        <a href="#about" data-i18n="footer.about">About Us</a>
+        <a href="#solutions" data-i18n="footer.solutions">Solutions</a>
+        <a href="#cases" data-i18n="footer.cases">Cases</a>
+        <a href="#news" data-i18n="footer.news">News</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.contact">Contact</h4>
+        <a href="mailto:sales@bingling-tech.com">sales@bingling-tech.com</a>
+        <a href="tel:+8631188888888">+86 311 8888 8888</a>
+        <a href="https://wa.me/8613000000000" target="_blank">WhatsApp</a>
+        <a href="#contact" data-i18n="footer.inquiry">Send Inquiry</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p data-i18n="footer.copy">© 2025 Hebei sunlitpaws Co., Ltd. All rights reserved.</p>
+      <p data-i18n="footer.icp">冀ICP备XXXXXXXX号</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

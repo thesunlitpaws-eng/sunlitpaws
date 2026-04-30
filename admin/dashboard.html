@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>sunlitpaws 后台管理</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #FF6B35;
+  --primary-dark: #e55a25;
+  --bg-dark: #1a1a1a;
+  --bg-light: #f5f7fa;
+  --text-dark: #1a1a1a;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  --success: #10b981;
+  --error: #ef4444;
+  --warning: #f59e0b;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg-light); min-height: 100vh; }
+.app { display: flex; min-height: 100vh; }
+
+/* 左侧导航 */
+.sidebar { width: 240px; background: var(--bg-dark); color: #fff; position: fixed; left: 0; top: 0; bottom: 0; overflow-y: auto; z-index: 100; }
+.sidebar-logo { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 12px; }
+.sidebar-logo span { font-size: 28px; }
+.sidebar-logo h1 { font-size: 18px; font-weight: 600; }
+.sidebar-logo small { display: block; font-size: 11px; color: rgba(255,255,255,0.5); }
+.nav-menu { padding: 12px 0; }
+.nav-section { padding: 8px 20px; font-size: 11px; text-transform: uppercase; color: rgba(255,255,255,0.4); letter-spacing: 0.5px; }
+.nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 20px; color: rgba(255,255,255,0.7); text-decoration: none; cursor: pointer; transition: all 0.2s; }
+.nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
+.nav-item.active { background: var(--primary); color: #fff; }
+.nav-item svg { width: 18px; height: 18px; opacity: 0.7; }
+.nav-item.active svg { opacity: 1; }
+
+/* 主内容区 */
+.main { flex: 1; margin-left: 240px; }
+.header { background: #fff; padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; }
+.header-title h2 { font-size: 20px; font-weight: 600; }
+.header-user { display: flex; align-items: center; gap: 16px; }
+.header-user span { color: var(--text-muted); font-size: 14px; }
+.btn-logout { padding: 8px 16px; background: var(--bg-light); border: none; border-radius: 6px; cursor: pointer; font-size: 13px; }
+.btn-logout:hover { background: var(--border); }
+
+/* 内容容器 */
+.content { padding: 24px; }
+.page { display: none; }
+.page.active { display: block; }
+
+/* 卡片 */
+.card { background: #fff; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 24px; }
+.card-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.card-header h3 { font-size: 16px; font-weight: 600; }
+.card-body { padding: 20px; }
+
+/* 统计卡片 */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 24px; }
+.stat-card { background: #fff; border-radius: 12px; padding: 20px; border: 1px solid var(--border); }
+.stat-card .stat-value { font-size: 32px; font-weight: 700; color: var(--primary); }
+.stat-card .stat-label { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+
+/* 表单 */
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 13px; font-weight: 500; color: var(--text-dark); margin-bottom: 8px; }
+.form-control { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px; transition: all 0.2s; }
+.form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(255,107,53,0.1); }
+textarea.form-control { min-height: 100px; resize: vertical; }
+.form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+
+/* 按钮 */
+.btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-secondary { background: var(--bg-light); color: var(--text-dark); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--border); }
+.btn-success { background: var(--success); color: #fff; }
+.btn-danger { background: var(--error); color: #fff; }
+.btn-danger:hover { background: #dc2626; }
+.btn-info { background: #3b82f6; color: #fff; }
+.btn-info:hover { background: #2563eb; }
+.btn-sm { padding: 6px 12px; font-size: 12px; }
+.btn-group { display: flex; gap: 12px; }
+
+/* 图片上传 */
+.upload-area { border: 2px dashed var(--border); border-radius: 12px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.2s; }
+.upload-area:hover { border-color: var(--primary); background: rgba(255,107,53,0.02); }
+.upload-preview { max-width: 100%; max-height: 200px; border-radius: 8px; margin-top: 12px; }
+
+/* 表格 */
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+.table th { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; background: var(--bg-light); }
+.table td { font-size: 14px; }
+.table tr:hover { background: rgba(0,0,0,0.01); }
+.table-actions { display: flex; gap: 8px; }
+
+/* 模态框 */
+.modal { display: none; visibility: hidden; opacity: 0; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; transition: opacity 0.2s; }
+.modal.active { display: flex; visibility: visible; opacity: 1; outline: 4px solid #3b82f6; outline-offset: 4px; box-shadow: 0 0 0 2px #93c5fd, 0 20px 60px rgba(0,0,0,0.5); }
+.modal-content { background: #fff; border-radius: 16px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
+.modal-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.modal-header h3 { font-size: 18px; }
+.modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); }
+.modal-body { padding: 20px; }
+.modal-footer { padding: 16px 20px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 12px; }
+
+/* Toast */
+.toast { position: fixed; bottom: 24px; right: 24px; padding: 14px 20px; border-radius: 10px; color: #fff; font-size: 14px; z-index: 300; animation: slideIn 0.3s ease; }
+.toast.success { background: var(--success); }
+.toast.error { background: var(--error); }
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+/* 标签 */
+.badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.badge-new { background: #dbeafe; color: #1d4ed8; }
+.badge-read { background: var(--bg-light); color: var(--text-muted); }
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- 左侧导航 -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <span>🐾</span>
+      <div>
+        <h1>sunlitpaws</h1>
+        <small>后台管理系统</small>
+      </div>
+    </div>
+    <nav class="nav-menu">
+      <div class="nav-section">概览</div>
+      <a class="nav-item active" data-page="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        仪表盘
+      </a>
+      <div class="nav-section">内容管理</div>
+      <a class="nav-item" data-page="hero">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="3"/></svg>
+        Hero 首页横幅
+      </a>
+      <a class="nav-item" data-page="about">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        关于我们
+      </a>
+      <a class="nav-item" data-page="factory">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M5 20V10l7-7 7 7v10M9 20v-6h6v6"/></svg>
+        生产概况
+      </a>
+      <a class="nav-item" data-page="advantages">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        优势特点
+      </a>
+      <a class="nav-item" data-page="products">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        产品管理
+      </a>
+      <a class="nav-item" data-page="solutions">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+        解决方案
+      </a>
+      <a class="nav-item" data-page="cases">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+        案例管理
+      </a>
+      <a class="nav-item" data-page="news">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1a2 2 0 002 2h0a2 2 0 012 2v7a2 2 0 01-2 2z"/></svg>
+        新闻管理
+      </a>
+      <a class="nav-item" data-page="faq">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        FAQ管理
+      </a>
+      <div class="nav-section">网站设置</div>
+      <a class="nav-item" data-page="contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        联系信息
+      </a>
+      <a class="nav-item" data-page="cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        CTA区域
+      </a>
+      <a class="nav-item" data-page="footer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+        页脚设置
+      </a>
+      <div class="nav-section">数据</div>
+      <a class="nav-item" data-page="contacts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        询盘管理
+      </a>
+      <a class="nav-item" data-page="analytics">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        访问统计
+      </a>
+    </nav>
+  </aside>
+
+  <!-- 主内容区 -->
+  <main class="main">
+    <header class="header">
+      <div class="header-title">
+        <h2 id="pageTitle">仪表盘</h2>
+      </div>
+      <div class="header-user">
+        <span id="userName">admin</span>
+        <button class="btn-logout" onclick="logout()">退出登录</button>
+      </div>
+    </header>
+    <div class="content">
+      <!-- 仪表盘页面 -->
+      <div class="page active" id="page-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-value" id="statProducts">0</div><div class="stat-label">产品总数</div></div>
+          <div class="stat-card"><div class="stat-value" id="statNews">0</div><div class="stat-label">新闻数量</div></div>
+          <div class="stat-card"><div class="stat-value" id="statFaq">0</div><div class="stat-label">FAQ数量</div></div>
+          <div class="stat-card"><div class="stat-value" id="statCases">0</div><div class="stat-label">案例数量</div></div>
+          <div class="stat-card"><div class="stat-value" id="statContacts">0</div><div class="stat-label">新询盘</div></div>
+          <div class="stat-card"><div class="stat-value" id="statViews">0</div><div class="stat-label">今日访问</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>最近询盘</h3></div>
+          <div class="card-body">
+            <table class="table"><thead><tr><th>姓名</th><th>邮箱</th><th>产品</th><th>时间</th><th>状态</th></tr></thead><tbody id="recentContacts"></tbody></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero管理 -->
+      <div class="page" id="page-hero">
+        <div class="card">
+          <div class="card-header"><h3>首页横幅设置</h3></div>
+          <div class="card-body">
+            <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="heroTitle"></div>
+            <div class="form-group"><label>副标题</label><textarea class="form-control" id="heroSubtitle"></textarea></div>
+            <h4 style="margin:24px 0 16px;font-size:15px;">轮播图 (3张)</h4>
+            <div class="form-row">
+              <div class="form-group"><label>轮播图 1</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'heroSlide1')"></div><input type="hidden" id="heroSlide1"><img class="upload-preview" id="preview-heroSlide1" style="display:none"></div>
+              <div class="form-group"><label>轮播图 2</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'heroSlide2')"></div><input type="hidden" id="heroSlide2"><img class="upload-preview" id="preview-heroSlide2" style="display:none"></div>
+              <div class="form-group"><label>轮播图 3</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'heroSlide3')"></div><input type="hidden" id="heroSlide3"><img class="upload-preview" id="preview-heroSlide3" style="display:none"></div>
+            </div>
+            <h4 style="margin:24px 0 16px;font-size:15px;">统计数据</h4>
+            <div class="form-row">
+              <div class="form-group"><label>数值1</label><input type="text" class="form-control" id="heroStat1Value"></div>
+              <div class="form-group"><label>标签1</label><input type="text" class="form-control" id="heroStat1Label"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>数值2</label><input type="text" class="form-control" id="heroStat2Value"></div>
+              <div class="form-group"><label>标签2</label><input type="text" class="form-control" id="heroStat2Label"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>数值3</label><input type="text" class="form-control" id="heroStat3Value"></div>
+              <div class="form-group"><label>标签3</label><input type="text" class="form-control" id="heroStat3Label"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>数值4</label><input type="text" class="form-control" id="heroStat4Value"></div>
+              <div class="form-group"><label>标签4</label><input type="text" class="form-control" id="heroStat4Label"></div>
+            </div>
+            <div class="btn-group"><button class="btn btn-primary" onclick="saveHero()">保存设置</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 关于我们 -->
+      <div class="page" id="page-about">
+        <div class="card">
+          <div class="card-header"><h3>关于我们</h3></div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="aboutTag"></div>
+              <div class="form-group"><label>徽章文字</label><input type="text" class="form-control" id="aboutBadge"></div>
+            </div>
+            <div class="form-group"><label>标题</label><input type="text" class="form-control" id="aboutTitle"></div>
+            <div class="form-group"><label>引言</label><textarea class="form-control" id="aboutLead"></textarea></div>
+            <div class="form-group"><label>正文段落1</label><textarea class="form-control" id="aboutP1"></textarea></div>
+            <div class="form-group"><label>正文段落2</label><textarea class="form-control" id="aboutP2"></textarea></div>
+            <div class="form-group"><label>图片</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'aboutImage')"></div><input type="hidden" id="aboutImage"><img class="upload-preview" id="preview-aboutImage" style="display:none"></div>
+            <div class="btn-group"><button class="btn btn-primary" onclick="saveAbout()">保存设置</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 生产概况 -->
+      <div class="page" id="page-factory">
+        <div class="card">
+          <div class="card-header"><h3>生产概况</h3></div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="factoryTag"></div>
+              <div class="form-group"><label>标题</label><input type="text" class="form-control" id="factoryTitle"></div>
+            </div>
+            <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="factorySubtitle"></div>
+            <h4 style="margin:24px 0 16px;font-size:15px;">卡片内容（3张）</h4>
+            <div id="factoryCardsList"></div>
+            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveFactory()">保存设置</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 优势特点 -->
+      <div class="page" id="page-advantages">
+        <div class="card">
+          <div class="card-header"><h3>优势特点</h3></div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="advTag"></div>
+              <div class="form-group"><label>标题</label><input type="text" class="form-control" id="advTitle"></div>
+            </div>
+            <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="advSubtitle"></div>
+            <h4 style="margin:24px 0 16px;font-size:15px;">优势项</h4>
+            <div id="advItems"></div>
+            <div class="btn-group" style="margin-top:20px;"><button class="btn btn-primary" onclick="saveAdvantages()">保存设置</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 产品管理 -->
+      <div class="page" id="page-products">
+        <div class="card">
+          <div class="card-header"><h3>产品管理</h3><button class="btn btn-primary btn-sm" onclick="showProductModal()">+ 添加产品</button></div>
+          <div class="card-body"><table class="table"><thead><tr><th>名称</th><th>分类</th><th>价格</th><th>操作</th></tr></thead><tbody id="productsTable"></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- 解决方案 -->
+      <!-- 解决方案 -->
+      <div class="page" id="page-solutions">
+        <div class="card">
+          <div class="card-header"><h3>解决方案板块</h3><button class="btn btn-primary btn-sm" onclick="saveSolutionsSection()">💾 保存修改</button></div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group"><label>板块标签</label><input type="text" class="form-control" id="solTag" placeholder="如: Solutions"></div>
+              <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="solTitle" placeholder="主标题"></div>
+            </div>
+            <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="solSubtitle" placeholder="副标题描述"></div>
+
+            <hr>
+            <h4 style="margin:16px 0 12px;font-size:14px;color:#666;">三个卡片内容</h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片1 标题</label><input type="text" class="form-control" id="solCard0Title" placeholder="如: 品牌OEM/ODM方案"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片2 标题</label><input type="text" class="form-control" id="solCard1Title" placeholder="如: 跨境电商供应链"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片3 标题</label><input type="text" class="form-control" id="solCard2Title" placeholder="零售批发计划"></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:12px;">
+              <div class="form-group"><label>卡片1 描述</label><textarea class="form-control" id="solCard0Desc" rows="2" placeholder="卡片1描述"></textarea></div>
+              <div class="form-group"><label>卡片2 描述</label><textarea class="form-control" id="solCard1Desc" rows="2" placeholder="卡片2描述"></textarea></div>
+              <div class="form-group"><label>卡片3 描述</label><textarea class="form-control" id="solCard2Desc" rows="2" placeholder="卡片3描述"></textarea></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:12px;">
+              <div class="form-group"><label>卡片1 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard0Items" rows="4" placeholder="定制配方与设计&#10;自有品牌包装&#10;法规合规支持&#10;MOQ从200件起"></textarea></div>
+              <div class="form-group"><label>卡片2 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard1Items" rows="4" placeholder="适用于亚马逊物流服务的包装与标签&#10;交货周期短&#10;小批量试产订单"></textarea></div>
+              <div class="form-group"><label>卡片3 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard2Items" rows="4" placeholder="全线产品采购&#10;季节性商品收集规划&#10;专职客户经理&#10;30/60天账期"></textarea></div>
+            </div>
+            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveSolutionsSection()">💾 保存板块设置</button></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <div class="card-header"><h3>方案详情管理</h3><button class="btn btn-primary btn-sm" onclick="showSolutionModal()">+ 添加方案</button></div>
+          <div class="card-body"><table class="table"><thead><tr><th>标题</th><th>副标题</th><th>操作</th></tr></thead><tbody id="solutionsTable"></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- 方案详情弹窗 -->
+      <div class="modal" id="solutionModal">
+        <div class="modal-content" style="max-width:600px">
+          <div class="modal-header"><h3 id="solutionModalTitle">添加方案</h3><button class="modal-close" onclick="closeModal('solutionModal')">&times;</button></div>
+          <div class="modal-body">
+            <input type="hidden" id="solutionId">
+            <div class="form-group"><label>标题</label><input type="text" class="form-control" id="solutionTitle" placeholder="如: Brand OEM/ODM Solution"></div>
+            <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="solutionSubtitle" placeholder="如: Full-service manufacturing partnership"></div>
+            <div class="form-group"><label>描述</label><textarea class="form-control" id="solutionDesc" rows="3" placeholder="完整描述内容"></textarea></div>
+            <div class="form-group"><label>封面图</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传图片</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'solutionImage')"></div><input type="hidden" id="solutionImage"><img class="upload-preview" id="preview-solutionImage" style="display:none;max-width:100%;margin-top:8px"></div>
+            <div class="form-group"><label>列表项（每行一条）</label><textarea class="form-control" id="solutionItems" rows="4" placeholder="Custom formulation &amp; design&#10;Private label packaging&#10;..."></textarea></div>
+          </div>
+          <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('solutionModal')">取消</button><button class="btn btn-primary" onclick="saveSolution()">保存</button></div>
+        </div>
+      </div>
+
+      <!-- 案例管理 -->
+      <div class="page" id="page-cases">
+        <!-- 板块设置 -->
+        <div class="card">
+          <div class="card-header"><h3>案例板块设置</h3><button class="btn btn-primary btn-sm" onclick="saveCasesSection()">💾 保存修改</button></div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group"><label>板块标题</label><input type="text" class="form-control" id="caseSectionTitle" placeholder="Success Cases"></div>
+              <div class="form-group"><label>板块副标题</label><input type="text" class="form-control" id="caseSectionSub" placeholder="Real partnerships, real results..."></div>
+            </div>
+            <hr>
+            <h4 style="margin:12px 0">卡片1（OEM）</h4>
+            <div class="form-row">
+              <div class="form-group"><label>卡片1 图片</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'caseImg0')"></div><input type="hidden" id="caseImg0"><img class="upload-preview" id="preview-caseImg0" style="display:none;max-height:80px"></div>
+              <div class="form-group"><label>标签1（如：OEM Success）</label><input type="text" class="form-control" id="caseCard0Tag" placeholder="OEM Success"></div>
+              <div class="form-group"><label>国家1（如：🇺🇸 美国）</label><input type="text" class="form-control" id="caseCard0Country" placeholder="🇺🇸 美国"></div>
+              <div class="form-group"><label>品类1（如：宠物食品）</label><input type="text" class="form-control" id="caseCard0Cat" placeholder="宠物食品"></div>
+              <div class="form-group"><label>标题1</label><input type="text" class="form-control" id="caseCard0Title" placeholder="US Premium Pet Food Brand"></div>
+            </div>
+            <div class="form-group"><label>描述1</label><textarea class="form-control" id="caseCard0Desc" rows="2" placeholder="详细描述..."></textarea></div>
+            <div class="form-row">
+              <div class="form-group"><label>统计1（如：Scale-up time）</label><input type="text" class="form-control" id="caseCard0S1" placeholder="Scale-up time"></div>
+              <div class="form-group"><label>统计2（如：Monthly volume）</label><input type="text" class="form-control" id="caseCard0S2" placeholder="Monthly volume"></div>
+              <div class="form-group"><label>数字1（如：18mo）</label><input type="text" class="form-control" id="caseCard0N1" placeholder="18mo"></div><div class="form-group"><label>数字2（如：50T）</label><input type="text" class="form-control" id="caseCard0N2" placeholder="50T"></div><div class="form-group"><label>数字3（如：8）</label><input type="text" class="form-control" id="caseCard0N3" placeholder="8"></div><div class="form-group"><label>统计3（如：SKUs launched）</label><input type="text" class="form-control" id="caseCard0S3" placeholder="SKUs launched"></div>
+            </div>
+            <hr>
+            <h4 style="margin:12px 0">卡片2（分销合作）</h4>
+            <div class="form-row">
+              <div class="form-group"><label>卡片2 图片</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'caseImg1')"></div><input type="hidden" id="caseImg1"><img class="upload-preview" id="preview-caseImg1" style="display:none;max-height:80px"></div>
+              <div class="form-group"><label>标签2（如：Distribution）</label><input type="text" class="form-control" id="caseCard1Tag" placeholder="Distribution"></div>
+              <div class="form-group"><label>国家2（如：🇩🇪 德国）</label><input type="text" class="form-control" id="caseCard1Country" placeholder="🇩🇪 德国"></div>
+              <div class="form-group"><label>品类2（如：宠物玩具）</label><input type="text" class="form-control" id="caseCard1Cat" placeholder="宠物玩具"></div>
+              <div class="form-group"><label>标题2</label><input type="text" class="form-control" id="caseCard1Title" placeholder="European Pet Toy Distributor"></div>
+            </div>
+            <div class="form-group"><label>描述2</label><textarea class="form-control" id="caseCard1Desc" rows="2" placeholder="详细描述..."></textarea></div>
+            <div class="form-row">
+              <div class="form-group"><label>统计1（如：SKUs supplied）</label><input type="text" class="form-control" id="caseCard1S1" placeholder="SKUs supplied"></div>
+              <div class="form-group"><label>统计2（如：Markets expanded）</label><input type="text" class="form-control" id="caseCard1S2" placeholder="Markets expanded"></div>
+              <div class="form-group"><label>数字1（如：120+）</label><input type="text" class="form-control" id="caseCard1N1" placeholder="120+"></div><div class="form-group"><label>数字2（如：5）</label><input type="text" class="form-control" id="caseCard1N2" placeholder="5"></div><div class="form-group"><label>数字3（如：98%）</label><input type="text" class="form-control" id="caseCard1N3" placeholder="98%"></div><div class="form-group"><label>统计3（如：On-time rate）</label><input type="text" class="form-control" id="caseCard1S3" placeholder="On-time rate"></div>
+            </div>
+            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveCasesSection()">💾 保存板块设置</button></div>
+          </div>
+        </div>
+        <!-- 案例详情列表 -->
+        <div class="card" style="margin-top:16px">
+          <div class="card-header"><h3>案例详情列表</h3><button class="btn btn-primary btn-sm" onclick="showCaseModal()">+ 添加案例</button></div>
+          <div class="card-body"><table class="table"><thead><tr><th>客户</th><th>项目</th><th>标题</th><th>操作</th></tr></thead><tbody id="casesTable"></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- 新闻管理 -->
+      <div class="page" id="page-news">
+        <div class="card">
+          <div class="card-header"><h3>新闻管理</h3><button class="btn btn-primary btn-sm" onclick="showNewsModal()">+ 添加新闻</button></div>
+          <div class="card-body"><table class="table"><thead><tr><th>标题</th><th>分类</th><th>日期</th><th>操作</th></tr></thead><tbody id="newsTable"></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- FAQ管理 -->
+      <div class="page" id="page-faq">
+        <div class="card">
+          <div class="card-header"><h3>FAQ管理</h3><button class="btn btn-primary btn-sm" onclick="showFaqModal()">+ 添加FAQ</button></div>
+          <div class="card-body"><table class="table"><thead><tr><th>分区</th><th>问题</th><th>图片</th><th>排序</th><th>操作</th></tr></thead><tbody id="faqTable"></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- 联系信息 -->
+      <div class="page" id="page-contact">
+        <div class="card">
+          <div class="card-header"><h3>联系信息</h3></div>
+          <div class="card-body">
+            <h4 style="margin-bottom:16px;color:var(--text-muted);font-size:14px;font-weight:500;">基本信息</h4>
+            <div class="form-group"><label>地址</label><input type="text" class="form-control" id="contactAddress" placeholder="中国河北省石家庄市新华区工业路88号"></div>
+            <div class="form-row">
+              <div class="form-group"><label>电话</label><input type="text" class="form-control" id="contactPhone" placeholder="+86 311 8888 8888"></div>
+              <div class="form-group"><label>邮箱</label><input type="email" class="form-control" id="contactEmail" placeholder="sales@bingling-tech.com"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>WhatsApp</label><input type="text" class="form-control" id="contactWhatsapp" placeholder="+86 130 0000 0000"></div>
+              <div class="form-group"><label>工作时间</label><input type="text" class="form-control" id="contactHours" placeholder="Mon–Fri 9:00–18:00 (GMT+8)"></div>
+            </div>
+            
+            <h4 style="margin:24px 0 16px;color:var(--text-muted);font-size:14px;font-weight:500;">地图设置</h4>
+            <div class="form-group"><label>Google Maps 嵌入链接</label><input type="text" class="form-control" id="contactMapUrl" placeholder="https://www.google.com/maps/embed?pb=..."></div>
+            <div class="form-hint" style="margin-bottom:16px;font-size:12px;color:var(--text-muted);">提示：在 Google Maps 中搜索位置 → 分享 → 嵌入地图 → 复制 HTML 中的 src 链接</div>
+            
+            <h4 style="margin:24px 0 16px;color:var(--text-muted);font-size:14px;font-weight:500;">社交媒体</h4>
+            <div class="form-row">
+              <div class="form-group"><label>LinkedIn</label><input type="text" class="form-control" id="contactLinkedin" placeholder="https://linkedin.com/company/..."></div>
+              <div class="form-group"><label>Facebook</label><input type="text" class="form-control" id="contactFacebook" placeholder="https://facebook.com/..."></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>YouTube</label><input type="text" class="form-control" id="contactYoutube" placeholder="https://youtube.com/..."></div>
+              <div class="form-group"><label>Instagram</label><input type="text" class="form-control" id="contactInstagram" placeholder="https://instagram.com/..."></div>
+            </div>
+            
+            <div class="btn-group" style="margin-top:24px;"><button class="btn btn-primary" onclick="saveContact()">保存设置</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA区域 -->
+      <div class="page" id="page-cta">
+        <div class="card">
+          <div class="card-header"><h3>CTA区域</h3></div>
+          <div class="card-body">
+            <div class="form-group"><label>标题</label><input type="text" class="form-control" id="ctaTitle"></div>
+            <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="ctaSubtitle"></div>
+            <div class="form-row">
+              <div class="form-group"><label>按钮1文字</label><input type="text" class="form-control" id="ctaBtn1"></div>
+              <div class="form-group"><label>按钮2文字</label><input type="text" class="form-control" id="ctaBtn2"></div>
+            </div>
+            <div class="btn-group"><button class="btn btn-primary" onclick="saveCta()">保存设置</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 页脚设置 -->
+      <div class="page" id="page-footer">
+        <div class="card">
+          <div class="card-header"><h3>页脚设置</h3></div>
+          <div class="card-body">
+            <div class="form-group"><label>版权信息</label><input type="text" class="form-control" id="footerCopyright"></div>
+            <div class="form-group"><label>地址</label><input type="text" class="form-control" id="footerAddress"></div>
+            <div class="form-row">
+              <div class="form-group"><label>邮箱</label><input type="email" class="form-control" id="footerEmail"></div>
+              <div class="form-group"><label>电话</label><input type="text" class="form-control" id="footerPhone"></div>
+            </div>
+            <div class="btn-group"><button class="btn btn-primary" onclick="saveFooter()">保存设置</button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 询盘管理 -->
+      <div class="page" id="page-contacts">
+        <div class="card">
+          <div class="card-header"><h3>询盘管理</h3></div>
+          <div class="card-body"><table class="table"><thead><tr><th>姓名</th><th>邮箱</th><th>产品</th><th>公司</th><th>时间</th><th>状态</th><th>操作</th></tr></thead><tbody id="contactsTable"></tbody></table></div>
+        </div>
+      </div>
+
+      <!-- 访问统计 -->
+      <div class="page" id="page-analytics">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-value" id="analyticsTotal">0</div><div class="stat-label">总访问量</div></div>
+          <div class="stat-card"><div class="stat-value" id="analyticsToday">0</div><div class="stat-label">今日访问</div></div>
+          <div class="stat-card"><div class="stat-value" id="analyticsActive">0</div><div class="stat-label">活跃用户</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>热门页面</h3><button class="btn btn-secondary btn-sm" onclick="resetAnalytics()">重置统计</button></div>
+          <div class="card-body"><table class="table"><thead><tr><th>页面</th><th>访问量</th></tr></thead><tbody id="topPagesTable"></tbody></table></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>设备分布</h3></div>
+          <div class="card-body"><table class="table"><thead><tr><th>设备</th><th>访问量</th></tr></thead><tbody id="devicesTable"></tbody></table></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+
+<!-- 案例模态框 -->
+<div class="modal" id="caseModal">
+  <div class="modal-content" style="max-width:700px">
+    <div class="modal-header"><h3 id="caseModalTitle">添加案例</h3><button class="modal-close" onclick="closeModal('caseModal')">&times;</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="caseId">
+      <div class="form-row">
+        <div class="form-group"><label>案例标题（中文）</label><input type="text" class="form-control" id="caseTitle" placeholder="如：美国高端猫树品牌"></div>
+        <div class="form-group"><label>案例标题（英文）</label><input type="text" class="form-control" id="caseTitleEn" placeholder="e.g. North American Premium Cat Tree Brand"></div>
+      <div class="form-group"><label>客户名称</label><input type="text" class="form-control" id="caseClient"></div>
+        <div class="form-group"><label>项目名称</label><input type="text" class="form-control" id="caseProject"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>标签（如: OEM Success）</label><input type="text" class="form-control" id="caseBadge"></div>
+        <div class="form-group"><label>国家/地区</label><input type="text" class="form-control" id="caseCountry"></div>
+      </div>
+      <div class="form-group"><label>产品类别</label><input type="text" class="form-control" id="caseCategory" placeholder="如: Pet Food, Pet Toys, Pet Supplies"></div>
+      <div class="form-group"><label>封面图</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传图片</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'caseImage')"></div><input type="hidden" id="caseImage"><img class="upload-preview" id="preview-caseImage" style="display:none;max-width:200px;margin-top:8px"></div>
+      <div class="form-group"><label>项目描述（中文）</label><textarea class="form-control" id="caseNarrative" style="min-height:80px" placeholder="完整描述项目背景和内容"></textarea></div>
+      <div class="form-group"><label>项目描述（英文）</label><textarea class="form-control" id="caseNarrativeEn" style="min-height:80px" placeholder="Full project description in English"></textarea></div>
+      <div class="form-group"><label>成果数据（每行一条，如: 18 months Scale-up Time）</label><textarea class="form-control" id="caseResults" style="min-height:60px" placeholder="18 months Scale-up Time&#10;50T Monthly Volume&#10;8 SKUs Launched&#10;..."></textarea></div>
+      <div class="form-group"><label>挑战（每行一条，中文）</label><textarea class="form-control" id="caseChallenges" style="min-height:80px" placeholder="严格的FDA法规要求&#10;..."></textarea></div>
+      <div class="form-group"><label>挑战（每行一条，英文）</label><textarea class="form-control" id="caseChallengesEn" style="min-height:80px" placeholder="Strict FDA regulatory requirements&#10;..."></textarea></div>
+      <div class="form-group"><label>成果（每行一条，中文）</label><textarea class="form-control" id="caseOutcomes" style="min-height:80px" placeholder="成功通过FDA合规认证&#10;..."></textarea></div>
+      <div class="form-group"><label>成果（每行一条，英文）</label><textarea class="form-control" id="caseOutcomesEn" style="min-height:80px" placeholder="Achieved full FDA compliance&#10;..."></textarea></div>
+      <div class="form-group"><label>客户评价（可选）</label><textarea class="form-control" id="caseTestimonials" style="min-height:60px" placeholder="客户好评引用"></textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('caseModal')">取消</button><button class="btn btn-primary" onclick="saveCase()">保存</button></div>
+  </div>
+</div>
+
+<!-- 新闻模态框 -->
+<div class="modal" id="newsModal">
+  <div class="modal-content">
+    <div class="modal-header"><h3 id="newsModalTitle">添加新闻</h3><button class="modal-close" onclick="closeModal('newsModal')">&times;</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="newsId">
+      <div class="form-row">
+        <div class="form-group"><label>标题</label><input type="text" class="form-control" id="newsTitle"></div>
+        <div class="form-group"><label>分类 (company/industry)</label><select class="form-control" id="newsCategory"><option value="company">Company</option><option value="industry">Industry</option></select></div>
+      </div>
+      <div class="form-group"><label>摘要</label><textarea class="form-control" id="newsExcerpt" style="min-height:80px"></textarea></div>
+      <div class="form-group"><label>内容</label><textarea class="form-control" id="newsContent" style="min-height:120px"></textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>日期</label><input type="date" class="form-control" id="newsDate"></div>
+        <div class="form-group"><label>标签</label><input type="text" class="form-control" id="newsTag" placeholder="如: New Product"></div>
+      </div>
+      <div class="form-group"><label>封面图</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'newsImage')"></div><input type="hidden" id="newsImage"><img class="upload-preview" id="preview-newsImage" style="display:none"></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('newsModal')">取消</button><button class="btn btn-primary" onclick="saveNews()">保存</button></div>
+  </div>
+</div>
+
+<!-- FAQ 模态框 -->
+<div class="modal" id="faqModal">
+  <div class="modal-content">
+    <div class="modal-header"><h3 id="faqModalTitle">添加 FAQ</h3><button class="modal-close" onclick="closeModal('faqModal')">&times;</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="faqId">
+      <div class="form-row">
+        <div class="form-group">
+          <label>语言</label>
+          <select class="form-control" id="faqLang">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>分区</label>
+          <select class="form-control" id="faqSection">
+            <option value="工厂实力与资质">工厂实力与资质</option>
+            <option value="产品与定制服务">产品与定制服务</option>
+            <option value="质量控制与测试">质量控制与测试</option>
+            <option value="生产与物流">生产与物流</option>
+            <option value="商务条款与合作">商务条款与合作</option>
+            <option value="出口服务与认证">出口服务与认证</option>
+            <option value="市场信息与趋势">市场信息与趋势</option>
+            <option value="合作流程与联系方式">合作流程与联系方式</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>排序号</label>
+          <input type="number" class="form-control" id="faqOrder" value="0">
+        </div>
+      </div>
+      <div class="form-group"><label>问题</label><input type="text" class="form-control" id="faqQuestion" placeholder="请输入问题"></div>
+      <div class="form-group"><label>答案</label><textarea class="form-control" id="faqAnswer" style="min-height:120px" placeholder="请输入答案"></textarea></div>
+      <div class="form-group"><label>配图URL（可选）</label><input type="text" class="form-control" id="faqImage" placeholder="https://example.com/image.jpg"></div>
+      <div class="form-group"><label>配图说明（可选）</label><input type="text" class="form-control" id="faqImageAlt" placeholder="图片描述文字"></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('faqModal')">取消</button><button class="btn btn-primary" onclick="saveFaq()">保存</button></div>
+  </div>
+</div>
+
+<!-- 产品模态框 -->
+<div class="modal" id="productModal">
+  <div class="modal-content" style="max-width:680px">
+    <div class="modal-header"><h3 id="productModalTitle">添加产品</h3><button class="modal-close" onclick="closeModal('productModal')">&times;</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="productId">
+      <div class="form-group"><label>产品名称 *</label><input type="text" class="form-control" id="productName" placeholder="例如：多层猫爬架"></div>
+      <div class="form-row">
+        <div class="form-group"><label>主分类</label><select class="form-control" id="productCategory"><option value="supplies">Pet Supplies 宠物用品</option><option value="toys">Pet Toys 宠物玩具</option><option value="food">Pet Food 宠物食品</option></select></div>
+        <div class="form-group"><label>子分类</label>
+          <select class="form-control" id="productSubcategory">
+            <option value="">-- 不选择 --</option>
+            <optgroup label="宠物用品 Supplies">
+              <option value="cat-tree">猫爬架 Cat Tree</option>
+              <option value="carrier">宠物包 Carrier</option>
+              <option value="bed">宠物窝 Bed</option>
+              <option value="stroller">宠物推车 Stroller</option>
+              <option value="car-seat">宠物汽车座椅 Car Seat</option>
+              <option value="litter">猫砂盆 Litter Box</option>
+            </optgroup>
+            <optgroup label="宠物玩具 Toys">
+              <option value="puzzle">益智玩具 Puzzle Toy</option>
+              <option value="wand">逗猫棒/逗狗棒 Wand Toy</option>
+              <option value="plush">毛绒玩具 Plush Toy</option>
+              <option value="chew">咬胶玩具 Chew Toy</option>
+            </optgroup>
+            <optgroup label="宠物食品 Food">
+              <option value="dry">干粮 Dry Food</option>
+              <option value="wet">湿粮/罐头 Wet Food</option>
+              <option value="treat">零食 Treats</option>
+              <option value="supplement">营养补充剂 Supplements</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>产品标签（展示用，如：热销/New）</label><input type="text" class="form-control" id="productBadge" placeholder="热销"></div>
+      <div class="form-row">
+        <div class="form-group"><label>产品尺寸（cm）</label><input type="text" class="form-control" id="productSize" placeholder="60×40×136 cm"></div>
+        <div class="form-group"><label>产品重量（kg）</label><input type="text" class="form-control" id="productWeight" placeholder="11.15 kg"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>包装尺寸（cm）</label><input type="text" class="form-control" id="productPackSize" placeholder="64×54×28 cm"></div>
+        <div class="form-group"><label>包装重量（kg）</label><input type="text" class="form-control" id="productPackWeight" placeholder="12.5 kg"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>材质</label><input type="text" class="form-control" id="productMaterial" placeholder="BPA-free PP Plastic"></div>
+        <div class="form-group"><label>认证</label><input type="text" class="form-control" id="productCert" placeholder="CE, CPSIA, Phthalate Free"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>MOQ（起订量）</label><input type="text" class="form-control" id="productMoq" placeholder="200 pcs"></div>
+        <div class="form-group"><label>货期（天）</label><input type="text" class="form-control" id="productLead" placeholder="20-30 days"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>包装方式</label><input type="text" class="form-control" id="productPackaging" placeholder="Color Box / Poly Bag"></div>
+        <div class="form-group"><label>价格（USD）</label><input type="number" step="0.01" class="form-control" id="productPrice" placeholder="0.00"></div>
+      </div>
+      <div class="form-group"><label>产品描述</label><textarea class="form-control" id="productDesc" rows="3" placeholder="详细描述产品特点、优势等..."></textarea></div>
+      <div class="form-group"><label>产品图片</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'productImage')"></div><input type="hidden" id="productImage"><img class="upload-preview" id="preview-productImage" style="display:none"></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('productModal')">取消</button><button class="btn btn-primary" onclick="saveProduct()">💾 保存</button></div>
+  </div>
+</div>
+
+<!-- 询盘详情模态框 -->
+<div class="modal" id="contactDetailModal">
+  <div class="modal-content">
+    <div class="modal-header"><h3>询盘详情</h3><button class="modal-close" onclick="closeContactModal()">&times;</button></div>
+    <div class="modal-body" id="contactDetailContent"></div>
+    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeContactModal()">关闭</button></div>
+  </div>
+</div>
+
+<script>
+// 动态获取 token，避免页面加载时捕获的空值
+function getToken() { return localStorage.getItem('admin_token') || ''; }
+if (!getToken()) window.location.href = '/admin/';
+
+async function api(url, options = {}) {
+  const token = getToken();
+  const res = await fetch(url, {
+    ...options,
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, ...options.headers }
+  });
+  if (!res.ok) {
+    const text = await res.text().catch(() => res.statusText);
+    throw new Error('API ' + res.status + ': ' + text);
+  }
+  return res.json();
+}
+
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const page = item.dataset.page;
+    if (!page) return;
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + page)?.classList.add('active');
+    document.getElementById('pageTitle').textContent = item.textContent.trim();
+    loadPageData(page);
+  });
+});
+
+function loadPageData(page) {
+  const loaders = { dashboard: loadDashboard, hero: loadHero, about: loadAbout, factory: loadFactory, advantages: loadAdvantages, products: loadProducts, solutions: loadSolutions, cases: loadCases, news: loadNews, faq: loadFaqs, contact: loadContact, cta: loadCta, footer: loadFooter, contacts: loadContacts, analytics: loadAnalytics };
+  if (loaders[page]) loaders[page]();
+}
+
+// 事件委托：询盘表格按钮
+document.addEventListener('click', function(e) {
+  const viewBtn = e.target.closest('.btn-view-contact');
+  if (viewBtn) {
+    console.log('[DEBUG] viewBtn clicked, data-id:', viewBtn.dataset.id, 'className:', viewBtn.className);
+    e.preventDefault();
+    viewContact(viewBtn.dataset.id);
+    return;
+  }
+  const delBtn = e.target.closest('.btn-delete-contact');
+  if (delBtn) {
+    console.log('[DEBUG] delBtn clicked, data-id:', delBtn.dataset.id);
+    e.preventDefault();
+    deleteContact(delBtn.dataset.id);
+    return;
+  }
+  const viewProdBtn = e.target.closest('.btn-view-product');
+  if (viewProdBtn) {
+    e.preventDefault();
+    viewProduct(viewProdBtn.dataset.id);
+    return;
+  }
+  const editBtn = e.target.closest('.btn-edit-product');
+  if (editBtn) {
+    e.preventDefault();
+    editProduct(editBtn.dataset.id);
+    return;
+  }
+  const delProdBtn = e.target.closest('.btn-delete-product');
+  if (delProdBtn) {
+    e.preventDefault();
+    deleteProduct(delProdBtn.dataset.id);
+    return;
+  }
+});
+
+function showToast(msg, type = 'success') {
+  const toast = document.createElement('div');
+  toast.className = 'toast ' + type;
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+// 上传文件时存放 urls 对象的全局注册表
+const _uploadedUrls = {};
+
+async function handleUpload(input, targetId) {
+  const file = input.files[0];
+  if (!file) return;
+  const fd = new FormData();
+  fd.append('file', file);
+  try {
+    const res = await fetch('/api/admin/upload', { method: 'POST', headers: { 'Authorization': 'Bearer ' + getToken() }, body: fd });
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById(targetId).value = data.url; // 大图作为默认值
+      _uploadedUrls[targetId] = data.urls; // 存完整 urls 对象
+      const preview = document.getElementById('preview-' + targetId);
+      if (preview) { preview.src = data.url; preview.style.display = 'block'; }
+      showToast('图片上传成功');
+    } else { showToast('上传失败: ' + (data.error || '未知错误'), 'error'); }
+  } catch(e) { showToast('上传失败', 'error'); }
+}
+
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+async function loadDashboard() {
+  const stats = await api('/api/admin/stats');
+  document.getElementById('statProducts').textContent = stats.products || 0;
+  document.getElementById('statNews').textContent = stats.news || 0;
+  document.getElementById('statFaq').textContent = stats.faqs || 0;
+  document.getElementById('statCases').textContent = stats.cases || 0;
+  document.getElementById('statContacts').textContent = stats.contacts || 0;
+  try { const ana = await api('/api/analytics'); document.getElementById('statViews').textContent = ana.todayViews || 0; } catch(e) {}
+  const contacts = await api('/api/admin/contacts');
+  document.getElementById('recentContacts').innerHTML = (contacts.slice(0, 5) || []).map(c => '<tr><td>' + (c.name || '-') + '</td><td>' + (c.email || '-') + '</td><td>' + (c.product || '-') + '</td><td>' + (c.createdAt || '-').substring(0, 10) + '</td><td><span class="badge ' + (c.status === 'new' ? 'badge-new' : 'badge-read') + '">' + (c.status === 'new' ? '新' : '已读') + '</span></td></tr>').join('') || '<tr><td colspan="5">暂无数据</td></tr>';
+}
+
+async function loadHero() {
+  const modules = await api('/api/modules');
+  const hero = modules.hero || {};
+  document.getElementById('heroTitle').value = hero.title || '';
+  document.getElementById('heroSubtitle').value = hero.subtitle || '';
+  if (hero.slides) { hero.slides.forEach((s, i) => { if (s.image) { document.getElementById('heroSlide' + (i+1)).value = s.image; document.getElementById('preview-heroSlide' + (i+1)).src = s.image; document.getElementById('preview-heroSlide' + (i+1)).style.display = 'block'; } }); }
+  if (hero.stats) { hero.stats.forEach((s, i) => { document.getElementById('heroStat' + (i+1) + 'Value').value = s.value || ''; document.getElementById('heroStat' + (i+1) + 'Label').value = s.label || ''; }); }
+}
+
+async function saveHero() {
+  const modules = await api('/api/modules');
+  modules.hero = {
+    title: document.getElementById('heroTitle').value,
+    subtitle: document.getElementById('heroSubtitle').value,
+    slides: [{ image: document.getElementById('heroSlide1').value }, { image: document.getElementById('heroSlide2').value }, { image: document.getElementById('heroSlide3').value }],
+    stats: [
+      { value: document.getElementById('heroStat1Value').value, label: document.getElementById('heroStat1Label').value },
+      { value: document.getElementById('heroStat2Value').value, label: document.getElementById('heroStat2Label').value },
+      { value: document.getElementById('heroStat3Value').value, label: document.getElementById('heroStat3Label').value },
+      { value: document.getElementById('heroStat4Value').value, label: document.getElementById('heroStat4Label').value }
+    ]
+  };
+  await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
+  showToast('Hero设置已保存');
+}
+
+async function loadFactory() {
+  const modules = await api('/api/modules');
+  const f = modules.factory || {};
+  document.getElementById('factoryTag').value = f.tag || '';
+  document.getElementById('factoryTitle').value = f.title || '';
+  document.getElementById('factorySubtitle').value = f.subtitle || '';
+  const cards = f.cards || [];
+  document.getElementById('factoryCardsList').innerHTML = cards.map((c, i) => `
+    <div class="card-edit-row">
+      <div class="form-group" style="flex:1"><label>图片${i+1}</label>
+        <div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传图片</p>
+          <input type="file" hidden accept="image/*" onchange="handleUpload(this,'factoryImg${i}')">
+        </div>
+        <input type="hidden" id="factoryImg${i}" value="${c.image || ''}">
+        <img class="upload-preview" id="preview-factoryImg${i}" src="${c.image || ''}" style="display:${c.image ? 'block' : 'none'};max-height:80px">
+      </div>
+      <div class="form-group" style="flex:1"><label>名称 ${i+1}</label><input type="text" class="form-control factory-card-name" data-idx="${i}" value="${c.name || ''}"></div>
+      <div class="form-group" style="flex:1"><label>描述 ${i+1}</label><textarea class="form-control factory-card-desc" data-idx="${i}" rows="2">${c.desc || ''}</textarea></div>
+    </div>`).join('') || '<p style="color:#999">暂无卡片数据</p>';
+}
+
+async function saveFactory() {
+  const modules = await api('/api/modules');
+  const cardNames = document.querySelectorAll('.factory-card-name');
+  const cardDescs = document.querySelectorAll('.factory-card-desc');
+  const cards = Array.from({length: 3}, (_, i) => ({
+    image: document.getElementById('factoryImg' + i) ? document.getElementById('factoryImg' + i).value : '',
+    name: cardNames[i] ? cardNames[i].value : '',
+    desc: cardDescs[i] ? cardDescs[i].value : ''
+  }));
+  modules.factory = {
+    tag: document.getElementById('factoryTag').value,
+    title: document.getElementById('factoryTitle').value,
+    subtitle: document.getElementById('factorySubtitle').value,
+    cards: cards
+  };
+  await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
+  showToast('生产概况已保存');
+}
+
+async function loadAbout() {
+  const modules = await api('/api/modules');
+  const about = modules.about || {};
+  document.getElementById('aboutTag').value = about.tag || '';
+  document.getElementById('aboutTitle').value = about.title || '';
+  document.getElementById('aboutLead').value = about.lead || '';
+  document.getElementById('aboutP1').value = about.p1 || '';
+  document.getElementById('aboutP2').value = about.p2 || '';
+  document.getElementById('aboutBadge').value = about.badge || '';
+  if (about.image) { document.getElementById('aboutImage').value = about.image; document.getElementById('preview-aboutImage').src = about.image; document.getElementById('preview-aboutImage').style.display = 'block'; }
+}
+
+async function saveAbout() {
+  const modules = await api('/api/modules');
+  modules.about = { tag: document.getElementById('aboutTag').value, title: document.getElementById('aboutTitle').value, lead: document.getElementById('aboutLead').value, p1: document.getElementById('aboutP1').value, p2: document.getElementById('aboutP2').value, badge: document.getElementById('aboutBadge').value, image: document.getElementById('aboutImage').value };
+  await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
+  showToast('关于我们已保存');
+}
+
+async function loadAdvantages() {
+  const modules = await api('/api/modules');
+  const adv = modules.advantages || {};
+  document.getElementById('advTag').value = adv.tag || '';
+  document.getElementById('advTitle').value = adv.title || '';
+  document.getElementById('advSubtitle').value = adv.subtitle || '';
+  document.getElementById('advItems').innerHTML = (adv.items || []).map((item, i) => '<div class="form-row"><div class="form-group"><label>标题 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '" value="' + (item.title || '') + '"></div><div class="form-group"><label>描述 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '" value="' + (item.desc || '') + '"></div></div>').join('');
+}
+
+async function saveAdvantages() {
+  const modules = await api('/api/modules');
+  const items = [];
+  for (let i = 0; i < 4; i++) { const title = document.getElementById('advItemTitle' + i)?.value; if (title) items.push({ title, desc: document.getElementById('advItemDesc' + i)?.value || '' }); }
+  modules.advantages = { tag: document.getElementById('advTag').value, title: document.getElementById('advTitle').value, subtitle: document.getElementById('advSubtitle').value, items };
+  await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
+  showToast('优势特点已保存');
+}
+
+async function loadProducts() {
+  const products = await api('/api/admin/products');
+  window._allProducts = products || [];
+  document.getElementById('productsTable').innerHTML = (products || []).map(p =>
+    '<tr><td>' + (p.name || '-') + '</td><td>' + (p.category || '-') + '</td><td>' + (p.moq || '-') + '</td><td class="table-actions"><button class="btn btn-sm btn-info btn-view-product" data-id="' + p.id + '">查看</button> <button class="btn btn-sm btn-secondary btn-edit-product" data-id="' + p.id + '">编辑</button> <button class="btn btn-sm btn-danger btn-delete-product" data-id="' + p.id + '">删除</button></td></tr>'
+  ).join('') || '<tr><td colspan="4">暂无产品</td></tr>';
+}
+
+function viewProduct(id) {
+  // 查找产品并打开新窗口跳转前台详情页
+  const products = window._allProducts || [];
+  const p = products.find(x => x.id === id);
+  if (p && p.category_slug && p.subcategory_slug && p.type_slug && p.slug) {
+    const url = `/products/${p.category_slug}/${p.subcategory_slug}/${p.type_slug}/${p.slug}/`;
+    window.open(url, '_blank');
+  } else {
+    showToast('产品缺少分类信息，无法跳转详情页', 'error');
+  }
+}
+
+function showProductModal(id) { document.getElementById('productModalTitle').textContent = id ? '编辑产品' : '添加产品';
+  document.getElementById('productId').value = id || '';
+  document.getElementById('productName').value = '';
+  document.getElementById('productCategory').value = 'supplies';
+  document.getElementById('productSubcategory').value = '';
+  document.getElementById('productBadge').value = '';
+  document.getElementById('productSize').value = '';
+  document.getElementById('productWeight').value = '';
+  document.getElementById('productPackSize').value = '';
+  document.getElementById('productPackWeight').value = '';
+  document.getElementById('productMaterial').value = '';
+  document.getElementById('productCert').value = '';
+  document.getElementById('productMoq').value = '';
+  document.getElementById('productLead').value = '';
+  document.getElementById('productPackaging').value = '';
+  document.getElementById('productPrice').value = '';
+  document.getElementById('productDesc').value = '';
+  document.getElementById('productImage').value = '';
+  document.getElementById('preview-productImage').style.display = 'none';
+  openModal('productModal');
+}
+
+async function editProduct(id) { const products = await api('/api/admin/products');
+  const p = products.find(x => x.id === id);
+  if (!p) { showToast('产品不存在', 'error'); return; }
+  document.getElementById('productModalTitle').textContent = '编辑产品';
+  document.getElementById('productId').value = p.id;
+  document.getElementById('productName').value = p.name || '';
+  document.getElementById('productCategory').value = p.category || 'supplies';
+  document.getElementById('productSubcategory').value = p.subcategory || '';
+  document.getElementById('productBadge').value = p.badge || '';
+  document.getElementById('productSize').value = p.size || '';
+  document.getElementById('productWeight').value = p.weight || '';
+  document.getElementById('productPackSize').value = p.packSize || '';
+  document.getElementById('productPackWeight').value = p.packWeight || '';
+  document.getElementById('productMaterial').value = p.material || '';
+  document.getElementById('productCert').value = p.cert || '';
+  document.getElementById('productMoq').value = p.moq || '';
+  document.getElementById('productLead').value = p.lead || '';
+  document.getElementById('productPackaging').value = p.packaging || '';
+  document.getElementById('productPrice').value = p.price || '';
+  document.getElementById('productDesc').value = p.desc || '';
+  if (p.image) { document.getElementById('productImage').value = p.image; document.getElementById('preview-productImage').src = p.image; document.getElementById('preview-productImage').style.display = 'block'; }
+  if (p.images) _uploadedUrls['productImage'] = p.images;
+  openModal('productModal');
+}
+
+async function saveProduct() {
+  const id = document.getElementById('productId').value;
+  const data = {
+    name: document.getElementById('productName').value,
+    category: document.getElementById('productCategory').value,
+    subcategory: document.getElementById('productSubcategory').value,
+    badge: document.getElementById('productBadge').value,
+    size: document.getElementById('productSize').value,
+    weight: document.getElementById('productWeight').value,
+    packSize: document.getElementById('productPackSize').value,
+    packWeight: document.getElementById('productPackWeight').value,
+    material: document.getElementById('productMaterial').value,
+    cert: document.getElementById('productCert').value,
+    moq: document.getElementById('productMoq').value,
+    lead: document.getElementById('productLead').value,
+    packaging: document.getElementById('productPackaging').value,
+    price: parseFloat(document.getElementById('productPrice').value) || 0,
+    desc: document.getElementById('productDesc').value,
+    image: document.getElementById('productImage').value,
+    images: _uploadedUrls['productImage'] || null
+  };
+  if (!data.name) { showToast('请填写产品名称', 'error'); return; }
+  try {
+    if (id) { await api('/api/admin/products/' + id, { method: 'PUT', body: JSON.stringify(data) }); }
+    else { await api('/api/admin/products', { method: 'POST', body: JSON.stringify(data) }); }
+    closeModal('productModal');
+    loadProducts();
+    showToast('产品已保存');
+  } catch(e) { showToast('保存失败: ' + e.message, 'error'); }
+}
+
+async function deleteProduct(id) {
+  if (!confirm('确定删除此产品？')) return;
+  await api('/api/admin/products/' + id, { method: 'DELETE' });
+  loadProducts();
+  showToast('产品已删除');
+}
+
+// ─── 解决方案 ───────────────────────────────────────────
+// ─── 解决方案（区块管理）──────────────────────────────
+// ─── 解决方案（模块设置）────────────────────────────
+// ─── 解决方案（模块设置）────────────────────────────
+async function saveSolutionsSection() {
+  var modules = await api('/api/modules');
+  var sol = modules.solutions || { cards: [] };
+  sol.tag = document.getElementById('solTag').value;
+  sol.title = document.getElementById('solTitle').value;
+  sol.subtitle = document.getElementById('solSubtitle').value;
+  sol.cards = [0,1,2].map(function(i){
+    return {
+      title: document.getElementById('solCard'+i+'Title').value,
+      desc: document.getElementById('solCard'+i+'Desc').value,
+      items: document.getElementById('solCard'+i+'Items').value.split('\n').map(function(s){return s.trim();}).filter(Boolean)
+    };
+  });
+  modules.solutions = sol;
+  await api('/api/modules', {method:'POST', body: JSON.stringify(modules)});
+  showToast('板块设置已保存');
+}
+
+// ─── 解决方案（详情CRUD）────────────────────────────
+function showSolutionModal() {
+  document.getElementById('solutionId').value = '';
+  document.getElementById('solutionModalTitle').textContent = '添加方案';
+  document.getElementById('solutionTitle').value = '';
+  document.getElementById('solutionSubtitle').value = '';
+  document.getElementById('solutionDesc').value = '';
+  document.getElementById('solutionImage').value = '';
+  document.getElementById('preview-solutionImage').style.display = 'none';
+  document.getElementById('solutionItems').value = '';
+  openModal('solutionModal');
+}
+
+async function editSolution(id) {
+  var list = await api('/api/admin/solutions');
+  var s = null;
+  for (var i = 0; i < list.length; i++) { if (list[i].id === id) { s = list[i]; break; } }
+  if (!s) return;
+  document.getElementById('solutionId').value = s.id;
+  document.getElementById('solutionModalTitle').textContent = '编辑方案：' + (s.title || '');
+  document.getElementById('solutionTitle').value = s.title || '';
+  document.getElementById('solutionSubtitle').value = s.subtitle || '';
+  document.getElementById('solutionDesc').value = s.desc || '';
+  var itemsStr = Array.isArray(s.items) ? s.items.join('\n') : (s.items || '');
+  document.getElementById('solutionItems').value = itemsStr;
+  var imgVal = s.img || s.image || '';
+  document.getElementById('solutionImage').value = imgVal;
+  var preview = document.getElementById('preview-solutionImage');
+  if (imgVal) { preview.src = imgVal; preview.style.display = 'block'; } else { preview.style.display = 'none'; }
+  openModal('solutionModal');
+}
+
+async function saveSolution() {
+  var id = document.getElementById('solutionId').value;
+  var existing = {};
+  if (id) {
+    var list = await api('/api/admin/solutions');
+    for (var i = 0; i < list.length; i++) { if (list[i].id === id) { existing = list[i]; break; } }
+  }
+  var itemsRaw = document.getElementById('solutionItems').value || '';
+  var items = itemsRaw.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
+  var formImg = document.getElementById('solutionImage').value;
+  var data = {
+    id: id || undefined,
+    title: document.getElementById('solutionTitle').value,
+    subtitle: document.getElementById('solutionSubtitle').value,
+    desc: document.getElementById('solutionDesc').value,
+    items: items,
+    img: formImg,
+    image: formImg
+  };
+  if (id) {
+    await api('/api/admin/solutions/' + id, {method:'PUT', body: JSON.stringify(data)});
+    showToast('方案已更新');
+  } else {
+    await api('/api/admin/solutions', {method:'POST', body: JSON.stringify(data)});
+    showToast('方案已添加');
+  }
+  closeModal('solutionModal');
+  loadSolutions();
+}
+
+async function loadSolutions() {
+  // 加载模块设置（板块标题和卡片）
+  var modules = await api('/api/modules');
+  var sol = modules.solutions || { cards: [] };
+  document.getElementById('solTag').value = sol.tag || '';
+  document.getElementById('solTitle').value = sol.title || '';
+  document.getElementById('solSubtitle').value = sol.subtitle || '';
+  [0,1,2].forEach(function(i){
+    var c = (sol.cards || [])[i] || {};
+    document.getElementById('solCard'+i+'Title').value = c.title || '';
+    document.getElementById('solCard'+i+'Desc').value = c.desc || '';
+    document.getElementById('solCard'+i+'Items').value = (c.items || []).join('\n');
+  });
+  // 加载方案列表
+  var list = await api('/api/admin/solutions');
+  if (!list || !list.length) {
+    document.getElementById('solutionsTable').innerHTML = '<tr><td colspan=\'3\'>暂无方案，请点击上方"+添加方案"创建</td></tr>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < list.length; i++) {
+    var s = list[i];
+    html += '<tr><td>' + (s.title || '-') + '</td><td>' + (s.subtitle || '-') + '</td><td><button class="btn btn-sm btn-secondary" onclick="editSolution(\'' + s.id + '\')">编辑</button> <button class="btn btn-sm btn-danger" onclick="deleteSolution(\'' + s.id + '\')">删除</button></td></tr>';
+  }
+  document.getElementById('solutionsTable').innerHTML = html;
+}
+
+async function deleteSolution(id) {
+  if (!confirm('确定删除此方案？')) return;
+  await api('/api/admin/solutions/' + id, {method:'DELETE'});
+  loadSolutions();
+  showToast('方案已删除');
+}
+
+// ─── 案例
+
+// ─── 案例 ──────────────────────────────────────────────
+function showCaseModal(id = null) {
+  document.getElementById('caseId').value = id || '';
+  document.getElementById('caseModalTitle').textContent = id ? '编辑案例' : '添加案例';
+  document.getElementById('caseTitle').value = '';
+  document.getElementById('caseClient').value = '';
+  document.getElementById('caseProject').value = '';
+  document.getElementById('caseBadge').value = '';
+  document.getElementById('caseCountry').value = '';
+  document.getElementById('caseCategory').value = '';
+  document.getElementById('caseNarrative').value = '';
+  document.getElementById('caseResults').value = '';
+  document.getElementById('caseChallenges').value = '';
+  document.getElementById('caseOutcomes').value = '';
+  document.getElementById('caseTestimonials').value = '';
+  document.getElementById('caseImage').value = '';
+  document.getElementById('preview-caseImage').style.display = 'none';
+  openModal('caseModal');
+}
+
+async function editCase(id) {
+  const list = await api('/api/admin/cases');
+  const c = list.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('caseId').value = c.id;
+  document.getElementById('caseModalTitle').textContent = '编辑案例';
+  document.getElementById('caseTitle').value = c.title || '';
+  document.getElementById('caseTitleEn').value = c.title_en || '';
+  document.getElementById('caseClient').value = c.client || '';
+  document.getElementById('caseProject').value = c.project || '';
+  document.getElementById('caseBadge').value = c.badge || '';
+  document.getElementById('caseCountry').value = c.country || '';
+  document.getElementById('caseCategory').value = c.cat || c.category || '';
+  document.getElementById('caseNarrative').value = c.narrative || '';
+  document.getElementById('caseNarrativeEn').value = c.narrative_en || '';
+  document.getElementById('caseResults').value = Array.isArray(c.results) ? c.results.map(r => typeof r === 'string' ? r : (r.num + ' ' + r.lbl)).join('\n') : (typeof c.results === 'string' ? c.results : '');
+  document.getElementById('caseChallenges').value = Array.isArray(c.challenges) ? c.challenges.join('\n') : '';
+  document.getElementById('caseChallengesEn').value = Array.isArray(c.challenges_en) ? c.challenges_en.join('\n') : '';
+  document.getElementById('caseOutcomes').value = Array.isArray(c.outcomes) ? c.outcomes.join('\n') : '';
+  document.getElementById('caseOutcomesEn').value = Array.isArray(c.outcomes_en) ? c.outcomes_en.join('\n') : '';
+  document.getElementById('caseTestimonials').value = c.testimonials || '';
+  const imgVal = c.img || c.image || '';
+  document.getElementById('caseImage').value = imgVal;
+  if (imgVal) { document.getElementById('preview-caseImage').src = imgVal; document.getElementById('preview-caseImage').style.display = 'block'; }
+  if (c.images) _uploadedUrls['caseImage'] = c.images;
+  openModal('caseModal');
+}
+
+async function saveCase() {
+  const id = document.getElementById('caseId').value;
+  const existing = id ? (await api('/api/admin/cases')).find(c => c.id === id) || {} : {};
+  const resultsRaw = document.getElementById('caseResults').value || '';
+  // results 保持为字符串（用 | 分隔），与前端期望一致
+  const results = resultsRaw.split('\n').filter(s => s.trim()).map(s => s.trim()).join(' | ');
+  const challengesRaw = document.getElementById('caseChallenges').value || '';
+  const outcomesRaw = document.getElementById('caseOutcomes').value || '';
+  const challengesEnRaw = document.getElementById('caseChallengesEn').value || '';
+  const outcomesEnRaw = document.getElementById('caseOutcomesEn').value || '';
+  const challenges = challengesRaw.split('\n').map(s => s.trim()).filter(Boolean);
+  const outcomes = outcomesRaw.split('\n').map(s => s.trim()).filter(Boolean);
+  const challenges_en = challengesEnRaw.split('\n').map(s => s.trim()).filter(Boolean);
+  const outcomes_en = outcomesEnRaw.split('\n').map(s => s.trim()).filter(Boolean);
+  const formImg = document.getElementById('caseImage').value;
+  const data = {
+    ...existing,
+    title: document.getElementById('caseTitle').value || existing.title,
+    title_en: document.getElementById('caseTitleEn').value || existing.title_en,
+    client: document.getElementById('caseClient').value || existing.client,
+    project: document.getElementById('caseProject').value || existing.project,
+    badge: document.getElementById('caseBadge').value || existing.badge,
+    badge_en: document.getElementById('caseBadge').value || existing.badge_en,
+    country: document.getElementById('caseCountry').value || existing.country,
+    cat: document.getElementById('caseCategory').value || existing.cat,
+    category: document.getElementById('caseCategory').value || existing.cat || existing.category,
+    narrative: document.getElementById('caseNarrative').value || existing.narrative,
+    narrative_en: document.getElementById('caseNarrativeEn').value || existing.narrative_en,
+    results: results || existing.results,
+    challenges: challenges.length ? challenges : existing.challenges,
+    challenges_en: challenges_en.length ? challenges_en : existing.challenges_en,
+    outcomes: outcomes.length ? outcomes : existing.outcomes,
+    outcomes_en: outcomes_en.length ? outcomes_en : existing.outcomes_en,
+    testimonials: document.getElementById('caseTestimonials').value || existing.testimonials,
+    img: formImg || existing.img,
+    image: formImg || existing.image,
+    images: _uploadedUrls['caseImage'] || existing.images || null
+  };
+  if (id) {
+    await api('/api/admin/cases/' + id, { method: 'PUT', body: JSON.stringify(data) });
+  } else {
+    await api('/api/admin/cases', { method: 'POST', body: JSON.stringify(data) });
+  }
+  closeModal('caseModal');
+  loadCases();
+  showToast('案例已保存');
+}
+
+async function deleteCase(id) {
+  if (!confirm('确定删除？')) return;
+  await api('/api/admin/cases/' + id, { method: 'DELETE' });
+  loadCases();
+  showToast('已删除');
+}
+
+async function loadCases() {
+  // 板块设置
+  var modules = await api('/api/modules');
+  var cs = modules.cases || {};
+  document.getElementById('caseSectionTitle').value = cs.title || '';
+  document.getElementById('caseSectionSub').value = cs.subtitle || '';
+  // 加载两个卡片
+  (cs.cards || []).forEach(function(c, i) {
+    document.getElementById('caseCard'+i+'Tag').value = c.badge || c.tag || '';
+    document.getElementById('caseCard'+i+'Country').value = c.country || '';
+    document.getElementById('caseCard'+i+'Cat').value = c.cat || '';
+    document.getElementById('caseCard'+i+'Title').value = c.title || '';
+    document.getElementById('caseCard'+i+'Desc').value = c.desc || '';
+    document.getElementById('caseCard'+i+'S1').value = c.s1 || '';
+    document.getElementById('caseCard'+i+'S2').value = c.s2 || '';
+    document.getElementById('caseCard'+i+'S3').value = c.s3 || '';
+    document.getElementById('caseCard'+i+'N1').value = c.n1 || '';
+    document.getElementById('caseCard'+i+'N2').value = c.n2 || '';
+    document.getElementById('caseCard'+i+'N3').value = c.n3 || '';
+    var imgVal = c.img || '';
+    document.getElementById('caseImg'+i).value = imgVal;
+    var pv = document.getElementById('preview-caseImg'+i);
+    if (pv) { pv.src = imgVal; pv.style.display = imgVal ? 'block' : 'none'; }
+  });
+  // 加载案例列表
+  var cases = await api('/api/admin/cases');
+  if (!cases || !cases.length) {
+    document.getElementById('casesTable').innerHTML = '<tr><td colspan=\'4\'>暂无案例</td></tr>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < cases.length; i++) {
+    var c = cases[i];
+    html += '<tr data-id="'+c.id+'"><td>'+(c.client||'-')+'</td><td>'+(c.project||'-')+'</td><td>'+(c.title||'-')+'</td><td><button class="btn btn-sm btn-secondary js-edit-case">编辑</button> <button class="btn btn-sm btn-danger js-del-case">删除</button></td></tr>';
+  }
+  document.getElementById('casesTable').innerHTML = html;
+  document.querySelectorAll('.js-edit-case').forEach(function(btn){ btn.onclick = function(){ editCase(this.closest('tr').dataset.id); }; });
+  document.querySelectorAll('.js-del-case').forEach(function(btn){ btn.onclick = function(){ if(confirm('确定删除？')){ api('/api/admin/cases/'+this.closest('tr').dataset.id,{method:'DELETE'}).then(function(){loadCases();}); } }; });
+}
+
+
+async function saveCasesSection() {
+  var modules = await api('/api/modules');
+  var cs = modules.cases || {};
+  cs.title = document.getElementById('caseSectionTitle').value;
+  cs.subtitle = document.getElementById('caseSectionSub').value;
+  cs.cards = [0,1].map(function(i){
+    return {
+      tag: document.getElementById('caseCard'+i+'Tag').value,
+      country: document.getElementById('caseCard'+i+'Country').value,
+      cat: document.getElementById('caseCard'+i+'Cat').value,
+      title: document.getElementById('caseCard'+i+'Title').value,
+      desc: document.getElementById('caseCard'+i+'Desc').value,
+      s1: document.getElementById('caseCard'+i+'S1').value,
+      s2: document.getElementById('caseCard'+i+'S2').value,
+      s3: document.getElementById('caseCard'+i+'S3').value,
+      n1: document.getElementById('caseCard'+i+'N1').value,
+      n2: document.getElementById('caseCard'+i+'N2').value,
+      n3: document.getElementById('caseCard'+i+'N3').value,
+      img: document.getElementById('caseImg'+i).value
+    };
+  });
+  modules.cases = cs;
+  await api('/api/modules', {method:'POST', body: JSON.stringify(modules)});
+  showToast('案例板块已保存');
+}
+
+
+async function saveCasesSection() {
+  var modules = await api('/api/modules');
+  var cs = modules.cases || {cards:[{},{}]};
+  cs.title = document.getElementById('caseSectionTitle').value;
+  cs.subtitle = document.getElementById('caseSectionSub').value;
+  cs.cards = [0,1].map(function(i){
+    return {
+      tag: document.getElementById('caseCard'+i+'Tag').value,
+      country: document.getElementById('caseCard'+i+'Country').value,
+      cat: document.getElementById('caseCard'+i+'Cat').value,
+      title: document.getElementById('caseCard'+i+'Title').value,
+      desc: document.getElementById('caseCard'+i+'Desc').value,
+      s1: document.getElementById('caseCard'+i+'S1').value,
+      s2: document.getElementById('caseCard'+i+'S2').value,
+      s3: document.getElementById('caseCard'+i+'S3').value,
+      n1: document.getElementById('caseCard'+i+'N1').value,
+      n2: document.getElementById('caseCard'+i+'N2').value,
+      n3: document.getElementById('caseCard'+i+'N3').value,
+      img: document.getElementById('caseImg'+i).value
+    };
+  });
+  modules.cases = cs;
+  await api('/api/modules', {method:'POST', body: JSON.stringify(modules)});
+  showToast('案例板块已保存');
+}
+
+// ─── 新闻 ──────────────────────────────────────────────
+function showNewsModal(id = null) {
+  document.getElementById('newsId').value = id || '';
+  document.getElementById('newsModalTitle').textContent = id ? '编辑新闻' : '添加新闻';
+  document.getElementById('newsTitle').value = '';
+  document.getElementById('newsCategory').value = 'company';
+  document.getElementById('newsExcerpt').value = '';
+  document.getElementById('newsContent').value = '';
+  document.getElementById('newsDate').value = '';
+  document.getElementById('newsTag').value = '';
+  document.getElementById('newsImage').value = '';
+  document.getElementById('preview-newsImage').style.display = 'none';
+  openModal('newsModal');
+}
+
+async function editNews(id) {
+  const list = await api('/api/admin/news');
+  const n = list.find(x => x.id === id);
+  if (!n) return;
+  document.getElementById('newsId').value = n.id;
+  document.getElementById('newsModalTitle').textContent = '编辑新闻';
+  document.getElementById('newsTitle').value = n.title || '';
+  document.getElementById('newsCategory').value = n.category || 'company';
+  document.getElementById('newsExcerpt').value = n.excerpt || '';
+  document.getElementById('newsContent').value = n.content || '';
+  document.getElementById('newsDate').value = n.date || '';
+  document.getElementById('newsTag').value = n.tag || '';
+  if (n.image) { document.getElementById('newsImage').value = n.image; document.getElementById('preview-newsImage').src = n.image; document.getElementById('preview-newsImage').style.display = 'block'; }
+  if (n.images) _uploadedUrls['newsImage'] = n.images;
+  openModal('newsModal');
+}
+
+async function saveNews() {
+  const id = document.getElementById('newsId').value;
+  const existing = id ? (await api('/api/admin/news')).find(n => n.id === id) || {} : {};
+  const formTitle = document.getElementById('newsTitle').value;
+  const formExcerpt = document.getElementById('newsExcerpt').value;
+  const formContent = document.getElementById('newsContent').value;
+  const formDate = document.getElementById('newsDate').value;
+  const formCategory = document.getElementById('newsCategory').value;
+  const formTag = document.getElementById('newsTag').value;
+  const formImg = document.getElementById('newsImage').value;
+
+  const data = {
+    ...existing,
+    title: formTitle || existing.title,
+    title_zh: formTitle || existing.title_zh,
+    title_en: formTitle || existing.title_en,
+    category: formCategory || existing.category,
+    excerpt: formExcerpt || existing.excerpt,
+    excerpt_zh: formExcerpt || existing.excerpt_zh,
+    excerpt_en: formExcerpt || existing.excerpt_en,
+    content: formContent || existing.content,
+    content_zh: formContent || existing.content_zh,
+    content_en: formContent || existing.content_en,
+    date: formDate || existing.date,
+    tag: formTag || existing.tag || '',
+    image: formImg || existing.image,
+    img: formImg || existing.img || existing.image,
+    images: _uploadedUrls['newsImage'] || existing.images || null
+  };
+  // 清理 undefined 值
+  Object.keys(data).forEach(k => { if (data[k] === undefined) delete data[k]; });
+  if (data.success !== undefined) delete data.success;
+
+  if (id) { await api('/api/admin/news/' + id, { method: 'PUT', body: JSON.stringify(data) }); } else { await api('/api/admin/news', { method: 'POST', body: JSON.stringify(data) }); }
+  closeModal('newsModal');
+  loadNews();
+  showToast('新闻已保存');
+}
+
+async function deleteNews(id) {
+  if (!confirm('确定删除？')) return;
+  await api('/api/admin/news/' + id, { method: 'DELETE' });
+  loadNews();
+  showToast('已删除');
+}
+
+async function loadNews() {
+  const news = await api('/api/admin/news');
+  document.getElementById('newsTable').innerHTML = (news || []).map(n => `<tr data-id="${n.id}"><td>${n.title || '-'}</td><td>${n.category || '-'}</td><td>${(n.date || '').substring(0, 10)}</td><td class="table-actions"><button class="btn btn-sm btn-secondary js-edit-news">编辑</button> <button class="btn btn-sm btn-danger js-delete-news">删除</button></td></tr>`).join('') || '<tr><td colspan="4">暂无新闻</td></tr>';
+  document.querySelectorAll('.js-edit-news').forEach(function(btn){ btn.onclick = function(){ editNews(this.closest('tr').dataset.id); }; });
+  document.querySelectorAll('.js-delete-news').forEach(function(btn){ btn.onclick = function(){ if(confirm('确定删除？')){api('/api/admin/news/'+this.closest('tr').dataset.id,{method:'DELETE'}).then(function(){loadNews();});} }; });
+}
+
+// ─── FAQ ──────────────────────────────────────────────
+function showFaqModal(id = null) {
+  document.getElementById('faqId').value = id || '';
+  document.getElementById('faqModalTitle').textContent = id ? '编辑 FAQ' : '添加 FAQ';
+  document.getElementById('faqLang').value = 'zh';
+  document.getElementById('faqSection').value = '工厂实力与资质';
+  document.getElementById('faqOrder').value = '0';
+  document.getElementById('faqQuestion').value = '';
+  document.getElementById('faqAnswer').value = '';
+  openModal('faqModal');
+}
+
+async function editFaq(id) {
+  const list = await api('/api/admin/faqs');
+  const f = list.find(x => x.id === id);
+  if (!f) return;
+  document.getElementById('faqId').value = f.id;
+  document.getElementById('faqModalTitle').textContent = '编辑 FAQ';
+  document.getElementById('faqLang').value = f.lang || 'zh';
+  document.getElementById('faqSection').value = f.section || '供应商资质核查';
+  document.getElementById('faqImage').value = f.image || '';
+  document.getElementById('faqImageAlt').value = f.imageAlt || '';
+  document.getElementById('faqOrder').value = f.order || 0;
+  document.getElementById('faqQuestion').value = f.question || '';
+  document.getElementById('faqAnswer').value = f.answer || '';
+  openModal('faqModal');
+}
+
+async function saveFaq() {
+  const id = document.getElementById('faqId').value;
+  const existing = id ? (await api('/api/admin/faqs')).find(f => f.id === id) || {} : {};
+  const data = {
+    ...existing,
+    section: document.getElementById('faqSection').value || existing.section,
+    order: parseInt(document.getElementById('faqOrder').value) || existing.order || 0,
+    question: document.getElementById('faqQuestion').value || existing.question,
+    answer: document.getElementById('faqAnswer').value || existing.answer,
+    lang: document.getElementById('faqLang').value || existing.lang || 'zh',
+    image: document.getElementById('faqImage').value || existing.image || '',
+    imageAlt: document.getElementById('faqImageAlt').value || existing.imageAlt || ''
+  };
+  if (id) { await api('/api/admin/faqs/' + id, { method: 'PUT', body: JSON.stringify(data) }); } else { await api('/api/admin/faqs', { method: 'POST', body: JSON.stringify(data) }); }
+  closeModal('faqModal');
+  loadFaqs();
+  showToast('FAQ 已保存');
+}
+
+async function deleteFaq(id) {
+  if (!confirm('确定删除？')) return;
+  await api('/api/admin/faqs/' + id, { method: 'DELETE' });
+  loadFaqs();
+  showToast('已删除');
+}
+
+async function loadFaqs() {
+  const faqs = await api('/api/admin/faqs');
+  document.getElementById('faqTable').innerHTML = (faqs || []).map(f => `<tr data-id="${f.id}"><td>${f.section || '-'}</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${f.question || '-'}</td><td>${f.image ? '<span style="color:#22c55e;">✓</span>' : '-'}</td><td>${f.order || 0}</td><td class="table-actions"><button class="btn btn-sm btn-secondary js-edit-faq">编辑</button> <button class="btn btn-sm btn-danger js-delete-faq">删除</button></td></tr>`).join('') || '<tr><td colspan="5">暂无FAQ</td></tr>';
+  document.querySelectorAll('.js-edit-faq').forEach(function(btn){ btn.onclick = function(){ editFaq(this.closest('tr').dataset.id); }; });
+  document.querySelectorAll('.js-delete-faq').forEach(function(btn){ btn.onclick = function(){ if(confirm('确定删除？')){api('/api/admin/faqs/'+this.closest('tr').dataset.id,{method:'DELETE'}).then(function(){loadFaqs();});} }; });
+}
+
+async function loadContact() {
+  const modules = await api('/api/modules');
+  const contact = modules.contact || {};
+  document.getElementById('contactAddress').value = contact.address || '';
+  document.getElementById('contactPhone').value = contact.phone || '';
+  document.getElementById('contactEmail').value = contact.email || '';
+  document.getElementById('contactWhatsapp').value = contact.whatsapp || '';
+  document.getElementById('contactHours').value = contact.hours || '';
+  document.getElementById('contactMapUrl').value = contact.mapUrl || '';
+  document.getElementById('contactLinkedin').value = contact.linkedin || '';
+  document.getElementById('contactFacebook').value = contact.facebook || '';
+  document.getElementById('contactYoutube').value = contact.youtube || '';
+  document.getElementById('contactInstagram').value = contact.instagram || '';
+}
+
+async function saveContact() {
+  const modules = await api('/api/modules');
+  modules.contact = {
+    address: document.getElementById('contactAddress').value,
+    phone: document.getElementById('contactPhone').value,
+    email: document.getElementById('contactEmail').value,
+    whatsapp: document.getElementById('contactWhatsapp').value,
+    hours: document.getElementById('contactHours').value,
+    mapUrl: document.getElementById('contactMapUrl').value,
+    linkedin: document.getElementById('contactLinkedin').value,
+    facebook: document.getElementById('contactFacebook').value,
+    youtube: document.getElementById('contactYoutube').value,
+    instagram: document.getElementById('contactInstagram').value
+  };
+  await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
+  showToast('联系信息已保存');
+}
+
+async function loadCta() {
+  const modules = await api('/api/modules');
+  const cta = modules.cta || {};
+  document.getElementById('ctaTitle').value = cta.title || '';
+  document.getElementById('ctaSubtitle').value = cta.subtitle || '';
+  document.getElementById('ctaBtn1').value = cta.btn1 || '';
+  document.getElementById('ctaBtn2').value = cta.btn2 || '';
+}
+
+async function saveCta() {
+  const modules = await api('/api/modules');
+  modules.cta = { title: document.getElementById('ctaTitle').value, subtitle: document.getElementById('ctaSubtitle').value, btn1: document.getElementById('ctaBtn1').value, btn2: document.getElementById('ctaBtn2').value };
+  await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
+  showToast('CTA设置已保存');
+}
+
+async function loadFooter() {
+  const modules = await api('/api/modules');
+  const footer = modules.footer || {};
+  document.getElementById('footerCopyright').value = footer.copyright || '';
+  document.getElementById('footerAddress').value = footer.address || '';
+  document.getElementById('footerEmail').value = footer.email || '';
+  document.getElementById('footerPhone').value = footer.phone || '';
+}
+
+async function saveFooter() {
+  const modules = await api('/api/modules');
+  modules.footer = { copyright: document.getElementById('footerCopyright').value, address: document.getElementById('footerAddress').value, email: document.getElementById('footerEmail').value, phone: document.getElementById('footerPhone').value };
+  await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
+  showToast('页脚设置已保存');
+}
+
+let _contactsCache = [];
+
+async function loadContacts() {
+  try {
+    const contacts = await api('/api/admin/contacts');
+    _contactsCache = contacts || [];
+    document.getElementById('contactsTable').innerHTML = _contactsCache.length
+      ? _contactsCache.map(c => '<tr>'
+          + '<td>' + (c.name || '-') + '</td>'
+          + '<td>' + (c.email || '-') + '</td>'
+          + '<td>' + (c.interest || '-') + '</td>'
+          + '<td>' + (c.company || '-') + '</td>'
+          + '<td>' + (c.createdAt || '-').substring(0, 16).replace('T', ' ') + '</td>'
+          + '<td><span class="badge ' + (c.status === 'new' ? 'badge-new' : 'badge-read') + '">' + (c.status === 'new' ? '新' : '已读') + '</span></td>'
+          + '<td class="table-actions">'
+          + '<button class="btn btn-sm btn-secondary btn-view-contact" data-id="' + c.id + '">查看</button> '
+          + '<button class="btn btn-sm btn-danger btn-delete-contact" data-id="' + c.id + '">删除</button>'
+          + '</td></tr>').join('')
+      : '<tr><td colspan="7">暂无询盘</td></tr>';
+  } catch(e) {
+    document.getElementById('contactsTable').innerHTML = '<tr><td colspan="7">加载失败，请刷新重试</td></tr>';
+  }
+}
+
+function viewContact(id) {
+  var c = null;
+  for (var i = 0; i < _contactsCache.length; i++) { if (_contactsCache[i].id === id) { c = _contactsCache[i]; break; } }
+  if (!c) { alert('未找到询盘，id=' + id); return; }
+  
+  // 动态创建一个全新的模态框（绕过现有元素）
+  var oldModal = document.getElementById('dynamicContactModal');
+  if (oldModal) oldModal.remove();
+  
+  var modal = document.createElement('div');
+  modal.id = 'dynamicContactModal';
+  modal.innerHTML = 
+    '<div style="background:#fff;border-radius:16px;padding:24px;max-width:500px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3);border:3px solid #3b82f6;">'
+    + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-bottom:1px solid #e5e7eb;padding-bottom:12px;">'
+    + '<h3 style="margin:0;font-size:18px;color:#1f2937;">询盘详情</h3>'
+    + '<button onclick="this.parentElement.parentElement.parentElement.remove()" style="background:none;border:none;font-size:24px;cursor:pointer;color:#6b7280;">&times;</button>'
+    + '</div>'
+    + '<table style="width:100%;border-collapse:collapse;font-size:14px;">'
+    + '<tr><td style="padding:8px 0;color:#6b7280;width:100px;">姓名</td><td style="padding:8px 0;font-weight:500;color:#1f2937;">' + (c.name || '-') + '</td></tr>'
+    + '<tr><td style="padding:8px 0;color:#6b7280;">邮箱</td><td style="padding:8px 0;color:#1f2937;">' + (c.email || '-') + '</td></tr>'
+    + '<tr><td style="padding:8px 0;color:#6b7280;">公司</td><td style="padding:8px 0;color:#1f2937;">' + (c.company || '-') + '</td></tr>'
+    + '<tr><td style="padding:8px 0;color:#6b7280;">国家</td><td style="padding:8px 0;color:#1f2937;">' + (c.country || '-') + '</td></tr>'
+    + '<tr><td style="padding:8px 0;color:#6b7280;">产品</td><td style="padding:8px 0;color:#1f2937;">' + (c.interest || '-') + '</td></tr>'
+    + '<tr><td style="padding:8px 0;color:#6b7280;">时间</td><td style="padding:8px 0;color:#1f2937;">' + (c.createdAt || '-').substring(0, 10) + '</td></tr>'
+    + '</table>'
+    + '<div style="margin-top:16px;padding-top:16px;border-top:1px solid #e5e7eb;">'
+    + '<div style="color:#6b7280;font-size:13px;margin-bottom:8px;">留言内容</div>'
+    + '<div style="background:#f9fafb;padding:12px;border-radius:8px;line-height:1.6;color:#374151;">' + (c.message || '（无留言）') + '</div>'
+    + '</div>'
+    + '</div>';
+  
+  // 关键：直接设置 element.style 属性（不用 cssText）
+  modal.style.display = 'flex';
+  modal.style.position = 'fixed';
+  modal.style.top = '0';
+  modal.style.left = '0';
+  modal.style.width = '100%';
+  modal.style.height = '100%';
+  modal.style.background = 'rgba(0, 0, 0, 0.7)';
+  modal.style.zIndex = '999999';
+  modal.style.alignItems = 'center';
+  modal.style.justifyContent = 'center';
+  
+  document.body.appendChild(modal);
+  
+  // 点击背景关闭
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) modal.remove();
+  });
+}
+function closeContactModal() {
+  var m = document.getElementById('contactDetailModal');
+  m.classList.remove('active');
+  // 清除 viewContact 设置的 inline 样式，确保完全关闭
+  m.style.cssText = '';
+}
+
+async function deleteContact(id) {
+  if (!confirm('确定删除此询盘？')) return;
+  await api('/api/admin/contacts/' + id, { method: 'DELETE' });
+  loadContacts();
+  showToast('询盘已删除');
+}
+
+async function loadAnalytics() {
+  try {
+    const data = await api('/api/analytics');
+    document.getElementById('analyticsTotal').textContent = data.totalViews || 0;
+    document.getElementById('analyticsToday').textContent = data.todayViews || 0;
+    document.getElementById('analyticsActive').textContent = data.activeSessions || 0;
+    document.getElementById('topPagesTable').innerHTML = (data.topPages || []).map(p => '<tr><td>' + p.page + '</td><td>' + p.views + '</td></tr>').join('') || '<tr><td colspan="2">暂无数据</td></tr>';
+    document.getElementById('devicesTable').innerHTML = (data.devices || []).map(d => '<tr><td>' + d.device + '</td><td>' + d.count + '</td></tr>').join('') || '<tr><td colspan="2">暂无数据</td></tr>';
+  } catch(e) { console.error('加载统计数据失败', e); }
+}
+
+async function resetAnalytics() {
+  if (!confirm('确定重置所有统计数据？')) return;
+  await api('/api/analytics/reset', { method: 'POST' });
+  loadAnalytics();
+  showToast('统计数据已重置');
+}
+
+function logout() {
+  localStorage.removeItem('admin_token');
+  localStorage.removeItem('admin_user');
+  window.location.href = '/admin/';
+}
+
+loadDashboard();
+</script>
+</body>
+</html>

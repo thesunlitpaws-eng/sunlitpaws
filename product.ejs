@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF6B35" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" href="/assets/images/logo.png" />
+
+  <!-- 动态 SEO 标签（SSR 渲染）-->
+  <title><%= (lang === 'en' && product.name_en) ? product.name_en : (product.name || 'Product') %> | sunlitpaws Co., Ltd.</title>
+  <meta name="description" content="<%= (lang === 'en' && product.desc_en) ? product.desc_en.substring(0,160) : ((product.desc || '').substring(0,160)) %>" />
+  <meta name="keywords" content="<%= (lang === 'en' && product.name_en) ? product.name_en : (product.name || '') %>, pet products, OEM, wholesale, manufacturer" />
+  <link rel="canonical" href="https://sunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/" />
+  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= (lang === 'en' && product.name_en) ? product.name_en : (product.name || 'Product') %> | sunlitpaws" />
+  <meta property="og:description" content="<%= (lang === 'en' && product.desc_en) ? product.desc_en.substring(0,100) : ((product.desc || '').substring(0,100)) %>" />
+  <meta property="og:type" content="product" />
+  <meta property="og:url" content="https://sunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/" />
+  <meta property="og:site_name" content="sunlitpaws" />
+  <meta property="og:image" content="<%= (product.images && product.images.large) || (product.images && product.images.original) || product.image || '' %>" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= (lang === 'en' && product.name_en) ? product.name_en : (product.name || 'Product') %> | sunlitpaws" />
+  <meta name="twitter:description" content="<%= (lang === 'en' && product.desc_en) ? product.desc_en.substring(0,100) : ((product.desc || '').substring(0,100)) %>" />
+  <meta name="twitter:image" content="<%= (product.images && product.images.large) || (product.images && product.images.original) || product.image || '' %>" />
+
+  <!-- JSON-LD Product 结构化数据 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "<%= (product && lang === 'en' && product.name_en) ? product.name_en : (product.name || '') %>",
+    "description": "<%= (product && lang === 'en' && product.desc_en) ? product.desc_en.replace(/"/g,'&quot;') : ((product.desc || '').replace(/"/g,'&quot;')) %>",
+    <% if (product.images && product.images.large) { %>
+    "image": "https://sunlitpaws.com<%= product.images.large %>",
+    <% } else if (product.image) { %>
+    "image": "https://sunlitpaws.com<%= product.image %>",
+    <% } %>
+    "url": "https://sunlitpaws.com/products/<%= (product ? (product.category_slug || 'products') : 'products') %>/<%= (product ? (product.subcategory_slug || 'general') : 'general') %>/<%= (product ? (product.type_slug || 'default') : 'default') %>/<%= (product ? (product.slug || product.id) : product.id) %>/",
+    "sku": "<%= product.id %>",
+    <% if (product.moq) { %>
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/NewCondition",
+      "seller": { "@type": "Organization", "name": "sunlitpaws Co., Ltd." },
+      "moq": "<%= product.moq %>"
+    },
+    <% } %>
+    "brand": { "@type": "Brand", "name": "sunlitpaws" },
+    "manufacturer": {
+      "@type": "Organization",
+      "name": "sunlitpaws Co., Ltd.",
+      "url": "https://sunlitpaws.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Shijiazhuang",
+        "addressRegion": "Hebei",
+        "addressCountry": "CN"
+      }
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    body { padding-top: 80px; }
+
+    .detail-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      padding: 8px 0;
+      transition: gap 0.2s;
+    }
+    .detail-back:hover { gap: 12px; }
+    .detail-hero {
+      background: linear-gradient(135deg, #fff8f4 0%, #fff0e8 100%);
+      padding: 60px 0 40px;
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .detail-gallery { position: relative; }
+    .detail-main-img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      max-height: 600px;
+      object-fit: contain;
+      border-radius: 16px;
+      background: #f8f6f3;
+      cursor: zoom-in;
+      transition: transform 0.2s;
+    }
+    .detail-main-img:hover { transform: scale(1.02); }
+    .detail-gallery-wrap {
+      background: #f8f6f3;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .detail-thumbs {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .detail-thumb {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      background: #f0ebe5;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+      padding: 4px;
+      box-sizing: border-box;
+    }
+    .detail-thumb.active,
+    .detail-thumb:hover { border-color: var(--primary); }
+    .detail-info h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .detail-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .detail-tag {
+      background: var(--bg-light);
+      color: var(--text-muted);
+      font-size: 12px;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .detail-tag.primary { background: rgba(255,107,53,0.1); color: var(--primary); }
+    .detail-desc {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+    .detail-params {
+      background: var(--bg-light);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+    .detail-params h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+    .detail-params-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .detail-param {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .detail-param-label { color: var(--text-muted); }
+    .detail-param-val { font-weight: 600; color: var(--text); }
+    .detail-moq {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding: 16px;
+      background: linear-gradient(135deg, rgba(255,107,53,0.08), rgba(255,140,90,0.05));
+      border-radius: 12px;
+      border: 1px solid rgba(255,107,53,0.15);
+    }
+    .detail-moq-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .detail-moq-text strong { font-size: 18px; color: var(--primary); }
+    .detail-moq-text span { font-size: 13px; color: var(--text-muted); }
+    .detail-btns {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .detail-sect {
+      padding: 60px 0;
+    }
+    .detail-sect h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+    .detail-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .detail-feature {
+      background: var(--bg-light);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .detail-feature-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,107,53,0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .detail-feature h4 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .detail-feature p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+    .detail-related {
+      background: var(--bg-light);
+      padding: 60px 0;
+    }
+    .detail-related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .related-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .related-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+    .related-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+    .related-card-info { padding: 14px; }
+    .related-card h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .related-card p { font-size: 12px; color: var(--text-muted); }
+    /* 产品描述区域 */
+    .detail-description { padding: 60px 0; background: #f8f9fa; }
+    .detail-description h2 { font-size: 28px; font-weight: 700; margin-bottom: 24px; color: var(--text); }
+    .description-content { background: #fff; padding: 32px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+    .description-content p { font-size: 16px; line-height: 1.8; color: var(--text); margin: 0; }
+    @media (max-width: 768px) {
+      .detail-grid { grid-template-columns: 1fr; gap: 32px; }
+      .detail-related-grid { grid-template-columns: repeat(2, 1fr); }
+      .detail-description { padding: 40px 0; }
+      .description-content { padding: 20px; }
+    }
+  </style>
+<script>
+  window.__SSR_DATA__ = {
+    product: <%- JSON.stringify(product || {}) %>,
+    relatedProducts: <%- JSON.stringify(relatedProducts || []) %>,
+    allProducts: <%- JSON.stringify(allProducts || []) %>,
+    lang: '<%= lang %>',
+    _ssr: <%= _ssr %>
+  };
+</script>
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <img src="/assets/images/logo.png" alt="Bingling Technology" class="logo-img">
+        <div class="logo-text">
+          <span class="logo-en">Bingling Technology</span>
+          <span class="logo-cn">河北炳临科技</span>
+        </div>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="/#home" class="nav-link">Home</a>
+        <a href="/#about" class="nav-link">About Us</a>
+        <a href="/#products" class="nav-link active">Products</a>
+        <a href="/#solutions" class="nav-link">Solutions</a>
+        <a href="/#cases" class="nav-link">Cases</a>
+        <a href="/#news" class="nav-link">News</a>
+        <a href="/#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <div class="lang-switcher" id="langSwitcher">
+          <button class="lang-btn" id="langBtn">
+            <span class="lang-flag">🌐</span>
+            <span class="lang-current">EN</span>
+            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          </button>
+          <div class="lang-dropdown" id="langDropdown">
+            <button class="lang-option active" data-lang="en">English</button>
+            <button class="lang-option" data-lang="zh">中文</button>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="detail-back-wrap" style="background:#fff;padding:20px 0 0;">
+      <div class="container">
+        <a href="/products/" class="detail-back" id="backBtn">← Back to Products</a>
+      </div>
+    </div>
+
+    <section class="detail-hero">
+      <div class="container">
+        <div class="detail-grid" id="detailGrid">
+          <% if (product) { %>
+          <%
+            var pLang = lang;
+            var pMainImg = (product.images && product.images.original) ? product.images.original : (product.images && product.images.large) ? product.images.large : (product.image || 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&q=80');
+            var pName = (pLang === 'en' && product.name_en) ? product.name_en : (product.name || 'Product');
+            var pDesc = (pLang === 'en' && product.desc_en) ? product.desc_en : (product.desc || '');
+            var pBadge = (pLang === 'en' && product.badge_en) ? product.badge_en : (product.badge || product.category || '产品');
+            var pCatSlug = product.category_slug || 'products';
+            var pSubSlug = product.subcategory_slug || 'general';
+            var pTypeSlug = product.type_slug || 'standard';
+            // 返回分类指向category级别，显示该大类下所有产品
+            var pCatUrl = '/products/' + pCatSlug + '/';
+            var pThumbs = [];
+            if (product.images) {
+              if (product.images.original) pThumbs.push(product.images.original);
+              if (product.images.large) pThumbs.push(product.images.large);
+              if (product.images.medium) pThumbs.push(product.images.medium);
+            }
+            if (pThumbs.length === 0) pThumbs.push(pMainImg);
+            var pSpecs = [
+              { label: '产品尺寸', val: product.size || '-' },
+              { label: '产品重量', val: product.weight || '-' },
+              { label: '包装尺寸', val: product.packSize || '-' },
+              { label: '包装重量', val: product.packWeight || '-' },
+              { label: '材质', val: product.material || '-' },
+              { label: '认证', val: product.cert || '-' },
+              { label: 'MOQ 起订量', val: product.moq || '-' },
+              { label: '货期', val: product.lead || '-' },
+              { label: '包装方式', val: product.packaging || '-' }
+            ];
+          %>
+          <div class="detail-gallery">
+            <div class="detail-gallery-wrap">
+              <img src="<%= pMainImg %>" alt="<%= pName %>" class="detail-main-img" id="mainImg">
+            </div>
+            <div class="detail-thumbs">
+              <% pThumbs.forEach(function(t, i) { %>
+              <img src="<%= t %>" class="detail-thumb<%= i===0 ? ' active' : '' %>" onclick="changeImg('<%= t %>', this)">
+              <% }); %>
+            </div>
+          </div>
+          <div class="detail-info">
+            <span class="detail-tag primary"><%= pBadge %></span>
+            <h1><%= pName %></h1>
+            <!-- 产品描述移至下方 detail-description 区域 -->
+            <div class="detail-moq">
+              <div class="detail-moq-icon">📦</div>
+              <div class="detail-moq-text">
+                <strong>MOQ: <%= product.moq || '可商议' %></strong><br>
+                <span>支持试单定制 · 可提供样品</span>
+              </div>
+            </div>
+            <div class="detail-params">
+              <h3>产品规格参数</h3>
+              <div class="detail-params-grid">
+                <% pSpecs.forEach(function(s) { %>
+                <div class="detail-param">
+                  <span class="detail-param-label"><%= s.label %></span>
+                  <span class="detail-param-val"><%= s.val %></span>
+                </div>
+                <% }); %>
+              </div>
+            </div>
+            <div class="detail-btns">
+              <button class="btn btn-primary btn-lg" onclick="openInquiry()">💬 询价</button>
+              <button onclick="goBack()" class="btn btn-outline btn-lg">← 返回分类</button>
+            </div>
+          </div>
+          <% } else { %>
+          <p style="padding:40px;text-align:center">产品不存在</p>
+          <% } %>
+        </div>
+      </div>
+    </section>
+
+    <!-- 产品描述区域 -->
+    <section class="detail-description">
+      <div class="container">
+        <h2><%= lang === 'zh' ? '产品描述' : 'Product Description' %></h2>
+        <div class="description-content">
+          <p><%= lang === 'en' && product && product.desc_en ? product.desc_en : (product && product.desc ? product.desc : '') %></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-related">
+      <div class="container">
+        <h2 style="font-size:28px;font-weight:700;margin-bottom:0;"><%= lang === 'zh' ? '相关产品' : 'Related Products' %></h2>
+        <div class="detail-related-grid" id="relatedGrid">
+          <% if (relatedProducts && relatedProducts.length) { %>
+            <% relatedProducts.forEach(r => { %>
+              <a href="/products/<%= r.category_slug || 'products' %>/<%= r.subcategory_slug || 'general' %>/<%= r.type_slug || 'standard' %>/<%= r.slug || r.id %>/" class="related-card">
+                <img src="<%= r.image || '' %>" alt="<%= (lang === 'en' && r.name_en) ? r.name_en : (r.name || '') %>" loading="lazy">
+                <div class="related-card-info">
+                  <h4><%= (lang === 'en' && r.name_en) ? r.name_en : (r.name || '') %></h4>
+                  <p>MOQ: <%= r.moq || '' %></p>
+                </div>
+              </a>
+            <% }) %>
+          <% } %>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="logo logo-white">
+          <img src="/assets/images/logo.png" alt="Bingling Technology" class="logo-img logo-img-footer">
+          <div class="logo-text">
+            <span class="logo-en">Bingling Technology</span>
+            <span class="logo-cn">河北炳临科技</span>
+          </div>
+        </a>
+        <p class="footer-desc">Professional pet products manufacturer and exporter. Serving global buyers with quality, reliability, and innovation since 2014.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Products</h4>
+          <a href="/#products">Pet Food</a>
+          <a href="/#products">Pet Toys</a>
+          <a href="/#products">Pet Supplies</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="/#about">About Us</a>
+          <a href="/#solutions">Solutions</a>
+          <a href="/#cases">Cases</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <a href="/#contact">Contact Us</a>
+          <a href="/#news">News</a>
+          <a href="/">Download Catalog</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 sunlitpaws Co., Ltd. Co., Ltd. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 优先使用 SSR 数据，避免重复请求
+    let p = window.__SSR_DATA__?.product || null;
+    let allProducts = window.__SSR_DATA__?.allProducts || [];
+    let relatedProducts = window.__SSR_DATA__?.relatedProducts || [];
+    
+    async function init() {
+      // SSR 已渲染内容，JS 仅做 SEO 增强和返回链接修正
+      if (p && allProducts.length > 0) {
+        updateSEO(p);
+        // 修正返回按钮为 goBack 函数
+        var backBtn = document.getElementById('backBtn');
+        if (backBtn) {
+          backBtn.removeAttribute('href');
+          backBtn.onclick = goBack;
+        }
+        currentProductName = (window.__SSR_DATA__?.lang === 'en' && p.name_en) ? p.name_en : (p.name || '');
+        return;
+      }
+      
+      // SSR 数据不完整，fallback 到 API 请求
+      const params = new URLSearchParams(window.location.search);
+      const pid = params.get('id');
+      const slug = params.get('slug');
+      const category = params.get('category');
+
+      try {
+        const allRes = await fetch('/api/site/products?t=' + Date.now());
+        allProducts = allRes.ok ? await allRes.json() : [];
+
+        if (pid) {
+          // 旧方式：通过 ID
+          const productRes = await fetch('/api/admin/products/' + pid);
+          if (productRes.ok) p = await productRes.json();
+        } else if (slug && category) {
+          // 旧方式：?slug=&category=
+          p = allProducts.find(x => x.slug === slug && x.category_slug === category);
+        } else {
+          // 从 URL 路径解析 4 层：/products/:cat/:sub/:type/:slug/
+          const pathParts = window.location.pathname.split('/').filter(Boolean);
+          if (pathParts.length >= 5 && pathParts[0] === 'products') {
+            const cat = pathParts[1];
+            const sub = pathParts[2];
+            const type = pathParts[3];
+            const sl = pathParts[4].replace(/\/$/, '');
+            p = allProducts.find(x =>
+              x.slug === sl &&
+              x.category_slug === cat &&
+              x.subcategory_slug === sub &&
+              x.type_slug === type
+            );
+          }
+          // 兼容旧的 3 层格式 /products/:cat/:sub/:slug/
+          if (!p && pathParts.length === 4 && pathParts[0] === 'products') {
+            const cat = pathParts[1];
+            const sub = pathParts[2];
+            const sl = pathParts[3].replace(/\/$/, '');
+            p = allProducts.find(x =>
+              x.slug === sl &&
+              x.category_slug === cat &&
+              x.subcategory_slug === sub
+            );
+          }
+        }
+
+        if (!p) {
+          document.getElementById('detailGrid').innerHTML = '<p style="padding:40px;text-align:center">产品不存在</p>';
+          return;
+        }
+
+        renderDetail(p, allProducts.filter(x => x.id !== p.id).slice(0, 4));
+      } catch(e) {
+        document.getElementById('detailGrid').innerHTML = '<p style="padding:40px;text-align:center">产品加载失败：' + e.message + '</p>';
+        document.getElementById('relatedGrid').innerHTML = '';
+      }
+    }
+
+    function updateSEO(p) {
+      const lang = localStorage.getItem('preferredLang') || 'zh';
+      // 动态更新 SEO 标签
+      const name = (lang === 'en' && p.name_en) ? p.name_en : (p.name || 'Product');
+      const desc = ((lang === 'en' && p.desc_en) ? p.desc_en : (p.desc || '')).substring(0, 160);
+      const cat = p.category_slug || 'products';
+      const sub = p.subcategory_slug || 'general';
+      const slug = p.slug || p.id;
+      const url = `https://sunlitpaws.com/products/${cat}/${sub}/${slug}/`;
+      const image = (p.images && p.images.original) || p.image || '';
+
+      // Title
+      document.title = `${name} | sunlitpaws Co., Ltd.`;
+
+      // Meta tags
+      document.querySelector('meta[name="description"]').setAttribute('content', desc || 'Professional pet products manufacturer.');
+      // Keywords（使用产品 badge 或分类）
+      const badge = (lang === 'en' && p.badge_en) ? p.badge_en : (p.badge || cat);
+      document.querySelector('meta[name="keywords"]').setAttribute('content',
+        `${name}, pet products, ${badge}, OEM manufacturer, wholesale pet supplies`);
+
+      // Canonical
+      document.querySelector('link[rel="canonical"]').setAttribute('href', url);
+
+      // Open Graph
+      document.querySelector('meta[property="og:title"]').setAttribute('content', name);
+      document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
+      document.querySelector('meta[property="og:url"]').setAttribute('content', url);
+      if (image) {
+        let ogImage = document.querySelector('meta[property="og:image"]');
+        if (!ogImage) {
+          ogImage = document.createElement('meta');
+          ogImage.setAttribute('property', 'og:image');
+          document.head.appendChild(ogImage);
+        }
+        ogImage.setAttribute('content', image);
+      }
+
+      // Twitter Card
+      document.querySelector('meta[name="twitter:title"]').setAttribute('content', name);
+      document.querySelector('meta[name="twitter:description"]').setAttribute('content', desc);
+
+      // 添加结构化数据（Product schema）
+      const structuredData = {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": name,
+        "description": desc,
+        "image": image,
+        "brand": {
+          "@type": "Brand",
+          "name": "sunlitpaws"
+        },
+        "manufacturer": {
+          "@type": "Organization",
+          "name": "sunlitpaws Co., Ltd."
+        },
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "priceCurrency": "USD",
+          "price": "Contact for quote",
+          "seller": {
+            "@type": "Organization",
+            "name": "sunlitpaws Co., Ltd."
+          }
+        }
+      };
+
+      let ldJson = document.querySelector('script[type="application/ld+json"]');
+      if (!ldJson) {
+        ldJson = document.createElement('script');
+        ldJson.setAttribute('type', 'application/ld+json');
+        document.head.appendChild(ldJson);
+      }
+      ldJson.textContent = JSON.stringify(structuredData);
+    }
+
+    function renderDetail(p, relatedProducts) {
+      // 更新 SEO
+      updateSEO(p);
+      
+      // 获取语言（优先 SSR 数据，其次 localStorage）
+      const lang = window.__SSR_DATA__?.lang || localStorage.getItem('preferredLang') || 'zh';
+
+      const mainImg = (p.images && p.images.original) ? p.images.original : (p.images && p.images.large) ? p.images.large : (p.image || 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&q=80');
+      const thumbs = (() => {
+  if (p.images) {
+    const t = [];
+    if (p.images.original) t.push(p.images.original);
+    if (p.images.large) t.push(p.images.large);
+    if (p.images.medium) t.push(p.images.medium);
+    return t.length ? t : [mainImg];
+  }
+  return [mainImg];
+})();
+
+      const specs = [
+        { label: '产品尺寸', val: p.size || '-' },
+        { label: '产品重量', val: p.weight || '-' },
+        { label: '包装尺寸', val: p.packSize || '-' },
+        { label: '包装重量', val: p.packWeight || '-' },
+        { label: '材质', val: p.material || '-' },
+        { label: '认证', val: p.cert || '-' },
+        { label: 'MOQ 起订量', val: p.moq || '-' },
+        { label: '货期', val: p.lead || '-' },
+        { label: '包装方式', val: p.packaging || '-' },
+      ];
+
+      // features 变量已删除（产品特性区域已移除）
+
+      currentProductName = p.name || '';
+      const catSlug = p.category_slug || 'products';
+      const subSlug = p.subcategory_slug || 'general';
+      const typeSlug = p.type_slug || 'standard';
+      const prodSlug = p.slug || p.id;
+
+      // 动态更新返回按钮（使用 goBack 函数）
+      var backBtn = document.getElementById('backBtn');
+      if (backBtn) {
+        backBtn.removeAttribute('href');
+        backBtn.onclick = goBack;
+      }
+
+      document.getElementById('detailGrid').innerHTML = '<div class="detail-gallery"><div class="detail-gallery-wrap"><img src="' + mainImg + '" alt="' + (p.name||'') + '" class="detail-main-img" id="mainImg"></div><div class="detail-thumbs">' + thumbs.map((t,i) => '<img src="' + t + '" class="detail-thumb ' + (i===0?'active':'') + '" onclick="changeImg(\'' + t.replace(/'/g, "\\'") + '\', this)">').join('') + '</div></div><div class="detail-info"><span class="detail-tag primary">' + ((lang === 'en' && p.badge_en) ? p.badge_en : (p.badge || p.category || '产品')) + '</span><h1>' + ((lang === 'en' && p.name_en) ? p.name_en : (p.name||'')) + '</h1><p class="detail-desc">' + ((lang === 'en' && p.desc_en) ? p.desc_en : (p.desc||'')) + '</p><div class="detail-moq"><div class="detail-moq-icon">📦</div><div class="detail-moq-text"><strong>MOQ: ' + (p.moq||'可议') + '</strong><br><span>支持试单定制 · 可提供样品</span></div></div><div class="detail-params"><h3>产品规格参数</h3><div class="detail-params-grid">' + specs.map(s => '<div class="detail-param"><span class="detail-param-label">' + s.label + '</span><span class="detail-param-val">' + s.val + '</span></div>').join('') + '</div></div><div class="detail-btns"><button class="btn btn-primary btn-lg" onclick="openInquiry()">💬 询价</button><button onclick="goBack()" class="btn btn-outline btn-lg">← 返回分类</button></div></div>';
+
+      // 相关产品已由 SSR 渲染，无需 JS 重复渲染
+    }
+
+    function changeImg(src, el) {
+      var img = document.getElementById('mainImg');
+      if (img) img.src = src;
+      document.querySelectorAll('.detail-thumb').forEach(function(t){ t.classList.remove('active'); });
+      if (el) el.classList.add('active');
+    }
+
+    // 在 DOM 加载完成后初始化（SSR 已渲染内容，JS 仅做增强）
+    document.addEventListener('DOMContentLoaded', function() { init(); });
+</script>
+
+<!-- ===== INQUIRY MODAL ===== -->
+<div class="modal-overlay" id="inquiryModal" onclick="closeInquiry(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeInquiry()">&times;</button>
+    <div class="modal-header">
+      <h3>Send Your Inquiry / 发送您的询价</h3>
+      <p id="inquiryProductName" style="color:#f60;font-weight:600;"></p>
+      <p style="font-size:0.85em;color:#999;margin-top:4px;">We'll respond within 24 business hours</p>
+    </div>
+    <form class="modal-form" onsubmit="submitProductInquiry(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name / 姓名 *</label>
+          <input type="text" required placeholder="John Smith" id="inq_name"/>
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" required placeholder="john@company.com" id="inq_email"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Company Name / 公司名称 *</label>
+        <input type="text" required placeholder="Your Company Ltd." id="inq_company"/>
+      </div>
+      <div class="form-group">
+        <label>Requirements / 需求描述 *</label>
+        <textarea rows="3" required placeholder="Please describe your requirements (quantity, specifications, customization needs...)" id="inq_message"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" id="inqSubmitBtn">Send Inquiry / 发送询价</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="productToast">
+  <div class="toast-icon">✅</div>
+  <div>
+    <strong>Inquiry Sent! / 询价已发送！</strong>
+    <p>We'll get back to you within 24 hours.</p>
+  </div>
+</div>
+
+<script>
+// ─── 询价弹窗 ───
+var currentProductName = '';
+
+function openInquiry() {
+  var el = document.getElementById('inquiryProductName');
+  if (el && currentProductName) {
+    el.textContent = 'Product: ' + currentProductName;
+  }
+  document.getElementById('inquiryModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeInquiry(e) {
+  if (!e || e.target === e.currentTarget) {
+    document.getElementById('inquiryModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+function submitProductInquiry(e) {
+  e.preventDefault();
+  var btn = document.getElementById('inqSubmitBtn');
+  var origText = btn.textContent;
+  btn.textContent = 'Sending... / 发送中...';
+  btn.disabled = true;
+
+  var data = {
+    name: document.getElementById('inq_name').value,
+    email: document.getElementById('inq_email').value,
+    company: document.getElementById('inq_company').value,
+    message: 'Product: ' + currentProductName + '\n\n' + document.getElementById('inq_message').value,
+    type: 'inquiry'
+  };
+
+  fetch('/api/site/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(res) {
+    if (res.ok) {
+      closeInquiry();
+      var toast = document.getElementById('productToast');
+      toast.classList.add('show');
+      setTimeout(function() { toast.classList.remove('show'); }, 3000);
+      e.target.reset();
+    } else {
+      alert('Submission failed, please try again. / 提交失败，请重试。');
+    }
+  })
+  .catch(function(err) {
+    alert('Network error, please try again. / 网络错误，请重试。');
+    console.error(err);
+  })
+  .finally(function() {
+    btn.textContent = origText;
+    btn.disabled = false;
+  });
+}
+
+// 返回上一页（产品列表页）
+function goBack() {
+  // 如果有来源记录，返回来源
+  if (document.referrer && document.referrer.includes('/products/')) {
+    window.location.href = document.referrer;
+  } else {
+    // 否则用浏览器历史返回
+    window.history.back();
+  }
+}
+
+// 询价按钮已通过 SSR onclick="openInquiry()" 绑定，无需额外劫持
+</script>
+<script src="/app.js?v=20260424"></script>
+</body>
+</html>

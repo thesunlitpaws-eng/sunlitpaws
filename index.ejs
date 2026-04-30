@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF6B35" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23FF6B35'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-size='18'%3E🐾%3C/text%3E%3C/svg%3E" />
+  <link rel="apple-touch-icon" href="assets/images/logo.png" />
+  <link rel="canonical" href="https://sunlitpaws.com/" />
+  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com/?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com/?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="sunlitpaws Co., Ltd. | Professional Pet Products Manufacturer" />
+  <meta property="og:description" content="Professional pet products manufacturer and exporter. ISO/FDA certified. OEM/ODM services. Serving 30+ countries worldwide." />
+  <meta property="og:image" content="/uploads/large/2d6d9b50-11d6-4006-a944-57de64f75963.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sunlitpaws.com" />
+  <meta property="og:site_name" content="sunlitpaws" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="sunlitpaws Co., Ltd." />
+  <meta name="twitter:description" content="Professional pet products manufacturer and exporter." />
+
+  <title>sunlitpaws Co., Ltd. | Professional Pet Products Manufacturer</title>
+  <meta name="description" content="Leading cat tree and pet furniture manufacturer from China. 15+ years experience, ISO/CE certified. OEM/ODM services for global B2B buyers. 80,000 pcs/month capacity, serving 30+ countries." />
+  <meta name="keywords" content="cat tree manufacturer, cat furniture factory, pet tree supplier, cat scratching post, pet furniture OEM, China cat tree exporter, wholesale cat furniture, B2B pet products" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "sunlitpaws Co., Ltd.",
+    "alternateName": "河北炳临科技有限公司",
+    "url": "https://sunlitpaws.com",
+    "logo": "https://sunlitpaws.com/assets/images/logo.png",
+    "description": "Professional pet products manufacturer and exporter based in Shijiazhuang, China. ISO/FDA certified with OEM/ODM capabilities.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Zhengding County",
+      "addressLocality": "Shijiazhuang",
+      "addressRegion": "Hebei",
+      "postalCode": "050800",
+      "addressCountry": "CN"
+    },
+    "areaServed": "Worldwide",
+    "knowsAbout": ["Pet Products Manufacturing", "OEM/ODM Services", "Pet Furniture", "Pet Toys"],
+    "sameAs": []
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <img src="assets/images/logo.png" alt="sunlitpaws" class="logo-img">
+      <div class="logo-text">
+        <span class="logo-en">sunlitpaws</span>
+        <span class="logo-cn">河北炳临科技</span>
+      </div>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="#home" class="nav-link active" data-i18n="nav.home">Home</a>
+      <a href="#about" class="nav-link" data-i18n="nav.about">About Us</a>
+      
+      <a href="#products" class="nav-link" data-i18n="nav.products">Products</a>
+      <a href="#solutions" class="nav-link" data-i18n="nav.solutions">Solutions</a>
+      <a href="#cases" class="nav-link" data-i18n="nav.cases">Cases</a>
+      <a href="#news" class="nav-link" data-i18n="nav.news">News</a>
+      <a href="#faq" class="nav-link" data-i18n="nav.faq">FAQ</a>
+      <a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn" id="langBtn">
+          <span class="lang-flag">🌐</span>
+          <span class="lang-current">EN</span>
+          <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        </button>
+        <div class="lang-dropdown" id="langDropdown">
+          <button class="lang-option active" data-lang="en">English</button>
+          <button class="lang-option" data-lang="zh">中文</button>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="openInquiry()" data-i18n="nav.cta">Get Quote</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <div class="hero-slider" id="heroSlider"><% if (modules && modules.hero && modules.hero.slides) { %><% modules.hero.slides.forEach(function(slide, i) { %><div class="hero-slide<%= i === 0 ? ' active' : '' %>" style="<%= slide.image ? "background-image: url('" + slide.image + "')" : '' %>"><div class="slide-overlay"></div></div><% }); %><% } %></div>
+  <div class="hero-dots" id="heroDots"><% if (modules && modules.hero && modules.hero.slides) { %><% modules.hero.slides.forEach(function(slide, i) { %><button class="hero-dot<%= i === 0 ? ' active' : '' %>" data-slide="<%= i %>"></button><% }); %><% } %></div>
+  <button class="hero-arrow hero-arrow-left" id="heroPrev" aria-label="Previous slide">&#10094;</button>
+  <button class="hero-arrow hero-arrow-right" id="heroNext" aria-label="Next slide">&#10095;</button>
+
+  <div class="container hero-content">
+    <h1 class="hero-title" data-i18n="hero.title"><%- (modules && modules.hero && modules.hero.title) ? modules.hero.title.replace(/\n/g, '<br>') : 'Professional Pet Products<br/>Manufacturer for Global Buyers' %></h1>
+    <p class="hero-sub" data-i18n="hero.sub"><%- (modules && modules.hero && modules.hero.subtitle) ? modules.hero.subtitle : '专注宠物家具、宠物用品研发生产10年，通过ISO/FDA等国际认证<br/>Serving 30+ countries with OEM/ODM capabilities.' %></p>
+    <div class="hero-btns">
+      <button class="btn btn-primary btn-lg" onclick="openInquiry()" data-i18n="hero.cta1">Get Product Catalog</button>
+      <a href="#contact" class="btn btn-contact-prominent btn-lg" data-i18n="hero.cta2" style="text-decoration:none;">Contact Us</a>
+    </div>
+    <div class="hero-stats">
+      <% if (modules && modules.hero && modules.hero.stats) { %>
+        <% modules.hero.stats.forEach(function(stat, i) { %>
+          <% if (i > 0) { %><div class="hero-stat-divider"></div><% } %>
+          <div class="hero-stat">
+            <span class="stat-num"><%= stat.value %></span>
+            <span class="stat-label"><%= stat.label %></span>
+          </div>
+        <% }); %>
+      <% } else { %>
+        <div class="hero-stat">
+          <span class="stat-num">10+</span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num">30+</span>
+          <span class="stat-label">Countries Served</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num">500+</span>
+          <span class="stat-label">Product SKUs</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-num">200+</span>
+          <span class="stat-label">Global Partners</span>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="section about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal">
+        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=700&q=80" alt="sunlitpaws Factory" />
+        <div class="about-img-badge">
+          <span class="about-badge-num">10+</span>
+          <span data-i18n="about.badge">Years of Excellence</span>
+        </div>
+      </div>
+      <div class="about-text reveal" style="--delay:0.1s">
+        <span class="section-tag" data-i18n="about.tag">About Us</span>
+        <h2 class="section-title" data-i18n="about.title">Your Trusted Manufacturing Partner in Pet Products</h2>
+        <p class="about-lead" data-i18n="about.lead">Founded in 2014, Hebei sunlitpaws has grown into a professional pet products manufacturer and exporter, serving 200+ global brands across 30+ countries.</p>
+        <p data-i18n="about.p1">Our 8,000m² production facility in Shijiazhuang, Hebei Province, is equipped with advanced automated production lines and a dedicated R&D center. We specialize in pet food, pet toys, and pet supplies — from cat trees and pet strollers to pet carriers and cat litter boxes.</p>
+        <p data-i18n="about.p2">Strict quality control — all products are manufactured under comprehensive quality management systems, meeting the highest international safety and quality standards.</p>
+        <div class="about-btns">
+          <button class="btn btn-primary" onclick="openInquiry()" data-i18n="about.cta">Get a Custom Quote</button>
+          <a href="#contact" class="btn btn-contact-prominent" data-i18n="about.contact" style="text-decoration:none;">Contact Us</a>
+        </div>
+        
+</div></div></section>
+
+
+<!-- ===== FACTORY GALLERY ===== -->
+<div class="factory-in-about">
+  <div class="section-header reveal">
+    <span class="section-tag" data-i18n="factory.tag">Factory Overview</span>
+    <h2 class="section-title" data-i18n="factory.title">Our Production Capabilities</h2>
+    <p class="section-sub" data-i18n="factory.sub">Take a look inside our 8,000m² manufacturing facility in Shijiazhuang</p>
+  </div>
+  <div class="factory-grid reveal" id="factoryGrid">
+    <div class="factory-card" data-index="0">
+      <div class="factory-img-wrap">
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80" alt="Production Workshop" class="factory-img" loading="lazy">
+        <div class="factory-overlay">
+          <div class="factory-info">
+            <span class="factory-num">01</span>
+            <h3 class="factory-name" data-i18n="factory.card1.name">Production Workshop</h3>
+            <p class="factory-desc" data-i18n="factory.card1.desc">8,000m² automated production lines with strict QC at every stage</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="factory-card" data-index="1">
+      <div class="factory-img-wrap">
+        <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80" alt="Product Showroom" class="factory-img" loading="lazy">
+        <div class="factory-overlay">
+          <div class="factory-info">
+            <span class="factory-num">02</span>
+            <h3 class="factory-name" data-i18n="factory.card2.name">Product Showroom</h3>
+            <p class="factory-desc" data-i18n="factory.card2.desc">5,000+ SKUs on display — cat trees, strollers, carriers</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="factory-card" data-index="2">
+      <div class="factory-img-wrap">
+        <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=800&q=80" alt="Global Shipping" class="factory-img" loading="lazy">
+        <div class="factory-overlay">
+          <div class="factory-info">
+            <span class="factory-num">03</span>
+            <h3 class="factory-name" data-i18n="factory.card3.name">Global Shipping</h3>
+            <p class="factory-desc" data-i18n="factory.card3.desc">Weekly container shipments to 30+ countries worldwide</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+// 动态加载 Factory 卡片数据
+(function() {
+  fetch('/api/modules')
+    .then(function(r) { return r.json(); })
+    .then(function(m) {
+      var factory = m.factory;
+      if (!factory || !factory.cards) return;
+      // 更新标题和副标题（已由 loadHeroSlides / loadModules 处理，i18n 会生效）
+      var grid = document.getElementById('factoryGrid');
+      if (!grid) return;
+      // 只更新图片，不替换整个内容，保持 data-i18n 属性
+      var cards = document.querySelectorAll('.factory-card');
+      factory.cards.forEach(function(c, i) {
+        if (cards[i]) {
+          var img = cards[i].querySelector('.factory-img');
+          if (img && c.image) img.src = c.image;
+        }
+      });
+    })
+    .catch(function(e) { console.warn('Factory load failed', e); });
+})();
+</script>
+
+<section class="section advantages" id="advantages">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="adv.tag">Why Choose Us</span>
+      <h2 class="section-title" data-i18n="adv.title">Built on Trust, Driven by Quality</h2>
+      <p class="section-sub" data-i18n="adv.sub">Four pillars that make us the preferred manufacturing partner for global pet brands</p>
+    </div>
+    <div class="adv-grid">
+      <div class="adv-card reveal">
+        <div class="adv-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M16 3L4 9v7c0 7.18 5.16 13.9 12 15.5C22.84 29.9 28 23.18 28 16V9L16 3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M11 16l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 data-i18n="adv.c1.title">10+ Years Export Experience</h3>
+        <p data-i18n="adv.c1.desc">Serving global buyers across North America, Europe, Southeast Asia and beyond with deep understanding of international trade requirements.</p>
+      </div>
+      <div class="adv-card reveal" style="--delay:0.1s">
+        <div class="adv-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect x="4" y="4" width="24" height="24" rx="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M10 16l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 data-i18n="adv.c2.title">International Certifications</h3>
+        <p data-i18n="adv.c2.desc">ISO 9001, ISO 22000, FDA, BSCI and more. Our comprehensive certification portfolio ensures compliance with global market standards.</p>
+      </div>
+      <div class="adv-card reveal" style="--delay:0.2s">
+        <div class="adv-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="2"/>
+            <path d="M16 8v8l5 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 data-i18n="adv.c3.title">OEM/ODM Capabilities</h3>
+        <p data-i18n="adv.c3.desc">Full customization from product design to packaging. Our R&D team brings your brand vision to life with flexible MOQ and fast turnaround.</p>
+      </div>
+      <div class="adv-card reveal" style="--delay:0.3s">
+        <div class="adv-icon">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M6 16c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10S6 21.52 6 16z" stroke="currentColor" stroke-width="2"/>
+            <path d="M16 12v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 6L6 2M22 6l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 data-i18n="adv.c4.title">Strict Quality Control</h3>
+        <p data-i18n="adv.c4.desc">End-to-end quality management from raw materials to finished products. Every batch undergoes rigorous testing before shipment.</p>
+      </div>
+    </div>
+
+
+
+</section>
+
+<!-- ===== PRODUCTS ===== -->
+<section class="section products-section" id="products">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="prod.tag">Product Center</span>
+      <h2 class="section-title" data-i18n="prod.title">Full-Range Pet Products, One-Stop Sourcing</h2>
+      <p class="section-sub" data-i18n="prod.sub">From nutrition to lifestyle — everything your customers need for their beloved pets</p>
+    </div>
+
+    <div class="prod-filter reveal">
+      <button class="filter-btn active" data-cat="all" data-i18n="prod.all">All Products</button>
+      <div class="filter-dropdown" id="filterDropdown">
+        <button class="filter-btn" data-cat="supplies" data-i18n="prod.supplies">Pet Supplies ▾</button>
+        <div class="prod-subfilter" id="prodSubfilter">
+          <button class="filter-btn sub" data-cat="bed" data-i18n="prod.sup.bed">宠物窝</button>
+          <button class="filter-btn sub" data-cat="cat-tree" data-i18n="prod.sup.catTree">猫爬架</button>
+          <button class="filter-btn sub" data-cat="carrier" data-i18n="prod.sup.carrier">宠物包</button>
+          <button class="filter-btn sub" data-cat="stroller" data-i18n="prod.sup.stroller">宠物推车</button>
+          <button class="filter-btn sub" data-cat="car-seat" data-i18n="prod.sup.carSeat">宠物汽车座椅</button>
+          <button class="filter-btn sub" data-cat="litter" data-i18n="prod.sup.litter">猫砂盆</button>
+        </div>
+      </div>
+      <button class="filter-btn" data-cat="toys" data-i18n="prod.toys">Pet Toys</button>
+      <button class="filter-btn" data-cat="food" data-i18n="prod.food">Pet Food</button>
+    </div>
+
+<div class="prod-grid" id="prodGrid">
+<% products.forEach(function(p, i) { %>
+<% var delay = i > 0 ? ' style="--delay:' + (i * 0.05) + 's"' : ''; %>
+<% var img = (p.images && p.images.original) || p.image || 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=600&q=80'; %>
+<% var name = (lang === 'en' && p.name_en) ? p.name_en : (p.name || ''); %>
+<% var desc = (lang === 'en' && p.desc_en) ? p.desc_en : (p.desc || ''); %>
+<% var badge = (lang === 'en' && p.badge_en) ? p.badge_en : (p.badge || ''); %>
+<% var catSlug = p.category_slug || 'products'; %>
+<% var subSlug = p.subcategory_slug || 'general'; %>
+<% var typeSlug = p.type_slug || 'standard'; %>
+<% var slug = p.slug || p.id; %>
+<% var prodUrl = '/products/' + catSlug + '/' + subSlug + '/' + typeSlug + '/' + slug + '/'; %>
+<div class="prod-card reveal"<%- delay %> data-cat="<%= p.category || 'supplies' %>">
+  <div class="prod-img-wrap">
+    <img src="<%= img %>" alt="<%= name %>" loading="lazy"
+         onerror="this.src='https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=600&q=80'" />
+    <div class="prod-overlay">
+      <button class="btn btn-primary btn-sm" onclick="location.href='<%= prodUrl %>'">
+        <%= lang === 'zh' ? '查看详情' : 'View Details' %>
+      </button>
+      <button class="btn btn-primary btn-sm" onclick="openInquiry()"
+              style="background:#FF6B35;color:#fff;box-shadow:0 2px 8px rgba(255,107,53,0.4);">
+        <%= lang === 'zh' ? '立即询价' : 'Inquire Now' %>
+      </button>
+    </div>
+    <span class="prod-badge"><%= badge %></span>
+  </div>
+  <div class="prod-info">
+    <h3><%= name %></h3>
+    <p><%= desc %></p>
+    <div class="prod-meta">
+      <% if (p.moq) { %><span><%= lang === 'zh' ? '起订量: ' : 'MOQ: ' %><%= p.moq %></span><% } %>
+      <button class="prod-cta" onclick="openInquiry()">
+        <%= lang === 'zh' ? '获取报价' : 'Get Price' %>
+      </button>
+    </div>
+  </div>
+</div>
+<% }); %>
+    </div>
+    <div id="prodPagination" class="prod-pagination"></div>
+    <div class="prod-more" style="text-align:center; margin-top:2rem;">
+      <p data-i18n="prod.more.text">500+ SKUs available across all categories</p>
+      <button class="btn btn-primary" onclick="openInquiry()" data-i18n="prod.more.cta">Download Full Catalog</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SOLUTIONS ===== -->
+<section class="section solutions-section" id="solutions">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="sol.tag">Solutions</span>
+      <h2 class="section-title" data-i18n="sol.title">Tailored Solutions for Every Business Model</h2>
+      <p class="section-sub" data-i18n="sol.sub">We understand your unique challenges and deliver customized manufacturing partnerships</p>
+    </div>
+    <div class="sol-grid" id="solGrid">
+      <div class="sol-card reveal" data-idx="0">
+        <div class="sol-num">01</div>
+        <div class="sol-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M20 4L8 10v10c0 9 5.4 17.4 12 19.5C26.6 37.4 32 29 32 20V10L20 4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M14 20l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 data-i18n="sol.c1.title">Brand OEM/ODM Solution</h3>
+        <p data-i18n="sol.c1.desc">For pet brands seeking reliable manufacturing partners. We handle product development, production, quality control, and custom packaging — you focus on your brand and market.</p>
+        <ul class="sol-list">
+          <li data-i18n="sol.c1.l1">Custom formulation & design</li>
+          <li data-i18n="sol.c1.l2">Private label packaging</li>
+          <li data-i18n="sol.c1.l3">Regulatory compliance support</li>
+          <li data-i18n="sol.c1.l4">Flexible MOQ from 200 units</li>
+        </ul>
+        <button class="sol-link" onclick="location.href='/solutions/brand-oem-odm/'" data-i18n="sol.learn">了解更多 →</button>
+      </div>
+
+      <div class="sol-card reveal" style="--delay:0.15s" data-idx="1">
+        <div class="sol-num">02</div>
+        <div class="sol-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect x="4" y="8" width="32" height="24" rx="3" stroke="currentColor" stroke-width="2"/>
+            <path d="M4 16h32M14 8v24" stroke="currentColor" stroke-width="2"/>
+            <circle cx="9" cy="12" r="1.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3 data-i18n="sol.c2.title">E-Commerce Supply Chain</h3>
+        <p data-i18n="sol.c2.desc">For Amazon, Shopify, and cross-border e-commerce sellers. Fast production cycles, competitive pricing, and FBA-ready packaging to keep your listings competitive.</p>
+        <ul class="sol-list">
+          <li data-i18n="sol.c2.l1">FBA-ready packaging & labeling</li>
+          <li data-i18n="sol.c2.l2">Fast 30-45 day lead time</li>
+          <li data-i18n="sol.c2.l3">Small batch trial orders</li>
+          <li data-i18n="sol.c2.l4">Competitive wholesale pricing</li>
+        </ul>
+        <button class="sol-link" onclick="location.href='/solutions/ecommerce-supply-chain/'" data-i18n="sol.learn">了解更多 →</button>
+      </div>
+
+      <div class="sol-card reveal" style="--delay:0.3s" data-idx="2">
+        <div class="sol-num">03</div>
+        <div class="sol-icon">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M8 32V16l12-8 12 8v16" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <rect x="15" y="22" width="10" height="10" rx="1" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 22v10" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3 data-i18n="sol.c3.title">Retail Wholesale Program</h3>
+        <p data-i18n="sol.c3.desc">For pet store chains and distributors. Consistent quality, reliable delivery schedules, and comprehensive product range to stock your shelves year-round.</p>
+        <ul class="sol-list">
+          <li data-i18n="sol.c3.l1">Full product line sourcing</li>
+          <li data-i18n="sol.c3.l2">Seasonal collection planning</li>
+          <li data-i18n="sol.c3.l3">Dedicated account manager</li>
+          <li data-i18n="sol.c3.l4">Net 30/60 payment terms</li>
+        </ul>
+        <button class="sol-link" onclick="location.href='/solutions/retail-wholesale-program/'" data-i18n="sol.learn">了解更多 →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CASES ===== -->
+<section class="section cases-section" id="cases">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="case.tag">Success Cases</span>
+      <h2 class="section-title" data-i18n="case.title">Trusted by 200+ Global Partners</h2>
+      <p class="section-sub" data-i18n="case.sub">Real partnerships, real results — see how we've helped brands grow worldwide</p>
+    </div>
+
+    <div class="partner-logos reveal">
+      <div class="partner-track">
+        <div class="partner-logo">PetSmart</div>
+        <div class="partner-logo">Chewy</div>
+        <div class="partner-logo">Petco</div>
+        <div class="partner-logo">Zooplus</div>
+        <div class="partner-logo">Animonda</div>
+        <div class="partner-logo">Royal Canin</div>
+        <div class="partner-logo">PetSmart</div>
+        <div class="partner-logo">Chewy</div>
+        <div class="partner-logo">Petco</div>
+        <div class="partner-logo">Zooplus</div>
+        <div class="partner-logo">Animonda</div>
+        <div class="partner-logo">Royal Canin</div>
+      </div>
+    </div>
+
+    <div class="cases-grid">
+      <% var caseCards = (modules && modules.cases && modules.cases.cards) ? modules.cases.cards : []; %>
+      <% if (caseCards.length > 0) { %>
+        <% caseCards.slice(0, 4).forEach(function(c, i) { %>
+          <a href="/company/cases/<%= c.slug || c.id || '' %>/" class="case-card reveal" style="text-decoration:none;color:inherit;<%= i > 0 ? '--delay:' + (i * 0.15) + 's;' : '' %>">
+            <div class="case-img">
+              <img class="case-featured-img" src="<%= c.img || '/assets/images/placeholder.jpg' %>" alt="<%= lang === 'en' && c.title_en ? c.title_en : (c.title_zh || c.title || '') %>" loading="lazy" />
+              <div class="case-tag"><%= lang === 'en' && c.tag_en ? c.tag_en : (c.tag || '') %></div>
+            </div>
+            <div class="case-body">
+              <div class="case-meta">
+                <span><%= lang === 'en' && c.country_en ? c.country_en : (c.country || '') %></span>
+                <span><%= lang === 'en' && c.cat_en ? c.cat_en : (c.cat_zh || c.cat || '') %></span>
+              </div>
+              <h3><%= lang === 'en' && c.title_en ? c.title_en : (c.title_zh || c.title || '') %></h3>
+              <p><%= lang === 'en' && c.desc_en ? c.desc_en : (c.desc_zh || c.desc || '') %></p>
+              <% if ((c.s1 && c.n1) || (c.s2 && c.n2) || (c.s3 && c.n3)) { %>
+                <div class="case-result">
+                  <% if (c.s1 && c.n1) { %>
+                    <div class="case-stat">
+                      <span class="case-num"><%= c.n1 %></span>
+                      <span><%= lang === 'en' && c.s1_en ? c.s1_en : c.s1 %></span>
+                    </div>
+                  <% } %>
+                  <% if (c.s2 && c.n2) { %>
+                    <div class="case-stat">
+                      <span class="case-num"><%= c.n2 %></span>
+                      <span><%= lang === 'en' && c.s2_en ? c.s2_en : c.s2 %></span>
+                    </div>
+                  <% } %>
+                  <% if (c.s3 && c.n3) { %>
+                    <div class="case-stat">
+                      <span class="case-num"><%= c.n3 %></span>
+                      <span><%= lang === 'en' && c.s3_en ? c.s3_en : c.s3 %></span>
+                    </div>
+                  <% } %>
+                </div>
+              <% } %>
+            </div>
+          </a>
+        <% }); %>
+      <% } else { %>
+        <div class="case-card reveal">
+          <div class="case-body">
+            <h3><%= lang === 'en' ? 'No cases yet' : '暂无案例' %></h3>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="cases-cta reveal">
+      <button class="btn btn-primary" onclick="openInquiry()" data-i18n="case.cta">Become Our Next Success Story</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NEWS ===== -->
+<section class="section news-section" id="news">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="news.tag">News & Insights</span>
+      <h2 class="section-title" data-i18n="news.title">Stay Ahead in the Pet Industry</h2>
+    </div>
+
+    <!-- 新闻分类切换 -->
+    <div class="news-tabs reveal">
+      <button type="button" class="news-tab active" data-cat="all">All</button>
+      <button type="button" class="news-tab" data-cat="company">Company</button>
+      <button type="button" class="news-tab" data-cat="industry">Industry</button>
+    </div>
+
+    <!-- 新闻列表 -->
+<div class="news-list-container" id="newsListContainer">
+<% var sortedNews = news.slice().sort(function(a,b){ return new Date(b.date||b.createdAt) - new Date(a.date||a.createdAt); }); %>
+<% sortedNews.forEach(function(n, i) { %>
+<% var nName = (lang === 'en' && n.title_en) ? n.title_en : (n.title || ''); %>
+<% var nDesc = (lang === 'en' && n.excerpt_en) ? n.excerpt_en : (n.excerpt || n.content || ''); %>
+<% var nSlug = n.slug || n.id; %>
+<% var nDate = n.date || (n.createdAt ? n.createdAt.split('T')[0] : ''); %>
+<% var nImg = n.image || 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=600&q=80'; %>
+<% var nCat = n.category || 'company'; %>
+<% var catMap = {company: lang==='zh'?'公司新闻':'Company', industry: lang==='zh'?'行业动态':'Industry', product: lang==='zh'?'产品发布':'Product'}; %>
+<% var catLabel = catMap[nCat] || nCat; %>
+<article class="news-card reveal" data-category="<%= nCat %>" style="--delay:<%= i * 0.08 %>s">
+  <a href="/blog/<%= nSlug %>/" class="news-img-wrap">
+    <img src="<%= nImg %>" alt="<%= nName %>" loading="lazy"
+         onerror="this.src='https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=600&q=80'" />
+  </a>
+  <div class="news-info">
+    <span class="news-cat"><%= catLabel %></span>
+    <span class="news-date"><%= nDate %></span>
+    <h3><a href="/blog/<%= nSlug %>/"><%= nName %></a></h3>
+    <p><%= nDesc.substring(0, 120) %><%= nDesc.length > 120 ? '...' : '' %></p>
+    <a href="/blog/<%= nSlug %>/" class="news-readmore"><%= lang === 'zh' ? '阅读更多 →' : 'Read More →' %></a>
+  </div>
+</article>
+<% }); %>
+<div class="news-pagination" id="newsPagination"></div>
+</div>
+    </div>
+  </div>
+</section>
+
+<section class="section faq-section" id="faq">
+  <div class="container">
+    <!-- FAQ Tabs -->
+    <div class="faq-tabs reveal" id="faqTabs">
+      <button class="faq-tab active" data-section="">全部</button>
+      <button class="faq-tab" data-section="工厂实力与资质">工厂实力</button>
+      <button class="faq-tab" data-section="产品与定制服务">产品定制</button>
+      <button class="faq-tab" data-section="质量控制与测试">品质控制</button>
+      <button class="faq-tab" data-section="生产与物流">生产物流</button>
+      <button class="faq-tab" data-section="商务条款与合作">商务合作</button>
+      <button class="faq-tab" data-section="出口服务与认证">出口认证</button>
+      <button class="faq-tab" data-section="合作流程与联系方式">合作流程</button>
+    </div>
+    
+    <!-- FAQ Content -->
+    <div class="faq-content reveal" id="faqContent">
+    </div>
+    <!-- FAQ Pagination -->
+    <div class="faq-pagination" id="faqPagination"></div>
+  </div>
+</section>
+
+    <script>
+    window.__SSR_LANG__ = '<%= lang %>';
+    var allFAQs = <%- JSON.stringify(faqs) %>;
+    var faqLoadedLang = '';
+    var faqCurrentPage = 1;
+    var faqItemsPerPage = 3;
+    var faqCurrentList = []; // currently filtered FAQ list
+
+    function getFAQLang() {
+      var url = new URL(window.location.href);
+      var fromUrl = url.searchParams.get('lang');
+      if (fromUrl === 'zh' || fromUrl === 'en') return fromUrl;
+      return window.__SSR_LANG__ || 'en';
+    }
+
+    function toggleFaq(el) {
+      var card = el.closest('.faq-item');
+      var wasOpen = el.classList.contains('open');
+      document.querySelectorAll('.faq-q').forEach(q => q.classList.remove('open'));
+      document.querySelectorAll('.faq-a').forEach(a => a.style.display = 'none');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) {
+        el.classList.add('open');
+        if (card) card.classList.add('open');
+        el.nextElementSibling.style.display = 'block';
+      }
+    }
+
+    function renderFAQs(faqs) {
+      faqCurrentList = faqs;
+      faqCurrentPage = 1;
+      renderFAQPage();
+    }
+
+    function renderFAQPage() {
+      var faqs = faqCurrentList;
+      var el = document.getElementById('faqContent');
+      var totalPages = Math.ceil(faqs.length / faqItemsPerPage);
+      if (faqCurrentPage > totalPages) faqCurrentPage = totalPages || 1;
+      var startIdx = (faqCurrentPage - 1) * faqItemsPerPage;
+      var endIdx = startIdx + faqItemsPerPage;
+      var pageFaqs = faqs.slice(startIdx, endIdx);
+
+      if (!el || faqs.length === 0) {
+        el.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:40px;">' + 
+          (getFAQLang() === 'zh' ? '暂无常见问题解答' : 'No FAQs available') + '</p>';
+        document.getElementById('faqPagination').innerHTML = '';
+        return;
+      }
+      var html = '';
+      pageFaqs.forEach(function(faq, idx) {
+        var num = String(startIdx + idx + 1).padStart(2, '0');
+        html += '<div class="faq-item">';
+        html += '<div class="faq-q" onclick="toggleFaq(this)">';
+        var qText = (faq.question || '').replace(/<[^>]+>/g, '');
+        html += '<span class="q-num">' + num + '</span>';
+        html += '<span class="q-text">' + qText + '</span>';
+        html += '<span class="faq-icon">+</span>';
+        html += '</div>';
+        html += '<div class="faq-a"><div class="faq-a-inner">' + (faq.answer || '') + '</div></div>';
+        html += '</div>';
+      });
+      el.innerHTML = html;
+
+      // Render pagination
+      renderFAQPagination(totalPages);
+    }
+
+    function renderFAQPagination(totalPages) {
+      var container = document.getElementById('faqPagination');
+      if (!container) return;
+      if (totalPages <= 1) { container.innerHTML = ''; return; }
+
+      var html = '';
+      // Prev arrow
+      html += '<button class="page-btn arrow" ' + (faqCurrentPage === 1 ? 'disabled' : '') + ' onclick="faqGoToPage(' + (faqCurrentPage - 1) + ')">\u2039</button>';
+
+      // Page numbers
+      for (var i = 1; i <= totalPages; i++) {
+        if (totalPages <= 7 || i === 1 || i === totalPages || Math.abs(i - faqCurrentPage) <= 1) {
+          html += '<button class="page-btn' + (i === faqCurrentPage ? ' active' : '') + '" onclick="faqGoToPage(' + i + ')">' + i + '</button>';
+        } else if (i === faqCurrentPage - 2 || i === faqCurrentPage + 2) {
+          html += '<span class="page-btn" style="border:none;cursor:default;">\u2026</span>';
+        }
+      }
+
+      // Next arrow
+      html += '<button class="page-btn arrow" ' + (faqCurrentPage === totalPages ? 'disabled' : '') + ' onclick="faqGoToPage(' + (faqCurrentPage + 1) + ')">\u203A</button>';
+
+      container.innerHTML = html;
+    }
+
+    function faqGoToPage(page) {
+      var totalPages = Math.ceil(faqCurrentList.length / faqItemsPerPage);
+      if (page < 1 || page > totalPages) return;
+      faqCurrentPage = page;
+      renderFAQPage();
+      // Scroll to FAQ section top
+      var section = document.getElementById('faq');
+      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Tab click
+    document.querySelectorAll('.faq-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        var section = this.getAttribute('data-section');
+        var lang = getFAQLang();
+        var langFiltered = allFAQs.filter(f => f.lang === lang || (!f.lang && lang === 'en'));
+        if (!section) {
+          renderFAQs(langFiltered);
+        } else {
+          var filtered = langFiltered.filter(f => f.section === section);
+          renderFAQs(filtered);
+        }
+      });
+    });
+
+    // Listen for language changes and reload FAQs
+    window.addEventListener('languageChanged', function(e) {
+      faqLoadedLang = ''; // force reload
+      loadFAQs();
+    });
+
+    // Init on load
+    loadFAQs();
+    function loadFAQs() {
+      var lang = getFAQLang();
+      if (faqLoadedLang === lang) {
+        var filtered = allFAQs.filter(f => f.lang === lang || (!f.lang && lang === 'en'));
+        renderFAQs(filtered);
+        return;
+      }
+      document.getElementById('faqContent').innerHTML = '<div class="faq-loading">' + (lang === 'zh' ? '加载中...' : 'Loading...') + '</div>';
+      var filtered = allFAQs.filter(f => f.lang === lang || (!f.lang && lang === 'en'));
+      faqLoadedLang = lang;
+      renderFAQs(filtered);
+    }
+    </script>
+</section>
+<!-- ===== CONTACT ===== -->
+<section class="section contact-section" id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag" data-i18n="contact.tag">Contact Us</span>
+      <h2 class="section-title" data-i18n="contact.title">Let's Build Something Together</h2>
+      <p class="section-sub" data-i18n="contact.sub">Fill in your requirements and our team will get back to you within 24 hours</p>
+    </div>
+    <div class="contact-layout">
+      <div class="contact-info reveal visible" id="contactInfo">
+        <!-- 动态加载联系信息 -->
+      </div>
+
+      <div class="contact-form-wrap reveal visible" style="--delay:0.2s">
+        <form class="contact-form" id="contactForm" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label data-i18n="form.name">Full Name *</label>
+              <input type="text" name="name" required placeholder="John Smith" data-i18n-ph="form.name.ph" />
+            </div>
+            <div class="form-group">
+              <label data-i18n="form.email">Email Address *</label>
+              <input type="email" name="email" required placeholder="john@company.com" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label data-i18n="form.company">Company Name *</label>
+              <input type="text" name="company" required placeholder="Your Company Ltd." />
+            </div>
+            <div class="form-group">
+              <label data-i18n="form.country">Country</label>
+              <input type="text" name="country" placeholder="United States" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-i18n="form.interest">Product Interest</label>
+            <select name="interest">
+              <option value="" data-i18n="form.interest.ph">Select product category...</option>
+              <option value="food" data-i18n="form.interest.food">Pet Food</option>
+              <option value="toys" data-i18n="form.interest.toys">Pet Toys</option>
+              <option value="supplies" data-i18n="form.interest.supplies">Pet Supplies</option>
+              <option value="all" data-i18n="form.interest.all">All Categories</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label data-i18n="form.message">Your Requirements *</label>
+            <textarea name="message" rows="4" required placeholder="Please describe your product requirements, target quantity, and any specific needs..." data-i18n-ph="form.message.ph"></textarea>
+          </div>
+          <div class="form-group">
+            <label data-i18n="form.attach">Attachment (optional)</label>
+            <div class="file-upload" id="fileUpload">
+              <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png" />
+              <label for="fileInput" class="file-label">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3v10M6 7l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 14v1a2 2 0 002 2h10a2 2 0 002-2v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <span data-i18n="form.attach.label">Upload file (PDF, DOC, XLS, JPG)</span>
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn">
+            <span data-i18n="form.submit">Send Inquiry</span>
+          </button>
+          <p class="form-note" data-i18n="form.note">🔒 Your information is secure. We respond within 24 business hours.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo logo-white">
+        <img src="assets/images/logo.png" alt="sunlitpaws" class="logo-img logo-img-footer">
+        <div class="logo-text">
+          <span class="logo-en">sunlitpaws</span>
+          <span class="logo-cn">河北炳临科技</span>
+        </div>
+      </a>
+      <p class="footer-desc" data-i18n="footer.desc">Professional pet products manufacturer and exporter. Serving global buyers with quality, reliability, and innovation since 2014.</p>
+      <div class="footer-certs">
+        <span class="cert-badge">ISO 9001</span>
+        <span class="cert-badge">ISO 22000</span>
+        <span class="cert-badge">FDA</span>
+        <span class="cert-badge">BSCI</span>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4 data-i18n="footer.products">Products</h4>
+        <a href="#products" data-i18n="footer.food">Pet Food</a>
+        <a href="#products" data-i18n="footer.toys">Pet Toys</a>
+        <a href="#products" data-i18n="footer.supplies">Pet Supplies</a>
+        <a href="#" onclick="openInquiry()" data-i18n="footer.catalog">Product Catalog</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.company">Company</h4>
+        <a href="#about" data-i18n="footer.about">About Us</a>
+        <a href="#solutions" data-i18n="footer.solutions">Solutions</a>
+        <a href="#cases" data-i18n="footer.cases">Cases</a>
+        <a href="#news" data-i18n="footer.news">News</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.contact">Contact</h4>
+        <a href="mailto:sales@bingling-tech.com">sales@bingling-tech.com</a>
+        <a href="tel:+8631188888888">+86 311 8888 8888</a>
+        <a href="https://wa.me/8613000000000" target="_blank">WhatsApp</a>
+        <a href="#contact" data-i18n="footer.inquiry">Send Inquiry</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p data-i18n="footer.copy">© 2025 Hebei sunlitpaws Co., Ltd. All rights reserved.</p>
+      <p data-i18n="footer.icp">冀ICP备XXXXXXXX号</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== FLOATING BUTTONS ===== -->
+<div class="float-actions">
+  <button class="float-btn float-chat" onclick="openInquiry()" title="Online Inquiry">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2C6.03 2 2 5.58 2 10c0 2.1.9 4 2.4 5.4L3 20l4.8-1.4C9 19.5 10 19.8 11 19.8c4.97 0 9-3.58 9-8s-4.03-8-9-8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    <span data-i18n="float.chat">Inquire</span>
+  </button>
+  <a class="float-btn float-wa" href="https://wa.me/8613000000000" target="_blank" title="WhatsApp">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2C6.03 2 2 5.58 2 10c0 2.1.9 4 2.4 5.4L3 20l4.8-1.4C9 19.5 10 19.8 11 19.8c4.97 0 9-3.58 9-8s-4.03-8-9-8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 9.5c.5 1 1.5 2.5 3 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    <span>WhatsApp</span>
+  </a>
+  <button class="float-btn float-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 12l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<!-- ===== INQUIRY MODAL ===== -->
+<div class="modal-overlay" id="inquiryModal" onclick="closeInquiry(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeInquiry()">&times;</button>
+    <div class="modal-header">
+      <h3 data-i18n="modal.title">Send Your Inquiry</h3>
+      <p data-i18n="modal.sub">We'll respond within 24 business hours</p>
+    </div>
+    <form class="modal-form" onsubmit="submitModalForm(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label data-i18n="form.name">Full Name *</label>
+          <input type="text" required placeholder="John Smith" />
+        </div>
+        <div class="form-group">
+          <label data-i18n="form.email">Email *</label>
+          <input type="email" required placeholder="john@company.com" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label data-i18n="form.company">Company Name *</label>
+        <input type="text" required placeholder="Your Company Ltd." />
+      </div>
+      <div class="form-group">
+        <label data-i18n="form.message">Requirements *</label>
+        <textarea rows="3" required placeholder="Describe your product needs..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full" data-i18n="form.submit">Send Inquiry</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== SUCCESS TOAST ===== -->
+<div class="toast" id="toast">
+  <div class="toast-icon">✅</div>
+  <div>
+    <strong data-i18n="toast.title">Inquiry Sent!</strong>
+    <p data-i18n="toast.msg">We'll get back to you within 24 hours.</p>
+  </div>
+</div>
+
+<script src="app.js?v=20260425c"></script>
+
+
+<script>
+// ─── 页面加载 hash 导航修正（备用）──────────────────────
+(function() {
+  if (!location.hash) return;
+  var target = document.querySelector(location.hash);
+  if (!target) return;
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      target.scrollIntoView({ block: 'start', behavior: 'instant' });
+    });
+  });
+})();
+
+// 表单提交函数
+function submitForm(e) {
+  e.preventDefault();
+  var form = e.target;
+  var fd = new FormData(form);
+  var data = Object.fromEntries(fd);
+  fetch('/api/contact', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  }).then(r => r.json()).then(d => {
+    if (d.success) { showToast(); form.reset(); }
+    else alert('提交失败');
+  }).catch(() => alert('提交失败'));
+}
+
+function submitModalForm(e) {
+  e.preventDefault();
+  var form = e.target;
+  var inputs = form.querySelectorAll('input, textarea, select');
+  var data = {name:'',email:'',company:'',phone:'',product:'',message:''};
+  inputs.forEach(function(i){ if(i.name==='name'||i.type==='text')data.name=i.value; else if(i.name==='email'||i.type==='email')data.email=i.value; else if(i.name==='company')data.company=i.value; else if(i.name==='phone')data.phone=i.value; else if(i.tagName==='SELECT')data.product=i.value; else if(i.tagName==='TEXTAREA')data.message=i.value; });
+  fetch('/api/contact', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(data)
+  }).then(r => r.json()).then(d => {
+    if (d.success) { closeInquiry(); showToast(); form.reset(); }
+    else alert('提交失败');
+  }).catch(() => alert('提交失败'));
+}
+
+function showToast() {
+  var t = document.getElementById('toast');
+  if (t) { t.classList.add('show'); setTimeout(function(){t.classList.remove('show');}, 4000); }
+}
+
+// 轮播图已由 SSR 直接渲染，无需 JS 加载
+function loadHeroSlides() {}
+
+// ─── FAQ SECTION ───────────────────────────────────────
+</script>
+</body>
+</html>

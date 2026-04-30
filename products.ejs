@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FF6B35" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" href="/assets/images/logo.png" />
+
+  <!-- 动态 SEO -->
+  <title><%= pageTitle %> | sunlitpaws Co., Ltd.</title>
+  <meta name="description" content="<%= pageDesc %>" />
+  <% const _prodPath = '/products' + (catSlug ? '/' + catSlug : '') + (subSlug ? '/' + subSlug : '') + (typeSlug ? '/' + typeSlug : '') + '/'; %>
+  <link rel="canonical" href="https://sunlitpaws.com<%= _prodPath %>" />
+  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com<%= _prodPath %>?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com<%= _prodPath %>?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com<%= _prodPath %>" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="<%= pageTitle %> | sunlitpaws" />
+  <meta property="og:description" content="<%= pageDesc %>" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sunlitpaws.com/products<%= catSlug ? '/' + catSlug : '' %>/" />
+  <meta property="og:site_name" content="sunlitpaws" />
+  <meta property="og:image" content="<%= (products && products[0] && (products[0].images && products[0].images.large || products[0].image)) ? (products[0].images && products[0].images.large) || products[0].image : '' %>" />
+
+  <link rel="stylesheet" href="/styles.css" />
+  <style>
+    body { padding-top: 80px; }
+    .prod-filter-bar {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 16px 0;
+      position: sticky;
+      top: 70px;
+      z-index: 10;
+    }
+    .filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-chip {
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid #ddd;
+      background: #fff;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    .filter-chip:hover, .filter-chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+    .prod-list-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 32px;
+    }
+    @media(max-width: 900px) { .prod-list-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media(max-width: 500px) { .prod-list-grid { grid-template-columns: 1fr; } }
+    .prod-list-empty { text-align: center; padding: 80px 0; color: #999; }
+    .prod-list-empty h3 { font-size: 20px; margin-bottom: 8px; }
+  </style>
+
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <img src="assets/images/logo.png" alt="sunlitpaws" class="logo-img">
+      <div class="logo-text">
+        <span class="logo-en">sunlitpaws</span>
+        <span class="logo-cn">河北炳临科技</span>
+      </div>
+    </a>
+
+    <nav class="nav" id="nav">
+      <a href="/" class="nav-link" data-i18n="nav.home">Home</a>
+      <a href="/#about" class="nav-link" data-i18n="nav.about">About Us</a>
+      
+      <a href="/#products" class="nav-link active" data-i18n="nav.products">Products</a>
+      <a href="/#solutions" class="nav-link" data-i18n="nav.solutions">Solutions</a>
+      <a href="/#cases" class="nav-link" data-i18n="nav.cases">Cases</a>
+      <a href="/#news" class="nav-link" data-i18n="nav.news">News</a>
+      <a href="/#faq" class="nav-link" data-i18n="nav.faq">FAQ</a>
+      <a href="/#contact" class="nav-link" data-i18n="nav.contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-switcher" id="langSwitcher">
+        <button class="lang-btn" id="langBtn">
+          <span class="lang-flag">🌐</span>
+          <span class="lang-current">EN</span>
+          <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+        </button>
+        <div class="lang-dropdown" id="langDropdown">
+          <button class="lang-option active" data-lang="en">English</button>
+          <button class="lang-option" data-lang="zh">中文</button>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="openInquiry()" data-i18n="nav.cta">Get Quote</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+  <main>
+    <section class="section" style="padding-top: 40px;">
+      <div class="container">
+        <div class="section-header" style="margin-bottom: 24px;">
+          <span class="section-tag" data-i18n="products.tag">Products</span>
+          <h1 class="section-title"><%= pageTitle %></h1>
+          <p class="section-sub"><%= pageDesc %></p>
+        </div>
+
+        <!-- 筛选栏 -->
+        <div class="filter-chips" id="filterChips">
+          <button class="filter-chip active" data-cat="all"><%= lang === 'zh' ? '全部' : 'All' %></button>
+          <% var cats = [...new Set(products.map(p => p.category_slug).filter(Boolean))]; %>
+          <% cats.forEach(function(cat) { %>
+          <button class="filter-chip" data-cat="<%= cat %>"><%= cat %></button>
+          <% }); %>
+        </div>
+
+        <!-- 产品网格 -->
+        <div class="prod-list-grid" id="prodList">
+          <% products.forEach(function(p, i) { %>
+          <% var img = (p.images && (p.images.large || p.images.original)) || p.image || 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=600&q=80'; %>
+          <% var name = (lang === 'en' && p.name_en) ? p.name_en : (p.name || ''); %>
+          <% var desc = (lang === 'en' && p.desc_en) ? p.desc_en : (p.desc || ''); %>
+          <% var slug = p.slug || p.id; %>
+          <% var catSlug = p.category_slug || 'products'; %>
+          <% var subSlug = p.subcategory_slug || 'general'; %>
+          <% var typeSlug = p.type_slug || 'standard'; %>
+          <a href="/products/<%= catSlug %>/<%= subSlug %>/<%= typeSlug %>/<%= slug %>/" class="prod-card reveal" data-cat="<%= catSlug %>" style="--delay:<%= (i % 8) * 0.05 %>s; text-decoration:none;">
+            <div class="prod-img-wrap">
+              <img src="<%= img %>" alt="<%= name %>" loading="lazy"
+                   onerror="this.src='https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=600&q=80'" />
+            </div>
+            <div class="prod-info">
+              <h3><%= name %></h3>
+              <p><%= desc.substring(0, 80) %><%= desc.length > 80 ? '...' : '' %></p>
+              <div class="prod-meta">
+                <% if (p.moq) { %><span><%= lang === 'zh' ? '起订量: ' : 'MOQ: ' %><%= p.moq %></span><% } %>
+                <span class="prod-cta"><%= lang === 'zh' ? '查看详情 →' : 'View Details →' %></span>
+              </div>
+            </div>
+          </a>
+          <% }); %>
+          <% if (products.length === 0) { %>
+          <div class="prod-list-empty" style="grid-column: 1/-1;">
+            <h3><%= lang === 'zh' ? '暂无产品' : 'No products found' %></h3>
+            <p><%= lang === 'zh' ? '尝试其他筛选条件' : 'Try a different filter' %></p>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo logo-white">
+        <img src="assets/images/logo.png" alt="sunlitpaws" class="logo-img logo-img-footer">
+        <div class="logo-text">
+          <span class="logo-en">sunlitpaws</span>
+          <span class="logo-cn">河北炳临科技</span>
+        </div>
+      </a>
+      <p class="footer-desc" data-i18n="footer.desc">Professional pet products manufacturer and exporter. Serving global buyers with quality, reliability, and innovation since 2014.</p>
+      <div class="footer-certs">
+        <span class="cert-badge">ISO 9001</span>
+        <span class="cert-badge">ISO 22000</span>
+        <span class="cert-badge">FDA</span>
+        <span class="cert-badge">BSCI</span>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4 data-i18n="footer.products">Products</h4>
+        <a href="#products" data-i18n="footer.food">Pet Food</a>
+        <a href="#products" data-i18n="footer.toys">Pet Toys</a>
+        <a href="#products" data-i18n="footer.supplies">Pet Supplies</a>
+        <a href="#" onclick="openInquiry()" data-i18n="footer.catalog">Product Catalog</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.company">Company</h4>
+        <a href="#about" data-i18n="footer.about">About Us</a>
+        <a href="#solutions" data-i18n="footer.solutions">Solutions</a>
+        <a href="#cases" data-i18n="footer.cases">Cases</a>
+        <a href="#news" data-i18n="footer.news">News</a>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer.contact">Contact</h4>
+        <a href="mailto:sales@bingling-tech.com">sales@bingling-tech.com</a>
+        <a href="tel:+8631188888888">+86 311 8888 8888</a>
+        <a href="https://wa.me/8613000000000" target="_blank">WhatsApp</a>
+        <a href="#contact" data-i18n="footer.inquiry">Send Inquiry</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p data-i18n="footer.copy">© 2025 Hebei sunlitpaws Co., Ltd. All rights reserved.</p>
+      <p data-i18n="footer.icp">冀ICP备XXXXXXXX号</p>
+    </div>
+  </div>
+</footer>
+
+  <script>
+    // 客户端筛选（补充 SSR）
+    document.querySelectorAll('.filter-chip').forEach(function(chip) {
+      chip.addEventListener('click', function() {
+        var cat = this.dataset.cat;
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        document.querySelectorAll('.prod-card').forEach(function(card) {
+          card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
