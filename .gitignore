@@ -7,8 +7,6 @@ analytics.json
 *.bak
 *.orig
 *.broken
-*.png
-*.jpg
 server-admin*.js
 app_test.js
 migrate-url-structure.js
