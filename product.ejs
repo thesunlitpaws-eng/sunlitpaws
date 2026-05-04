@@ -11,16 +11,16 @@
   <title><%= (lang === 'en' && product.name_en) ? product.name_en : (product.name || 'Product') %> | sunlitpaws Co., Ltd.</title>
   <meta name="description" content="<%= (lang === 'en' && product.desc_en) ? product.desc_en.substring(0,160) : ((product.desc || '').substring(0,160)) %>" />
   <meta name="keywords" content="<%= (lang === 'en' && product.name_en) ? product.name_en : (product.name || '') %>, pet products, OEM, wholesale, manufacturer" />
-  <link rel="canonical" href="https://sunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/" />
-  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/?lang=zh" />
-  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/" />
+  <link rel="canonical" href="https://thesunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/" />
+  <link rel="alternate" hreflang="en" href="https://thesunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://thesunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://thesunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="<%= (lang === 'en' && product.name_en) ? product.name_en : (product.name || 'Product') %> | sunlitpaws" />
   <meta property="og:description" content="<%= (lang === 'en' && product.desc_en) ? product.desc_en.substring(0,100) : ((product.desc || '').substring(0,100)) %>" />
   <meta property="og:type" content="product" />
-  <meta property="og:url" content="https://sunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/" />
+  <meta property="og:url" content="https://thesunlitpaws.com/products/<%= product.category_slug || 'products' %>/<%= product.subcategory_slug || 'general' %>/<%= product.type_slug || 'default' %>/<%= product.slug || product.id %>/" />
   <meta property="og:site_name" content="sunlitpaws" />
   <meta property="og:image" content="<%= (product.images && product.images.large) || (product.images && product.images.original) || product.image || '' %>" />
   <meta property="og:image:width" content="1200" />
@@ -40,11 +40,11 @@
     "name": "<%= (product && lang === 'en' && product.name_en) ? product.name_en : (product.name || '') %>",
     "description": "<%= (product && lang === 'en' && product.desc_en) ? product.desc_en.replace(/"/g,'&quot;') : ((product.desc || '').replace(/"/g,'&quot;')) %>",
     <% if (product.images && product.images.large) { %>
-    "image": "https://sunlitpaws.com<%= product.images.large %>",
+    "image": "https://thesunlitpaws.com<%= product.images.large %>",
     <% } else if (product.image) { %>
-    "image": "https://sunlitpaws.com<%= product.image %>",
+    "image": "https://thesunlitpaws.com<%= product.image %>",
     <% } %>
-    "url": "https://sunlitpaws.com/products/<%= (product ? (product.category_slug || 'products') : 'products') %>/<%= (product ? (product.subcategory_slug || 'general') : 'general') %>/<%= (product ? (product.type_slug || 'default') : 'default') %>/<%= (product ? (product.slug || product.id) : product.id) %>/",
+    "url": "https://thesunlitpaws.com/products/<%= (product ? (product.category_slug || 'products') : 'products') %>/<%= (product ? (product.subcategory_slug || 'general') : 'general') %>/<%= (product ? (product.type_slug || 'default') : 'default') %>/<%= (product ? (product.slug || product.id) : product.id) %>/",
     "sku": "<%= product.id %>",
     <% if (product.moq) { %>
     "offers": {
@@ -60,7 +60,7 @@
     "manufacturer": {
       "@type": "Organization",
       "name": "sunlitpaws Co., Ltd.",
-      "url": "https://sunlitpaws.com",
+      "url": "https://thesunlitpaws.com",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Shijiazhuang",
@@ -572,7 +572,7 @@
       const cat = p.category_slug || 'products';
       const sub = p.subcategory_slug || 'general';
       const slug = p.slug || p.id;
-      const url = `https://sunlitpaws.com/products/${cat}/${sub}/${slug}/`;
+      const url = `https://thesunlitpaws.com/products/${cat}/${sub}/${slug}/`;
       const image = (p.images && p.images.original) || p.image || '';
 
       // Title

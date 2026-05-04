@@ -11,16 +11,16 @@
   <title><%= pageTitle %> | sunlitpaws Co., Ltd.</title>
   <meta name="description" content="<%= pageDesc %>" />
   <% const _prodPath = '/products' + (catSlug ? '/' + catSlug : '') + (subSlug ? '/' + subSlug : '') + (typeSlug ? '/' + typeSlug : '') + '/'; %>
-  <link rel="canonical" href="https://sunlitpaws.com<%= _prodPath %>" />
-  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com<%= _prodPath %>?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com<%= _prodPath %>?lang=zh" />
-  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com<%= _prodPath %>" />
+  <link rel="canonical" href="https://thesunlitpaws.com<%= _prodPath %>" />
+  <link rel="alternate" hreflang="en" href="https://thesunlitpaws.com<%= _prodPath %>?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://thesunlitpaws.com<%= _prodPath %>?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://thesunlitpaws.com<%= _prodPath %>" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="<%= pageTitle %> | sunlitpaws" />
   <meta property="og:description" content="<%= pageDesc %>" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sunlitpaws.com/products<%= catSlug ? '/' + catSlug : '' %>/" />
+  <meta property="og:url" content="https://thesunlitpaws.com/products<%= catSlug ? '/' + catSlug : '' %>/" />
   <meta property="og:site_name" content="sunlitpaws" />
   <meta property="og:image" content="<%= (products && products[0] && (products[0].images && products[0].images.large || products[0].image)) ? (products[0].images && products[0].images.large) || products[0].image : '' %>" />
 

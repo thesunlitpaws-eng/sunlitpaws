@@ -11,16 +11,16 @@
   <title><%= currentCase ? (lang === 'zh' ? (currentCase.title || currentCase.title_en || '成功案例') : (currentCase.title_en || currentCase.title || 'Success Case')) + ' | sunlitpaws' : (lang === 'zh' ? '成功案例 | sunlitpaws' : 'Success Case | sunlitpaws') %></title>
   <meta name="description" content="<%= currentCase ? ((lang === 'zh' ? (currentCase.narrative || currentCase.narrative_en || '') : (currentCase.narrative_en || currentCase.narrative || ''))).substring(0, 160) : (lang === 'zh' ? '全球宠物品牌和零售商的成功案例。' : 'Success stories from global pet brands and retailers.') %>" />
   <meta name="keywords" content="pet products case study, OEM success story, pet manufacturer partnership" />
-  <link rel="canonical" href="https://sunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>" />
-  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>?lang=zh" />
-  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>" />
+  <link rel="canonical" href="https://thesunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>" />
+  <link rel="alternate" hreflang="en" href="https://thesunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://thesunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://thesunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="<%= currentCase ? (lang === 'zh' ? (currentCase.title || currentCase.title_en || '成功案例') : (currentCase.title_en || currentCase.title || 'Success Case')) : (lang === 'zh' ? '成功案例' : 'Success Case') %> | sunlitpaws" />
   <meta property="og:description" content="Success stories from global pet brands and retailers." />
   <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://sunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>" />
+  <meta property="og:url" content="https://thesunlitpaws.com/company/cases/<%= currentCase ? (currentCase.slug || '') + '/' : '' %>" />
   <meta property="og:site_name" content="sunlitpaws" />
   <meta property="og:image" content="<%= (currentCase && (currentCase.image || currentCase.beforeImage)) ? (currentCase.image || currentCase.beforeImage) : (cases && cases[0] && (cases[0].image || cases[0].beforeImage) ? (cases[0].image || cases[0].beforeImage) : 'https://placehold.co/1200x630/FF6B35/ffffff?text=Success+Case') %>" />
 
@@ -267,7 +267,7 @@
             var title = (lang === 'en' && c.title_en) ? c.title_en : (c.title || c.client || 'Success Case');
             var desc = ((lang === 'en' && c.narrative_en) ? c.narrative_en : (c.narrative || '')).substring(0, 160);
             var slug = c.slug || c.id;
-            var url = 'https://sunlitpaws.com/company/cases/' + slug + '/';
+            var url = 'https://thesunlitpaws.com/company/cases/' + slug + '/';
             var image = c.img || '';
 
             // Title + description
@@ -309,8 +309,8 @@
               "publisher": {
                 "@type": "Organization",
                 "name": "sunlitpaws Co., Ltd.",
-                "url": "https://sunlitpaws.com",
-                "logo": { "@type": "ImageObject", "url": "https://sunlitpaws.com/assets/images/logo.png" }
+                "url": "https://thesunlitpaws.com",
+                "logo": { "@type": "ImageObject", "url": "https://thesunlitpaws.com/assets/images/logo.png" }
               }
             };
 

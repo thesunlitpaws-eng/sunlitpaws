@@ -266,7 +266,7 @@ app.get('/resources/faq/', (req, res) => {
 
 // sitemap.xml
 app.get('/sitemap.xml', (req, res) => {
-  const baseUrl = 'https://sunlitpaws.com';
+  const baseUrl = 'https://thesunlitpaws.com';
   let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${baseUrl}/</loc>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>\n`;
   products.forEach(p => {
     const cat = p.category_slug || 'products';
@@ -294,7 +294,7 @@ app.get('/sitemap.xml', (req, res) => {
 // robots.txt
 app.get('/robots.txt', (req, res) => {
   res.setHeader('Content-Type', 'text/plain');
-  res.send(`User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /dashboard\nDisallow: /api/admin/\nSitemap: https://sunlitpaws.com/sitemap.xml`);
+  res.send(`User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /dashboard\nDisallow: /api/admin/\nSitemap: https://thesunlitpaws.com/sitemap.xml`);
 });
 
 // favicon

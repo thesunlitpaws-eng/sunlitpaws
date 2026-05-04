@@ -11,16 +11,16 @@
   <title><%= currentSolution ? (lang === 'zh' ? (currentSolution.title_zh || currentSolution.title_en || 'Solutions') : (currentSolution.title_en || 'Solutions')) + ' | sunlitpaws' : (lang === 'zh' ? '解决方案 | sunlitpaws' : 'Solutions | sunlitpaws') %></title>
   <meta name="description" content="<%= lang === 'zh' ? '为宠物品牌、电商卖家和零售分销商量身定制的解决方案。OEM/ODM、FBA Ready、批发计划。' : 'Tailored solutions for pet brands, e-commerce sellers, and retail distributors. OEM/ODM, FBA-ready, and wholesale programs.' %>" />
   <meta name="keywords" content="pet products OEM, pet brand solutions, e-commerce pet supply, wholesale pet products" />
-  <link rel="canonical" href="https://sunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>" />
-  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>?lang=zh" />
-  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>" />
+  <link rel="canonical" href="https://thesunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>" />
+  <link rel="alternate" hreflang="en" href="https://thesunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://thesunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://thesunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="<%= currentSolution ? (lang === 'zh' ? (currentSolution.title_zh || currentSolution.title_en || 'Solutions') : (currentSolution.title_en || 'Solutions')) : (lang === 'zh' ? '解决方案' : 'Solutions') %> | sunlitpaws" />
   <meta property="og:description" content="Tailored solutions for pet brands, e-commerce sellers, and retail distributors." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>" />
+  <meta property="og:url" content="https://thesunlitpaws.com/solutions/<%= currentSolution ? (currentSolution.slug || '') + '/' : '' %>" />
   <meta property="og:site_name" content="sunlitpaws" />
   <meta property="og:image" content="<%= (currentSolution && currentSolution.img) ? currentSolution.img : (solutions && solutions[0] && solutions[0].img ? solutions[0].img : 'https://placehold.co/1200x630/FF6B35/ffffff?text=Pet+Business+Solutions') %>" />
 
@@ -285,7 +285,7 @@
             var title = (lang === 'en' && s.title_en) ? s.title_en : (s.title || 'Solutions');
             var desc = ((lang === 'en' && s.desc_en) ? s.desc_en : (s.desc || '')).substring(0, 160);
             var slug = s.slug || s.id;
-            var url = 'https://sunlitpaws.com/solutions/' + slug + '/';
+            var url = 'https://thesunlitpaws.com/solutions/' + slug + '/';
             var image = s.img || '';
 
             document.title = title + ' | sunlitpaws Co., Ltd.';
@@ -320,8 +320,8 @@
               "provider": {
                 "@type": "Organization",
                 "name": "sunlitpaws Co., Ltd.",
-                "url": "https://sunlitpaws.com",
-                "logo": { "@type": "ImageObject", "url": "https://sunlitpaws.com/assets/images/logo.png" }
+                "url": "https://thesunlitpaws.com",
+                "logo": { "@type": "ImageObject", "url": "https://thesunlitpaws.com/assets/images/logo.png" }
               }
             };
 

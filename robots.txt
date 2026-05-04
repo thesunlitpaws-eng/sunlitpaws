@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /dashboard
+Disallow: /api/admin/
 
-Sitemap: https://sunlitpaws.com/sitemap.xml
+Sitemap: https://thesunlitpaws.com/sitemap.xml

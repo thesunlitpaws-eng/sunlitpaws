@@ -11,16 +11,16 @@
   <title><%= article ? ((lang === 'zh' ? article.title_zh || article.title : article.title_en || article.title) || 'News') + ' | sunlitpaws' : (lang === 'zh' ? '新闻动态 | sunlitpaws' : 'News | sunlitpaws') %></title>
   <meta name="description" content="<%= lang === 'zh' ? 'sunlitpaws最新公司动态、行业洞察和宠物产品趋势。' : 'Latest company news, industry insights, and pet product trends from sunlitpaws.' %>" />
   <meta name="keywords" content="pet industry news, pet product trends, sunlitpaws news" />
-  <link rel="canonical" href="https://sunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>" />
-  <link rel="alternate" hreflang="en" href="https://sunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>?lang=en" />
-  <link rel="alternate" hreflang="zh" href="https://sunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>?lang=zh" />
-  <link rel="alternate" hreflang="x-default" href="https://sunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>" />
+  <link rel="canonical" href="https://thesunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>" />
+  <link rel="alternate" hreflang="en" href="https://thesunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>?lang=en" />
+  <link rel="alternate" hreflang="zh" href="https://thesunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>?lang=zh" />
+  <link rel="alternate" hreflang="x-default" href="https://thesunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="<%= article ? (lang === 'zh' ? (article.title || article.title_en || '新闻') : (article.title_en || article.title || 'News')) : (lang === 'zh' ? '新闻动态' : 'News') %> | sunlitpaws" />
   <meta property="og:description" content="Latest company news, industry insights, and pet product trends from sunlitpaws." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>" />
+  <meta property="og:url" content="https://thesunlitpaws.com/blog/<%= article ? (article.slug || '') + '/' : '' %>" />
   <meta property="og:site_name" content="sunlitpaws" />
   <meta property="og:image" content="<%= (article && article.image) ? article.image : 'https://placehold.co/1200x630/FF6B35/ffffff?text=News+from+sunlitpaws' %>" />
 
@@ -75,26 +75,26 @@
     "@type": "Article",
     "headline": "<%= (lang === 'en' && article.title_en) ? article.title_en.replace(/"/g, '&quot;') : (article.title || '').replace(/"/g, '&quot;') %>",
     "description": "<%= (lang === 'en' && article.excerpt_en) ? article.excerpt_en.replace(/"/g, '&quot;').substring(0,200) : ((article.excerpt || article.content || '').substring(0,200)).replace(/"/g, '&quot;') %>",
-    "image": "<%= article.image ? (article.image.startsWith('http') ? article.image : 'https://sunlitpaws.com' + article.image) : '' %>",
+    "image": "<%= article.image ? (article.image.startsWith('http') ? article.image : 'https://thesunlitpaws.com' + article.image) : '' %>",
     "datePublished": "<%= article.date || '' %>",
     "dateModified": "<%= article.date || '' %>",
     "author": {
       "@type": "Organization",
       "name": "sunlitpaws Co., Ltd.",
-      "url": "https://sunlitpaws.com"
+      "url": "https://thesunlitpaws.com"
     },
     "publisher": {
       "@type": "Organization",
       "name": "sunlitpaws Co., Ltd.",
-      "url": "https://sunlitpaws.com",
+      "url": "https://thesunlitpaws.com",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://sunlitpaws.com/assets/images/logo.png"
+        "url": "https://thesunlitpaws.com/assets/images/logo.png"
       }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://sunlitpaws.com/blog/<%= article.slug %>/"
+      "@id": "https://thesunlitpaws.com/blog/<%= article.slug %>/"
     }
   }
   </script>
@@ -251,7 +251,7 @@
       const title = (lang === 'en' && news.title_en) ? news.title_en : (news.title || 'News');
       const desc = ((lang === 'en' && news.excerpt_en) ? news.excerpt_en : (news.excerpt || '')).substring(0, 160);
       const slug = news.slug || news.id;
-      const url = `https://sunlitpaws.com/blog/${slug}/`;
+      const url = `https://thesunlitpaws.com/blog/${slug}/`;
       const image = news.image || '';
 
       document.title = `${title} | sunlitpaws News`;
@@ -289,8 +289,8 @@
         "publisher": {
           "@type": "Organization",
           "name": "sunlitpaws Co., Ltd.",
-          "url": "https://sunlitpaws.com",
-          "logo": { "@type": "ImageObject", "url": "https://sunlitpaws.com/assets/images/logo.png" }
+          "url": "https://thesunlitpaws.com",
+          "logo": { "@type": "ImageObject", "url": "https://thesunlitpaws.com/assets/images/logo.png" }
         }
       };
 
