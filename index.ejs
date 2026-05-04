@@ -239,7 +239,12 @@
       factory.cards.forEach(function(c, i) {
         if (cards[i]) {
           var img = cards[i].querySelector('.factory-img');
-          if (img && c.image) img.src = c.image;
+          if (img && c.image) {
+            img.style.opacity = '0'; // 隐藏旧图
+            var tempImg = new Image();
+            tempImg.onload = function() { img.src = c.image; img.style.opacity = ''; };
+            tempImg.src = c.image;
+          }
         }
       });
     })
