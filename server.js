@@ -444,9 +444,24 @@ app.use(express.static(path.join(__dirname)));
 app.use('/uploads', express.static(UPLOAD_DIR));
 
 // 后台路由（不变）
-app.get('/admin', (req, res) => { res.sendFile(path.join(__dirname, 'admin', 'index.html')); });
-app.get('/admin/', (req, res) => { res.sendFile(path.join(__dirname, 'admin', 'index.html')); });
-app.get('/dashboard', (req, res) => { res.sendFile(path.join(__dirname, 'admin', 'dashboard.html')); });
+app.get('/admin', (req, res) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.sendFile(path.join(__dirname, 'admin', 'index.html'));
+});
+app.get('/admin/', (req, res) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.sendFile(path.join(__dirname, 'admin', 'index.html'));
+});
+app.get('/admin/dashboard.html', (req, res) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.sendFile(path.join(__dirname, 'admin', 'dashboard.html'));
+});
 
 // ─── 语言切换 ─────────────────────────────────────────
 app.post('/api/set-lang', (req, res) => {
