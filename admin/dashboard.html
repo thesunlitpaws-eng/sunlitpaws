@@ -239,8 +239,12 @@ textarea.form-control { min-height: 100px; resize: vertical; }
         <div class="card">
           <div class="card-header"><h3>首页横幅设置</h3></div>
           <div class="card-body">
-            <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="heroTitle"></div>
+            <div class="form-row">
+              <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="heroTitle"></div>
+              <div class="form-group"><label>主标题（英文）</label><input type="text" class="form-control" id="heroTitle_en"></div>
+            </div>
             <div class="form-group"><label>副标题</label><textarea class="form-control" id="heroSubtitle"></textarea></div>
+            <div class="form-group"><label>副标题（英文）</label><textarea class="form-control" id="heroSubtitle_en"></textarea></div>
             <h4 style="margin:24px 0 16px;font-size:15px;">轮播图 (3张)</h4>
             <div class="form-row">
               <div class="form-group"><label>轮播图 1</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'heroSlide1')"></div><input type="hidden" id="heroSlide1"><img class="upload-preview" id="preview-heroSlide1" style="display:none"></div>
@@ -251,20 +255,24 @@ textarea.form-control { min-height: 100px; resize: vertical; }
             <div class="form-row">
               <div class="form-group"><label>数值1</label><input type="text" class="form-control" id="heroStat1Value"></div>
               <div class="form-group"><label>标签1</label><input type="text" class="form-control" id="heroStat1Label"></div>
+              <div class="form-group"><label>标签1（英文）</label><input type="text" class="form-control" id="heroStat1Label_en"></div>
             </div>
             <div class="form-row">
               <div class="form-group"><label>数值2</label><input type="text" class="form-control" id="heroStat2Value"></div>
               <div class="form-group"><label>标签2</label><input type="text" class="form-control" id="heroStat2Label"></div>
+              <div class="form-group"><label>标签2（英文）</label><input type="text" class="form-control" id="heroStat2Label_en"></div>
             </div>
             <div class="form-row">
               <div class="form-group"><label>数值3</label><input type="text" class="form-control" id="heroStat3Value"></div>
               <div class="form-group"><label>标签3</label><input type="text" class="form-control" id="heroStat3Label"></div>
+              <div class="form-group"><label>标签3（英文）</label><input type="text" class="form-control" id="heroStat3Label_en"></div>
             </div>
             <div class="form-row">
               <div class="form-group"><label>数值4</label><input type="text" class="form-control" id="heroStat4Value"></div>
               <div class="form-group"><label>标签4</label><input type="text" class="form-control" id="heroStat4Label"></div>
+              <div class="form-group"><label>标签4（英文）</label><input type="text" class="form-control" id="heroStat4Label_en"></div>
             </div>
-            <div class="btn-group"><button class="btn btn-primary" onclick="saveHero()">保存设置</button></div>
+            <div class="btn-group"><button class="btn btn-primary" onclick="saveHero()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
           </div>
         </div>
       </div>
@@ -276,14 +284,20 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-body">
             <div class="form-row">
               <div class="form-group"><label>标签</label><input type="text" class="form-control" id="aboutTag"></div>
+              <div class="form-group"><label>标签（英文）</label><input type="text" class="form-control" id="aboutTag_en"></div>
               <div class="form-group"><label>徽章文字</label><input type="text" class="form-control" id="aboutBadge"></div>
+              <div class="form-group"><label>徽章文字（英文）</label><input type="text" class="form-control" id="aboutBadge_en"></div>
             </div>
             <div class="form-group"><label>标题</label><input type="text" class="form-control" id="aboutTitle"></div>
+            <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="aboutTitle_en"></div>
             <div class="form-group"><label>引言</label><textarea class="form-control" id="aboutLead"></textarea></div>
+            <div class="form-group"><label>引言（英文）</label><textarea class="form-control" id="aboutLead_en"></textarea></div>
             <div class="form-group"><label>正文段落1</label><textarea class="form-control" id="aboutP1"></textarea></div>
+            <div class="form-group"><label>正文段落1（英文）</label><textarea class="form-control" id="aboutP1_en"></textarea></div>
             <div class="form-group"><label>正文段落2</label><textarea class="form-control" id="aboutP2"></textarea></div>
+            <div class="form-group"><label>正文段落2（英文）</label><textarea class="form-control" id="aboutP2_en"></textarea></div>
             <div class="form-group"><label>图片</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'aboutImage')"></div><input type="hidden" id="aboutImage"><img class="upload-preview" id="preview-aboutImage" style="display:none"></div>
-            <div class="btn-group"><button class="btn btn-primary" onclick="saveAbout()">保存设置</button></div>
+            <div class="btn-group"><button class="btn btn-primary" onclick="saveAbout()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
           </div>
         </div>
       </div>
@@ -295,12 +309,17 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-body">
             <div class="form-row">
               <div class="form-group"><label>标签</label><input type="text" class="form-control" id="factoryTag"></div>
+              <div class="form-group"><label>标签（英文）</label><input type="text" class="form-control" id="factoryTag_en"></div>
               <div class="form-group"><label>标题</label><input type="text" class="form-control" id="factoryTitle"></div>
+              <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="factoryTitle_en"></div>
             </div>
-            <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="factorySubtitle"></div>
+            <div class="form-row">
+              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="factorySubtitle"></div>
+              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="factorySubtitle_en"></div>
+            </div>
             <h4 style="margin:24px 0 16px;font-size:15px;">卡片内容（3张）</h4>
             <div id="factoryCardsList"></div>
-            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveFactory()">保存设置</button></div>
+            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveFactory()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
           </div>
         </div>
       </div>
@@ -312,12 +331,17 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-body">
             <div class="form-row">
               <div class="form-group"><label>标签</label><input type="text" class="form-control" id="advTag"></div>
+              <div class="form-group"><label>标签（英文）</label><input type="text" class="form-control" id="advTag_en"></div>
               <div class="form-group"><label>标题</label><input type="text" class="form-control" id="advTitle"></div>
+              <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="advTitle_en"></div>
             </div>
-            <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="advSubtitle"></div>
+            <div class="form-row">
+              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="advSubtitle"></div>
+              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="advSubtitle_en"></div>
+            </div>
             <h4 style="margin:24px 0 16px;font-size:15px;">优势项</h4>
             <div id="advItems"></div>
-            <div class="btn-group" style="margin-top:20px;"><button class="btn btn-primary" onclick="saveAdvantages()">保存设置</button></div>
+            <div class="btn-group" style="margin-top:20px;"><button class="btn btn-primary" onclick="saveAdvantages()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
           </div>
         </div>
       </div>
@@ -334,32 +358,58 @@ textarea.form-control { min-height: 100px; resize: vertical; }
       <!-- 解决方案 -->
       <div class="page" id="page-solutions">
         <div class="card">
-          <div class="card-header"><h3>解决方案板块</h3><button class="btn btn-primary btn-sm" onclick="saveSolutionsSection()">💾 保存修改</button></div>
+          <div class="card-header"><h3>解决方案板块</h3><button class="btn btn-warning btn-sm" onclick="translateCurrentSection()">🌐 翻译</button><button class="btn btn-primary btn-sm" onclick="saveSolutionsSection()">💾 保存修改</button></div>
           <div class="card-body">
             <div class="form-row">
               <div class="form-group"><label>板块标签</label><input type="text" class="form-control" id="solTag" placeholder="如: Solutions"></div>
+              <div class="form-group"><label>板块标签（英文）</label><input type="text" class="form-control" id="solTag_en" placeholder="如: Solutions"></div>
               <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="solTitle" placeholder="主标题"></div>
+              <div class="form-group"><label>主标题（英文）</label><input type="text" class="form-control" id="solTitle_en" placeholder="主标题"></div>
             </div>
-            <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="solSubtitle" placeholder="副标题描述"></div>
+            <div class="form-row">
+              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="solSubtitle" placeholder="副标题描述"></div>
+              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="solSubtitle_en" placeholder="副标题描述"></div>
+            </div>
 
             <hr>
             <h4 style="margin:16px 0 12px;font-size:14px;color:#666;">三个卡片内容</h4>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
               <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片1 标题</label><input type="text" class="form-control" id="solCard0Title" placeholder="如: 品牌OEM/ODM方案"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片1 标题（英文）</label><input type="text" class="form-control" id="solCard0Title_en" placeholder="如: Brand OEM/ODM Solution"></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
               <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片2 标题</label><input type="text" class="form-control" id="solCard1Title" placeholder="如: 跨境电商供应链"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片2 标题（英文）</label><input type="text" class="form-control" id="solCard1Title_en" placeholder="如: Cross-border E-commerce Supply Chain"></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
               <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片3 标题</label><input type="text" class="form-control" id="solCard2Title" placeholder="零售批发计划"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片3 标题（英文）</label><input type="text" class="form-control" id="solCard2Title_en" placeholder="如: Retail & Wholesale"></div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:12px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
               <div class="form-group"><label>卡片1 描述</label><textarea class="form-control" id="solCard0Desc" rows="2" placeholder="卡片1描述"></textarea></div>
+              <div class="form-group"><label>卡片1 描述（英文）</label><textarea class="form-control" id="solCard0Desc_en" rows="2" placeholder="English description"></textarea></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
               <div class="form-group"><label>卡片2 描述</label><textarea class="form-control" id="solCard1Desc" rows="2" placeholder="卡片2描述"></textarea></div>
+              <div class="form-group"><label>卡片2 描述（英文）</label><textarea class="form-control" id="solCard1Desc_en" rows="2" placeholder="English description"></textarea></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
               <div class="form-group"><label>卡片3 描述</label><textarea class="form-control" id="solCard2Desc" rows="2" placeholder="卡片3描述"></textarea></div>
+              <div class="form-group"><label>卡片3 描述（英文）</label><textarea class="form-control" id="solCard2Desc_en" rows="2" placeholder="English description"></textarea></div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:12px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
               <div class="form-group"><label>卡片1 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard0Items" rows="4" placeholder="定制配方与设计&#10;自有品牌包装&#10;法规合规支持&#10;MOQ从200件起"></textarea></div>
-              <div class="form-group"><label>卡片2 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard1Items" rows="4" placeholder="适用于亚马逊物流服务的包装与标签&#10;交货周期短&#10;小批量试产订单"></textarea></div>
-              <div class="form-group"><label>卡片3 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard2Items" rows="4" placeholder="全线产品采购&#10;季节性商品收集规划&#10;专职客户经理&#10;30/60天账期"></textarea></div>
+              <div class="form-group"><label>卡片1 列表项（英文）<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard0Items_en" rows="4" placeholder="Custom formulation&#10;Custom packaging&#10;Regulatory compliance&#10;MOQ from 200 units"></textarea></div>
             </div>
-            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveSolutionsSection()">💾 保存板块设置</button></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
+              <div class="form-group"><label>卡片2 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard1Items" rows="4" placeholder="适用于亚马逊物流服务的包装与标签&#10;交货周期短&#10;小批量试产订单"></textarea></div>
+              <div class="form-group"><label>卡片2 列表项（英文）<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard1Items_en" rows="4" placeholder="Amazon FBA packaging&#10;Fast turnaround&#10;Low MOQ trial orders"></textarea></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
+              <div class="form-group"><label>卡片3 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard2Items" rows="4" placeholder="全线产品采购&#10;季节性商品收集规划&#10;专职客户经理&#10;30/60天账期"></textarea></div>
+              <div class="form-group"><label>卡片3 列表项（英文）<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard2Items_en" rows="4" placeholder="Full product range sourcing&#10;Seasonal collection planning&#10;Dedicated account manager&#10;30/60 day payment terms"></textarea></div>
+            </div>
+            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveSolutionsSection()">💾 保存板块设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译</button></div>
           </div>
         </div>
         <div class="card" style="margin-top:16px">
@@ -388,7 +438,7 @@ textarea.form-control { min-height: 100px; resize: vertical; }
       <div class="page" id="page-cases">
         <!-- 板块设置 -->
         <div class="card">
-          <div class="card-header"><h3>案例板块设置</h3><button class="btn btn-primary btn-sm" onclick="saveCasesSection()">💾 保存修改</button></div>
+          <div class="card-header"><h3>案例板块设置</h3><button class="btn btn-warning btn-sm" onclick="translateCurrentSection()">🌐 翻译</button><button class="btn btn-primary btn-sm" onclick="saveCasesSection()">💾 保存修改</button></div>
           <div class="card-body">
             <div class="form-row">
               <div class="form-group"><label>板块标题</label><input type="text" class="form-control" id="caseSectionTitle" placeholder="Success Cases"></div>
@@ -424,7 +474,7 @@ textarea.form-control { min-height: 100px; resize: vertical; }
               <div class="form-group"><label>统计2（如：Markets expanded）</label><input type="text" class="form-control" id="caseCard1S2" placeholder="Markets expanded"></div>
               <div class="form-group"><label>数字1（如：120+）</label><input type="text" class="form-control" id="caseCard1N1" placeholder="120+"></div><div class="form-group"><label>数字2（如：5）</label><input type="text" class="form-control" id="caseCard1N2" placeholder="5"></div><div class="form-group"><label>数字3（如：98%）</label><input type="text" class="form-control" id="caseCard1N3" placeholder="98%"></div><div class="form-group"><label>统计3（如：On-time rate）</label><input type="text" class="form-control" id="caseCard1S3" placeholder="On-time rate"></div>
             </div>
-            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveCasesSection()">💾 保存板块设置</button></div>
+            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveCasesSection()">💾 保存板块设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译</button></div>
           </div>
         </div>
         <!-- 案例详情列表 -->
@@ -480,7 +530,7 @@ textarea.form-control { min-height: 100px; resize: vertical; }
               <div class="form-group"><label>Instagram</label><input type="text" class="form-control" id="contactInstagram" placeholder="https://instagram.com/..."></div>
             </div>
             
-            <div class="btn-group" style="margin-top:24px;"><button class="btn btn-primary" onclick="saveContact()">保存设置</button></div>
+            <div class="btn-group" style="margin-top:24px;"><button class="btn btn-primary" onclick="saveContact()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
           </div>
         </div>
       </div>
@@ -496,7 +546,7 @@ textarea.form-control { min-height: 100px; resize: vertical; }
               <div class="form-group"><label>按钮1文字</label><input type="text" class="form-control" id="ctaBtn1"></div>
               <div class="form-group"><label>按钮2文字</label><input type="text" class="form-control" id="ctaBtn2"></div>
             </div>
-            <div class="btn-group"><button class="btn btn-primary" onclick="saveCta()">保存设置</button></div>
+            <div class="btn-group"><button class="btn btn-primary" onclick="saveCta()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
           </div>
         </div>
       </div>
@@ -512,7 +562,7 @@ textarea.form-control { min-height: 100px; resize: vertical; }
               <div class="form-group"><label>邮箱</label><input type="email" class="form-control" id="footerEmail"></div>
               <div class="form-group"><label>电话</label><input type="text" class="form-control" id="footerPhone"></div>
             </div>
-            <div class="btn-group"><button class="btn btn-primary" onclick="saveFooter()">保存设置</button></div>
+            <div class="btn-group"><button class="btn btn-primary" onclick="saveFooter()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
           </div>
         </div>
       </div>
@@ -730,6 +780,45 @@ async function api(url, options = {}) {
   return res.json();
 }
 
+// 翻译函数 - 使用 MyMemory 免费 API (每天5000字符)
+async function translateText(text) {
+  if (!text || !/[\u4e00-\u9fa5]/.test(text)) return text;
+  try {
+    const res = await fetch('https://api.mymemory.com/get?q=' + encodeURIComponent(text) + '&langpair=zh|en');
+    const data = await res.json();
+    return data.responseData?.translatedText || text;
+  } catch (e) {
+    console.error('翻译失败:', e);
+    return text;
+  }
+}
+
+// 翻译当前页面所有中文输入框到英文输入框 (_en 后缀)
+async function translateCurrentSection() {
+  const page = document.querySelector('.page:not(.hidden)');
+  if (!page) return;
+  
+  const inputs = page.querySelectorAll('input[id], textarea[id]');
+  let count = 0;
+  
+  for (const input of inputs) {
+    const enId = input.id + '_en';
+    const enInput = document.getElementById(enId);
+    if (input.value && /[\u4e00-\u9fa5]/.test(input.value) && enInput) {
+      showToast('正在翻译...', 'info');
+      const translated = await translateText(input.value);
+      enInput.value = translated;
+      count++;
+    }
+  }
+  
+  if (count > 0) {
+    showToast('已翻译 ' + count + ' 个字段！请检查后保存', 'success');
+  } else {
+    showToast('没有找到需要翻译的中文内容', 'warning');
+  }
+}
+
 document.querySelectorAll('.nav-item').forEach(item => {
   item.addEventListener('click', () => {
     const page = item.dataset.page;
@@ -832,9 +921,11 @@ async function loadHero() {
   const modules = await api('/api/modules');
   const hero = modules.hero || {};
   document.getElementById('heroTitle').value = hero.title || '';
+  document.getElementById('heroTitle_en').value = hero.title_en || hero.title || '';
   document.getElementById('heroSubtitle').value = hero.subtitle || '';
+  document.getElementById('heroSubtitle_en').value = hero.subtitle_en || hero.subtitle || '';
   if (hero.slides) { hero.slides.forEach((s, i) => { if (s.image) { document.getElementById('heroSlide' + (i+1)).value = s.image; document.getElementById('preview-heroSlide' + (i+1)).src = s.image; document.getElementById('preview-heroSlide' + (i+1)).style.display = 'block'; } }); }
-  if (hero.stats) { hero.stats.forEach((s, i) => { document.getElementById('heroStat' + (i+1) + 'Value').value = s.value || ''; document.getElementById('heroStat' + (i+1) + 'Label').value = s.label || ''; }); }
+  if (hero.stats) { hero.stats.forEach((s, i) => { document.getElementById('heroStat' + (i+1) + 'Value').value = s.value || ''; document.getElementById('heroStat' + (i+1) + 'Label').value = s.label || ''; document.getElementById('heroStat' + (i+1) + 'Label_en').value = s.label_en || s.label || ''; }); }
 }
 
 async function saveHero() {
@@ -844,10 +935,10 @@ async function saveHero() {
     subtitle: document.getElementById('heroSubtitle').value,
     slides: [{ image: document.getElementById('heroSlide1').value }, { image: document.getElementById('heroSlide2').value }, { image: document.getElementById('heroSlide3').value }],
     stats: [
-      { value: document.getElementById('heroStat1Value').value, label: document.getElementById('heroStat1Label').value },
-      { value: document.getElementById('heroStat2Value').value, label: document.getElementById('heroStat2Label').value },
-      { value: document.getElementById('heroStat3Value').value, label: document.getElementById('heroStat3Label').value },
-      { value: document.getElementById('heroStat4Value').value, label: document.getElementById('heroStat4Label').value }
+      { value: document.getElementById('heroStat1Value').value, label: document.getElementById('heroStat1Label').value, label_en: document.getElementById('heroStat1Label_en').value },
+      { value: document.getElementById('heroStat2Value').value, label: document.getElementById('heroStat2Label').value, label_en: document.getElementById('heroStat2Label_en').value },
+      { value: document.getElementById('heroStat3Value').value, label: document.getElementById('heroStat3Label').value, label_en: document.getElementById('heroStat3Label_en').value },
+      { value: document.getElementById('heroStat4Value').value, label: document.getElementById('heroStat4Label').value, label_en: document.getElementById('heroStat4Label_en').value }
     ]
   };
   await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
@@ -858,8 +949,11 @@ async function loadFactory() {
   const modules = await api('/api/modules');
   const f = modules.factory || {};
   document.getElementById('factoryTag').value = f.tag || '';
+  document.getElementById('factoryTag_en').value = f.tag_en || f.tag || '';
   document.getElementById('factoryTitle').value = f.title || '';
+  document.getElementById('factoryTitle_en').value = f.title_en || f.title || '';
   document.getElementById('factorySubtitle').value = f.subtitle || '';
+  document.getElementById('factorySubtitle_en').value = f.subtitle_en || f.subtitle || '';
   const cards = f.cards || [];
   document.getElementById('factoryCardsList').innerHTML = cards.map((c, i) => `
     <div class="card-edit-row">
@@ -885,9 +979,9 @@ async function saveFactory() {
     desc: cardDescs[i] ? cardDescs[i].value : ''
   }));
   modules.factory = {
-    tag: document.getElementById('factoryTag').value,
-    title: document.getElementById('factoryTitle').value,
-    subtitle: document.getElementById('factorySubtitle').value,
+    tag: document.getElementById('factoryTag').value, tag_en: document.getElementById('factoryTag_en').value,
+    title: document.getElementById('factoryTitle').value, title_en: document.getElementById('factoryTitle_en').value,
+    subtitle: document.getElementById('factorySubtitle').value, subtitle_en: document.getElementById('factorySubtitle_en').value,
     cards: cards
   };
   await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
@@ -898,17 +992,23 @@ async function loadAbout() {
   const modules = await api('/api/modules');
   const about = modules.about || {};
   document.getElementById('aboutTag').value = about.tag || '';
+  document.getElementById('aboutTag_en').value = about.tag_en || about.tag || '';
   document.getElementById('aboutTitle').value = about.title || '';
+  document.getElementById('aboutTitle_en').value = about.title_en || about.title || '';
   document.getElementById('aboutLead').value = about.lead || '';
+  document.getElementById('aboutLead_en').value = about.lead_en || about.lead || '';
   document.getElementById('aboutP1').value = about.p1 || '';
+  document.getElementById('aboutP1_en').value = about.p1_en || about.p1 || '';
   document.getElementById('aboutP2').value = about.p2 || '';
+  document.getElementById('aboutP2_en').value = about.p2_en || about.p2 || '';
   document.getElementById('aboutBadge').value = about.badge || '';
+  document.getElementById('aboutBadge_en').value = about.badge_en || about.badge || '';
   if (about.image) { document.getElementById('aboutImage').value = about.image; document.getElementById('preview-aboutImage').src = about.image; document.getElementById('preview-aboutImage').style.display = 'block'; }
 }
 
 async function saveAbout() {
   const modules = await api('/api/modules');
-  modules.about = { tag: document.getElementById('aboutTag').value, title: document.getElementById('aboutTitle').value, lead: document.getElementById('aboutLead').value, p1: document.getElementById('aboutP1').value, p2: document.getElementById('aboutP2').value, badge: document.getElementById('aboutBadge').value, image: document.getElementById('aboutImage').value };
+  modules.about = { tag: document.getElementById('aboutTag').value, tag_en: document.getElementById('aboutTag_en').value, title: document.getElementById('aboutTitle').value, title_en: document.getElementById('aboutTitle_en').value, lead: document.getElementById('aboutLead').value, lead_en: document.getElementById('aboutLead_en').value, p1: document.getElementById('aboutP1').value, p1_en: document.getElementById('aboutP1_en').value, p2: document.getElementById('aboutP2').value, p2_en: document.getElementById('aboutP2_en').value, badge: document.getElementById('aboutBadge').value, badge_en: document.getElementById('aboutBadge_en').value, image: document.getElementById('aboutImage').value };
   await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
   showToast('关于我们已保存');
 }
@@ -917,16 +1017,25 @@ async function loadAdvantages() {
   const modules = await api('/api/modules');
   const adv = modules.advantages || {};
   document.getElementById('advTag').value = adv.tag || '';
+  document.getElementById('advTag_en').value = adv.tag_en || adv.tag || '';
   document.getElementById('advTitle').value = adv.title || '';
+  document.getElementById('advTitle_en').value = adv.title_en || adv.title || '';
   document.getElementById('advSubtitle').value = adv.subtitle || '';
-  document.getElementById('advItems').innerHTML = (adv.items || []).map((item, i) => '<div class="form-row"><div class="form-group"><label>标题 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '" value="' + (item.title || '') + '"></div><div class="form-group"><label>描述 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '" value="' + (item.desc || '') + '"></div></div>').join('');
+  document.getElementById('advSubtitle_en').value = adv.subtitle_en || adv.subtitle || '';
+  document.getElementById('advItems').innerHTML = (adv.items || []).map((item, i) => '<div class="form-row"><div class="form-group"><label>标题 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '" value="' + (item.title || '') + '"></div><div class="form-group"><label>标题（英文）' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '_en" value="' + (item.title_en || item.title || '') + '"></div><div class="form-group"><label>描述 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '" value="' + (item.desc || '') + '"></div><div class="form-group"><label>描述（英文）' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '_en" value="' + (item.desc_en || item.desc || '') + '"></div></div>').join('');
 }
 
 async function saveAdvantages() {
   const modules = await api('/api/modules');
   const items = [];
-  for (let i = 0; i < 4; i++) { const title = document.getElementById('advItemTitle' + i)?.value; if (title) items.push({ title, desc: document.getElementById('advItemDesc' + i)?.value || '' }); }
-  modules.advantages = { tag: document.getElementById('advTag').value, title: document.getElementById('advTitle').value, subtitle: document.getElementById('advSubtitle').value, items };
+  for (let i = 0; i < 4; i++) {
+    const title = document.getElementById('advItemTitle' + i)?.value;
+    if (title) items.push({
+      title, title_en: document.getElementById('advItemTitle' + i + '_en')?.value || title,
+      desc: document.getElementById('advItemDesc' + i)?.value || '', desc_en: document.getElementById('advItemDesc' + i + '_en')?.value || document.getElementById('advItemDesc' + i)?.value || ''
+    });
+  }
+  modules.advantages = { tag: document.getElementById('advTag').value, tag_en: document.getElementById('advTag_en').value, title: document.getElementById('advTitle').value, title_en: document.getElementById('advTitle_en').value, subtitle: document.getElementById('advSubtitle').value, subtitle_en: document.getElementById('advSubtitle_en').value, items };
   await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
   showToast('优势特点已保存');
 }
@@ -1044,13 +1153,19 @@ async function saveSolutionsSection() {
   var modules = await api('/api/modules');
   var sol = modules.solutions || { cards: [] };
   sol.tag = document.getElementById('solTag').value;
+  sol.tag_en = document.getElementById('solTag_en').value || sol.tag;
   sol.title = document.getElementById('solTitle').value;
+  sol.title_en = document.getElementById('solTitle_en').value || sol.title;
   sol.subtitle = document.getElementById('solSubtitle').value;
+  sol.subtitle_en = document.getElementById('solSubtitle_en').value || sol.subtitle;
   sol.cards = [0,1,2].map(function(i){
     return {
       title: document.getElementById('solCard'+i+'Title').value,
+      title_en: document.getElementById('solCard'+i+'Title_en').value || document.getElementById('solCard'+i+'Title').value,
       desc: document.getElementById('solCard'+i+'Desc').value,
-      items: document.getElementById('solCard'+i+'Items').value.split('\n').map(function(s){return s.trim();}).filter(Boolean)
+      desc_en: document.getElementById('solCard'+i+'Desc_en').value || document.getElementById('solCard'+i+'Desc').value,
+      items: document.getElementById('solCard'+i+'Items').value.split('\n').map(function(s){return s.trim();}).filter(Boolean),
+      items_en: document.getElementById('solCard'+i+'Items_en').value.split('\n').map(function(s){return s.trim();}).filter(Boolean)
     };
   });
   modules.solutions = sol;
@@ -1125,13 +1240,19 @@ async function loadSolutions() {
   var modules = await api('/api/modules');
   var sol = modules.solutions || { cards: [] };
   document.getElementById('solTag').value = sol.tag || '';
+  document.getElementById('solTag_en').value = sol.tag_en || sol.tag || '';
   document.getElementById('solTitle').value = sol.title || '';
+  document.getElementById('solTitle_en').value = sol.title_en || sol.title || '';
   document.getElementById('solSubtitle').value = sol.subtitle || '';
+  document.getElementById('solSubtitle_en').value = sol.subtitle_en || sol.subtitle || '';
   [0,1,2].forEach(function(i){
     var c = (sol.cards || [])[i] || {};
     document.getElementById('solCard'+i+'Title').value = c.title || '';
+    document.getElementById('solCard'+i+'Title_en').value = c.title_en || c.title || '';
     document.getElementById('solCard'+i+'Desc').value = c.desc || '';
+    document.getElementById('solCard'+i+'Desc_en').value = c.desc_en || c.desc || '';
     document.getElementById('solCard'+i+'Items').value = (c.items || []).join('\n');
+    document.getElementById('solCard'+i+'Items_en').value = (c.items_en || []).join('\n');
   });
   // 加载方案列表
   var list = await api('/api/admin/solutions');

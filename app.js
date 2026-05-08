@@ -1026,127 +1026,76 @@ document.addEventListener('click', function(e) {
 /* ===== LOAD DYNAMIC MODULES FROM API ===== */
 (async function loadModules() {
   try {
-    const res = await fetch('/api/modules');
-    if (!res.ok) return;
-    const m = await res.json();
+    // Fetch both languages so switchLanguage() can switch between them
+    const [zhRes, enRes] = await Promise.all([
+      fetch('/api/modules?lang=zh'),
+      fetch('/api/modules?lang=en')
+    ]);
+    if (!zhRes.ok || !enRes.ok) return;
+    const zhData = await zhRes.json();
+    const enData = await enRes.json();
+    // localizeModules on server resolves _en fields → the API returns pure zh/en text.
+    // Inject into i18n so switchLanguage() can apply them.
 
-    // Inject modules into i18n so switchLanguage() picks them up
-    const lang = localStorage.getItem('preferredLang') || 'en';
-    if (!i18n[lang]) return;
+    // Hero zh + en
+    ['zh','en'].forEach(function(l) {
+      var m = l === 'zh' ? zhData : enData;
+      if (m.hero) {
+        i18n[l]['hero.title'] = m.hero.title || i18n[l]['hero.title'];
+        i18n[l]['hero.sub'] = m.hero.subtitle || i18n[l]['hero.sub'];
+        if (m.hero.stats) m.hero.stats.forEach((s, i) => { if (s.value) i18n[l]['hero.stat'+(i+1)] = s.label||''; });
+      }
+    });
 
-    // Hero
-    if (m.hero) {
-      i18n[lang]['hero.title'] = m.hero.title || i18n[lang]['hero.title'];
-      i18n[lang]['hero.sub'] = m.hero.subtitle || i18n[lang]['hero.sub'];
-      if (m.hero.stats) {
-        m.hero.stats.forEach((s, i) => {
-          if (s.value) i18n[lang]['hero.stat' + (i+1)] = s.label || '';
+    // About zh + en
+    ['zh','en'].forEach(function(l) {
+      var m = l === 'zh' ? zhData : enData;
+      if (m.about) {
+        ['tag','title','lead','p1','p2'].forEach(k => { if (m.about[k]) i18n[l]['about.'+k] = m.about[k]; });
+        if (l === 'zh' && m.about.badge) {
+          const badge = document.querySelector('.about-badge-num');
+          if (badge) badge.textContent = m.about.badge;
+        }
+      }
+    });
+
+    // Factory zh + en
+    ['zh','en'].forEach(function(l) {
+      var m = l === 'zh' ? zhData : enData;
+      if (m.factory) {
+        if (m.factory.tag) { i18n[l]['factory.tag'] = m.factory.tag; var el = document.querySelector('[data-i18n="factory.tag"]'); if (el) el.textContent = m.factory.tag; }
+        if (m.factory.title) { i18n[l]['factory.title'] = m.factory.title; var el = document.querySelector('[data-i18n="factory.title"]'); if (el) el.textContent = m.factory.title; }
+        if (m.factory.subtitle) { i18n[l]['factory.sub'] = m.factory.subtitle; var el = document.querySelector('[data-i18n="factory.sub"]'); if (el) el.textContent = m.factory.subtitle; }
+        if (m.factory.cards) m.factory.cards.forEach(function(c, i) {
+          var idx = i+1;
+          if (c.name) { i18n[l]['factory.card'+idx+'.name'] = c.name; var el = document.querySelector('[data-i18n="factory.card'+idx+'.name"]'); if (el) el.textContent = c.name; }
+          if (c.desc) { i18n[l]['factory.card'+idx+'.desc'] = c.desc; var el = document.querySelector('[data-i18n="factory.card'+idx+'.desc"]'); if (el) el.textContent = c.desc; }
+          if (c.image && l === lang) { var imgEl = document.querySelectorAll('.factory-img')[i]; if (imgEl) imgEl.src = c.image; }
         });
       }
-    }
+    });
 
-    // About
-    if (m.about) {
-      ['tag','title','lead','p1','p2'].forEach(k => {
-        if (m.about[k]) i18n[lang]['about.' + k] = m.about[k];
-      });
-      if (m.about.badge) {
-        const badge = document.querySelector('.about-badge-num');
-        if (badge) badge.textContent = m.about.badge;
-      }
-      if (m.about.image) {
-        const img = document.querySelector('.about-img-wrap img');
-        if (img) img.src = m.about.image;
-      }
-    }
-
-    // Factory
-    if (m.factory) {
-      if (m.factory.tag) {
-        i18n[lang]['factory.tag'] = m.factory.tag;
-        var tag = document.querySelector('[data-i18n="factory.tag"]');
-        if (tag) tag.textContent = m.factory.tag;
-      }
-      if (m.factory.title) {
-        i18n[lang]['factory.title'] = m.factory.title;
-        var title = document.querySelector('[data-i18n="factory.title"]');
-        if (title) title.textContent = m.factory.title;
-      }
-      if (m.factory.subtitle) {
-        i18n[lang]['factory.sub'] = m.factory.subtitle;
-        var sub = document.querySelector('[data-i18n="factory.sub"]');
-        if (sub) sub.textContent = m.factory.subtitle;
-      }
-      if (m.factory.cards) {
-        m.factory.cards.forEach((c, i) => {
-          var idx = i + 1;
-          if (c.name) {
-            i18n[lang]['factory.card' + idx + '.name'] = c.name;
-            var nameEl = document.querySelector('[data-i18n="factory.card' + idx + '.name"]');
-            if (nameEl) nameEl.textContent = c.name;
-          }
-          if (c.desc) {
-            i18n[lang]['factory.card' + idx + '.desc'] = c.desc;
-            var descEl = document.querySelector('[data-i18n="factory.card' + idx + '.desc"]');
-            if (descEl) descEl.textContent = c.desc;
-          }
-          if (c.image) {
-            var imgEl = document.querySelectorAll('.factory-img')[i];
-            if (imgEl) imgEl.src = c.image;
-          }
-        });
-      }
-    }
-
-    // Solutions
-    if (m.solutions) {
-      if (m.solutions.tag) {
-        i18n[lang]['sol.tag'] = m.solutions.tag;
-        var el = document.querySelector('[data-i18n="sol.tag"]');
-        if (el) el.textContent = m.solutions.tag;
-      }
-      if (m.solutions.title) {
-        i18n[lang]['sol.title'] = m.solutions.title;
-        var el = document.querySelector('[data-i18n="sol.title"]');
-        if (el) el.textContent = m.solutions.title;
-      }
-      if (m.solutions.subtitle) {
-        i18n[lang]['sol.sub'] = m.solutions.subtitle;
-        var el = document.querySelector('[data-i18n="sol.sub"]');
-        if (el) el.textContent = m.solutions.subtitle;
-      }
-      if (m.solutions.cards) {
-        m.solutions.cards.forEach(function(c, i) {
-          var idx = i + 1;
-          if (c.title) {
-            i18n[lang]['sol.c' + idx + '.title'] = c.title;
-            var el = document.querySelector('[data-i18n="sol.c' + idx + '.title"]');
-            if (el) el.textContent = c.title;
-          }
-          if (c.desc) {
-            i18n[lang]['sol.c' + idx + '.desc'] = c.desc;
-            var el = document.querySelector('[data-i18n="sol.c' + idx + '.desc"]');
-            if (el) el.textContent = c.desc;
-          }
+    // Solutions zh + en
+    ['zh','en'].forEach(function(l) {
+      var m = l === 'zh' ? zhData : enData;
+      if (m.solutions) {
+        if (m.solutions.tag) { i18n[l]['sol.tag'] = m.solutions.tag; if (l === lang) { var el = document.querySelector('[data-i18n="sol.tag"]'); if (el) el.textContent = m.solutions.tag; } }
+        if (m.solutions.title) { i18n[l]['sol.title'] = m.solutions.title; if (l === lang) { var el = document.querySelector('[data-i18n="sol.title"]'); if (el) el.textContent = m.solutions.title; } }
+        if (m.solutions.subtitle) { i18n[l]['sol.sub'] = m.solutions.subtitle; if (l === lang) { var el = document.querySelector('[data-i18n="sol.sub"]'); if (el) el.textContent = m.solutions.subtitle; } }
+        if (m.solutions.cards) m.solutions.cards.forEach(function(c, i) {
+          var idx = i+1;
+          if (c.title) { i18n[l]['sol.c'+idx+'.title'] = c.title; if (l === lang) { var el = document.querySelector('[data-i18n="sol.c'+idx+'.title"]'); if (el) el.textContent = c.title; } }
+          if (c.desc) { i18n[l]['sol.c'+idx+'.desc'] = c.desc; if (l === lang) { var el = document.querySelector('[data-i18n="sol.c'+idx+'.desc"]'); if (el) el.textContent = c.desc; } }
           if (c.items) {
-            c.items.forEach(function(item, j) {
-              i18n[lang]['sol.c' + idx + '.l' + (j+1)] = item;
-              var el = document.querySelector('[data-i18n="sol.c' + idx + '.l' + (j+1) + '"]');
-              if (el) el.textContent = item;
-            });
-            // 隐藏后端没有的列表项
-            var cardDiv = document.querySelector('[data-idx="' + (idx-1) + '"]');
-            if (cardDiv) {
-              var lis = cardDiv.querySelectorAll('li');
-              for (var k = c.items.length; k < lis.length; k++) {
-                lis[k].style.display = 'none';
-              }
+            c.items.forEach(function(item, j) { i18n[l]['sol.c'+idx+'.l'+(j+1)] = item; if (l === lang) { var el = document.querySelector('[data-i18n="sol.c'+idx+'.l'+(j+1)+'"]'); if (el) el.textContent = item; } });
+            if (l === lang) {
+              var cardDiv = document.querySelector('[data-idx="'+(idx-1)+'"]');
+              if (cardDiv) { var lis = cardDiv.querySelectorAll('li'); for (var k = c.items.length; k < lis.length; k++) lis[k].style.display='none'; }
             }
           }
-          // 图片不上传，由 solutions 详情页管理，此处不处理 sol-card 图片
         });
       }
-    }
+    });
 
     // Cases
     if (m.cases) {

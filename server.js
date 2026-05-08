@@ -99,7 +99,39 @@ const DATA_FILE = path.join(__dirname, 'data.json');
 let products = [], news = [], faqs = [], cases = [], solutions = [], contacts = [], modules = {};
 
 // ═══════════════════════════════════════════════════════
-// 服务端翻译对象（与 app.js i18n 同步）
+// 语言感知模块获取（服务端/客户端共用）
+// ═══════════════════════════════════════════════════════
+function getLangFromReq(req) {
+  return req.query.lang || req.cookies?.lang || 'zh';
+}
+
+// 递归给 modules 的所有文本字段注入 _en 变体版本
+// 数据结构：{ title: '中文', title_en: 'English', cards: [{ name: '中', name_en: 'EN' }] }
+// 返回时：若 lang=en 且有 _en 字段则用 _en，否则用原字段
+function localizeModules(modules, lang) {
+  if (!modules || typeof modules !== 'object') return modules;
+  const localized = {};
+  for (const key in modules) {
+    if (!modules.hasOwnProperty(key)) continue;
+    const val = modules[key];
+    if (Array.isArray(val)) {
+      localized[key] = val.map(item => localizeModules(item, lang));
+    } else if (val && typeof val === 'object') {
+      localized[key] = localizeModules(val, lang);
+    } else {
+      // 字符串字段：检查是否有 _en 版本
+      if (lang === 'en' && modules[key + '_en'] !== undefined) {
+        localized[key] = modules[key + '_en'];
+      } else {
+        localized[key] = val;
+      }
+    }
+  }
+  return localized;
+}
+
+// ═══════════════════════════════════════════════════════
+// 服务端翻译对象（仅用于没有后台管理器的固定UI文本）
 // ═══════════════════════════════════════════════════════
 const i18nServer = {
   en: {
@@ -689,8 +721,12 @@ app.post('/api/admin/upload', requireAuth, upload.single('file'), async (req, re
 
 // ─── 模块 & 统计 API ──────────────────────────────────
 app.get('/api/modules', (req, res) => {
-  try { res.json(JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8')).modules || {}); }
-  catch(e) { res.status(500).json({ error: 'Failed to load modules' }); }
+  try {
+    const raw = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8')).modules || {};
+    const lang = req.query.lang || req.cookies?.lang || 'zh';
+    const localized = localizeModules(raw, lang);
+    res.json(localized);
+  } catch(e) { res.status(500).json({ error: 'Failed to load modules' }); }
 });
 app.post('/api/modules', requireAuth, (req, res) => {
   try {
