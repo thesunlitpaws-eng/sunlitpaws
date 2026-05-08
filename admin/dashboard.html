@@ -1798,6 +1798,8 @@ function logout() {
 }
 
 loadDashboard();
+// 确保所有模态框关闭
+document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
 </script>
 </body>
 </html>
