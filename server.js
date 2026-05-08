@@ -98,6 +98,108 @@ app.use((req, res, next) => {
 const DATA_FILE = path.join(__dirname, 'data.json');
 let products = [], news = [], faqs = [], cases = [], solutions = [], contacts = [], modules = {};
 
+// ═══════════════════════════════════════════════════════
+// 服务端翻译对象（与 app.js i18n 同步）
+// ═══════════════════════════════════════════════════════
+const i18nServer = {
+  en: {
+    'nav.about': 'About Us',
+    'nav.products': 'Products',
+    'nav.solutions': 'Solutions',
+    'nav.cases': 'Cases',
+    'nav.news': 'News',
+    'nav.faq': 'FAQ',
+    'nav.contact': 'Contact',
+    'about.tag': 'About Us',
+    'about.title': 'Your Trusted Manufacturing Partner in Pet Products',
+    'about.lead': 'Founded in 2014, Hebei sunlitpaws has grown into a professional pet products manufacturer and exporter, serving 200+ global brands across 30+ countries.',
+    'about.p1': 'Our 8,000m² production facility in Shijiazhuang, Hebei Province, is equipped with advanced automated production lines and a dedicated R&D center. We specialize in pet food, pet toys, and pet supplies — from cat trees and pet strollers to pet carriers and cat litter boxes.',
+    'about.p2': 'Strict quality control — all products are manufactured under comprehensive quality management systems, meeting the highest international safety and quality standards.',
+    'about.cta': 'Get a Custom Quote',
+    'about.contact': 'Contact Us',
+    'about.badge': 'Years of Excellence',
+    'adv.tag': 'Why Choose Us',
+    'adv.title': 'Built on Trust, Driven by Quality',
+    'adv.sub': 'Four pillars that make us the preferred manufacturing partner for global pet brands',
+    'adv.c1.title': '10+ Years Export Experience',
+    'adv.c1.desc': 'Serving global buyers across North America, Europe, Southeast Asia and beyond with deep understanding of international trade requirements.',
+    'adv.c2.title': 'International Certifications',
+    'adv.c2.desc': 'ISO 9001, ISO 22000, FDA, BSCI and more. Our comprehensive certification portfolio ensures compliance with global market standards.',
+    'adv.c3.title': 'OEM/ODM Capabilities',
+    'adv.c3.desc': 'Full customization from product design to packaging. Our R&D team brings your brand vision to life with flexible MOQ and fast turnaround.',
+    'adv.c4.title': 'Strict Quality Control',
+    'adv.c4.desc': 'End-to-end quality management from raw materials to finished products. Every batch undergoes rigorous testing before shipment.',
+    'factory.tag': 'Factory Overview',
+    'factory.title': 'Our Production Capabilities',
+    'factory.sub': "Take a look inside our 8,000m² manufacturing facility in Shijiazhuang",
+    'factory.card1.name': 'Production Workshop',
+    'factory.card1.desc': '8,000m² automated production lines with strict QC at every stage',
+    'factory.card2.name': 'Product Showroom',
+    'factory.card2.desc': '5,000+ SKUs on display - cat trees, strollers, carriers',
+    'factory.card3.name': 'Global Shipping',
+    'factory.card3.desc': 'Weekly container shipments to 30+ countries worldwide',
+    'sol.tag': 'Solutions',
+    'sol.title': 'Tailored Solutions for Every Business Model',
+    'sol.sub': 'We understand your unique challenges and deliver customized manufacturing partnerships',
+    'news.tag': 'News & Insights',
+    'cta.title': 'Ready to Start Your Partnership?',
+    'cta.sub': 'Get a free product catalog and quote. We respond within 24 hours.',
+    'cta.btn1': 'Get Free Catalog',
+    'cta.btn2': '💬 WhatsApp Us',
+  },
+  zh: {
+    'nav.about': '关于我们',
+    'nav.products': '产品中心',
+    'nav.solutions': '解决方案',
+    'nav.cases': '案例展示',
+    'nav.news': '新闻资讯',
+    'nav.faq': '常见问题',
+    'nav.contact': '联系我们',
+    'about.tag': '关于我们',
+    'about.title': '您值得信赖的宠物用品制造伙伴',
+    'about.lead': '河北顺立成立于2014年，已发展成为专业的宠物用品制造商和出口商，为30多个国家的200多个全球品牌提供服务。',
+    'about.p1': '我们在河北省石家庄市拥有8,000平方米的生产基地，配备先进的自动化生产线和专门的研发中心。我们专注于宠物食品、宠物玩具和宠物用品——从猫爬架和宠物推车到宠物包和猫砂盆。',
+    'about.p2': '严格的质量控制——所有产品都在全面的质量管理体系下制造，符合最高的国际安全和质量标准。',
+    'about.cta': '获取定制报价',
+    'about.contact': '联系我们',
+    'about.badge': '年卓越历程',
+    'adv.tag': '为什么选择我们',
+    'adv.title': '品质铸就信任，专业驱动未来',
+    'adv.sub': '四大核心优势，使我们成为全球宠物品牌首选制造伙伴',
+    'adv.c1.title': '10+年出口经验',
+    'adv.c1.desc': '深耕北美、欧洲、东南亚等国际市场，精通国际贸易规则与合规要求。',
+    'adv.c2.title': '国际认证齐全',
+    'adv.c2.desc': '拥有ISO 9001、ISO 22000、FDA、BSCI等完整认证体系，确保产品符合全球市场标准。',
+    'adv.c3.title': 'OEM/ODM定制能力',
+    'adv.c3.desc': '从产品设计到包装的全链条定制服务，研发团队将您的品牌愿景变为现实，MOQ灵活，交付迅速。',
+    'adv.c4.title': '严格品控体系',
+    'adv.c4.desc': '从原料到成品的全流程质量管理，每批次产品发货前均经过严格检测。',
+    'factory.tag': '工厂概览',
+    'factory.title': '生产能力',
+    'factory.sub': '参观我们在石家庄的 8,000㎡ 制造基地',
+    'factory.card1.name': '生产车间',
+    'factory.card1.desc': '自动化生产线，每道工序严格质量管控',
+    'factory.card2.name': '样品展厅',
+    'factory.card2.desc': '5,000+ 款产品陈列 - 猫爬架、推车、宠物包应有尽有',
+    'factory.card3.name': '全球发货',
+    'factory.card3.desc': '每周集装箱发货至全球 30+ 个国家和地区',
+    'sol.tag': '解决方案',
+    'sol.title': '量身定制，满足各类业务场景',
+    'sol.sub': '深入理解您的独特挑战，提供定制化制造合作方案',
+    'news.tag': '新闻资讯',
+    'cta.title': '准备好开启合作了吗？',
+    'cta.sub': '免费获取产品目录与报价，24小时内回复',
+    'cta.btn1': '获取免费目录',
+    'cta.btn2': '💬 WhatsApp联系',
+  }
+};
+
+// 翻译辅助函数
+function t(key, lang) {
+  const dict = i18nServer[lang] || i18nServer['en'];
+  return dict[key] || key;
+}
+
 function loadData() {
   try {
     if (fs.existsSync(DATA_FILE)) {
@@ -126,7 +228,7 @@ app.get('/', (req, res) => {
   // 禁止缓存，确保后台修改后前台立即更新
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
   const lang = req.query.lang || req.cookies?.lang || 'zh';
-  res.render('index.ejs', { lang, products, news, faqs, cases, solutions, modules, _ssr: true });
+  res.render('index.ejs', { lang, products, news, faqs, cases, solutions, modules, _ssr: true, t: (key) => t(key, lang) });
 });
 
 // 产品详情页 SSR
