@@ -795,7 +795,7 @@ async function translateText(text) {
 
 // 翻译当前页面所有中文输入框到英文输入框 (_en 后缀)
 async function translateCurrentSection() {
-  const page = document.querySelector('.page:not(.hidden)');
+  const page = document.querySelector('.page.active');
   if (!page) return;
   
   const inputs = page.querySelectorAll('input[id], textarea[id]');
