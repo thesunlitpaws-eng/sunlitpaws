@@ -965,7 +965,9 @@ async function loadFactory() {
         <img class="upload-preview" id="preview-factoryImg${i}" src="${c.image || ''}" style="display:${c.image ? 'block' : 'none'};max-height:80px">
       </div>
       <div class="form-group" style="flex:1"><label>名称 ${i+1}</label><input type="text" class="form-control factory-card-name" data-idx="${i}" value="${c.name || ''}"></div>
+      <div class="form-group" style="flex:1"><label>名称 ${i+1}（英文）</label><input type="text" class="form-control factory-card-name-en" data-idx="${i}" value="${c.name_en || ''}"></div>
       <div class="form-group" style="flex:1"><label>描述 ${i+1}</label><textarea class="form-control factory-card-desc" data-idx="${i}" rows="2">${c.desc || ''}</textarea></div>
+      <div class="form-group" style="flex:1"><label>描述 ${i+1}（英文）</label><textarea class="form-control factory-card-desc-en" data-idx="${i}" rows="2">${c.desc_en || ''}</textarea></div>
     </div>`).join('') || '<p style="color:#999">暂无卡片数据</p>';
 }
 
@@ -973,10 +975,14 @@ async function saveFactory() {
   const modules = await api('/api/modules');
   const cardNames = document.querySelectorAll('.factory-card-name');
   const cardDescs = document.querySelectorAll('.factory-card-desc');
+  const cardNamesEn = document.querySelectorAll('.factory-card-name-en');
+  const cardDescsEn = document.querySelectorAll('.factory-card-desc-en');
   const cards = Array.from({length: 3}, (_, i) => ({
     image: document.getElementById('factoryImg' + i) ? document.getElementById('factoryImg' + i).value : '',
     name: cardNames[i] ? cardNames[i].value : '',
-    desc: cardDescs[i] ? cardDescs[i].value : ''
+    name_en: cardNamesEn[i] ? cardNamesEn[i].value : '',
+    desc: cardDescs[i] ? cardDescs[i].value : '',
+    desc_en: cardDescsEn[i] ? cardDescsEn[i].value : ''
   }));
   modules.factory = {
     tag: document.getElementById('factoryTag').value, tag_en: document.getElementById('factoryTag_en').value,
