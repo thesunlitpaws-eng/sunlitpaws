@@ -149,6 +149,13 @@ langDropdown.addEventListener('click', (e) => {
   // Save preference
   localStorage.setItem('preferredLang', lang);
 
+  // Sync to cookie for SSR
+  fetch('/api/set-lang', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ lang })
+  }).catch(() => {});
+
   // 产品详情页和案例详情页需要重新加载以获取正确语言的内容
   if (window.location.pathname.startsWith('/products/') || window.location.pathname.startsWith('/company/cases/')) {
     const url = new URL(window.location);
