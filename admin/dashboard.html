@@ -831,8 +831,9 @@ async function translateCurrentSection() {
     const zhText = zhField.value || zhField.textContent;
     if (!zhText || !/[\u4e00-\u9fa5]/.test(zhText)) continue;
 
-    // 优先找 form-row（含跨行配对），找不到再找 form-group
-    const parent = zhField.closest('.form-row, .form-group, .card-edit-row, .card-body, div');
+    // 中文字段的直系兄元素即是对应的英文字段
+    // （HTML结构：中→英 成对出现，且都在同一 parent 下）
+    const parent = zhField.parentElement;
     const enField = parent?.querySelector('[data-lang="en"]');
 
     if (enField) {
@@ -845,6 +846,10 @@ async function translateCurrentSection() {
   if (count > 0) {
     showToast('已翻译 ' + count + ' 个字段！请检查后保存', 'success');
   } else {
+    // 诊断：打印找到的中文字段，帮助排查
+    const zhFields2 = page.querySelectorAll('[data-lang="zh"]');
+    console.log('未翻译，页面:', page.id, '，zh字段数:', zhFields2.length);
+    zhFields2.forEach((f, i) => console.log('  [' + i + '] parent:', f.parentElement?.className, 'text:', f.value || f.textContent?.slice(0,20)));
     showToast('没有找到需要翻译的中文内容', 'warning');
   }
 }
