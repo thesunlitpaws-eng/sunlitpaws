@@ -790,32 +790,26 @@ async function api(url, options = {}) {
 // 翻译函数 - Google Translate API (主) + MyMemory (备)
 async function translateText(text) {
   if (!text || !/[\u4e00-\u9fa5]/.test(text)) return text;
-  
-  // 尝试 Google Translate
+
+  // 主：Google Translate
   try {
     const res = await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=zh&tl=en&dt=t&q=' + encodeURIComponent(text));
-    console.log('Google 响应状态:', res.status);
     if (res.ok) {
       const data = await res.json();
       const result = data[0]?.[0]?.[0];
-      if (result) { console.log('Google 翻译成功:', result); return result; }
+      if (result) return result;
     }
-  } catch (e) { console.warn('Google 翻译失败:', e.message); }
+  } catch (e) { console.warn('Google 失败:', e.message); }
 
-  // 备用：MyMemory
+  // 备：MyMemory
   try {
     const res = await fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=zh|en');
-    console.log('MyMemory 响应状态:', res.status);
     if (res.ok) {
       const data = await res.json();
-      const result = data.responseData?.translatedText;
-      if (result) { console.log('MyMemory 翻译成功:', result); return result; }
+      return data.responseData?.translatedText || text;
     }
-  } catch (e) {
-    console.error('MyMemory 翻译失败:', e.message);
-  }
+  } catch (e) { console.error('MyMemory 失败:', e.message); }
 
-  console.error('所有翻译API均失败，原文保留:', text);
   return text;
 }
 
@@ -823,11 +817,9 @@ async function translateText(text) {
 async function translateCurrentSection() {
   const page = document.querySelector('.page.active');
   if (!page) {
-    showToast('未找到活动页面（请确保已进入编辑页面）', 'error');
-    console.error('translateCurrentSection: .page.active 未找到');
+    showToast('未找到活动页面', 'error');
     return;
   }
-  console.log('翻译当前页面:', page.id, '，含 data-lang="zh" 的字段:');
 
   // 收集所有含中文且有英文配对的中文字段
   const zhFields = page.querySelectorAll('[data-lang="zh"]');
@@ -837,19 +829,16 @@ async function translateCurrentSection() {
 
   for (const zhField of zhFields) {
     const zhText = zhField.value || zhField.textContent;
-    console.log(' - 字段:', zhField.id || zhField.tagName, '内容:', zhText);
     if (!zhText || !/[\u4e00-\u9fa5]/.test(zhText)) continue;
 
-    // 在当前 form-group 中找英文配对字段
-    const parent = zhField.closest('.form-group, .form-row, .card-edit-row, div');
+    // 优先找 form-row（含跨行配对），找不到再找 form-group
+    const parent = zhField.closest('.form-row, .form-group, .card-edit-row, .card-body, div');
     const enField = parent?.querySelector('[data-lang="en"]');
-    console.log('   父元素:', parent?.className, '英文配对:', enField?.id || (enField ? '存在' : '未找到'));
 
     if (enField) {
       const translated = await translateText(zhText);
       enField.value = translated;
       count++;
-      console.log('   翻译结果:', translated);
     }
   }
 
