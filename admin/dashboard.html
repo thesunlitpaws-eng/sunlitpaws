@@ -774,6 +774,12 @@ async function api(url, options = {}) {
     ...options,
     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, ...options.headers }
   });
+  if (res.status === 401) {
+    localStorage.removeItem('admin_token');
+    showToast('登录已过期，请重新登录', 'error');
+    setTimeout(() => window.location.href = '/admin/', 1500);
+    throw new Error('401: 未登录');
+  }
   if (!res.ok) {
     const text = await res.text().catch(() => res.statusText);
     throw new Error('API ' + res.status + ': ' + text);
