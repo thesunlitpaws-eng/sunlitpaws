@@ -1152,7 +1152,8 @@
       "slug": "brand-oem-odm",
       "title_en": "Custom Brand OEM & ODM Manufacturing Solutions",
       "desc_en": "Full-service pet product manufacturing from design to delivery. We handle brand development, custom formulations, and packaging design for B2B partners worldwide.",
-      "content_en": "Our Custom Brand OEM & ODM service covers the complete product lifecycle:\n\n**Brand Development** — Work with our design team to create unique product concepts tailored to your target market.\n\n**Custom Formulations** — We develop proprietary recipes for pet food, treats, and supplements based on your specifications.\n\n**Packaging Design** — Professional graphic design and packaging solutions that meet international standards.\n\n**Quality Assurance** — Every batch undergoes rigorous testing. We hold BSCI, ISO 9001, and FDA-compliant production certifications.\n\n**Global Logistics** — We manage freight forwarding, customs documentation, and last-mile delivery to your warehouses worldwide."
+      "content_en": "Our Custom Brand OEM & ODM service covers the complete product lifecycle:\n\n**Brand Development** — Work with our design team to create unique product concepts tailored to your target market.\n\n**Custom Formulations** — We develop proprietary recipes for pet food, treats, and supplements based on your specifications.\n\n**Packaging Design** — Professional graphic design and packaging solutions that meet international standards.\n\n**Quality Assurance** — Every batch undergoes rigorous testing. We hold BSCI, ISO 9001, and FDA-compliant production certifications.\n\n**Global Logistics** — We manage freight forwarding, customs documentation, and last-mile delivery to your warehouses worldwide.",
+      "subtitle_en": "Full range manufacturing partnership for pet brands"
     },
     {
       "id": "fdead017-f1be-4132-9711-17efa78b1aa1",
@@ -1173,7 +1174,8 @@
       "slug": "ecommerce-supply-chain",
       "title_en": "E-commerce Supply Chain Solutions",
       "desc_en": "Integrated supply chain management designed for online retailers and marketplace sellers. Fast production, dropshipping support, and FBA preparation.",
-      "content_en": "Built for modern e-commerce needs:\n\n**Fast Turnaround** — Standard orders ship within 14 days. Rush orders available for time-sensitive campaigns.\n\n**Dropshipping Ready** — Blind shipping with no branding on outer packaging. Direct-to-consumer fulfillment from our warehouse.\n\n**FBA Preparation** — We label, polybag, and palletize according to Amazon FBA requirements. Pre-FNSKU labeling service available.\n\n**Multi-Channel Integration** — Our OMS connects with Shopify, WooCommerce, TikTok Shop, and major marketplaces.\n\n**Low MOQ Flexible Orders** — Starting at 50 units per SKU for emerging brands."
+      "content_en": "Built for modern e-commerce needs:\n\n**Fast Turnaround** — Standard orders ship within 14 days. Rush orders available for time-sensitive campaigns.\n\n**Dropshipping Ready** — Blind shipping with no branding on outer packaging. Direct-to-consumer fulfillment from our warehouse.\n\n**FBA Preparation** — We label, polybag, and palletize according to Amazon FBA requirements. Pre-FNSKU labeling service available.\n\n**Multi-Channel Integration** — Our OMS connects with Shopify, WooCommerce, TikTok Shop, and major marketplaces.\n\n**Low MOQ Flexible Orders** — Starting at 50 units per SKU for emerging brands.",
+      "subtitle_en": "Optimized for Amazon, Shopify, and cross-border sellers"
     },
     {
       "id": "0042a7b0-16f7-4e6c-97b7-b1d0a222b221",
@@ -1193,7 +1195,8 @@
       "slug": "retail-wholesale-program",
       "title_en": "Retail & Wholesale Distribution Program",
       "desc_en": "Competitive wholesale pricing, regional exclusivity, and dedicated account management for retailers and distributors.",
-      "content_en": "Our distribution program is designed for growth:\n\n**Volume Pricing** — Tiered pricing from 100 to 10,000+ units. The more you order, the better your margins.\n\n**Regional Exclusivity** — We offer territorial exclusivity for qualified distributors in select markets.\n\n**Marketing Support** — Co-branded materials, POS displays, and digital assets included.\n\n**Account Management** — Dedicated B2B account manager for orders above $5,000/month.\n\n**Flexible Payment Terms** — Net-30 and Net-60 terms available for established accounts."
+      "content_en": "Our distribution program is designed for growth:\n\n**Volume Pricing** — Tiered pricing from 100 to 10,000+ units. The more you order, the better your margins.\n\n**Regional Exclusivity** — We offer territorial exclusivity for qualified distributors in select markets.\n\n**Marketing Support** — Co-branded materials, POS displays, and digital assets included.\n\n**Account Management** — Dedicated B2B account manager for orders above $5,000/month.\n\n**Flexible Payment Terms** — Net-30 and Net-60 terms available for established accounts.",
+      "subtitle_en": "Provide consistent quality products to pet chain stores and distributors"
     }
   ],
   "contacts": [
@@ -1508,6 +1511,14 @@
             "自有品牌包装",
             "法规合规支持",
             "MOQ200件起"
+          ],
+          "title_en": "Brand OEM/ODM solution",
+          "desc_en": "Provide full-process services for pet brands looking for reliable manufacturing partners. ",
+          "items_en": [
+            "Customized formulations and designs",
+            "Private label packaging",
+            "Regulatory Compliance Support",
+            "MOQ starting from 200 pieces"
           ]
         },
         {
@@ -1517,6 +1528,13 @@
             "适用于亚马逊物流服务的包装与标签",
             "交货周期周期短",
             "小批量试产订单"
+          ],
+          "title_en": "e-commerce supply chain",
+          "desc_en": "Suitable for Amazon, Shopify and cross-border e-commerce sellers. ",
+          "items_en": [
+            "Packaging and Labeling for Amazon Fulfillment Services",
+            "Short delivery cycle",
+            "Small batch trial production order"
           ]
         },
         {
@@ -1527,9 +1545,20 @@
             "季节性商品收集规划",
             "专属采购经理",
             "热销款推荐"
+          ],
+          "title_en": "Retail Wholesale Plan",
+          "desc_en": "Applicable to pet store chains and distributors. ",
+          "items_en": [
+            "Full line product procurement",
+            "Seasonal merchandise collection planning",
+            "Dedicated purchasing manager",
+            "Recommended hot-selling models"
           ]
         }
-      ]
+      ],
+      "tag_en": "solution",
+      "title_en": "Tailor-made to meet various business scenarios",
+      "subtitle_en": "Deeply understand your unique challenges and provide customized manufacturing cooperation solutions"
     },
     "cases": {
       "tag1": "OEM Success",
