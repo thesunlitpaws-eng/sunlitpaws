@@ -854,33 +854,47 @@ async function translateCurrentSection() {
   // 收集所有含中文且有英文配对的中文字段
   const zhFields = page.querySelectorAll('[data-lang="zh"]');
   let count = 0;
+  let failCount = 0;
 
-  showToast('正在翻译...', 'info');
+  showToast('正在翻译 ' + zhFields.length + ' 个字段...', 'info');
 
   for (const zhField of zhFields) {
     const zhText = zhField.value || zhField.textContent;
     if (!zhText || !/[\u4e00-\u9fa5]/.test(zhText)) continue;
 
     // 使用ID命名约定查找对应的英文字段（zh字段ID + '_en'）
-    // 这比DOM遍历更可靠，因为zh/en字段可能在不同的form-group或form-row中
     const enFieldId = zhField.id + '_en';
     const enField = document.getElementById(enFieldId);
 
     if (enField) {
-      const translated = await translateText(zhText);
-      enField.value = translated;
-      count++;
+      // 如果英文字段已有内容，跳过
+      if (enField.value && enField.value.trim()) continue;
+      try {
+        const translated = await translateText(zhText);
+        if (translated && translated !== zhText) {
+          enField.value = translated;
+          count++;
+        } else {
+          failCount++;
+        }
+      } catch (e) {
+        console.error('翻译失败:', zhField.id, e.message);
+        failCount++;
+      }
     }
   }
 
   if (count > 0) {
-    showToast('已翻译 ' + count + ' 个字段！请检查后保存', 'success');
+    var msg = '已翻译 ' + count + ' 个字段！请检查后保存';
+    if (failCount > 0) msg += '（' + failCount + ' 个失败）';
+    showToast(msg, failCount > 0 ? 'warning' : 'success');
+  } else if (failCount > 0) {
+    showToast('翻译失败 ' + failCount + ' 个字段，请检查网络', 'error');
   } else {
-    // 诊断：打印找到的中文字段，帮助排查
     const zhFields2 = page.querySelectorAll('[data-lang="zh"]');
     console.log('未翻译，页面:', page.id, '，zh字段数:', zhFields2.length);
     zhFields2.forEach((f, i) => console.log('  [' + i + '] parent:', f.parentElement?.className, 'text:', f.value || f.textContent?.slice(0,20)));
-    showToast('没有找到需要翻译的中文内容', 'warning');
+    showToast('没有找到需要翻译的中文内容（英文可能已存在）', 'warning');
   }
 }
 
