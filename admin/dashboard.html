@@ -240,11 +240,11 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-header"><h3>首页横幅设置</h3></div>
           <div class="card-body">
             <div class="form-row">
-              <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="heroTitle"></div>
-              <div class="form-group"><label>主标题（英文）</label><input type="text" class="form-control" id="heroTitle_en"></div>
+              <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="heroTitle" data-lang="zh"></div>
+              <div class="form-group"><label>主标题（英文）</label><input type="text" class="form-control" id="heroTitle_en" data-lang="en"></div>
             </div>
-            <div class="form-group"><label>副标题</label><textarea class="form-control" id="heroSubtitle"></textarea></div>
-            <div class="form-group"><label>副标题（英文）</label><textarea class="form-control" id="heroSubtitle_en"></textarea></div>
+            <div class="form-group"><label>副标题</label><textarea class="form-control" id="heroSubtitle" data-lang="zh"></textarea></div>
+            <div class="form-group"><label>副标题（英文）</label><textarea class="form-control" id="heroSubtitle_en" data-lang="en"></textarea></div>
             <h4 style="margin:24px 0 16px;font-size:15px;">轮播图 (3张)</h4>
             <div class="form-row">
               <div class="form-group"><label>轮播图 1</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'heroSlide1')"></div><input type="hidden" id="heroSlide1"><img class="upload-preview" id="preview-heroSlide1" style="display:none"></div>
@@ -254,23 +254,23 @@ textarea.form-control { min-height: 100px; resize: vertical; }
             <h4 style="margin:24px 0 16px;font-size:15px;">统计数据</h4>
             <div class="form-row">
               <div class="form-group"><label>数值1</label><input type="text" class="form-control" id="heroStat1Value"></div>
-              <div class="form-group"><label>标签1</label><input type="text" class="form-control" id="heroStat1Label"></div>
-              <div class="form-group"><label>标签1（英文）</label><input type="text" class="form-control" id="heroStat1Label_en"></div>
+              <div class="form-group"><label>标签1</label><input type="text" class="form-control" id="heroStat1Label" data-lang="zh"></div>
+              <div class="form-group"><label>标签1（英文）</label><input type="text" class="form-control" id="heroStat1Label_en" data-lang="en"></div>
             </div>
             <div class="form-row">
               <div class="form-group"><label>数值2</label><input type="text" class="form-control" id="heroStat2Value"></div>
-              <div class="form-group"><label>标签2</label><input type="text" class="form-control" id="heroStat2Label"></div>
-              <div class="form-group"><label>标签2（英文）</label><input type="text" class="form-control" id="heroStat2Label_en"></div>
+              <div class="form-group"><label>标签2</label><input type="text" class="form-control" id="heroStat2Label" data-lang="zh"></div>
+              <div class="form-group"><label>标签2（英文）</label><input type="text" class="form-control" id="heroStat2Label_en" data-lang="en"></div>
             </div>
             <div class="form-row">
               <div class="form-group"><label>数值3</label><input type="text" class="form-control" id="heroStat3Value"></div>
-              <div class="form-group"><label>标签3</label><input type="text" class="form-control" id="heroStat3Label"></div>
-              <div class="form-group"><label>标签3（英文）</label><input type="text" class="form-control" id="heroStat3Label_en"></div>
+              <div class="form-group"><label>标签3</label><input type="text" class="form-control" id="heroStat3Label" data-lang="zh"></div>
+              <div class="form-group"><label>标签3（英文）</label><input type="text" class="form-control" id="heroStat3Label_en" data-lang="en"></div>
             </div>
             <div class="form-row">
               <div class="form-group"><label>数值4</label><input type="text" class="form-control" id="heroStat4Value"></div>
-              <div class="form-group"><label>标签4</label><input type="text" class="form-control" id="heroStat4Label"></div>
-              <div class="form-group"><label>标签4（英文）</label><input type="text" class="form-control" id="heroStat4Label_en"></div>
+              <div class="form-group"><label>标签4</label><input type="text" class="form-control" id="heroStat4Label" data-lang="zh"></div>
+              <div class="form-group"><label>标签4（英文）</label><input type="text" class="form-control" id="heroStat4Label_en" data-lang="en"></div>
             </div>
             <div class="btn-group"><button class="btn btn-primary" onclick="saveHero()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
           </div>
@@ -283,19 +283,19 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-header"><h3>关于我们</h3></div>
           <div class="card-body">
             <div class="form-row">
-              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="aboutTag"></div>
-              <div class="form-group"><label>标签（英文）</label><input type="text" class="form-control" id="aboutTag_en"></div>
-              <div class="form-group"><label>徽章文字</label><input type="text" class="form-control" id="aboutBadge"></div>
-              <div class="form-group"><label>徽章文字（英文）</label><input type="text" class="form-control" id="aboutBadge_en"></div>
+              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="aboutTag" data-lang="zh"></div>
+              <div class="form-group"><label>标签（英文）</label><input type="text" class="form-control" id="aboutTag_en" data-lang="en"></div>
+              <div class="form-group"><label>徽章文字</label><input type="text" class="form-control" id="aboutBadge" data-lang="zh"></div>
+              <div class="form-group"><label>徽章文字（英文）</label><input type="text" class="form-control" id="aboutBadge_en" data-lang="en"></div>
             </div>
-            <div class="form-group"><label>标题</label><input type="text" class="form-control" id="aboutTitle"></div>
-            <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="aboutTitle_en"></div>
-            <div class="form-group"><label>引言</label><textarea class="form-control" id="aboutLead"></textarea></div>
-            <div class="form-group"><label>引言（英文）</label><textarea class="form-control" id="aboutLead_en"></textarea></div>
-            <div class="form-group"><label>正文段落1</label><textarea class="form-control" id="aboutP1"></textarea></div>
-            <div class="form-group"><label>正文段落1（英文）</label><textarea class="form-control" id="aboutP1_en"></textarea></div>
-            <div class="form-group"><label>正文段落2</label><textarea class="form-control" id="aboutP2"></textarea></div>
-            <div class="form-group"><label>正文段落2（英文）</label><textarea class="form-control" id="aboutP2_en"></textarea></div>
+            <div class="form-group"><label>标题</label><input type="text" class="form-control" id="aboutTitle" data-lang="zh"></div>
+            <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="aboutTitle_en" data-lang="en"></div>
+            <div class="form-group"><label>引言</label><textarea class="form-control" id="aboutLead" data-lang="zh"></textarea></div>
+            <div class="form-group"><label>引言（英文）</label><textarea class="form-control" id="aboutLead_en" data-lang="en"></textarea></div>
+            <div class="form-group"><label>正文段落1</label><textarea class="form-control" id="aboutP1" data-lang="zh"></textarea></div>
+            <div class="form-group"><label>正文段落1（英文）</label><textarea class="form-control" id="aboutP1_en" data-lang="en"></textarea></div>
+            <div class="form-group"><label>正文段落2</label><textarea class="form-control" id="aboutP2" data-lang="zh"></textarea></div>
+            <div class="form-group"><label>正文段落2（英文）</label><textarea class="form-control" id="aboutP2_en" data-lang="en"></textarea></div>
             <div class="form-group"><label>图片</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'aboutImage')"></div><input type="hidden" id="aboutImage"><img class="upload-preview" id="preview-aboutImage" style="display:none"></div>
             <div class="btn-group"><button class="btn btn-primary" onclick="saveAbout()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
           </div>
@@ -308,14 +308,14 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-header"><h3>生产概况</h3></div>
           <div class="card-body">
             <div class="form-row">
-              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="factoryTag"></div>
-              <div class="form-group"><label>标签（英文）</label><input type="text" class="form-control" id="factoryTag_en"></div>
-              <div class="form-group"><label>标题</label><input type="text" class="form-control" id="factoryTitle"></div>
-              <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="factoryTitle_en"></div>
+              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="factoryTag" data-lang="zh"></div>
+              <div class="form-group"><label>标签（英文）</label><input type="text" class="form-control" id="factoryTag_en" data-lang="en"></div>
+              <div class="form-group"><label>标题</label><input type="text" class="form-control" id="factoryTitle" data-lang="zh"></div>
+              <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="factoryTitle_en" data-lang="en"></div>
             </div>
             <div class="form-row">
-              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="factorySubtitle"></div>
-              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="factorySubtitle_en"></div>
+              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="factorySubtitle" data-lang="zh"></div>
+              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="factorySubtitle_en" data-lang="en"></div>
             </div>
             <h4 style="margin:24px 0 16px;font-size:15px;">卡片内容（3张）</h4>
             <div id="factoryCardsList"></div>
@@ -330,14 +330,14 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-header"><h3>优势特点</h3></div>
           <div class="card-body">
             <div class="form-row">
-              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="advTag"></div>
-              <div class="form-group"><label>标签（英文）</label><input type="text" class="form-control" id="advTag_en"></div>
-              <div class="form-group"><label>标题</label><input type="text" class="form-control" id="advTitle"></div>
-              <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="advTitle_en"></div>
+              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="advTag" data-lang="zh"></div>
+              <div class="form-group"><label>标签（英文）</label><input type="text" class="form-control" id="advTag_en" data-lang="en"></div>
+              <div class="form-group"><label>标题</label><input type="text" class="form-control" id="advTitle" data-lang="zh"></div>
+              <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="advTitle_en" data-lang="en"></div>
             </div>
             <div class="form-row">
-              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="advSubtitle"></div>
-              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="advSubtitle_en"></div>
+              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="advSubtitle" data-lang="zh"></div>
+              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="advSubtitle_en" data-lang="en"></div>
             </div>
             <h4 style="margin:24px 0 16px;font-size:15px;">优势项</h4>
             <div id="advItems"></div>
@@ -361,53 +361,53 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-header"><h3>解决方案板块</h3><button class="btn btn-warning btn-sm" onclick="translateCurrentSection()">🌐 翻译</button><button class="btn btn-primary btn-sm" onclick="saveSolutionsSection()">💾 保存修改</button></div>
           <div class="card-body">
             <div class="form-row">
-              <div class="form-group"><label>板块标签</label><input type="text" class="form-control" id="solTag" placeholder="如: Solutions"></div>
-              <div class="form-group"><label>板块标签（英文）</label><input type="text" class="form-control" id="solTag_en" placeholder="如: Solutions"></div>
-              <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="solTitle" placeholder="主标题"></div>
-              <div class="form-group"><label>主标题（英文）</label><input type="text" class="form-control" id="solTitle_en" placeholder="主标题"></div>
+              <div class="form-group"><label>板块标签</label><input type="text" class="form-control" id="solTag" placeholder="如: Solutions" data-lang="zh"></div>
+              <div class="form-group"><label>板块标签（英文）</label><input type="text" class="form-control" id="solTag_en" placeholder="如: Solutions" data-lang="en"></div>
+              <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="solTitle" placeholder="主标题" data-lang="zh"></div>
+              <div class="form-group"><label>主标题（英文）</label><input type="text" class="form-control" id="solTitle_en" placeholder="主标题" data-lang="en"></div>
             </div>
             <div class="form-row">
-              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="solSubtitle" placeholder="副标题描述"></div>
-              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="solSubtitle_en" placeholder="副标题描述"></div>
+              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="solSubtitle" placeholder="副标题描述" data-lang="zh"></div>
+              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="solSubtitle_en" placeholder="副标题描述" data-lang="en"></div>
             </div>
 
             <hr>
             <h4 style="margin:16px 0 12px;font-size:14px;color:#666;">三个卡片内容</h4>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
-              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片1 标题</label><input type="text" class="form-control" id="solCard0Title" placeholder="如: 品牌OEM/ODM方案"></div>
-              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片1 标题（英文）</label><input type="text" class="form-control" id="solCard0Title_en" placeholder="如: Brand OEM/ODM Solution"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片1 标题</label><input type="text" class="form-control" id="solCard0Title" placeholder="如: 品牌OEM/ODM方案" data-lang="zh"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片1 标题（英文）</label><input type="text" class="form-control" id="solCard0Title_en" placeholder="如: Brand OEM/ODM Solution" data-lang="en"></div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
-              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片2 标题</label><input type="text" class="form-control" id="solCard1Title" placeholder="如: 跨境电商供应链"></div>
-              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片2 标题（英文）</label><input type="text" class="form-control" id="solCard1Title_en" placeholder="如: Cross-border E-commerce Supply Chain"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片2 标题</label><input type="text" class="form-control" id="solCard1Title" placeholder="如: 跨境电商供应链" data-lang="zh"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片2 标题（英文）</label><input type="text" class="form-control" id="solCard1Title_en" placeholder="如: Cross-border E-commerce Supply Chain" data-lang="en"></div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
-              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片3 标题</label><input type="text" class="form-control" id="solCard2Title" placeholder="零售批发计划"></div>
-              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片3 标题（英文）</label><input type="text" class="form-control" id="solCard2Title_en" placeholder="如: Retail & Wholesale"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片3 标题</label><input type="text" class="form-control" id="solCard2Title" placeholder="零售批发计划" data-lang="zh"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片3 标题（英文）</label><input type="text" class="form-control" id="solCard2Title_en" placeholder="如: Retail & Wholesale" data-lang="en"></div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
-              <div class="form-group"><label>卡片1 描述</label><textarea class="form-control" id="solCard0Desc" rows="2" placeholder="卡片1描述"></textarea></div>
-              <div class="form-group"><label>卡片1 描述（英文）</label><textarea class="form-control" id="solCard0Desc_en" rows="2" placeholder="English description"></textarea></div>
+              <div class="form-group"><label>卡片1 描述</label><textarea class="form-control" id="solCard0Desc" rows="2" placeholder="卡片1描述" data-lang="zh"></textarea></div>
+              <div class="form-group"><label>卡片1 描述（英文）</label><textarea class="form-control" id="solCard0Desc_en" rows="2" placeholder="English description" data-lang="en"></textarea></div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
-              <div class="form-group"><label>卡片2 描述</label><textarea class="form-control" id="solCard1Desc" rows="2" placeholder="卡片2描述"></textarea></div>
-              <div class="form-group"><label>卡片2 描述（英文）</label><textarea class="form-control" id="solCard1Desc_en" rows="2" placeholder="English description"></textarea></div>
+              <div class="form-group"><label>卡片2 描述</label><textarea class="form-control" id="solCard1Desc" rows="2" placeholder="卡片2描述" data-lang="zh"></textarea></div>
+              <div class="form-group"><label>卡片2 描述（英文）</label><textarea class="form-control" id="solCard1Desc_en" rows="2" placeholder="English description" data-lang="en"></textarea></div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
-              <div class="form-group"><label>卡片3 描述</label><textarea class="form-control" id="solCard2Desc" rows="2" placeholder="卡片3描述"></textarea></div>
-              <div class="form-group"><label>卡片3 描述（英文）</label><textarea class="form-control" id="solCard2Desc_en" rows="2" placeholder="English description"></textarea></div>
+              <div class="form-group"><label>卡片3 描述</label><textarea class="form-control" id="solCard2Desc" rows="2" placeholder="卡片3描述" data-lang="zh"></textarea></div>
+              <div class="form-group"><label>卡片3 描述（英文）</label><textarea class="form-control" id="solCard2Desc_en" rows="2" placeholder="English description" data-lang="en"></textarea></div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
-              <div class="form-group"><label>卡片1 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard0Items" rows="4" placeholder="定制配方与设计&#10;自有品牌包装&#10;法规合规支持&#10;MOQ从200件起"></textarea></div>
-              <div class="form-group"><label>卡片1 列表项（英文）<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard0Items_en" rows="4" placeholder="Custom formulation&#10;Custom packaging&#10;Regulatory compliance&#10;MOQ from 200 units"></textarea></div>
+              <div class="form-group"><label>卡片1 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard0Items" rows="4" placeholder="定制配方与设计&#10;自有品牌包装&#10;法规合规支持&#10;MOQ从200件起" data-lang="zh"></textarea></div>
+              <div class="form-group"><label>卡片1 列表项（英文）<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard0Items_en" rows="4" placeholder="Custom formulation&#10;Custom packaging&#10;Regulatory compliance&#10;MOQ from 200 units" data-lang="en"></textarea></div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
-              <div class="form-group"><label>卡片2 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard1Items" rows="4" placeholder="适用于亚马逊物流服务的包装与标签&#10;交货周期短&#10;小批量试产订单"></textarea></div>
-              <div class="form-group"><label>卡片2 列表项（英文）<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard1Items_en" rows="4" placeholder="Amazon FBA packaging&#10;Fast turnaround&#10;Low MOQ trial orders"></textarea></div>
+              <div class="form-group"><label>卡片2 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard1Items" rows="4" placeholder="适用于亚马逊物流服务的包装与标签&#10;交货周期短&#10;小批量试产订单" data-lang="zh"></textarea></div>
+              <div class="form-group"><label>卡片2 列表项（英文）<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard1Items_en" rows="4" placeholder="Amazon FBA packaging&#10;Fast turnaround&#10;Low MOQ trial orders" data-lang="en"></textarea></div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
-              <div class="form-group"><label>卡片3 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard2Items" rows="4" placeholder="全线产品采购&#10;季节性商品收集规划&#10;专职客户经理&#10;30/60天账期"></textarea></div>
-              <div class="form-group"><label>卡片3 列表项（英文）<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard2Items_en" rows="4" placeholder="Full product range sourcing&#10;Seasonal collection planning&#10;Dedicated account manager&#10;30/60 day payment terms"></textarea></div>
+              <div class="form-group"><label>卡片3 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard2Items" rows="4" placeholder="全线产品采购&#10;季节性商品收集规划&#10;专职客户经理&#10;30/60天账期" data-lang="zh"></textarea></div>
+              <div class="form-group"><label>卡片3 列表项（英文）<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard2Items_en" rows="4" placeholder="Full product range sourcing&#10;Seasonal collection planning&#10;Dedicated account manager&#10;30/60 day payment terms" data-lang="en"></textarea></div>
             </div>
             <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveSolutionsSection()">💾 保存板块设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译</button></div>
           </div>
@@ -793,25 +793,32 @@ async function translateText(text) {
   }
 }
 
-// 翻译当前页面所有中文输入框到英文输入框 (_en 后缀)
+// 翻译当前页面所有中文字段到英文字段（按DOM同级结构配对）
 async function translateCurrentSection() {
   const page = document.querySelector('.page.active');
   if (!page) return;
-  
-  const inputs = page.querySelectorAll('input[id], textarea[id]');
+
+  // 收集所有含中文且有英文配对的中文字段
+  const zhFields = page.querySelectorAll('[data-lang="zh"]');
   let count = 0;
-  
-  for (const input of inputs) {
-    const enId = input.id + '_en';
-    const enInput = document.getElementById(enId);
-    if (input.value && /[\u4e00-\u9fa5]/.test(input.value) && enInput) {
-      showToast('正在翻译...', 'info');
-      const translated = await translateText(input.value);
-      enInput.value = translated;
+
+  showToast('正在翻译...', 'info');
+
+  for (const zhField of zhFields) {
+    const zhText = zhField.value || zhField.textContent;
+    if (!zhText || !/[\u4e00-\u9fa5]/.test(zhText)) continue;
+
+    // 在当前 form-group 中找英文配对字段
+    const parent = zhField.closest('.form-group, .form-row, .card-edit-row, div');
+    const enField = parent?.querySelector('[data-lang="en"]');
+
+    if (enField) {
+      const translated = await translateText(zhText);
+      enField.value = translated;
       count++;
     }
   }
-  
+
   if (count > 0) {
     showToast('已翻译 ' + count + ' 个字段！请检查后保存', 'success');
   } else {
@@ -964,10 +971,10 @@ async function loadFactory() {
         <input type="hidden" id="factoryImg${i}" value="${c.image || ''}">
         <img class="upload-preview" id="preview-factoryImg${i}" src="${c.image || ''}" style="display:${c.image ? 'block' : 'none'};max-height:80px">
       </div>
-      <div class="form-group" style="flex:1"><label>名称 ${i+1}</label><input type="text" class="form-control factory-card-name" id="factoryCardName${i}" data-idx="${i}" value="${c.name || ''}"></div>
-      <div class="form-group" style="flex:1"><label>名称 ${i+1}（英文）</label><input type="text" class="form-control factory-card-name-en" id="factoryCardName${i}_en" data-idx="${i}" value="${c.name_en || ''}"></div>
-      <div class="form-group" style="flex:1"><label>描述 ${i+1}</label><textarea class="form-control factory-card-desc" id="factoryCardDesc${i}" data-idx="${i}" rows="2">${c.desc || ''}</textarea></div>
-      <div class="form-group" style="flex:1"><label>描述 ${i+1}（英文）</label><textarea class="form-control factory-card-desc-en" id="factoryCardDesc${i}_en" data-idx="${i}" rows="2">${c.desc_en || ''}</textarea></div>
+      <div class="form-group" style="flex:1"><label>名称 ${i+1}</label><input type="text" class="form-control factory-card-name" id="factoryCardName${i}" data-idx="${i}" value="${c.name || ''}" data-lang="zh"></div>
+      <div class="form-group" style="flex:1"><label>名称 ${i+1}（英文）</label><input type="text" class="form-control factory-card-name-en" id="factoryCardName${i}_en" data-idx="${i}" value="${c.name_en || ''}" data-lang="en"></div>
+      <div class="form-group" style="flex:1"><label>描述 ${i+1}</label><textarea class="form-control factory-card-desc" id="factoryCardDesc${i}" data-idx="${i}" rows="2" data-lang="zh">${c.desc || ''}</textarea></div>
+      <div class="form-group" style="flex:1"><label>描述 ${i+1}（英文）</label><textarea class="form-control factory-card-desc-en" id="factoryCardDesc${i}_en" data-idx="${i}" rows="2" data-lang="en">${c.desc_en || ''}</textarea></div>
     </div>`).join('') || '<p style="color:#999">暂无卡片数据</p>';
 }
 
@@ -1028,7 +1035,7 @@ async function loadAdvantages() {
   document.getElementById('advTitle_en').value = adv.title_en || adv.title || '';
   document.getElementById('advSubtitle').value = adv.subtitle || '';
   document.getElementById('advSubtitle_en').value = adv.subtitle_en || adv.subtitle || '';
-  document.getElementById('advItems').innerHTML = (adv.items || []).map((item, i) => '<div class="form-row"><div class="form-group"><label>标题 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '" value="' + (item.title || '') + '"></div><div class="form-group"><label>标题（英文）' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '_en" value="' + (item.title_en || item.title || '') + '"></div><div class="form-group"><label>描述 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '" value="' + (item.desc || '') + '"></div><div class="form-group"><label>描述（英文）' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '_en" value="' + (item.desc_en || item.desc || '') + '"></div></div>').join('');
+  document.getElementById('advItems').innerHTML = (adv.items || []).map((item, i) => '<div class="form-row"><div class="form-group"><label>标题 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '" value="' + (item.title || '') + '" data-lang="zh"></div><div class="form-group"><label>标题（英文）' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '_en" value="' + (item.title_en || item.title || '') + '" data-lang="en"></div><div class="form-group"><label>描述 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '" value="' + (item.desc || '') + '" data-lang="zh"></div><div class="form-group"><label>描述（英文）' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '_en" value="' + (item.desc_en || item.desc || '') + '" data-lang="en"></div></div>').join('');
 }
 
 async function saveAdvantages() {
