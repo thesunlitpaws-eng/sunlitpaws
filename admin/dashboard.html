@@ -97,7 +97,8 @@ textarea.form-control { min-height: 100px; resize: vertical; }
 .table-actions { display: flex; gap: 8px; }
 
 /* 模态框 */
-.modal { display: none; visibility: hidden; opacity: 0; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; transition: opacity 0.2s; }
+.modal { display: none; visibility: hidden; opacity: 0; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; transition: opacity 0.2s; pointer-events: none; }
+.modal.active { display: flex; visibility: visible; opacity: 1; pointer-events: all; outline: 4px solid #3b82f6; outline-offset: 4px; box-shadow: 0 0 0 2px #93c5fd, 0 20px 60px rgba(0,0,0,0.5); }
 .modal.active { display: flex; visibility: visible; opacity: 1; outline: 4px solid #3b82f6; outline-offset: 4px; box-shadow: 0 0 0 2px #93c5fd, 0 20px 60px rgba(0,0,0,0.5); }
 .modal-content { background: #fff; border-radius: 16px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
 .modal-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
