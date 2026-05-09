@@ -831,10 +831,12 @@ async function translateCurrentSection() {
     const zhText = zhField.value || zhField.textContent;
     if (!zhText || !/[\u4e00-\u9fa5]/.test(zhText)) continue;
 
-    // 中文字段的直系兄元素即是对应的英文字段
-    // （HTML结构：中→英 成对出现，且都在同一 parent 下）
+    // 中文字段和英文字段是兄弟，都在同一个 form-row（跨行配对）或 card-body（分行配对）下
+    // 先在直系父级找（用于 form-row 内单对），找不到再在祖父级找（分行配对情况）
     const parent = zhField.parentElement;
-    const enField = parent?.querySelector('[data-lang="en"]');
+    const grandparent = parent?.parentElement;
+    let enField = parent?.querySelector('[data-lang="en"]');
+    if (!enField) enField = grandparent?.querySelector('[data-lang="en"]');
 
     if (enField) {
       const translated = await translateText(zhText);
