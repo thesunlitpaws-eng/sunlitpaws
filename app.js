@@ -1034,6 +1034,7 @@ document.addEventListener('click', function(e) {
     if (!zhRes.ok || !enRes.ok) return;
     const zhData = await zhRes.json();
     const enData = await enRes.json();
+    const lang = localStorage.getItem('preferredLang') || 'en';
     // localizeModules on server resolves _en fields → the API returns pure zh/en text.
     // Inject into i18n so switchLanguage() can apply them.
 
