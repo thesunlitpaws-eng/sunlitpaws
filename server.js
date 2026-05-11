@@ -758,6 +758,31 @@ app.post('/api/modules', requireAuth, (req, res) => {
     res.json({ success: true });
   } catch(e) { res.status(500).json({ error: 'Failed to save modules' }); }
 });
+
+// 服务器端翻译API (避免CORS问题)
+app.post('/api/translate', requireAuth, async (req, res) => {
+  const { text, from = 'zh', to = 'en' } = req.body;
+  if (!text || !text.trim()) return res.json({ translated: '' });
+  try {
+    const url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + from + '&tl=' + to + '&dt=t&q=' + encodeURIComponent(text);
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Google API failed');
+    const data = await response.json();
+    const translated = (data[0] && data[0][0] && data[0][0][0]) || text;
+    res.json({ translated });
+  } catch (e) {
+    // 备用MyMemory
+    try {
+      const url2 = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=' + from + '|' + to;
+      const res2 = await fetch(url2);
+      const data2 = await res2.json();
+      res.json({ translated: (data2.responseData && data2.responseData.translatedText) || text });
+    } catch (e2) {
+      res.status(500).json({ error: '翻译失败', original: text });
+    }
+  }
+});
+
 app.get('/api/analytics', requireAuth, (req, res) => {
   const now = new Date();
   const activeSessions = (analytics.sessions || []).filter(s => (now - new Date(s.lastSeen)) < 30 * 60 * 1000).length;
