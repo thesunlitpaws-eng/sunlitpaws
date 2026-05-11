@@ -818,9 +818,13 @@ if (!getToken()) window.location.href = '/admin/';
 
 async function api(url, options = {}) {
   const token = getToken();
+  // 后台API请求需要原始数据（包含所有_en字段）
+  if (url.startsWith('/api/modules') && !url.includes('raw=')) {
+    url += (url.includes('?') ? '&' : '?') + 'raw=1';
+  }
   const res = await fetch(url, {
     ...options,
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, ...options.headers }
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, 'X-Admin': '1', ...options.headers }
   });
   if (res.status === 401) {
     localStorage.removeItem('admin_token');

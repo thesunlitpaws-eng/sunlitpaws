@@ -738,9 +738,15 @@ app.post('/api/admin/upload', requireAuth, upload.single('file'), async (req, re
 app.get('/api/modules', (req, res) => {
   try {
     const raw = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8')).modules || {};
-    const lang = req.query.lang || req.cookies?.lang || 'zh';
-    const localized = localizeModules(raw, lang);
-    res.json(localized);
+    // 后台管理系统需要原始数据（包含所有_en字段），不做本地化处理
+    const forAdmin = req.query.raw === '1' || req.headers['x-admin'] === '1';
+    if (forAdmin) {
+      res.json(raw);
+    } else {
+      const lang = req.query.lang || req.cookies?.lang || 'zh';
+      const localized = localizeModules(raw, lang);
+      res.json(localized);
+    }
   } catch(e) { res.status(500).json({ error: 'Failed to load modules' }); }
 });
 app.post('/api/modules', requireAuth, (req, res) => {
