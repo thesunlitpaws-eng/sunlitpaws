@@ -97,9 +97,8 @@ textarea.form-control { min-height: 100px; resize: vertical; }
 .table-actions { display: flex; gap: 8px; }
 
 /* 模态框 */
-.modal { display: none; visibility: hidden; opacity: 0; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; transition: opacity 0.2s; pointer-events: none; }
-.modal.active { display: flex; visibility: visible; opacity: 1; pointer-events: all; outline: 4px solid #3b82f6; outline-offset: 4px; box-shadow: 0 0 0 2px #93c5fd, 0 20px 60px rgba(0,0,0,0.5); }
-.modal.active { display: flex; visibility: visible; opacity: 1; pointer-events: all; outline: 4px solid #3b82f6; outline-offset: 4px; box-shadow: 0 0 0 2px #93c5fd, 0 20px 60px rgba(0,0,0,0.5); }
+.modal { display: none; visibility: hidden; opacity: 0; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; transition: opacity 0.2s; }
+.modal.active { display: flex; visibility: visible; opacity: 1; outline: 4px solid #3b82f6; outline-offset: 4px; box-shadow: 0 0 0 2px #93c5fd, 0 20px 60px rgba(0,0,0,0.5); }
 .modal-content { background: #fff; border-radius: 16px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
 .modal-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
 .modal-header h3 { font-size: 18px; }
@@ -240,12 +239,8 @@ textarea.form-control { min-height: 100px; resize: vertical; }
         <div class="card">
           <div class="card-header"><h3>首页横幅设置</h3></div>
           <div class="card-body">
-            <div class="form-row">
-              <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="heroTitle" data-lang="zh"></div>
-              <div class="form-group"><label>主标题（英文）</label><input type="text" class="form-control" id="heroTitle_en" data-lang="en"></div>
-            </div>
-            <div class="form-group"><label>副标题</label><textarea class="form-control" id="heroSubtitle" data-lang="zh"></textarea></div>
-            <div class="form-group"><label>副标题（英文）</label><textarea class="form-control" id="heroSubtitle_en" data-lang="en"></textarea></div>
+            <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="heroTitle"></div>
+            <div class="form-group"><label>副标题</label><textarea class="form-control" id="heroSubtitle"></textarea></div>
             <h4 style="margin:24px 0 16px;font-size:15px;">轮播图 (3张)</h4>
             <div class="form-row">
               <div class="form-group"><label>轮播图 1</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'heroSlide1')"></div><input type="hidden" id="heroSlide1"><img class="upload-preview" id="preview-heroSlide1" style="display:none"></div>
@@ -255,25 +250,21 @@ textarea.form-control { min-height: 100px; resize: vertical; }
             <h4 style="margin:24px 0 16px;font-size:15px;">统计数据</h4>
             <div class="form-row">
               <div class="form-group"><label>数值1</label><input type="text" class="form-control" id="heroStat1Value"></div>
-              <div class="form-group"><label>标签1</label><input type="text" class="form-control" id="heroStat1Label" data-lang="zh"></div>
-              <div class="form-group"><label>标签1（英文）</label><input type="text" class="form-control" id="heroStat1Label_en" data-lang="en"></div>
+              <div class="form-group"><label>标签1</label><input type="text" class="form-control" id="heroStat1Label"></div>
             </div>
             <div class="form-row">
               <div class="form-group"><label>数值2</label><input type="text" class="form-control" id="heroStat2Value"></div>
-              <div class="form-group"><label>标签2</label><input type="text" class="form-control" id="heroStat2Label" data-lang="zh"></div>
-              <div class="form-group"><label>标签2（英文）</label><input type="text" class="form-control" id="heroStat2Label_en" data-lang="en"></div>
+              <div class="form-group"><label>标签2</label><input type="text" class="form-control" id="heroStat2Label"></div>
             </div>
             <div class="form-row">
               <div class="form-group"><label>数值3</label><input type="text" class="form-control" id="heroStat3Value"></div>
-              <div class="form-group"><label>标签3</label><input type="text" class="form-control" id="heroStat3Label" data-lang="zh"></div>
-              <div class="form-group"><label>标签3（英文）</label><input type="text" class="form-control" id="heroStat3Label_en" data-lang="en"></div>
+              <div class="form-group"><label>标签3</label><input type="text" class="form-control" id="heroStat3Label"></div>
             </div>
             <div class="form-row">
               <div class="form-group"><label>数值4</label><input type="text" class="form-control" id="heroStat4Value"></div>
-              <div class="form-group"><label>标签4</label><input type="text" class="form-control" id="heroStat4Label" data-lang="zh"></div>
-              <div class="form-group"><label>标签4（英文）</label><input type="text" class="form-control" id="heroStat4Label_en" data-lang="en"></div>
+              <div class="form-group"><label>标签4</label><input type="text" class="form-control" id="heroStat4Label"></div>
             </div>
-            <div class="btn-group"><button class="btn btn-primary" onclick="saveHero()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
+            <div class="btn-group"><button class="btn btn-primary" onclick="saveHero()">保存设置</button></div>
           </div>
         </div>
       </div>
@@ -284,21 +275,15 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-header"><h3>关于我们</h3></div>
           <div class="card-body">
             <div class="form-row">
-              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="aboutTag" data-lang="zh"></div>
-              <div class="form-group"><label>标签（英文）</label><input type="text" class="form-control" id="aboutTag_en" data-lang="en"></div>
-              <div class="form-group"><label>徽章文字</label><input type="text" class="form-control" id="aboutBadge" data-lang="zh"></div>
-              <div class="form-group"><label>徽章文字（英文）</label><input type="text" class="form-control" id="aboutBadge_en" data-lang="en"></div>
+              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="aboutTag"></div>
+              <div class="form-group"><label>徽章文字</label><input type="text" class="form-control" id="aboutBadge"></div>
             </div>
-            <div class="form-group"><label>标题</label><input type="text" class="form-control" id="aboutTitle" data-lang="zh"></div>
-            <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="aboutTitle_en" data-lang="en"></div>
-            <div class="form-group"><label>引言</label><textarea class="form-control" id="aboutLead" data-lang="zh"></textarea></div>
-            <div class="form-group"><label>引言（英文）</label><textarea class="form-control" id="aboutLead_en" data-lang="en"></textarea></div>
-            <div class="form-group"><label>正文段落1</label><textarea class="form-control" id="aboutP1" data-lang="zh"></textarea></div>
-            <div class="form-group"><label>正文段落1（英文）</label><textarea class="form-control" id="aboutP1_en" data-lang="en"></textarea></div>
-            <div class="form-group"><label>正文段落2</label><textarea class="form-control" id="aboutP2" data-lang="zh"></textarea></div>
-            <div class="form-group"><label>正文段落2（英文）</label><textarea class="form-control" id="aboutP2_en" data-lang="en"></textarea></div>
+            <div class="form-group"><label>标题</label><input type="text" class="form-control" id="aboutTitle"></div>
+            <div class="form-group"><label>引言</label><textarea class="form-control" id="aboutLead"></textarea></div>
+            <div class="form-group"><label>正文段落1</label><textarea class="form-control" id="aboutP1"></textarea></div>
+            <div class="form-group"><label>正文段落2</label><textarea class="form-control" id="aboutP2"></textarea></div>
             <div class="form-group"><label>图片</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'aboutImage')"></div><input type="hidden" id="aboutImage"><img class="upload-preview" id="preview-aboutImage" style="display:none"></div>
-            <div class="btn-group"><button class="btn btn-primary" onclick="saveAbout()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
+            <div class="btn-group"><button class="btn btn-primary" onclick="saveAbout()">保存设置</button></div>
           </div>
         </div>
       </div>
@@ -309,18 +294,13 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-header"><h3>生产概况</h3></div>
           <div class="card-body">
             <div class="form-row">
-              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="factoryTag" data-lang="zh"></div>
-              <div class="form-group"><label>标签（英文）</label><input type="text" class="form-control" id="factoryTag_en" data-lang="en"></div>
-              <div class="form-group"><label>标题</label><input type="text" class="form-control" id="factoryTitle" data-lang="zh"></div>
-              <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="factoryTitle_en" data-lang="en"></div>
+              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="factoryTag"></div>
+              <div class="form-group"><label>标题</label><input type="text" class="form-control" id="factoryTitle"></div>
             </div>
-            <div class="form-row">
-              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="factorySubtitle" data-lang="zh"></div>
-              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="factorySubtitle_en" data-lang="en"></div>
-            </div>
+            <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="factorySubtitle"></div>
             <h4 style="margin:24px 0 16px;font-size:15px;">卡片内容（3张）</h4>
             <div id="factoryCardsList"></div>
-            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveFactory()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
+            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveFactory()">保存设置</button></div>
           </div>
         </div>
       </div>
@@ -331,18 +311,13 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-header"><h3>优势特点</h3></div>
           <div class="card-body">
             <div class="form-row">
-              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="advTag" data-lang="zh"></div>
-              <div class="form-group"><label>标签（英文）</label><input type="text" class="form-control" id="advTag_en" data-lang="en"></div>
-              <div class="form-group"><label>标题</label><input type="text" class="form-control" id="advTitle" data-lang="zh"></div>
-              <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="advTitle_en" data-lang="en"></div>
+              <div class="form-group"><label>标签</label><input type="text" class="form-control" id="advTag"></div>
+              <div class="form-group"><label>标题</label><input type="text" class="form-control" id="advTitle"></div>
             </div>
-            <div class="form-row">
-              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="advSubtitle" data-lang="zh"></div>
-              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="advSubtitle_en" data-lang="en"></div>
-            </div>
+            <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="advSubtitle"></div>
             <h4 style="margin:24px 0 16px;font-size:15px;">优势项</h4>
             <div id="advItems"></div>
-            <div class="btn-group" style="margin-top:20px;"><button class="btn btn-primary" onclick="saveAdvantages()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
+            <div class="btn-group" style="margin-top:20px;"><button class="btn btn-primary" onclick="saveAdvantages()">保存设置</button></div>
           </div>
         </div>
       </div>
@@ -359,58 +334,32 @@ textarea.form-control { min-height: 100px; resize: vertical; }
       <!-- 解决方案 -->
       <div class="page" id="page-solutions">
         <div class="card">
-          <div class="card-header"><h3>解决方案板块</h3><button class="btn btn-warning btn-sm" onclick="translateCurrentSection()">🌐 翻译</button><button class="btn btn-primary btn-sm" onclick="saveSolutionsSection()">💾 保存修改</button></div>
+          <div class="card-header"><h3>解决方案板块</h3><button class="btn btn-primary btn-sm" onclick="saveSolutionsSection()">💾 保存修改</button></div>
           <div class="card-body">
             <div class="form-row">
-              <div class="form-group"><label>板块标签</label><input type="text" class="form-control" id="solTag" placeholder="如: Solutions" data-lang="zh"></div>
-              <div class="form-group"><label>板块标签（英文）</label><input type="text" class="form-control" id="solTag_en" placeholder="如: Solutions" data-lang="en"></div>
-              <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="solTitle" placeholder="主标题" data-lang="zh"></div>
-              <div class="form-group"><label>主标题（英文）</label><input type="text" class="form-control" id="solTitle_en" placeholder="主标题" data-lang="en"></div>
+              <div class="form-group"><label>板块标签</label><input type="text" class="form-control" id="solTag" placeholder="如: Solutions"></div>
+              <div class="form-group"><label>主标题</label><input type="text" class="form-control" id="solTitle" placeholder="主标题"></div>
             </div>
-            <div class="form-row">
-              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="solSubtitle" placeholder="副标题描述" data-lang="zh"></div>
-              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="solSubtitle_en" placeholder="副标题描述" data-lang="en"></div>
-            </div>
+            <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="solSubtitle" placeholder="副标题描述"></div>
 
             <hr>
             <h4 style="margin:16px 0 12px;font-size:14px;color:#666;">三个卡片内容</h4>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
-              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片1 标题</label><input type="text" class="form-control" id="solCard0Title" placeholder="如: 品牌OEM/ODM方案" data-lang="zh"></div>
-              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片1 标题（英文）</label><input type="text" class="form-control" id="solCard0Title_en" placeholder="如: Brand OEM/ODM Solution" data-lang="en"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片1 标题</label><input type="text" class="form-control" id="solCard0Title" placeholder="如: 品牌OEM/ODM方案"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片2 标题</label><input type="text" class="form-control" id="solCard1Title" placeholder="如: 跨境电商供应链"></div>
+              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片3 标题</label><input type="text" class="form-control" id="solCard2Title" placeholder="零售批发计划"></div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
-              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片2 标题</label><input type="text" class="form-control" id="solCard1Title" placeholder="如: 跨境电商供应链" data-lang="zh"></div>
-              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片2 标题（英文）</label><input type="text" class="form-control" id="solCard1Title_en" placeholder="如: Cross-border E-commerce Supply Chain" data-lang="en"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:12px;">
+              <div class="form-group"><label>卡片1 描述</label><textarea class="form-control" id="solCard0Desc" rows="2" placeholder="卡片1描述"></textarea></div>
+              <div class="form-group"><label>卡片2 描述</label><textarea class="form-control" id="solCard1Desc" rows="2" placeholder="卡片2描述"></textarea></div>
+              <div class="form-group"><label>卡片3 描述</label><textarea class="form-control" id="solCard2Desc" rows="2" placeholder="卡片3描述"></textarea></div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
-              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片3 标题</label><input type="text" class="form-control" id="solCard2Title" placeholder="零售批发计划" data-lang="zh"></div>
-              <div class="form-group"><label style="font-weight:700;color:var(--primary);">卡片3 标题（英文）</label><input type="text" class="form-control" id="solCard2Title_en" placeholder="如: Retail & Wholesale" data-lang="en"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:12px;">
+              <div class="form-group"><label>卡片1 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard0Items" rows="4" placeholder="定制配方与设计&#10;自有品牌包装&#10;法规合规支持&#10;MOQ从200件起"></textarea></div>
+              <div class="form-group"><label>卡片2 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard1Items" rows="4" placeholder="适用于亚马逊物流服务的包装与标签&#10;交货周期短&#10;小批量试产订单"></textarea></div>
+              <div class="form-group"><label>卡片3 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard2Items" rows="4" placeholder="全线产品采购&#10;季节性商品收集规划&#10;专职客户经理&#10;30/60天账期"></textarea></div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
-              <div class="form-group"><label>卡片1 描述</label><textarea class="form-control" id="solCard0Desc" rows="2" placeholder="卡片1描述" data-lang="zh"></textarea></div>
-              <div class="form-group"><label>卡片1 描述（英文）</label><textarea class="form-control" id="solCard0Desc_en" rows="2" placeholder="English description" data-lang="en"></textarea></div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
-              <div class="form-group"><label>卡片2 描述</label><textarea class="form-control" id="solCard1Desc" rows="2" placeholder="卡片2描述" data-lang="zh"></textarea></div>
-              <div class="form-group"><label>卡片2 描述（英文）</label><textarea class="form-control" id="solCard1Desc_en" rows="2" placeholder="English description" data-lang="en"></textarea></div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
-              <div class="form-group"><label>卡片3 描述</label><textarea class="form-control" id="solCard2Desc" rows="2" placeholder="卡片3描述" data-lang="zh"></textarea></div>
-              <div class="form-group"><label>卡片3 描述（英文）</label><textarea class="form-control" id="solCard2Desc_en" rows="2" placeholder="English description" data-lang="en"></textarea></div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
-              <div class="form-group"><label>卡片1 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard0Items" rows="4" placeholder="定制配方与设计&#10;自有品牌包装&#10;法规合规支持&#10;MOQ从200件起" data-lang="zh"></textarea></div>
-              <div class="form-group"><label>卡片1 列表项（英文）<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard0Items_en" rows="4" placeholder="Custom formulation&#10;Custom packaging&#10;Regulatory compliance&#10;MOQ from 200 units" data-lang="en"></textarea></div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
-              <div class="form-group"><label>卡片2 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard1Items" rows="4" placeholder="适用于亚马逊物流服务的包装与标签&#10;交货周期短&#10;小批量试产订单" data-lang="zh"></textarea></div>
-              <div class="form-group"><label>卡片2 列表项（英文）<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard1Items_en" rows="4" placeholder="Amazon FBA packaging&#10;Fast turnaround&#10;Low MOQ trial orders" data-lang="en"></textarea></div>
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:12px;">
-              <div class="form-group"><label>卡片3 列表项<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard2Items" rows="4" placeholder="全线产品采购&#10;季节性商品收集规划&#10;专职客户经理&#10;30/60天账期" data-lang="zh"></textarea></div>
-              <div class="form-group"><label>卡片3 列表项（英文）<br><small style="color:#999">每行一条</small></label><textarea class="form-control" id="solCard2Items_en" rows="4" placeholder="Full product range sourcing&#10;Seasonal collection planning&#10;Dedicated account manager&#10;30/60 day payment terms" data-lang="en"></textarea></div>
-            </div>
-            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveSolutionsSection()">💾 保存板块设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译</button></div>
+            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveSolutionsSection()">💾 保存板块设置</button></div>
           </div>
         </div>
         <div class="card" style="margin-top:16px">
@@ -425,23 +374,11 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="modal-header"><h3 id="solutionModalTitle">添加方案</h3><button class="modal-close" onclick="closeModal('solutionModal')">&times;</button></div>
           <div class="modal-body">
             <input type="hidden" id="solutionId">
-            <div class="form-row">
-              <div class="form-group"><label>标题</label><input type="text" class="form-control" id="solutionTitle" data-lang="zh" placeholder="如: 品牌OEM/ODM方案"></div>
-              <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="solutionTitle_en" data-lang="en" placeholder="留空自动翻译"></div>
-            </div>
-            <div class="form-row">
-              <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="solutionSubtitle" data-lang="zh" placeholder="副标题"></div>
-              <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="solutionSubtitle_en" data-lang="en" placeholder="留空自动翻译"></div>
-            </div>
-            <div class="form-row">
-              <div class="form-group"><label>描述</label><textarea class="form-control" id="solutionDesc" data-lang="zh" rows="3" placeholder="完整描述内容"></textarea></div>
-              <div class="form-group"><label>描述（英文）</label><textarea class="form-control" id="solutionDesc_en" data-lang="en" rows="3" placeholder="留空自动翻译"></textarea></div>
-            </div>
+            <div class="form-group"><label>标题</label><input type="text" class="form-control" id="solutionTitle" placeholder="如: Brand OEM/ODM Solution"></div>
+            <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="solutionSubtitle" placeholder="如: Full-service manufacturing partnership"></div>
+            <div class="form-group"><label>描述</label><textarea class="form-control" id="solutionDesc" rows="3" placeholder="完整描述内容"></textarea></div>
             <div class="form-group"><label>封面图</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传图片</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'solutionImage')"></div><input type="hidden" id="solutionImage"><img class="upload-preview" id="preview-solutionImage" style="display:none;max-width:100%;margin-top:8px"></div>
-            <div class="form-row">
-              <div class="form-group"><label>列表项（每行一条）</label><textarea class="form-control" id="solutionItems" data-lang="zh" rows="4" placeholder="定制配方与设计\n自有品牌包装\n..."></textarea></div>
-              <div class="form-group"><label>列表项（英文）<br><small style="color:#999">留空自动翻译</small></label><textarea class="form-control" id="solutionItems_en" data-lang="en" rows="4" placeholder="Custom formulation\nPrivate label packaging\n..."></textarea></div>
-            </div>
+            <div class="form-group"><label>列表项（每行一条）</label><textarea class="form-control" id="solutionItems" rows="4" placeholder="Custom formulation &amp; design&#10;Private label packaging&#10;..."></textarea></div>
           </div>
           <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('solutionModal')">取消</button><button class="btn btn-primary" onclick="saveSolution()">保存</button></div>
         </div>
@@ -451,55 +388,43 @@ textarea.form-control { min-height: 100px; resize: vertical; }
       <div class="page" id="page-cases">
         <!-- 板块设置 -->
         <div class="card">
-          <div class="card-header"><h3>案例板块设置</h3><button class="btn btn-warning btn-sm" onclick="translateCurrentSection()">🌐 翻译</button><button class="btn btn-primary btn-sm" onclick="saveCasesSection()">💾 保存修改</button></div>
+          <div class="card-header"><h3>案例板块设置</h3><button class="btn btn-primary btn-sm" onclick="saveCasesSection()">💾 保存修改</button></div>
           <div class="card-body">
             <div class="form-row">
               <div class="form-group"><label>板块标题</label><input type="text" class="form-control" id="caseSectionTitle" placeholder="Success Cases"></div>
-              <div class="form-group"><label>板块标题（英文）</label><input type="text" class="form-control" id="caseSectionTitle_en" placeholder="Success Cases EN"></div>
               <div class="form-group"><label>板块副标题</label><input type="text" class="form-control" id="caseSectionSub" placeholder="Real partnerships, real results..."></div>
-              <div class="form-group"><label>板块副标题（英文）</label><input type="text" class="form-control" id="caseSectionSub_en" placeholder="Real partnerships, real results... EN"></div>
             </div>
             <hr>
             <h4 style="margin:12px 0">卡片1（OEM）</h4>
             <div class="form-row">
               <div class="form-group"><label>卡片1 图片</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'caseImg0')"></div><input type="hidden" id="caseImg0"><img class="upload-preview" id="preview-caseImg0" style="display:none;max-height:80px"></div>
               <div class="form-group"><label>标签1（如：OEM Success）</label><input type="text" class="form-control" id="caseCard0Tag" placeholder="OEM Success"></div>
-              <div class="form-group"><label>标签1（英文）</label><input type="text" class="form-control" id="caseCard0Tag_en" placeholder="OEM Success EN"></div>
               <div class="form-group"><label>国家1（如：🇺🇸 美国）</label><input type="text" class="form-control" id="caseCard0Country" placeholder="🇺🇸 美国"></div>
               <div class="form-group"><label>品类1（如：宠物食品）</label><input type="text" class="form-control" id="caseCard0Cat" placeholder="宠物食品"></div>
               <div class="form-group"><label>标题1</label><input type="text" class="form-control" id="caseCard0Title" placeholder="US Premium Pet Food Brand"></div>
-              <div class="form-group"><label>标题1（英文）</label><input type="text" class="form-control" id="caseCard0Title_en" placeholder="US Premium Pet Food Brand EN"></div>
             </div>
             <div class="form-group"><label>描述1</label><textarea class="form-control" id="caseCard0Desc" rows="2" placeholder="详细描述..."></textarea></div>
-            <div class="form-group"><label>描述1（英文）</label><textarea class="form-control" id="caseCard0Desc_en" rows="2" placeholder="详细描述... EN"></textarea></div>
             <div class="form-row">
               <div class="form-group"><label>统计1（如：Scale-up time）</label><input type="text" class="form-control" id="caseCard0S1" placeholder="Scale-up time"></div>
-              <div class="form-group"><label>统计1（英文）</label><input type="text" class="form-control" id="caseCard0S1_en" placeholder="Scale-up time EN"></div>
               <div class="form-group"><label>统计2（如：Monthly volume）</label><input type="text" class="form-control" id="caseCard0S2" placeholder="Monthly volume"></div>
-              <div class="form-group"><label>统计2（英文）</label><input type="text" class="form-control" id="caseCard0S2_en" placeholder="Monthly volume EN"></div>
-              <div class="form-group"><label>数字1（如：18mo）</label><input type="text" class="form-control" id="caseCard0N1" placeholder="18mo"></div><div class="form-group"><label>数字1（英文）</label><input type="text" class="form-control" id="caseCard0N1_en" placeholder="18mo EN"></div><div class="form-group"><label>数字2（如：50T）</label><input type="text" class="form-control" id="caseCard0N2" placeholder="50T"></div><div class="form-group"><label>数字2（英文）</label><input type="text" class="form-control" id="caseCard0N2_en" placeholder="50T EN"></div><div class="form-group"><label>数字3（如：8）</label><input type="text" class="form-control" id="caseCard0N3" placeholder="8"></div><div class="form-group"><label>数字3（英文）</label><input type="text" class="form-control" id="caseCard0N3_en" placeholder="8 EN"></div><div class="form-group"><label>统计3（如：SKUs launched）</label><input type="text" class="form-control" id="caseCard0S3" placeholder="SKUs launched"></div><div class="form-group"><label>统计3（英文）</label><input type="text" class="form-control" id="caseCard0S3_en" placeholder="SKUs launched EN"></div>
+              <div class="form-group"><label>数字1（如：18mo）</label><input type="text" class="form-control" id="caseCard0N1" placeholder="18mo"></div><div class="form-group"><label>数字2（如：50T）</label><input type="text" class="form-control" id="caseCard0N2" placeholder="50T"></div><div class="form-group"><label>数字3（如：8）</label><input type="text" class="form-control" id="caseCard0N3" placeholder="8"></div><div class="form-group"><label>统计3（如：SKUs launched）</label><input type="text" class="form-control" id="caseCard0S3" placeholder="SKUs launched"></div>
             </div>
             <hr>
             <h4 style="margin:12px 0">卡片2（分销合作）</h4>
             <div class="form-row">
               <div class="form-group"><label>卡片2 图片</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'caseImg1')"></div><input type="hidden" id="caseImg1"><img class="upload-preview" id="preview-caseImg1" style="display:none;max-height:80px"></div>
               <div class="form-group"><label>标签2（如：Distribution）</label><input type="text" class="form-control" id="caseCard1Tag" placeholder="Distribution"></div>
-              <div class="form-group"><label>标签2（英文）</label><input type="text" class="form-control" id="caseCard1Tag_en" placeholder="Distribution EN"></div>
               <div class="form-group"><label>国家2（如：🇩🇪 德国）</label><input type="text" class="form-control" id="caseCard1Country" placeholder="🇩🇪 德国"></div>
               <div class="form-group"><label>品类2（如：宠物玩具）</label><input type="text" class="form-control" id="caseCard1Cat" placeholder="宠物玩具"></div>
               <div class="form-group"><label>标题2</label><input type="text" class="form-control" id="caseCard1Title" placeholder="European Pet Toy Distributor"></div>
-              <div class="form-group"><label>标题2（英文）</label><input type="text" class="form-control" id="caseCard1Title_en" placeholder="European Pet Toy Distributor EN"></div>
             </div>
             <div class="form-group"><label>描述2</label><textarea class="form-control" id="caseCard1Desc" rows="2" placeholder="详细描述..."></textarea></div>
-            <div class="form-group"><label>描述2（英文）</label><textarea class="form-control" id="caseCard1Desc_en" rows="2" placeholder="详细描述... EN"></textarea></div>
             <div class="form-row">
               <div class="form-group"><label>统计1（如：SKUs supplied）</label><input type="text" class="form-control" id="caseCard1S1" placeholder="SKUs supplied"></div>
-              <div class="form-group"><label>统计1（英文）</label><input type="text" class="form-control" id="caseCard1S1_en" placeholder="SKUs supplied EN"></div>
               <div class="form-group"><label>统计2（如：Markets expanded）</label><input type="text" class="form-control" id="caseCard1S2" placeholder="Markets expanded"></div>
-              <div class="form-group"><label>统计2（英文）</label><input type="text" class="form-control" id="caseCard1S2_en" placeholder="Markets expanded EN"></div>
-              <div class="form-group"><label>数字1（如：120+）</label><input type="text" class="form-control" id="caseCard1N1" placeholder="120+"></div><div class="form-group"><label>数字1（英文）</label><input type="text" class="form-control" id="caseCard1N1_en" placeholder="120+ EN"></div><div class="form-group"><label>数字2（如：5）</label><input type="text" class="form-control" id="caseCard1N2" placeholder="5"></div><div class="form-group"><label>数字2（英文）</label><input type="text" class="form-control" id="caseCard1N2_en" placeholder="5 EN"></div><div class="form-group"><label>数字3（如：98%）</label><input type="text" class="form-control" id="caseCard1N3" placeholder="98%"></div><div class="form-group"><label>数字3（英文）</label><input type="text" class="form-control" id="caseCard1N3_en" placeholder="98% EN"></div><div class="form-group"><label>统计3（如：On-time rate）</label><input type="text" class="form-control" id="caseCard1S3" placeholder="On-time rate"></div><div class="form-group"><label>统计3（英文）</label><input type="text" class="form-control" id="caseCard1S3_en" placeholder="On-time rate EN"></div>
+              <div class="form-group"><label>数字1（如：120+）</label><input type="text" class="form-control" id="caseCard1N1" placeholder="120+"></div><div class="form-group"><label>数字2（如：5）</label><input type="text" class="form-control" id="caseCard1N2" placeholder="5"></div><div class="form-group"><label>数字3（如：98%）</label><input type="text" class="form-control" id="caseCard1N3" placeholder="98%"></div><div class="form-group"><label>统计3（如：On-time rate）</label><input type="text" class="form-control" id="caseCard1S3" placeholder="On-time rate"></div>
             </div>
-            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveCasesSection()">💾 保存板块设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译</button></div>
+            <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveCasesSection()">💾 保存板块设置</button></div>
           </div>
         </div>
         <!-- 案例详情列表 -->
@@ -555,7 +480,7 @@ textarea.form-control { min-height: 100px; resize: vertical; }
               <div class="form-group"><label>Instagram</label><input type="text" class="form-control" id="contactInstagram" placeholder="https://instagram.com/..."></div>
             </div>
             
-            <div class="btn-group" style="margin-top:24px;"><button class="btn btn-primary" onclick="saveContact()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
+            <div class="btn-group" style="margin-top:24px;"><button class="btn btn-primary" onclick="saveContact()">保存设置</button></div>
           </div>
         </div>
       </div>
@@ -566,16 +491,12 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-header"><h3>CTA区域</h3></div>
           <div class="card-body">
             <div class="form-group"><label>标题</label><input type="text" class="form-control" id="ctaTitle"></div>
-            <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="ctaTitle_en"></div>
             <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="ctaSubtitle"></div>
-            <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="ctaSubtitle_en"></div>
             <div class="form-row">
               <div class="form-group"><label>按钮1文字</label><input type="text" class="form-control" id="ctaBtn1"></div>
-              <div class="form-group"><label>按钮1文字（英文）</label><input type="text" class="form-control" id="ctaBtn1_en"></div>
               <div class="form-group"><label>按钮2文字</label><input type="text" class="form-control" id="ctaBtn2"></div>
-              <div class="form-group"><label>按钮2文字（英文）</label><input type="text" class="form-control" id="ctaBtn2_en"></div>
             </div>
-            <div class="btn-group"><button class="btn btn-primary" onclick="saveCta()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
+            <div class="btn-group"><button class="btn btn-primary" onclick="saveCta()">保存设置</button></div>
           </div>
         </div>
       </div>
@@ -586,14 +507,12 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-header"><h3>页脚设置</h3></div>
           <div class="card-body">
             <div class="form-group"><label>版权信息</label><input type="text" class="form-control" id="footerCopyright"></div>
-            <div class="form-group"><label>版权信息（英文）</label><input type="text" class="form-control" id="footerCopyright_en"></div>
             <div class="form-group"><label>地址</label><input type="text" class="form-control" id="footerAddress"></div>
-            <div class="form-group"><label>地址（英文）</label><input type="text" class="form-control" id="footerAddress_en"></div>
             <div class="form-row">
               <div class="form-group"><label>邮箱</label><input type="email" class="form-control" id="footerEmail"></div>
               <div class="form-group"><label>电话</label><input type="text" class="form-control" id="footerPhone"></div>
             </div>
-            <div class="btn-group"><button class="btn btn-primary" onclick="saveFooter()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
+            <div class="btn-group"><button class="btn btn-primary" onclick="saveFooter()">保存设置</button></div>
           </div>
         </div>
       </div>
@@ -665,23 +584,14 @@ textarea.form-control { min-height: 100px; resize: vertical; }
     <div class="modal-body">
       <input type="hidden" id="newsId">
       <div class="form-row">
-        <div class="form-group"><label>标题</label><input type="text" class="form-control" id="newsTitle" placeholder="新闻标题"></div>
-        <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="newsTitle_en" placeholder="留空自动翻译"></div>
-      </div>
-      <div class="form-row">
+        <div class="form-group"><label>标题</label><input type="text" class="form-control" id="newsTitle"></div>
         <div class="form-group"><label>分类 (company/industry)</label><select class="form-control" id="newsCategory"><option value="company">Company</option><option value="industry">Industry</option></select></div>
-        <div class="form-group"><label>标签</label><input type="text" class="form-control" id="newsTag" placeholder="如: New Product"></div>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label>摘要</label><textarea class="form-control" id="newsExcerpt" rows="3" placeholder="新闻摘要..."></textarea></div>
-        <div class="form-group"><label>摘要（英文）</label><textarea class="form-control" id="newsExcerpt_en" rows="3" placeholder="留空自动翻译"></textarea></div>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label>内容</label><textarea class="form-control" id="newsContent" style="min-height:120px" placeholder="新闻正文..."></textarea></div>
-        <div class="form-group"><label>内容（英文）</label><textarea class="form-control" id="newsContent_en" style="min-height:120px" placeholder="留空自动翻译"></textarea></div>
-      </div>
+      <div class="form-group"><label>摘要</label><textarea class="form-control" id="newsExcerpt" style="min-height:80px"></textarea></div>
+      <div class="form-group"><label>内容</label><textarea class="form-control" id="newsContent" style="min-height:120px"></textarea></div>
       <div class="form-row">
         <div class="form-group"><label>日期</label><input type="date" class="form-control" id="newsDate"></div>
+        <div class="form-group"><label>标签</label><input type="text" class="form-control" id="newsTag" placeholder="如: New Product"></div>
       </div>
       <div class="form-group"><label>封面图</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'newsImage')"></div><input type="hidden" id="newsImage"><img class="upload-preview" id="preview-newsImage" style="display:none"></div>
     </div>
@@ -736,10 +646,7 @@ textarea.form-control { min-height: 100px; resize: vertical; }
     <div class="modal-header"><h3 id="productModalTitle">添加产品</h3><button class="modal-close" onclick="closeModal('productModal')">&times;</button></div>
     <div class="modal-body">
       <input type="hidden" id="productId">
-      <div class="form-row">
-        <div class="form-group"><label>产品名称（中文） *</label><input type="text" class="form-control" id="productName" data-lang="zh" placeholder="例如：多层猫爬架"></div>
-        <div class="form-group"><label>产品名称（英文）</label><input type="text" class="form-control" id="productName_en" data-lang="en" placeholder="留空自动翻译"></div>
-      </div>
+      <div class="form-group"><label>产品名称 *</label><input type="text" class="form-control" id="productName" placeholder="例如：多层猫爬架"></div>
       <div class="form-row">
         <div class="form-group"><label>主分类</label><select class="form-control" id="productCategory"><option value="supplies">Pet Supplies 宠物用品</option><option value="toys">Pet Toys 宠物玩具</option><option value="food">Pet Food 宠物食品</option></select></div>
         <div class="form-group"><label>子分类</label>
@@ -768,10 +675,7 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           </select>
         </div>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label>产品标签</label><input type="text" class="form-control" id="productBadge" placeholder="如：热销"></div>
-        <div class="form-group"><label>产品标签（英文）</label><input type="text" class="form-control" id="productBadge_en" placeholder="留空自动翻译"></div>
-      </div>
+      <div class="form-group"><label>产品标签（展示用，如：热销/New）</label><input type="text" class="form-control" id="productBadge" placeholder="热销"></div>
       <div class="form-row">
         <div class="form-group"><label>产品尺寸（cm）</label><input type="text" class="form-control" id="productSize" placeholder="60×40×136 cm"></div>
         <div class="form-group"><label>产品重量（kg）</label><input type="text" class="form-control" id="productWeight" placeholder="11.15 kg"></div>
@@ -792,10 +696,7 @@ textarea.form-control { min-height: 100px; resize: vertical; }
         <div class="form-group"><label>包装方式</label><input type="text" class="form-control" id="productPackaging" placeholder="Color Box / Poly Bag"></div>
         <div class="form-group"><label>价格（USD）</label><input type="number" step="0.01" class="form-control" id="productPrice" placeholder="0.00"></div>
       </div>
-      <div class="form-row">
-        <div class="form-group"><label>产品描述</label><textarea class="form-control" id="productDesc" rows="3" placeholder="详细描述产品特点、优势等..."></textarea></div>
-        <div class="form-group"><label>产品描述（英文）</label><textarea class="form-control" id="productDesc_en" rows="3" placeholder="留空自动翻译"></textarea></div>
-      </div>
+      <div class="form-group"><label>产品描述</label><textarea class="form-control" id="productDesc" rows="3" placeholder="详细描述产品特点、优势等..."></textarea></div>
       <div class="form-group"><label>产品图片</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'productImage')"></div><input type="hidden" id="productImage"><img class="upload-preview" id="preview-productImage" style="display:none"></div>
     </div>
     <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('productModal')">取消</button><button class="btn btn-primary" onclick="saveProduct()">💾 保存</button></div>
@@ -818,20 +719,10 @@ if (!getToken()) window.location.href = '/admin/';
 
 async function api(url, options = {}) {
   const token = getToken();
-  // 后台API请求需要原始数据（包含所有_en字段）
-  if (url.startsWith('/api/modules') && !url.includes('raw=')) {
-    url += (url.includes('?') ? '&' : '?') + 'raw=1';
-  }
   const res = await fetch(url, {
     ...options,
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, 'X-Admin': '1', ...options.headers }
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token, ...options.headers }
   });
-  if (res.status === 401) {
-    localStorage.removeItem('admin_token');
-    showToast('登录已过期，请重新登录', 'error');
-    setTimeout(() => window.location.href = '/admin/', 1500);
-    throw new Error('401: 未登录');
-  }
   if (!res.ok) {
     const text = await res.text().catch(() => res.statusText);
     throw new Error('API ' + res.status + ': ' + text);
@@ -839,108 +730,18 @@ async function api(url, options = {}) {
   return res.json();
 }
 
-// 翻译函数 - Google Translate API (主) + MyMemory (备)
-async function translateText(text) {
-  if (!text || !/[\u4e00-\u9fa5]/.test(text)) return text;
-
-  // 使用服务器端翻译API (避免CORS问题)
-  try {
-    const res = await api('/api/translate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text, from: 'zh', to: 'en' })
-    });
-    if (res.translated) return res.translated;
-  } catch (e) { console.warn('服务器翻译失败:', e.message); }
-
-  // 备用：直接从浏览器调用 (可能CORS问题)
-  try {
-    const res = await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=zh&tl=en&dt=t&q=' + encodeURIComponent(text));
-    if (res.ok) {
-      const data = await res.json();
-      const result = data[0]?.[0]?.[0];
-      if (result) return result;
-    }
-  } catch (e) { console.warn('Google 失败:', e.message); }
-
-  // 最后备用：MyMemory
-  try {
-    const res = await fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=zh|en');
-    if (res.ok) {
-      const data = await res.json();
-      return data.responseData?.translatedText || text;
-    }
-  } catch (e) { console.error('MyMemory 失败:', e.message); }
-
-  return text;
-}
-
-// 翻译当前页面所有中文字段到英文字段（按DOM同级结构配对）
-async function translateCurrentSection() {
-  const page = document.querySelector('.page.active');
-  if (!page) {
-    showToast('未找到活动页面', 'error');
-    return;
-  }
-
-  // 收集所有含中文且有英文配对的中文字段
-  const zhFields = page.querySelectorAll('[data-lang="zh"]');
-  let count = 0;
-  let failCount = 0;
-
-  showToast('正在翻译 ' + zhFields.length + ' 个字段...', 'info');
-
-  for (const zhField of zhFields) {
-    const zhText = zhField.value || zhField.textContent;
-    if (!zhText || !/[\u4e00-\u9fa5]/.test(zhText)) continue;
-
-    // 使用ID命名约定查找对应的英文字段（zh字段ID + '_en'）
-    const enFieldId = zhField.id + '_en';
-    const enField = document.getElementById(enFieldId);
-
-    if (enField) {
-      // 如果英文字段已有内容，跳过
-      if (enField.value && enField.value.trim()) continue;
-      try {
-        const translated = await translateText(zhText);
-        if (translated && translated !== zhText) {
-          enField.value = translated;
-          count++;
-        } else {
-          failCount++;
-        }
-      } catch (e) {
-        console.error('翻译失败:', zhField.id, e.message);
-        failCount++;
-      }
-    }
-  }
-
-  if (count > 0) {
-    var msg = '已翻译 ' + count + ' 个字段！请检查后保存';
-    if (failCount > 0) msg += '（' + failCount + ' 个失败）';
-    showToast(msg, failCount > 0 ? 'warning' : 'success');
-  } else if (failCount > 0) {
-    showToast('翻译失败 ' + failCount + ' 个字段，请检查网络', 'error');
-  } else {
-    const zhFields2 = page.querySelectorAll('[data-lang="zh"]');
-    console.log('未翻译，页面:', page.id, '，zh字段数:', zhFields2.length);
-    zhFields2.forEach((f, i) => console.log('  [' + i + '] parent:', f.parentElement?.className, 'text:', f.value || f.textContent?.slice(0,20)));
-    showToast('没有找到需要翻译的中文内容（英文可能已存在）', 'warning');
-  }
-}
-
-document.querySelectorAll('.nav-item').forEach(item => {
-  item.addEventListener('click', () => {
-    const page = item.dataset.page;
-    if (!page) return;
-    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-    item.classList.add('active');
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + page)?.classList.add('active');
-    document.getElementById('pageTitle').textContent = item.textContent.trim();
-    loadPageData(page);
-  });
+// 使用事件委托，避免 DOM 重新渲染后丢失监听器
+document.querySelector('.nav-menu')?.addEventListener('click', (e) => {
+  const item = e.target.closest('.nav-item');
+  if (!item) return;
+  const page = item.dataset.page;
+  if (!page) return;
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  item.classList.add('active');
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page)?.classList.add('active');
+  document.getElementById('pageTitle').textContent = item.textContent.trim();
+  loadPageData(page);
 });
 
 function loadPageData(page) {
@@ -1032,26 +833,22 @@ async function loadHero() {
   const modules = await api('/api/modules');
   const hero = modules.hero || {};
   document.getElementById('heroTitle').value = hero.title || '';
-  document.getElementById('heroTitle_en').value = hero.title_en || ''; // 不用中文回填
   document.getElementById('heroSubtitle').value = hero.subtitle || '';
-  document.getElementById('heroSubtitle_en').value = hero.subtitle_en || ''; // 不用中文回填
   if (hero.slides) { hero.slides.forEach((s, i) => { if (s.image) { document.getElementById('heroSlide' + (i+1)).value = s.image; document.getElementById('preview-heroSlide' + (i+1)).src = s.image; document.getElementById('preview-heroSlide' + (i+1)).style.display = 'block'; } }); }
-  if (hero.stats) { hero.stats.forEach((s, i) => { document.getElementById('heroStat' + (i+1) + 'Value').value = s.value || ''; document.getElementById('heroStat' + (i+1) + 'Label').value = s.label || ''; document.getElementById('heroStat' + (i+1) + 'Label_en').value = s.label_en || ''; // 不用中文回填 }); }
+  if (hero.stats) { hero.stats.forEach((s, i) => { document.getElementById('heroStat' + (i+1) + 'Value').value = s.value || ''; document.getElementById('heroStat' + (i+1) + 'Label').value = s.label || ''; }); }
 }
 
 async function saveHero() {
   const modules = await api('/api/modules');
   modules.hero = {
     title: document.getElementById('heroTitle').value,
-    title_en: document.getElementById('heroTitle_en').value,
     subtitle: document.getElementById('heroSubtitle').value,
-    subtitle_en: document.getElementById('heroSubtitle_en').value,
     slides: [{ image: document.getElementById('heroSlide1').value }, { image: document.getElementById('heroSlide2').value }, { image: document.getElementById('heroSlide3').value }],
     stats: [
-      { value: document.getElementById('heroStat1Value').value, label: document.getElementById('heroStat1Label').value, label_en: document.getElementById('heroStat1Label_en').value },
-      { value: document.getElementById('heroStat2Value').value, label: document.getElementById('heroStat2Label').value, label_en: document.getElementById('heroStat2Label_en').value },
-      { value: document.getElementById('heroStat3Value').value, label: document.getElementById('heroStat3Label').value, label_en: document.getElementById('heroStat3Label_en').value },
-      { value: document.getElementById('heroStat4Value').value, label: document.getElementById('heroStat4Label').value, label_en: document.getElementById('heroStat4Label_en').value }
+      { value: document.getElementById('heroStat1Value').value, label: document.getElementById('heroStat1Label').value },
+      { value: document.getElementById('heroStat2Value').value, label: document.getElementById('heroStat2Label').value },
+      { value: document.getElementById('heroStat3Value').value, label: document.getElementById('heroStat3Label').value },
+      { value: document.getElementById('heroStat4Value').value, label: document.getElementById('heroStat4Label').value }
     ]
   };
   await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
@@ -1062,11 +859,8 @@ async function loadFactory() {
   const modules = await api('/api/modules');
   const f = modules.factory || {};
   document.getElementById('factoryTag').value = f.tag || '';
-  document.getElementById('factoryTag_en').value = f.tag_en || ''; // 不用中文回填
   document.getElementById('factoryTitle').value = f.title || '';
-  document.getElementById('factoryTitle_en').value = f.title_en || ''; // 不用中文回填
   document.getElementById('factorySubtitle').value = f.subtitle || '';
-  document.getElementById('factorySubtitle_en').value = f.subtitle_en || ''; // 不用中文回填
   const cards = f.cards || [];
   document.getElementById('factoryCardsList').innerHTML = cards.map((c, i) => `
     <div class="card-edit-row">
@@ -1077,10 +871,8 @@ async function loadFactory() {
         <input type="hidden" id="factoryImg${i}" value="${c.image || ''}">
         <img class="upload-preview" id="preview-factoryImg${i}" src="${c.image || ''}" style="display:${c.image ? 'block' : 'none'};max-height:80px">
       </div>
-      <div class="form-group" style="flex:1"><label>名称 ${i+1}</label><input type="text" class="form-control factory-card-name" id="factoryCardName${i}" data-idx="${i}" value="${c.name || ''}" data-lang="zh"></div>
-      <div class="form-group" style="flex:1"><label>名称 ${i+1}（英文）</label><input type="text" class="form-control factory-card-name-en" id="factoryCardName${i}_en" data-idx="${i}" value="${c.name_en || ''}" data-lang="en"></div>
-      <div class="form-group" style="flex:1"><label>描述 ${i+1}</label><textarea class="form-control factory-card-desc" id="factoryCardDesc${i}" data-idx="${i}" rows="2" data-lang="zh">${c.desc || ''}</textarea></div>
-      <div class="form-group" style="flex:1"><label>描述 ${i+1}（英文）</label><textarea class="form-control factory-card-desc-en" id="factoryCardDesc${i}_en" data-idx="${i}" rows="2" data-lang="en">${c.desc_en || ''}</textarea></div>
+      <div class="form-group" style="flex:1"><label>名称 ${i+1}</label><input type="text" class="form-control factory-card-name" data-idx="${i}" value="${c.name || ''}"></div>
+      <div class="form-group" style="flex:1"><label>描述 ${i+1}</label><textarea class="form-control factory-card-desc" data-idx="${i}" rows="2">${c.desc || ''}</textarea></div>
     </div>`).join('') || '<p style="color:#999">暂无卡片数据</p>';
 }
 
@@ -1088,19 +880,15 @@ async function saveFactory() {
   const modules = await api('/api/modules');
   const cardNames = document.querySelectorAll('.factory-card-name');
   const cardDescs = document.querySelectorAll('.factory-card-desc');
-  const cardNamesEn = document.querySelectorAll('.factory-card-name-en');
-  const cardDescsEn = document.querySelectorAll('.factory-card-desc-en');
   const cards = Array.from({length: 3}, (_, i) => ({
     image: document.getElementById('factoryImg' + i) ? document.getElementById('factoryImg' + i).value : '',
     name: cardNames[i] ? cardNames[i].value : '',
-    name_en: cardNamesEn[i] ? cardNamesEn[i].value : '',
-    desc: cardDescs[i] ? cardDescs[i].value : '',
-    desc_en: cardDescsEn[i] ? cardDescsEn[i].value : ''
+    desc: cardDescs[i] ? cardDescs[i].value : ''
   }));
   modules.factory = {
-    tag: document.getElementById('factoryTag').value, tag_en: document.getElementById('factoryTag_en').value,
-    title: document.getElementById('factoryTitle').value, title_en: document.getElementById('factoryTitle_en').value,
-    subtitle: document.getElementById('factorySubtitle').value, subtitle_en: document.getElementById('factorySubtitle_en').value,
+    tag: document.getElementById('factoryTag').value,
+    title: document.getElementById('factoryTitle').value,
+    subtitle: document.getElementById('factorySubtitle').value,
     cards: cards
   };
   await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
@@ -1111,23 +899,17 @@ async function loadAbout() {
   const modules = await api('/api/modules');
   const about = modules.about || {};
   document.getElementById('aboutTag').value = about.tag || '';
-  document.getElementById('aboutTag_en').value = about.tag_en || ''; // 不用中文回填
   document.getElementById('aboutTitle').value = about.title || '';
-  document.getElementById('aboutTitle_en').value = about.title_en || ''; // 不用中文回填
   document.getElementById('aboutLead').value = about.lead || '';
-  document.getElementById('aboutLead_en').value = about.lead_en || ''; // 不用中文回填
   document.getElementById('aboutP1').value = about.p1 || '';
-  document.getElementById('aboutP1_en').value = about.p1_en || ''; // 不用中文回填
   document.getElementById('aboutP2').value = about.p2 || '';
-  document.getElementById('aboutP2_en').value = about.p2_en || ''; // 不用中文回填
   document.getElementById('aboutBadge').value = about.badge || '';
-  document.getElementById('aboutBadge_en').value = about.badge_en || ''; // 不用中文回填
   if (about.image) { document.getElementById('aboutImage').value = about.image; document.getElementById('preview-aboutImage').src = about.image; document.getElementById('preview-aboutImage').style.display = 'block'; }
 }
 
 async function saveAbout() {
   const modules = await api('/api/modules');
-  modules.about = { tag: document.getElementById('aboutTag').value, tag_en: document.getElementById('aboutTag_en').value, title: document.getElementById('aboutTitle').value, title_en: document.getElementById('aboutTitle_en').value, lead: document.getElementById('aboutLead').value, lead_en: document.getElementById('aboutLead_en').value, p1: document.getElementById('aboutP1').value, p1_en: document.getElementById('aboutP1_en').value, p2: document.getElementById('aboutP2').value, p2_en: document.getElementById('aboutP2_en').value, badge: document.getElementById('aboutBadge').value, badge_en: document.getElementById('aboutBadge_en').value, image: document.getElementById('aboutImage').value };
+  modules.about = { tag: document.getElementById('aboutTag').value, title: document.getElementById('aboutTitle').value, lead: document.getElementById('aboutLead').value, p1: document.getElementById('aboutP1').value, p2: document.getElementById('aboutP2').value, badge: document.getElementById('aboutBadge').value, image: document.getElementById('aboutImage').value };
   await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
   showToast('关于我们已保存');
 }
@@ -1136,25 +918,16 @@ async function loadAdvantages() {
   const modules = await api('/api/modules');
   const adv = modules.advantages || {};
   document.getElementById('advTag').value = adv.tag || '';
-  document.getElementById('advTag_en').value = adv.tag_en || ''; // 不用中文回填
   document.getElementById('advTitle').value = adv.title || '';
-  document.getElementById('advTitle_en').value = adv.title_en || ''; // 不用中文回填
   document.getElementById('advSubtitle').value = adv.subtitle || '';
-  document.getElementById('advSubtitle_en').value = adv.subtitle_en || ''; // 不用中文回填
-  document.getElementById('advItems').innerHTML = (adv.items || []).map((item, i) => '<div class="form-row"><div class="form-group"><label>标题 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '" value="' + (item.title || '') + '" data-lang="zh"></div><div class="form-group"><label>标题（英文）' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '_en" value="' + (item.title_en || '') + '" data-lang="en"></div><div class="form-group"><label>描述 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '" value="' + (item.desc || '') + '" data-lang="zh"></div><div class="form-group"><label>描述（英文）' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '_en" value="' + (item.desc_en || '') + '" data-lang="en"></div></div>').join('');
+  document.getElementById('advItems').innerHTML = (adv.items || []).map((item, i) => '<div class="form-row"><div class="form-group"><label>标题 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '" value="' + (item.title || '') + '"></div><div class="form-group"><label>描述 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '" value="' + (item.desc || '') + '"></div></div>').join('');
 }
 
 async function saveAdvantages() {
   const modules = await api('/api/modules');
   const items = [];
-  for (let i = 0; i < 4; i++) {
-    const title = document.getElementById('advItemTitle' + i)?.value;
-    if (title) items.push({
-      title, title_en: document.getElementById('advItemTitle' + i + '_en')?.value || '',
-      desc: document.getElementById('advItemDesc' + i)?.value || '', desc_en: document.getElementById('advItemDesc' + i + '_en')?.value || ''
-    });
-  }
-  modules.advantages = { tag: document.getElementById('advTag').value, tag_en: document.getElementById('advTag_en').value, title: document.getElementById('advTitle').value, title_en: document.getElementById('advTitle_en').value, subtitle: document.getElementById('advSubtitle').value, subtitle_en: document.getElementById('advSubtitle_en').value, items };
+  for (let i = 0; i < 4; i++) { const title = document.getElementById('advItemTitle' + i)?.value; if (title) items.push({ title, desc: document.getElementById('advItemDesc' + i)?.value || '' }); }
+  modules.advantages = { tag: document.getElementById('advTag').value, title: document.getElementById('advTitle').value, subtitle: document.getElementById('advSubtitle').value, items };
   await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
   showToast('优势特点已保存');
 }
@@ -1182,11 +955,9 @@ function viewProduct(id) {
 function showProductModal(id) { document.getElementById('productModalTitle').textContent = id ? '编辑产品' : '添加产品';
   document.getElementById('productId').value = id || '';
   document.getElementById('productName').value = '';
-  document.getElementById('productName_en').value = '';
   document.getElementById('productCategory').value = 'supplies';
   document.getElementById('productSubcategory').value = '';
   document.getElementById('productBadge').value = '';
-  document.getElementById('productBadge_en').value = '';
   document.getElementById('productSize').value = '';
   document.getElementById('productWeight').value = '';
   document.getElementById('productPackSize').value = '';
@@ -1198,7 +969,6 @@ function showProductModal(id) { document.getElementById('productModalTitle').tex
   document.getElementById('productPackaging').value = '';
   document.getElementById('productPrice').value = '';
   document.getElementById('productDesc').value = '';
-  document.getElementById('productDesc_en').value = '';
   document.getElementById('productImage').value = '';
   document.getElementById('preview-productImage').style.display = 'none';
   openModal('productModal');
@@ -1210,11 +980,9 @@ async function editProduct(id) { const products = await api('/api/admin/products
   document.getElementById('productModalTitle').textContent = '编辑产品';
   document.getElementById('productId').value = p.id;
   document.getElementById('productName').value = p.name || '';
-  document.getElementById('productName_en').value = p.name_en || '';
   document.getElementById('productCategory').value = p.category || 'supplies';
   document.getElementById('productSubcategory').value = p.subcategory || '';
   document.getElementById('productBadge').value = p.badge || '';
-  document.getElementById('productBadge_en').value = p.badge_en || '';
   document.getElementById('productSize').value = p.size || '';
   document.getElementById('productWeight').value = p.weight || '';
   document.getElementById('productPackSize').value = p.packSize || '';
@@ -1226,7 +994,6 @@ async function editProduct(id) { const products = await api('/api/admin/products
   document.getElementById('productPackaging').value = p.packaging || '';
   document.getElementById('productPrice').value = p.price || '';
   document.getElementById('productDesc').value = p.desc || '';
-  document.getElementById('productDesc_en').value = p.desc_en || '';
   if (p.image) { document.getElementById('productImage').value = p.image; document.getElementById('preview-productImage').src = p.image; document.getElementById('preview-productImage').style.display = 'block'; }
   if (p.images) _uploadedUrls['productImage'] = p.images;
   openModal('productModal');
@@ -1234,27 +1001,11 @@ async function editProduct(id) { const products = await api('/api/admin/products
 
 async function saveProduct() {
   const id = document.getElementById('productId').value;
-  var nameZh = document.getElementById('productName').value;
-  var badgeZh = document.getElementById('productBadge').value;
-  var descZh = document.getElementById('productDesc').value;
-
-  // 自动翻译：英文字段为空时自动从中文翻译
-  showToast('正在检查翻译...', 'info');
-  var nameEn = document.getElementById('productName_en').value;
-  var badgeEn = document.getElementById('productBadge_en').value;
-  var descEn = document.getElementById('productDesc_en').value;
-
-  if (!nameEn && nameZh && /[\u4e00-\u9fa5]/.test(nameZh)) nameEn = await translateText(nameZh);
-  if (!badgeEn && badgeZh && /[\u4e00-\u9fa5]/.test(badgeZh)) badgeEn = await translateText(badgeZh);
-  if (!descEn && descZh && /[\u4e00-\u9fa5]/.test(descZh)) descEn = await translateText(descZh);
-
   const data = {
-    name: nameZh,
-    name_en: nameEn,
+    name: document.getElementById('productName').value,
     category: document.getElementById('productCategory').value,
     subcategory: document.getElementById('productSubcategory').value,
-    badge: badgeZh,
-    badge_en: badgeEn,
+    badge: document.getElementById('productBadge').value,
     size: document.getElementById('productSize').value,
     weight: document.getElementById('productWeight').value,
     packSize: document.getElementById('productPackSize').value,
@@ -1265,8 +1016,7 @@ async function saveProduct() {
     lead: document.getElementById('productLead').value,
     packaging: document.getElementById('productPackaging').value,
     price: parseFloat(document.getElementById('productPrice').value) || 0,
-    desc: descZh,
-    desc_en: descEn,
+    desc: document.getElementById('productDesc').value,
     image: document.getElementById('productImage').value,
     images: _uploadedUrls['productImage'] || null
   };
@@ -1276,7 +1026,7 @@ async function saveProduct() {
     else { await api('/api/admin/products', { method: 'POST', body: JSON.stringify(data) }); }
     closeModal('productModal');
     loadProducts();
-    showToast('产品已保存（英文已自动翻译）');
+    showToast('产品已保存');
   } catch(e) { showToast('保存失败: ' + e.message, 'error'); }
 }
 
@@ -1295,19 +1045,13 @@ async function saveSolutionsSection() {
   var modules = await api('/api/modules');
   var sol = modules.solutions || { cards: [] };
   sol.tag = document.getElementById('solTag').value;
-  sol.tag_en = document.getElementById('solTag_en').value;
   sol.title = document.getElementById('solTitle').value;
-  sol.title_en = document.getElementById('solTitle_en').value;
   sol.subtitle = document.getElementById('solSubtitle').value;
-  sol.subtitle_en = document.getElementById('solSubtitle_en').value;
   sol.cards = [0,1,2].map(function(i){
     return {
       title: document.getElementById('solCard'+i+'Title').value,
-      title_en: document.getElementById('solCard'+i+'Title_en').value,
       desc: document.getElementById('solCard'+i+'Desc').value,
-      desc_en: document.getElementById('solCard'+i+'Desc_en').value,
-      items: document.getElementById('solCard'+i+'Items').value.split('\n').map(function(s){return s.trim();}).filter(Boolean),
-      items_en: document.getElementById('solCard'+i+'Items_en').value.split('\n').map(function(s){return s.trim();}).filter(Boolean)
+      items: document.getElementById('solCard'+i+'Items').value.split('\n').map(function(s){return s.trim();}).filter(Boolean)
     };
   });
   modules.solutions = sol;
@@ -1320,15 +1064,11 @@ function showSolutionModal() {
   document.getElementById('solutionId').value = '';
   document.getElementById('solutionModalTitle').textContent = '添加方案';
   document.getElementById('solutionTitle').value = '';
-  document.getElementById('solutionTitle_en').value = '';
   document.getElementById('solutionSubtitle').value = '';
-  document.getElementById('solutionSubtitle_en').value = '';
   document.getElementById('solutionDesc').value = '';
-  document.getElementById('solutionDesc_en').value = '';
   document.getElementById('solutionImage').value = '';
   document.getElementById('preview-solutionImage').style.display = 'none';
   document.getElementById('solutionItems').value = '';
-  document.getElementById('solutionItems_en').value = '';
   openModal('solutionModal');
 }
 
@@ -1340,15 +1080,10 @@ async function editSolution(id) {
   document.getElementById('solutionId').value = s.id;
   document.getElementById('solutionModalTitle').textContent = '编辑方案：' + (s.title || '');
   document.getElementById('solutionTitle').value = s.title || '';
-  document.getElementById('solutionTitle_en').value = s.title_en || '';
   document.getElementById('solutionSubtitle').value = s.subtitle || '';
-  document.getElementById('solutionSubtitle_en').value = s.subtitle_en || '';
   document.getElementById('solutionDesc').value = s.desc || '';
-  document.getElementById('solutionDesc_en').value = s.desc_en || '';
   var itemsStr = Array.isArray(s.items) ? s.items.join('\n') : (s.items || '');
   document.getElementById('solutionItems').value = itemsStr;
-  var itemsEnStr = Array.isArray(s.items_en) ? s.items_en.join('\n') : (s.items_en || '');
-  document.getElementById('solutionItems_en').value = itemsEnStr;
   var imgVal = s.img || s.image || '';
   document.getElementById('solutionImage').value = imgVal;
   var preview = document.getElementById('preview-solutionImage');
@@ -1366,55 +1101,21 @@ async function saveSolution() {
   var itemsRaw = document.getElementById('solutionItems').value || '';
   var items = itemsRaw.split('\n').map(function(s){ return s.trim(); }).filter(Boolean);
   var formImg = document.getElementById('solutionImage').value;
-
-  // 自动翻译：如果英文字段为空，自动从中文翻译
-  showToast('正在检查翻译...', 'info');
-  var titleEn = document.getElementById('solutionTitle_en').value;
-  var subtitleEn = document.getElementById('solutionSubtitle_en').value;
-  var descEn = document.getElementById('solutionDesc_en').value;
-  var itemsEnRaw = document.getElementById('solutionItems_en').value;
-  var itemsEn = itemsEnRaw ? itemsEnRaw.split('\n').map(function(s){ return s.trim(); }).filter(Boolean) : [];
-
-  var titleZh = document.getElementById('solutionTitle').value;
-  var subtitleZh = document.getElementById('solutionSubtitle').value;
-  var descZh = document.getElementById('solutionDesc').value;
-
-  if (!titleEn && titleZh && /[\u4e00-\u9fa5]/.test(titleZh)) titleEn = await translateText(titleZh);
-  if (!subtitleEn && subtitleZh && /[\u4e00-\u9fa5]/.test(subtitleZh)) subtitleEn = await translateText(subtitleZh);
-  if (!descEn && descZh && /[\u4e00-\u9fa5]/.test(descZh)) descEn = await translateText(descZh);
-  if (!itemsEn.length && items.length) {
-    for (var j = 0; j < items.length; j++) {
-      if (/[\u4e00-\u9fa5]/.test(items[j])) {
-        itemsEn.push(await translateText(items[j]));
-      } else {
-        itemsEn.push(items[j]);
-      }
-    }
-  }
-
   var data = {
     id: id || undefined,
-    title: titleZh,
-    title_en: titleEn,
-    subtitle: subtitleZh,
-    subtitle_en: subtitleEn,
-    desc: descZh,
-    desc_en: descEn,
+    title: document.getElementById('solutionTitle').value,
+    subtitle: document.getElementById('solutionSubtitle').value,
+    desc: document.getElementById('solutionDesc').value,
     items: items,
-    items_en: itemsEn,
     img: formImg,
     image: formImg
   };
-  // 保留已有字段的 _en 数据
-  if (existing.content_en) data.content_en = existing.content_en;
-  if (existing.slug) data.slug = existing.slug;
-
   if (id) {
     await api('/api/admin/solutions/' + id, {method:'PUT', body: JSON.stringify(data)});
     showToast('方案已更新');
   } else {
     await api('/api/admin/solutions', {method:'POST', body: JSON.stringify(data)});
-    showToast('方案已添加（英文已自动翻译）');
+    showToast('方案已添加');
   }
   closeModal('solutionModal');
   loadSolutions();
@@ -1425,19 +1126,13 @@ async function loadSolutions() {
   var modules = await api('/api/modules');
   var sol = modules.solutions || { cards: [] };
   document.getElementById('solTag').value = sol.tag || '';
-  document.getElementById('solTag_en').value = sol.tag_en || sol.tag || '';
   document.getElementById('solTitle').value = sol.title || '';
-  document.getElementById('solTitle_en').value = sol.title_en || sol.title || '';
   document.getElementById('solSubtitle').value = sol.subtitle || '';
-  document.getElementById('solSubtitle_en').value = sol.subtitle_en || sol.subtitle || '';
   [0,1,2].forEach(function(i){
     var c = (sol.cards || [])[i] || {};
     document.getElementById('solCard'+i+'Title').value = c.title || '';
-    document.getElementById('solCard'+i+'Title_en').value = c.title_en || c.title || '';
     document.getElementById('solCard'+i+'Desc').value = c.desc || '';
-    document.getElementById('solCard'+i+'Desc_en').value = c.desc_en || c.desc || '';
     document.getElementById('solCard'+i+'Items').value = (c.items || []).join('\n');
-    document.getElementById('solCard'+i+'Items_en').value = (c.items_en || []).join('\n');
   });
   // 加载方案列表
   var list = await api('/api/admin/solutions');
@@ -1609,21 +1304,21 @@ async function loadCases() {
 async function saveCasesSection() {
   var modules = await api('/api/modules');
   var cs = modules.cases || {};
-  cs.title = document.getElementById('caseSectionTitle').value; cs.title_en = document.getElementById('caseSectionTitle_en').value || cs.title;
-  cs.subtitle = document.getElementById('caseSectionSub').value; cs.subtitle_en = document.getElementById('caseSectionSub_en').value || cs.subtitle;
+  cs.title = document.getElementById('caseSectionTitle').value;
+  cs.subtitle = document.getElementById('caseSectionSub').value;
   cs.cards = [0,1].map(function(i){
     return {
-      tag: document.getElementById('caseCard'+i+'Tag').value, tag_en: document.getElementById('caseCard'+i+'Tag_en').value,
+      tag: document.getElementById('caseCard'+i+'Tag').value,
       country: document.getElementById('caseCard'+i+'Country').value,
       cat: document.getElementById('caseCard'+i+'Cat').value,
-      title: document.getElementById('caseCard'+i+'Title').value, title_en: document.getElementById('caseCard'+i+'Title_en').value,
-      desc: document.getElementById('caseCard'+i+'Desc').value, desc_en: document.getElementById('caseCard'+i+'Desc_en').value,
-      s1: document.getElementById('caseCard'+i+'S1').value, s1_en: document.getElementById('caseCard'+i+'S1_en').value,
-      s2: document.getElementById('caseCard'+i+'S2').value, s2_en: document.getElementById('caseCard'+i+'S2_en').value,
-      s3: document.getElementById('caseCard'+i+'S3').value, s3_en: document.getElementById('caseCard'+i+'S3_en').value,
-      n1: document.getElementById('caseCard'+i+'N1').value, n1_en: document.getElementById('caseCard'+i+'N1_en').value,
-      n2: document.getElementById('caseCard'+i+'N2').value, n2_en: document.getElementById('caseCard'+i+'N2_en').value,
-      n3: document.getElementById('caseCard'+i+'N3').value, n3_en: document.getElementById('caseCard'+i+'N3_en').value,
+      title: document.getElementById('caseCard'+i+'Title').value,
+      desc: document.getElementById('caseCard'+i+'Desc').value,
+      s1: document.getElementById('caseCard'+i+'S1').value,
+      s2: document.getElementById('caseCard'+i+'S2').value,
+      s3: document.getElementById('caseCard'+i+'S3').value,
+      n1: document.getElementById('caseCard'+i+'N1').value,
+      n2: document.getElementById('caseCard'+i+'N2').value,
+      n3: document.getElementById('caseCard'+i+'N3').value,
       img: document.getElementById('caseImg'+i).value
     };
   });
@@ -1664,12 +1359,9 @@ function showNewsModal(id = null) {
   document.getElementById('newsId').value = id || '';
   document.getElementById('newsModalTitle').textContent = id ? '编辑新闻' : '添加新闻';
   document.getElementById('newsTitle').value = '';
-  document.getElementById('newsTitle_en').value = '';
   document.getElementById('newsCategory').value = 'company';
   document.getElementById('newsExcerpt').value = '';
-  document.getElementById('newsExcerpt_en').value = '';
   document.getElementById('newsContent').value = '';
-  document.getElementById('newsContent_en').value = '';
   document.getElementById('newsDate').value = '';
   document.getElementById('newsTag').value = '';
   document.getElementById('newsImage').value = '';
@@ -1684,12 +1376,9 @@ async function editNews(id) {
   document.getElementById('newsId').value = n.id;
   document.getElementById('newsModalTitle').textContent = '编辑新闻';
   document.getElementById('newsTitle').value = n.title || '';
-  document.getElementById('newsTitle_en').value = n.title_en || '';
   document.getElementById('newsCategory').value = n.category || 'company';
   document.getElementById('newsExcerpt').value = n.excerpt || '';
-  document.getElementById('newsExcerpt_en').value = n.excerpt_en || '';
   document.getElementById('newsContent').value = n.content || '';
-  document.getElementById('newsContent_en').value = n.content_en || '';
   document.getElementById('newsDate').value = n.date || '';
   document.getElementById('newsTag').value = n.tag || '';
   if (n.image) { document.getElementById('newsImage').value = n.image; document.getElementById('preview-newsImage').src = n.image; document.getElementById('preview-newsImage').style.display = 'block'; }
@@ -1700,33 +1389,26 @@ async function editNews(id) {
 async function saveNews() {
   const id = document.getElementById('newsId').value;
   const existing = id ? (await api('/api/admin/news')).find(n => n.id === id) || {} : {};
-  var titleZh = document.getElementById('newsTitle').value;
-  var excerptZh = document.getElementById('newsExcerpt').value;
-  var contentZh = document.getElementById('newsContent').value;
+  const formTitle = document.getElementById('newsTitle').value;
+  const formExcerpt = document.getElementById('newsExcerpt').value;
+  const formContent = document.getElementById('newsContent').value;
   const formDate = document.getElementById('newsDate').value;
   const formCategory = document.getElementById('newsCategory').value;
   const formTag = document.getElementById('newsTag').value;
   const formImg = document.getElementById('newsImage').value;
 
-  // 自动翻译：英文字段为空时自动从中文翻译
-  showToast('正在检查翻译...', 'info');
-  var titleEn = document.getElementById('newsTitle_en').value;
-  var excerptEn = document.getElementById('newsExcerpt_en').value;
-  var contentEn = document.getElementById('newsContent_en').value;
-
-  if (!titleEn && titleZh && /[\u4e00-\u9fa5]/.test(titleZh)) titleEn = await translateText(titleZh);
-  if (!excerptEn && excerptZh && /[\u4e00-\u9fa5]/.test(excerptZh)) excerptEn = await translateText(excerptZh);
-  if (!contentEn && contentZh && /[\u4e00-\u9fa5]/.test(contentZh)) contentEn = await translateText(contentZh);
-
   const data = {
     ...existing,
-    title: titleZh,
-    title_en: titleEn,
+    title: formTitle || existing.title,
+    title_zh: formTitle || existing.title_zh,
+    title_en: formTitle || existing.title_en,
     category: formCategory || existing.category,
-    excerpt: excerptZh,
-    excerpt_en: excerptEn,
-    content: contentZh,
-    content_en: contentEn,
+    excerpt: formExcerpt || existing.excerpt,
+    excerpt_zh: formExcerpt || existing.excerpt_zh,
+    excerpt_en: formExcerpt || existing.excerpt_en,
+    content: formContent || existing.content,
+    content_zh: formContent || existing.content_zh,
+    content_en: formContent || existing.content_en,
     date: formDate || existing.date,
     tag: formTag || existing.tag || '',
     image: formImg || existing.image,
@@ -1740,7 +1422,7 @@ async function saveNews() {
   if (id) { await api('/api/admin/news/' + id, { method: 'PUT', body: JSON.stringify(data) }); } else { await api('/api/admin/news', { method: 'POST', body: JSON.stringify(data) }); }
   closeModal('newsModal');
   loadNews();
-  showToast('新闻已保存（英文已自动翻译）');
+  showToast('新闻已保存');
 }
 
 async function deleteNews(id) {
@@ -1862,12 +1544,7 @@ async function loadCta() {
 
 async function saveCta() {
   const modules = await api('/api/modules');
-  modules.cta = {
-    title: document.getElementById('ctaTitle').value, title_en: document.getElementById('ctaTitle_en').value,
-    subtitle: document.getElementById('ctaSubtitle').value, subtitle_en: document.getElementById('ctaSubtitle_en').value,
-    btn1: document.getElementById('ctaBtn1').value, btn1_en: document.getElementById('ctaBtn1_en').value,
-    btn2: document.getElementById('ctaBtn2').value, btn2_en: document.getElementById('ctaBtn2_en').value
-  };
+  modules.cta = { title: document.getElementById('ctaTitle').value, subtitle: document.getElementById('ctaSubtitle').value, btn1: document.getElementById('ctaBtn1').value, btn2: document.getElementById('ctaBtn2').value };
   await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
   showToast('CTA设置已保存');
 }
@@ -1883,11 +1560,7 @@ async function loadFooter() {
 
 async function saveFooter() {
   const modules = await api('/api/modules');
-  modules.footer = {
-    copyright: document.getElementById('footerCopyright').value, copyright_en: document.getElementById('footerCopyright_en').value,
-    address: document.getElementById('footerAddress').value, address_en: document.getElementById('footerAddress_en').value,
-    email: document.getElementById('footerEmail').value, phone: document.getElementById('footerPhone').value
-  };
+  modules.footer = { copyright: document.getElementById('footerCopyright').value, address: document.getElementById('footerAddress').value, email: document.getElementById('footerEmail').value, phone: document.getElementById('footerPhone').value };
   await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
   showToast('页脚设置已保存');
 }
@@ -2005,8 +1678,6 @@ function logout() {
 }
 
 loadDashboard();
-// 确保所有模态框关闭
-document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
 </script>
 </body>
 </html>
