@@ -493,8 +493,8 @@ app.get('/api/site/news', (req, res) => {
   res.json(result);
 });
 app.get('/api/site/faqs', (req, res) => {
-  const lang = req.query.lang || 'en';
-  const filtered = faqs.filter(f => f.lang === lang || (!f.lang && lang === 'en'));
+  const lang = req.query.lang || 'zh';
+  const filtered = faqs.filter(f => f.lang === lang);
   res.json(filtered);
 });
 app.get('/api/site/cases', (req, res) => res.json(cases));
