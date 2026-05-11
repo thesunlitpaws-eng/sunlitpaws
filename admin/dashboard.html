@@ -843,7 +843,17 @@ async function api(url, options = {}) {
 async function translateText(text) {
   if (!text || !/[\u4e00-\u9fa5]/.test(text)) return text;
 
-  // 主：Google Translate
+  // 使用服务器端翻译API (避免CORS问题)
+  try {
+    const res = await api('/api/translate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, from: 'zh', to: 'en' })
+    });
+    if (res.translated) return res.translated;
+  } catch (e) { console.warn('服务器翻译失败:', e.message); }
+
+  // 备用：直接从浏览器调用 (可能CORS问题)
   try {
     const res = await fetch('https://translate.googleapis.com/translate_a/single?client=gtx&sl=zh&tl=en&dt=t&q=' + encodeURIComponent(text));
     if (res.ok) {
@@ -853,7 +863,7 @@ async function translateText(text) {
     }
   } catch (e) { console.warn('Google 失败:', e.message); }
 
-  // 备：MyMemory
+  // 最后备用：MyMemory
   try {
     const res = await fetch('https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=zh|en');
     if (res.ok) {
