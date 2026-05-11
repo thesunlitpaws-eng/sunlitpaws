@@ -455,37 +455,49 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-body">
             <div class="form-row">
               <div class="form-group"><label>板块标题</label><input type="text" class="form-control" id="caseSectionTitle" placeholder="Success Cases"></div>
+              <div class="form-group"><label>板块标题（英文）</label><input type="text" class="form-control" id="caseSectionTitle_en" placeholder="Success Cases EN"></div>
               <div class="form-group"><label>板块副标题</label><input type="text" class="form-control" id="caseSectionSub" placeholder="Real partnerships, real results..."></div>
+              <div class="form-group"><label>板块副标题（英文）</label><input type="text" class="form-control" id="caseSectionSub_en" placeholder="Real partnerships, real results... EN"></div>
             </div>
             <hr>
             <h4 style="margin:12px 0">卡片1（OEM）</h4>
             <div class="form-row">
               <div class="form-group"><label>卡片1 图片</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'caseImg0')"></div><input type="hidden" id="caseImg0"><img class="upload-preview" id="preview-caseImg0" style="display:none;max-height:80px"></div>
               <div class="form-group"><label>标签1（如：OEM Success）</label><input type="text" class="form-control" id="caseCard0Tag" placeholder="OEM Success"></div>
+              <div class="form-group"><label>标签1（英文）</label><input type="text" class="form-control" id="caseCard0Tag_en" placeholder="OEM Success EN"></div>
               <div class="form-group"><label>国家1（如：🇺🇸 美国）</label><input type="text" class="form-control" id="caseCard0Country" placeholder="🇺🇸 美国"></div>
               <div class="form-group"><label>品类1（如：宠物食品）</label><input type="text" class="form-control" id="caseCard0Cat" placeholder="宠物食品"></div>
               <div class="form-group"><label>标题1</label><input type="text" class="form-control" id="caseCard0Title" placeholder="US Premium Pet Food Brand"></div>
+              <div class="form-group"><label>标题1（英文）</label><input type="text" class="form-control" id="caseCard0Title_en" placeholder="US Premium Pet Food Brand EN"></div>
             </div>
             <div class="form-group"><label>描述1</label><textarea class="form-control" id="caseCard0Desc" rows="2" placeholder="详细描述..."></textarea></div>
+            <div class="form-group"><label>描述1（英文）</label><textarea class="form-control" id="caseCard0Desc_en" rows="2" placeholder="详细描述... EN"></textarea></div>
             <div class="form-row">
               <div class="form-group"><label>统计1（如：Scale-up time）</label><input type="text" class="form-control" id="caseCard0S1" placeholder="Scale-up time"></div>
+              <div class="form-group"><label>统计1（英文）</label><input type="text" class="form-control" id="caseCard0S1_en" placeholder="Scale-up time EN"></div>
               <div class="form-group"><label>统计2（如：Monthly volume）</label><input type="text" class="form-control" id="caseCard0S2" placeholder="Monthly volume"></div>
-              <div class="form-group"><label>数字1（如：18mo）</label><input type="text" class="form-control" id="caseCard0N1" placeholder="18mo"></div><div class="form-group"><label>数字2（如：50T）</label><input type="text" class="form-control" id="caseCard0N2" placeholder="50T"></div><div class="form-group"><label>数字3（如：8）</label><input type="text" class="form-control" id="caseCard0N3" placeholder="8"></div><div class="form-group"><label>统计3（如：SKUs launched）</label><input type="text" class="form-control" id="caseCard0S3" placeholder="SKUs launched"></div>
+              <div class="form-group"><label>统计2（英文）</label><input type="text" class="form-control" id="caseCard0S2_en" placeholder="Monthly volume EN"></div>
+              <div class="form-group"><label>数字1（如：18mo）</label><input type="text" class="form-control" id="caseCard0N1" placeholder="18mo"></div><div class="form-group"><label>数字1（英文）</label><input type="text" class="form-control" id="caseCard0N1_en" placeholder="18mo EN"></div><div class="form-group"><label>数字2（如：50T）</label><input type="text" class="form-control" id="caseCard0N2" placeholder="50T"></div><div class="form-group"><label>数字2（英文）</label><input type="text" class="form-control" id="caseCard0N2_en" placeholder="50T EN"></div><div class="form-group"><label>数字3（如：8）</label><input type="text" class="form-control" id="caseCard0N3" placeholder="8"></div><div class="form-group"><label>数字3（英文）</label><input type="text" class="form-control" id="caseCard0N3_en" placeholder="8 EN"></div><div class="form-group"><label>统计3（如：SKUs launched）</label><input type="text" class="form-control" id="caseCard0S3" placeholder="SKUs launched"></div><div class="form-group"><label>统计3（英文）</label><input type="text" class="form-control" id="caseCard0S3_en" placeholder="SKUs launched EN"></div>
             </div>
             <hr>
             <h4 style="margin:12px 0">卡片2（分销合作）</h4>
             <div class="form-row">
               <div class="form-group"><label>卡片2 图片</label><div class="upload-area" onclick="this.querySelector('input').click()"><p>点击上传</p><input type="file" hidden accept="image/*" onchange="handleUpload(this,'caseImg1')"></div><input type="hidden" id="caseImg1"><img class="upload-preview" id="preview-caseImg1" style="display:none;max-height:80px"></div>
               <div class="form-group"><label>标签2（如：Distribution）</label><input type="text" class="form-control" id="caseCard1Tag" placeholder="Distribution"></div>
+              <div class="form-group"><label>标签2（英文）</label><input type="text" class="form-control" id="caseCard1Tag_en" placeholder="Distribution EN"></div>
               <div class="form-group"><label>国家2（如：🇩🇪 德国）</label><input type="text" class="form-control" id="caseCard1Country" placeholder="🇩🇪 德国"></div>
               <div class="form-group"><label>品类2（如：宠物玩具）</label><input type="text" class="form-control" id="caseCard1Cat" placeholder="宠物玩具"></div>
               <div class="form-group"><label>标题2</label><input type="text" class="form-control" id="caseCard1Title" placeholder="European Pet Toy Distributor"></div>
+              <div class="form-group"><label>标题2（英文）</label><input type="text" class="form-control" id="caseCard1Title_en" placeholder="European Pet Toy Distributor EN"></div>
             </div>
             <div class="form-group"><label>描述2</label><textarea class="form-control" id="caseCard1Desc" rows="2" placeholder="详细描述..."></textarea></div>
+            <div class="form-group"><label>描述2（英文）</label><textarea class="form-control" id="caseCard1Desc_en" rows="2" placeholder="详细描述... EN"></textarea></div>
             <div class="form-row">
               <div class="form-group"><label>统计1（如：SKUs supplied）</label><input type="text" class="form-control" id="caseCard1S1" placeholder="SKUs supplied"></div>
+              <div class="form-group"><label>统计1（英文）</label><input type="text" class="form-control" id="caseCard1S1_en" placeholder="SKUs supplied EN"></div>
               <div class="form-group"><label>统计2（如：Markets expanded）</label><input type="text" class="form-control" id="caseCard1S2" placeholder="Markets expanded"></div>
-              <div class="form-group"><label>数字1（如：120+）</label><input type="text" class="form-control" id="caseCard1N1" placeholder="120+"></div><div class="form-group"><label>数字2（如：5）</label><input type="text" class="form-control" id="caseCard1N2" placeholder="5"></div><div class="form-group"><label>数字3（如：98%）</label><input type="text" class="form-control" id="caseCard1N3" placeholder="98%"></div><div class="form-group"><label>统计3（如：On-time rate）</label><input type="text" class="form-control" id="caseCard1S3" placeholder="On-time rate"></div>
+              <div class="form-group"><label>统计2（英文）</label><input type="text" class="form-control" id="caseCard1S2_en" placeholder="Markets expanded EN"></div>
+              <div class="form-group"><label>数字1（如：120+）</label><input type="text" class="form-control" id="caseCard1N1" placeholder="120+"></div><div class="form-group"><label>数字1（英文）</label><input type="text" class="form-control" id="caseCard1N1_en" placeholder="120+ EN"></div><div class="form-group"><label>数字2（如：5）</label><input type="text" class="form-control" id="caseCard1N2" placeholder="5"></div><div class="form-group"><label>数字2（英文）</label><input type="text" class="form-control" id="caseCard1N2_en" placeholder="5 EN"></div><div class="form-group"><label>数字3（如：98%）</label><input type="text" class="form-control" id="caseCard1N3" placeholder="98%"></div><div class="form-group"><label>数字3（英文）</label><input type="text" class="form-control" id="caseCard1N3_en" placeholder="98% EN"></div><div class="form-group"><label>统计3（如：On-time rate）</label><input type="text" class="form-control" id="caseCard1S3" placeholder="On-time rate"></div><div class="form-group"><label>统计3（英文）</label><input type="text" class="form-control" id="caseCard1S3_en" placeholder="On-time rate EN"></div>
             </div>
             <div class="btn-group" style="margin-top:16px"><button class="btn btn-primary" onclick="saveCasesSection()">💾 保存板块设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译</button></div>
           </div>
@@ -554,10 +566,14 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-header"><h3>CTA区域</h3></div>
           <div class="card-body">
             <div class="form-group"><label>标题</label><input type="text" class="form-control" id="ctaTitle"></div>
+            <div class="form-group"><label>标题（英文）</label><input type="text" class="form-control" id="ctaTitle_en"></div>
             <div class="form-group"><label>副标题</label><input type="text" class="form-control" id="ctaSubtitle"></div>
+            <div class="form-group"><label>副标题（英文）</label><input type="text" class="form-control" id="ctaSubtitle_en"></div>
             <div class="form-row">
               <div class="form-group"><label>按钮1文字</label><input type="text" class="form-control" id="ctaBtn1"></div>
+              <div class="form-group"><label>按钮1文字（英文）</label><input type="text" class="form-control" id="ctaBtn1_en"></div>
               <div class="form-group"><label>按钮2文字</label><input type="text" class="form-control" id="ctaBtn2"></div>
+              <div class="form-group"><label>按钮2文字（英文）</label><input type="text" class="form-control" id="ctaBtn2_en"></div>
             </div>
             <div class="btn-group"><button class="btn btn-primary" onclick="saveCta()">💾 保存设置</button><button class="btn btn-warning" onclick="translateCurrentSection()">🌐 翻译成英文</button></div>
           </div>
@@ -570,7 +586,9 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <div class="card-header"><h3>页脚设置</h3></div>
           <div class="card-body">
             <div class="form-group"><label>版权信息</label><input type="text" class="form-control" id="footerCopyright"></div>
+            <div class="form-group"><label>版权信息（英文）</label><input type="text" class="form-control" id="footerCopyright_en"></div>
             <div class="form-group"><label>地址</label><input type="text" class="form-control" id="footerAddress"></div>
+            <div class="form-group"><label>地址（英文）</label><input type="text" class="form-control" id="footerAddress_en"></div>
             <div class="form-row">
               <div class="form-group"><label>邮箱</label><input type="email" class="form-control" id="footerEmail"></div>
               <div class="form-group"><label>电话</label><input type="text" class="form-control" id="footerPhone"></div>
@@ -1011,7 +1029,9 @@ async function saveHero() {
   const modules = await api('/api/modules');
   modules.hero = {
     title: document.getElementById('heroTitle').value,
+    title_en: document.getElementById('heroTitle_en').value,
     subtitle: document.getElementById('heroSubtitle').value,
+    subtitle_en: document.getElementById('heroSubtitle_en').value,
     slides: [{ image: document.getElementById('heroSlide1').value }, { image: document.getElementById('heroSlide2').value }, { image: document.getElementById('heroSlide3').value }],
     stats: [
       { value: document.getElementById('heroStat1Value').value, label: document.getElementById('heroStat1Label').value, label_en: document.getElementById('heroStat1Label_en').value },
@@ -1575,21 +1595,21 @@ async function loadCases() {
 async function saveCasesSection() {
   var modules = await api('/api/modules');
   var cs = modules.cases || {};
-  cs.title = document.getElementById('caseSectionTitle').value;
-  cs.subtitle = document.getElementById('caseSectionSub').value;
+  cs.title = document.getElementById('caseSectionTitle').value; cs.title_en = document.getElementById('caseSectionTitle_en').value || cs.title;
+  cs.subtitle = document.getElementById('caseSectionSub').value; cs.subtitle_en = document.getElementById('caseSectionSub_en').value || cs.subtitle;
   cs.cards = [0,1].map(function(i){
     return {
-      tag: document.getElementById('caseCard'+i+'Tag').value,
+      tag: document.getElementById('caseCard'+i+'Tag').value, tag_en: document.getElementById('caseCard'+i+'Tag_en').value,
       country: document.getElementById('caseCard'+i+'Country').value,
       cat: document.getElementById('caseCard'+i+'Cat').value,
-      title: document.getElementById('caseCard'+i+'Title').value,
-      desc: document.getElementById('caseCard'+i+'Desc').value,
-      s1: document.getElementById('caseCard'+i+'S1').value,
-      s2: document.getElementById('caseCard'+i+'S2').value,
-      s3: document.getElementById('caseCard'+i+'S3').value,
-      n1: document.getElementById('caseCard'+i+'N1').value,
-      n2: document.getElementById('caseCard'+i+'N2').value,
-      n3: document.getElementById('caseCard'+i+'N3').value,
+      title: document.getElementById('caseCard'+i+'Title').value, title_en: document.getElementById('caseCard'+i+'Title_en').value,
+      desc: document.getElementById('caseCard'+i+'Desc').value, desc_en: document.getElementById('caseCard'+i+'Desc_en').value,
+      s1: document.getElementById('caseCard'+i+'S1').value, s1_en: document.getElementById('caseCard'+i+'S1_en').value,
+      s2: document.getElementById('caseCard'+i+'S2').value, s2_en: document.getElementById('caseCard'+i+'S2_en').value,
+      s3: document.getElementById('caseCard'+i+'S3').value, s3_en: document.getElementById('caseCard'+i+'S3_en').value,
+      n1: document.getElementById('caseCard'+i+'N1').value, n1_en: document.getElementById('caseCard'+i+'N1_en').value,
+      n2: document.getElementById('caseCard'+i+'N2').value, n2_en: document.getElementById('caseCard'+i+'N2_en').value,
+      n3: document.getElementById('caseCard'+i+'N3').value, n3_en: document.getElementById('caseCard'+i+'N3_en').value,
       img: document.getElementById('caseImg'+i).value
     };
   });
@@ -1828,7 +1848,12 @@ async function loadCta() {
 
 async function saveCta() {
   const modules = await api('/api/modules');
-  modules.cta = { title: document.getElementById('ctaTitle').value, subtitle: document.getElementById('ctaSubtitle').value, btn1: document.getElementById('ctaBtn1').value, btn2: document.getElementById('ctaBtn2').value };
+  modules.cta = {
+    title: document.getElementById('ctaTitle').value, title_en: document.getElementById('ctaTitle_en').value,
+    subtitle: document.getElementById('ctaSubtitle').value, subtitle_en: document.getElementById('ctaSubtitle_en').value,
+    btn1: document.getElementById('ctaBtn1').value, btn1_en: document.getElementById('ctaBtn1_en').value,
+    btn2: document.getElementById('ctaBtn2').value, btn2_en: document.getElementById('ctaBtn2_en').value
+  };
   await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
   showToast('CTA设置已保存');
 }
@@ -1844,7 +1869,11 @@ async function loadFooter() {
 
 async function saveFooter() {
   const modules = await api('/api/modules');
-  modules.footer = { copyright: document.getElementById('footerCopyright').value, address: document.getElementById('footerAddress').value, email: document.getElementById('footerEmail').value, phone: document.getElementById('footerPhone').value };
+  modules.footer = {
+    copyright: document.getElementById('footerCopyright').value, copyright_en: document.getElementById('footerCopyright_en').value,
+    address: document.getElementById('footerAddress').value, address_en: document.getElementById('footerAddress_en').value,
+    email: document.getElementById('footerEmail').value, phone: document.getElementById('footerPhone').value
+  };
   await api('/api/modules', { method: 'POST', body: JSON.stringify(modules) });
   showToast('页脚设置已保存');
 }
