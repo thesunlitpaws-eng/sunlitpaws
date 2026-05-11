@@ -1032,11 +1032,11 @@ async function loadHero() {
   const modules = await api('/api/modules');
   const hero = modules.hero || {};
   document.getElementById('heroTitle').value = hero.title || '';
-  document.getElementById('heroTitle_en').value = hero.title_en || hero.title || '';
+  document.getElementById('heroTitle_en').value = hero.title_en || ''; // 不用中文回填
   document.getElementById('heroSubtitle').value = hero.subtitle || '';
-  document.getElementById('heroSubtitle_en').value = hero.subtitle_en || hero.subtitle || '';
+  document.getElementById('heroSubtitle_en').value = hero.subtitle_en || ''; // 不用中文回填
   if (hero.slides) { hero.slides.forEach((s, i) => { if (s.image) { document.getElementById('heroSlide' + (i+1)).value = s.image; document.getElementById('preview-heroSlide' + (i+1)).src = s.image; document.getElementById('preview-heroSlide' + (i+1)).style.display = 'block'; } }); }
-  if (hero.stats) { hero.stats.forEach((s, i) => { document.getElementById('heroStat' + (i+1) + 'Value').value = s.value || ''; document.getElementById('heroStat' + (i+1) + 'Label').value = s.label || ''; document.getElementById('heroStat' + (i+1) + 'Label_en').value = s.label_en || s.label || ''; }); }
+  if (hero.stats) { hero.stats.forEach((s, i) => { document.getElementById('heroStat' + (i+1) + 'Value').value = s.value || ''; document.getElementById('heroStat' + (i+1) + 'Label').value = s.label || ''; document.getElementById('heroStat' + (i+1) + 'Label_en').value = s.label_en || ''; // 不用中文回填 }); }
 }
 
 async function saveHero() {
@@ -1062,11 +1062,11 @@ async function loadFactory() {
   const modules = await api('/api/modules');
   const f = modules.factory || {};
   document.getElementById('factoryTag').value = f.tag || '';
-  document.getElementById('factoryTag_en').value = f.tag_en || f.tag || '';
+  document.getElementById('factoryTag_en').value = f.tag_en || ''; // 不用中文回填
   document.getElementById('factoryTitle').value = f.title || '';
-  document.getElementById('factoryTitle_en').value = f.title_en || f.title || '';
+  document.getElementById('factoryTitle_en').value = f.title_en || ''; // 不用中文回填
   document.getElementById('factorySubtitle').value = f.subtitle || '';
-  document.getElementById('factorySubtitle_en').value = f.subtitle_en || f.subtitle || '';
+  document.getElementById('factorySubtitle_en').value = f.subtitle_en || ''; // 不用中文回填
   const cards = f.cards || [];
   document.getElementById('factoryCardsList').innerHTML = cards.map((c, i) => `
     <div class="card-edit-row">
@@ -1111,17 +1111,17 @@ async function loadAbout() {
   const modules = await api('/api/modules');
   const about = modules.about || {};
   document.getElementById('aboutTag').value = about.tag || '';
-  document.getElementById('aboutTag_en').value = about.tag_en || about.tag || '';
+  document.getElementById('aboutTag_en').value = about.tag_en || ''; // 不用中文回填
   document.getElementById('aboutTitle').value = about.title || '';
-  document.getElementById('aboutTitle_en').value = about.title_en || about.title || '';
+  document.getElementById('aboutTitle_en').value = about.title_en || ''; // 不用中文回填
   document.getElementById('aboutLead').value = about.lead || '';
-  document.getElementById('aboutLead_en').value = about.lead_en || about.lead || '';
+  document.getElementById('aboutLead_en').value = about.lead_en || ''; // 不用中文回填
   document.getElementById('aboutP1').value = about.p1 || '';
-  document.getElementById('aboutP1_en').value = about.p1_en || about.p1 || '';
+  document.getElementById('aboutP1_en').value = about.p1_en || ''; // 不用中文回填
   document.getElementById('aboutP2').value = about.p2 || '';
-  document.getElementById('aboutP2_en').value = about.p2_en || about.p2 || '';
+  document.getElementById('aboutP2_en').value = about.p2_en || ''; // 不用中文回填
   document.getElementById('aboutBadge').value = about.badge || '';
-  document.getElementById('aboutBadge_en').value = about.badge_en || about.badge || '';
+  document.getElementById('aboutBadge_en').value = about.badge_en || ''; // 不用中文回填
   if (about.image) { document.getElementById('aboutImage').value = about.image; document.getElementById('preview-aboutImage').src = about.image; document.getElementById('preview-aboutImage').style.display = 'block'; }
 }
 
@@ -1136,12 +1136,12 @@ async function loadAdvantages() {
   const modules = await api('/api/modules');
   const adv = modules.advantages || {};
   document.getElementById('advTag').value = adv.tag || '';
-  document.getElementById('advTag_en').value = adv.tag_en || adv.tag || '';
+  document.getElementById('advTag_en').value = adv.tag_en || ''; // 不用中文回填
   document.getElementById('advTitle').value = adv.title || '';
-  document.getElementById('advTitle_en').value = adv.title_en || adv.title || '';
+  document.getElementById('advTitle_en').value = adv.title_en || ''; // 不用中文回填
   document.getElementById('advSubtitle').value = adv.subtitle || '';
-  document.getElementById('advSubtitle_en').value = adv.subtitle_en || adv.subtitle || '';
-  document.getElementById('advItems').innerHTML = (adv.items || []).map((item, i) => '<div class="form-row"><div class="form-group"><label>标题 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '" value="' + (item.title || '') + '" data-lang="zh"></div><div class="form-group"><label>标题（英文）' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '_en" value="' + (item.title_en || item.title || '') + '" data-lang="en"></div><div class="form-group"><label>描述 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '" value="' + (item.desc || '') + '" data-lang="zh"></div><div class="form-group"><label>描述（英文）' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '_en" value="' + (item.desc_en || item.desc || '') + '" data-lang="en"></div></div>').join('');
+  document.getElementById('advSubtitle_en').value = adv.subtitle_en || ''; // 不用中文回填
+  document.getElementById('advItems').innerHTML = (adv.items || []).map((item, i) => '<div class="form-row"><div class="form-group"><label>标题 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '" value="' + (item.title || '') + '" data-lang="zh"></div><div class="form-group"><label>标题（英文）' + (i+1) + '</label><input type="text" class="form-control" id="advItemTitle' + i + '_en" value="' + (item.title_en || '') + '" data-lang="en"></div><div class="form-group"><label>描述 ' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '" value="' + (item.desc || '') + '" data-lang="zh"></div><div class="form-group"><label>描述（英文）' + (i+1) + '</label><input type="text" class="form-control" id="advItemDesc' + i + '_en" value="' + (item.desc_en || '') + '" data-lang="en"></div></div>').join('');
 }
 
 async function saveAdvantages() {
@@ -1150,8 +1150,8 @@ async function saveAdvantages() {
   for (let i = 0; i < 4; i++) {
     const title = document.getElementById('advItemTitle' + i)?.value;
     if (title) items.push({
-      title, title_en: document.getElementById('advItemTitle' + i + '_en')?.value || title,
-      desc: document.getElementById('advItemDesc' + i)?.value || '', desc_en: document.getElementById('advItemDesc' + i + '_en')?.value || document.getElementById('advItemDesc' + i)?.value || ''
+      title, title_en: document.getElementById('advItemTitle' + i + '_en')?.value || '',
+      desc: document.getElementById('advItemDesc' + i)?.value || '', desc_en: document.getElementById('advItemDesc' + i + '_en')?.value || ''
     });
   }
   modules.advantages = { tag: document.getElementById('advTag').value, tag_en: document.getElementById('advTag_en').value, title: document.getElementById('advTitle').value, title_en: document.getElementById('advTitle_en').value, subtitle: document.getElementById('advSubtitle').value, subtitle_en: document.getElementById('advSubtitle_en').value, items };
@@ -1295,17 +1295,17 @@ async function saveSolutionsSection() {
   var modules = await api('/api/modules');
   var sol = modules.solutions || { cards: [] };
   sol.tag = document.getElementById('solTag').value;
-  sol.tag_en = document.getElementById('solTag_en').value || sol.tag;
+  sol.tag_en = document.getElementById('solTag_en').value;
   sol.title = document.getElementById('solTitle').value;
-  sol.title_en = document.getElementById('solTitle_en').value || sol.title;
+  sol.title_en = document.getElementById('solTitle_en').value;
   sol.subtitle = document.getElementById('solSubtitle').value;
-  sol.subtitle_en = document.getElementById('solSubtitle_en').value || sol.subtitle;
+  sol.subtitle_en = document.getElementById('solSubtitle_en').value;
   sol.cards = [0,1,2].map(function(i){
     return {
       title: document.getElementById('solCard'+i+'Title').value,
-      title_en: document.getElementById('solCard'+i+'Title_en').value || document.getElementById('solCard'+i+'Title').value,
+      title_en: document.getElementById('solCard'+i+'Title_en').value,
       desc: document.getElementById('solCard'+i+'Desc').value,
-      desc_en: document.getElementById('solCard'+i+'Desc_en').value || document.getElementById('solCard'+i+'Desc').value,
+      desc_en: document.getElementById('solCard'+i+'Desc_en').value,
       items: document.getElementById('solCard'+i+'Items').value.split('\n').map(function(s){return s.trim();}).filter(Boolean),
       items_en: document.getElementById('solCard'+i+'Items_en').value.split('\n').map(function(s){return s.trim();}).filter(Boolean)
     };
