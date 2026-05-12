@@ -495,6 +495,16 @@ app.get('/api/site/news', (req, res) => {
 app.get('/api/site/faqs', (req, res) => {
   const lang = req.query.lang || 'zh';
   const filtered = faqs.filter(f => f.lang === lang);
+  // 英文模式：将 _en 字段注入到顶层，方便前端直接读取
+  if (lang === 'en') {
+    const result = filtered.map(f => ({
+      ...f,
+      question: f.question_en || f.question || '',
+      answer: f.answer_en || f.answer || '',
+      section: f.section_en || f.section || ''
+    }));
+    return res.json(result);
+  }
   res.json(filtered);
 });
 app.get('/api/site/cases', (req, res) => res.json(cases));

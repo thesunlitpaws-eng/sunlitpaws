@@ -607,23 +607,16 @@ textarea.form-control { min-height: 100px; resize: vertical; }
       <input type="hidden" id="faqId">
       <div class="form-row">
         <div class="form-group">
-          <label>语言</label>
-          <select class="form-control" id="faqLang">
-            <option value="zh">中文</option>
-            <option value="en">English</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>分区</label>
+          <label>分区 *</label>
           <select class="form-control" id="faqSection">
-            <option value="工厂实力与资质">工厂实力与资质</option>
-            <option value="产品与定制服务">产品与定制服务</option>
-            <option value="质量控制与测试">质量控制与测试</option>
-            <option value="生产与物流">生产与物流</option>
-            <option value="商务条款与合作">商务条款与合作</option>
-            <option value="出口服务与认证">出口服务与认证</option>
-            <option value="市场信息与趋势">市场信息与趋势</option>
-            <option value="合作流程与联系方式">合作流程与联系方式</option>
+            <option value="工厂实力与资质">🏭 工厂实力与资质</option>
+            <option value="产品与定制服务">📦 产品与定制服务</option>
+            <option value="质量控制与测试">🔧 质量控制与测试</option>
+            <option value="生产与物流">🚛 生产与物流</option>
+            <option value="商务条款与合作">💰 商务条款与合作</option>
+            <option value="出口服务与认证">🌍 出口服务与认证</option>
+            <option value="市场信息与趋势">📊 市场信息与趋势</option>
+            <option value="合作流程与联系方式">🤝 合作流程与联系方式</option>
           </select>
         </div>
         <div class="form-group">
@@ -631,12 +624,32 @@ textarea.form-control { min-height: 100px; resize: vertical; }
           <input type="number" class="form-control" id="faqOrder" value="0">
         </div>
       </div>
-      <div class="form-group"><label>问题</label><input type="text" class="form-control" id="faqQuestion" placeholder="请输入问题"></div>
-      <div class="form-group"><label>答案</label><textarea class="form-control" id="faqAnswer" style="min-height:120px" placeholder="请输入答案"></textarea></div>
+
+      <div style="background:#fef3c7;border:1px solid #fbbf24;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#92400e;">
+        💡 <strong>提示：</strong>只需填写中文内容，保存时系统会自动翻译成英文。
+      </div>
+
+      <div class="form-group"><label>问题（中文）*</label><input type="text" class="form-control" id="faqQuestion" placeholder="请输入中文问题"></div>
+      <div class="form-group"><label>答案（中文）*</label><textarea class="form-control" id="faqAnswer" style="min-height:120px" placeholder="请输入中文答案"></textarea></div>
+
+      <div style="background:#f0f9ff;border:1px solid #7dd3fc;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#0c4a6e;display:flex;align-items:center;gap:8px;">
+        <span>🌐</span>
+        <div style="flex:1">
+          <div>英文版本（自动翻译生成，保存后可手动修改）</div>
+          <div id="faqTranslateHint" style="font-size:12px;color:#0369a1;margin-top:2px;display:none;"></div>
+        </div>
+        <button type="button" class="btn btn-sm btn-secondary" id="faqTranslateBtn" onclick="translateFaqPreview()" style="flex-shrink:0">🔄 预览翻译</button>
+      </div>
+      <div class="form-group"><label>Question (English)</label><input type="text" class="form-control" id="faqQuestionEn" placeholder="英文问题（可手动修改）"></div>
+      <div class="form-group"><label>Answer (English)</label><textarea class="form-control" id="faqAnswerEn" style="min-height:120px" placeholder="英文答案（可手动修改）"></textarea></div>
+
       <div class="form-group"><label>配图URL（可选）</label><input type="text" class="form-control" id="faqImage" placeholder="https://example.com/image.jpg"></div>
       <div class="form-group"><label>配图说明（可选）</label><input type="text" class="form-control" id="faqImageAlt" placeholder="图片描述文字"></div>
     </div>
-    <div class="modal-footer"><button class="btn btn-secondary" onclick="closeModal('faqModal')">取消</button><button class="btn btn-primary" onclick="saveFaq()">保存</button></div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('faqModal')">取消</button>
+      <button class="btn btn-primary" id="faqSaveBtn" onclick="saveFaq()">💾 保存</button>
+    </div>
   </div>
 </div>
 
@@ -1443,11 +1456,14 @@ async function loadNews() {
 function showFaqModal(id = null) {
   document.getElementById('faqId').value = id || '';
   document.getElementById('faqModalTitle').textContent = id ? '编辑 FAQ' : '添加 FAQ';
-  document.getElementById('faqLang').value = 'zh';
   document.getElementById('faqSection').value = '工厂实力与资质';
   document.getElementById('faqOrder').value = '0';
   document.getElementById('faqQuestion').value = '';
   document.getElementById('faqAnswer').value = '';
+  document.getElementById('faqQuestionEn').value = '';
+  document.getElementById('faqAnswerEn').value = '';
+  document.getElementById('faqTranslateHint').style.display = 'none';
+  document.getElementById('faqSaveBtn').textContent = '💾 保存';
   openModal('faqModal');
 }
 
@@ -1457,33 +1473,123 @@ async function editFaq(id) {
   if (!f) return;
   document.getElementById('faqId').value = f.id;
   document.getElementById('faqModalTitle').textContent = '编辑 FAQ';
-  document.getElementById('faqLang').value = f.lang || 'zh';
-  document.getElementById('faqSection').value = f.section || '供应商资质核查';
+  document.getElementById('faqSection').value = f.section || '工厂实力与资质';
   document.getElementById('faqImage').value = f.image || '';
   document.getElementById('faqImageAlt').value = f.imageAlt || '';
   document.getElementById('faqOrder').value = f.order || 0;
   document.getElementById('faqQuestion').value = f.question || '';
   document.getElementById('faqAnswer').value = f.answer || '';
+  document.getElementById('faqQuestionEn').value = f.question_en || '';
+  document.getElementById('faqAnswerEn').value = f.answer_en || '';
+  document.getElementById('faqTranslateHint').style.display = 'none';
+  document.getElementById('faqSaveBtn').textContent = '💾 保存';
   openModal('faqModal');
 }
 
 async function saveFaq() {
+  const saveBtn = document.getElementById('faqSaveBtn');
+  const zhQ = document.getElementById('faqQuestion').value.trim();
+  const zhA = document.getElementById('faqAnswer').value.trim();
+  if (!zhQ || !zhA) { alert('请填写中文问题和答案'); return; }
+
+  saveBtn.disabled = true;
+  saveBtn.textContent = '🌐 翻译中...';
+
+  let enQ = document.getElementById('faqQuestionEn').value.trim();
+  let enA = document.getElementById('faqAnswerEn').value.trim();
+
+  // 如果英文为空，自动翻译
+  if (!enQ || !enA) {
+    try {
+      const [qRes, aRes] = await Promise.all([
+        fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(zhQ)}&langpair=zh|en`),
+        fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(zhA.substring(0, 2000))}&langpair=zh|en`)
+      ]);
+      if (qRes.ok) {
+        const qData = await qRes.json();
+        if (qData.responseStatus === 200 && qData.responseData?.translatedText) {
+          enQ = qData.responseData.translatedText;
+          document.getElementById('faqQuestionEn').value = enQ;
+        }
+      }
+      if (aRes.ok) {
+        const aData = await aRes.json();
+        if (aData.responseStatus === 200 && aData.responseData?.translatedText) {
+          enA = aData.responseData.translatedText;
+          document.getElementById('faqAnswerEn').value = enA;
+        }
+      }
+    } catch(e) { console.warn('翻译失败，使用原文:', e); }
+  }
+
+  // 分区中英对照
+  const sectionMap = {
+    '工厂实力与资质': 'Factory Strength & Credentials',
+    '产品与定制服务': 'Products & Customization',
+    '质量控制与测试': 'Quality Control & Testing',
+    '生产与物流': 'Production & Logistics',
+    '商务条款与合作': 'Business Terms & Cooperation',
+    '出口服务与认证': 'Export Services & Certification',
+    '市场信息与趋势': 'Market Insights & Trends',
+    '合作流程与联系方式': 'Cooperation Process & Contact'
+  };
+  const zhSection = document.getElementById('faqSection').value;
+  const enSection = sectionMap[zhSection] || 'General';
+
+  saveBtn.textContent = '💾 保存中...';
   const id = document.getElementById('faqId').value;
   const existing = id ? (await api('/api/admin/faqs')).find(f => f.id === id) || {} : {};
   const data = {
     ...existing,
-    section: document.getElementById('faqSection').value || existing.section,
+    section: zhSection,
+    section_en: enSection,
     order: parseInt(document.getElementById('faqOrder').value) || existing.order || 0,
-    question: document.getElementById('faqQuestion').value || existing.question,
-    answer: document.getElementById('faqAnswer').value || existing.answer,
-    lang: document.getElementById('faqLang').value || existing.lang || 'zh',
+    question: zhQ,
+    question_en: enQ,
+    answer: zhA,
+    answer_en: enA,
+    lang: 'zh',
     image: document.getElementById('faqImage').value || existing.image || '',
     imageAlt: document.getElementById('faqImageAlt').value || existing.imageAlt || ''
   };
-  if (id) { await api('/api/admin/faqs/' + id, { method: 'PUT', body: JSON.stringify(data) }); } else { await api('/api/admin/faqs', { method: 'POST', body: JSON.stringify(data) }); }
+
+  if (id) {
+    await api('/api/admin/faqs/' + id, { method: 'PUT', body: JSON.stringify(data) });
+  } else {
+    await api('/api/admin/faqs', { method: 'POST', body: JSON.stringify(data) });
+  }
   closeModal('faqModal');
   loadFaqs();
-  showToast('FAQ 已保存');
+  showToast('FAQ 已保存 ✓');
+  saveBtn.disabled = false;
+  saveBtn.textContent = '💾 保存';
+}
+
+async function translateFaqPreview() {
+  const zhQ = document.getElementById('faqQuestion').value.trim();
+  const zhA = document.getElementById('faqAnswer').value.trim();
+  const hint = document.getElementById('faqTranslateHint');
+  if (!zhQ || !zhA) { alert('请先填写中文问题和答案'); return; }
+  hint.textContent = '翻译中...';
+  hint.style.display = 'block';
+  try {
+    const [qRes, aRes] = await Promise.all([
+      fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(zhQ)}&langpair=zh|en`),
+      fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(zhA.substring(0, 500))}&langpair=zh|en`)
+    ]);
+    const qData = qRes.ok ? await qRes.json() : null;
+    const aData = aRes.ok ? await aRes.json() : null;
+    if (qData?.responseStatus === 200) document.getElementById('faqQuestionEn').value = qData.responseData.translatedText;
+    if (aData?.responseStatus === 200) {
+      const preview = aData.responseData.translatedText.substring(0, 100) + (aData.responseData.translatedText.length > 100 ? '...' : '');
+      document.getElementById('faqAnswerEn').value = aData.responseData.translatedText;
+      hint.textContent = '✅ 翻译完成，可手动修改';
+    } else {
+      hint.textContent = '⚠️ 翻译服务暂时不可用，请稍后重试';
+    }
+  } catch(e) {
+    hint.textContent = '⚠️ 网络错误，翻译失败';
+  }
 }
 
 async function deleteFaq(id) {

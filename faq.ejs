@@ -305,15 +305,15 @@
   <!-- FAQ Content -->
   <div class="faq-container">
     <div class="faq-tabs" id="faqTabs">
-      <button class="faq-tab active" data-section="">全部</button>
-      <button class="faq-tab" data-section="工厂实力与资质">🏭 工厂实力</button>
-      <button class="faq-tab" data-section="产品与定制服务">📦 产品定制</button>
-      <button class="faq-tab" data-section="质量控制与测试">🔧 质量控制</button>
-      <button class="faq-tab" data-section="生产与物流">🚛 物流运输</button>
-      <button class="faq-tab" data-section="商务条款与合作">💰 商务合作</button>
-      <button class="faq-tab" data-section="出口服务与认证">🌍 出口认证</button>
-      <button class="faq-tab" data-section="市场信息与趋势">📊 市场趋势</button>
-      <button class="faq-tab" data-section="合作流程与联系方式">🤝 合作联系</button>
+      <button class="faq-tab active" data-key="">全部 / All</button>
+      <button class="faq-tab" data-key="工厂实力与资质">🏭 工厂实力</button>
+      <button class="faq-tab" data-key="产品与定制服务">📦 产品定制</button>
+      <button class="faq-tab" data-key="质量控制与测试">🔧 质量控制</button>
+      <button class="faq-tab" data-key="生产与物流">🚛 物流运输</button>
+      <button class="faq-tab" data-key="商务条款与合作">💰 商务合作</button>
+      <button class="faq-tab" data-key="出口服务与认证">🌍 出口认证</button>
+      <button class="faq-tab" data-key="市场信息与趋势">📊 市场趋势</button>
+      <button class="faq-tab" data-key="合作流程与联系方式">🤝 合作联系</button>
     </div>
     <div id="faqContent"><div class="faq-loading">加载中</div></div>
     <div class="faq-cta-band">
@@ -398,14 +398,14 @@
           el.textContent = i18n[currentLang][key];
         }
       });
-      // Update tab labels
-      document.querySelectorAll('.faq-tab[data-section]').forEach(function(tab) {
-        var section = tab.getAttribute('data-section');
-        if (section === '') {
-          tab.textContent = currentLang === 'zh' ? '全部' : 'All';
+      // Update tab labels (data-key = Chinese section key, display = i18n text)
+      document.querySelectorAll('.faq-tab[data-key]').forEach(function(tab) {
+        var key = tab.getAttribute('data-key');
+        if (key === '') {
+          tab.textContent = '全部 / All';
         } else {
-          var sectionKey = 'section.' + section;
-          tab.textContent = (i18n[currentLang] && i18n[currentLang][sectionKey]) || section;
+          var sectionKey = 'section.' + key;
+          tab.textContent = (i18n[currentLang] && i18n[currentLang][sectionKey]) || key;
         }
       });
     }
@@ -433,15 +433,36 @@
       return (i18n[currentLang] && i18n[currentLang][sectionKey]) || section || '其他';
     }
 
-    function groupBySection(faqs) {
+    // ── Section Order & Icons (language-aware) ────────────────────
+    function getSectionOrder(lang) {
+      if (lang === 'en') {
+        return [
+          'Factory Strength & Credentials',
+          'Products & Customization',
+          'Quality Control & Testing',
+          'Production & Logistics',
+          'Business Terms & Cooperation',
+          'Export Services & Certification',
+          'Market Insights & Trends',
+          'Cooperation Process & Contact'
+        ];
+      }
+      return [
+        '工厂实力与资质','产品与定制服务','质量控制与测试',
+        '生产与物流','商务条款与合作','出口服务与认证',
+        '市场信息与趋势','合作流程与联系方式'
+      ];
+    }
+
+    function groupBySection(faqs, lang) {
+      var order = getSectionOrder(lang);
       var groups = {};
-      SECTION_ORDER.forEach(function(s) { groups[s] = []; });
+      order.forEach(function(s) { groups[s] = []; });
       faqs.forEach(function(f) {
         var s = f.section || '';
         if (!groups[s]) groups[s] = [];
         groups[s].push(f);
       });
-      // Remove empty sections
       Object.keys(groups).forEach(function(k) {
         if (groups[k].length === 0) delete groups[k];
       });
@@ -449,6 +470,7 @@
     }
 
     function renderFAQ(groups, filterSection) {
+      var order = getSectionOrder(currentLang);
       var html = '';
       var sections = filterSection ? { [filterSection]: groups[filterSection] || [] } : groups;
       var idx = 0;
@@ -530,7 +552,7 @@
         allFAQs = await res.json();
         console.log('FAQ数据加载成功:', allFAQs.length, '条');
         console.log('第一条FAQ:', allFAQs[0]);
-        var groups = groupBySection(allFAQs);
+        var groups = groupBySection(allFAQs, currentLang);
         console.log('分组结果:', groups);
         var renderedHtml = renderFAQ(groups, currentFilter);
         console.log('渲染HTML长度:', renderedHtml.length);
@@ -551,14 +573,30 @@
       }
     }
 
-    // ── Tab Filter ───────────────────────────────────────────────
+    // Tab Filter ───────────────────────────────────────────────
     var currentFilter = '';
     document.getElementById('faqTabs').addEventListener('click', function(e) {
       if (!e.target.classList.contains('faq-tab')) return;
       document.querySelectorAll('.faq-tab').forEach(function(t) { t.classList.remove('active'); });
       e.target.classList.add('active');
-      currentFilter = e.target.getAttribute('data-section') || '';
-      var groups = groupBySection(allFAQs);
+      var rawSection = e.target.getAttribute('data-key') || '';
+      // 英文模式下：中文tab名 → 英文section名
+      if (currentLang === 'en') {
+        var zhToEn = {
+          '工厂实力与资质': 'Factory Strength & Credentials',
+          '产品与定制服务': 'Products & Customization',
+          '质量控制与测试': 'Quality Control & Testing',
+          '生产与物流': 'Production & Logistics',
+          '商务条款与合作': 'Business Terms & Cooperation',
+          '出口服务与认证': 'Export Services & Certification',
+          '市场信息与趋势': 'Market Insights & Trends',
+          '合作流程与联系方式': 'Cooperation Process & Contact'
+        };
+        currentFilter = rawSection ? (zhToEn[rawSection] || rawSection) : '';
+      } else {
+        currentFilter = rawSection;
+      }
+      var groups = groupBySection(allFAQs, currentLang);
       document.getElementById('faqContent').innerHTML = renderFAQ(groups, currentFilter);
     });
 
@@ -570,7 +608,21 @@
         if (rect.top < 200 && rect.bottom > 200) {
           var section = card.getAttribute('data-section');
           document.querySelectorAll('.faq-tab').forEach(function(t) {
-            t.classList.toggle('active', t.getAttribute('data-section') === section);
+            var tabKey = t.getAttribute('data-key') || '';
+            if (currentLang === 'en') {
+              var zhToEn = {
+                '工厂实力与资质': 'Factory Strength & Credentials',
+                '产品与定制服务': 'Products & Customization',
+                '质量控制与测试': 'Quality Control & Testing',
+                '生产与物流': 'Production & Logistics',
+                '商务条款与合作': 'Business Terms & Cooperation',
+                '出口服务与认证': 'Export Services & Certification',
+                '市场信息与趋势': 'Market Insights & Trends',
+                '合作流程与联系方式': 'Cooperation Process & Contact'
+              };
+              tabKey = zhToEn[tabKey] || tabKey;
+            }
+            t.classList.toggle('active', tabKey === section);
           });
         }
       });
