@@ -102,7 +102,7 @@ let products = [], news = [], faqs = [], cases = [], solutions = [], contacts = 
 // 语言感知模块获取（服务端/客户端共用）
 // ═══════════════════════════════════════════════════════
 function getLangFromReq(req) {
-  return req.query.lang || req.cookies?.lang || 'zh';
+  return req.query.lang || req.cookies?.lang || 'en';
 }
 
 // 递归给 modules 的所有文本字段注入 _en 变体版本
@@ -503,7 +503,7 @@ function saveData() {
 app.get('/', (req, res) => {
   // 禁止缓存，确保后台修改后前台立即更新
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   res.render('index.ejs', { lang, products, news, faqs, cases, solutions, modules, _ssr: true, t: (key) => t(key, lang) });
 });
 
@@ -512,7 +512,7 @@ app.get('/products/:category/:subcategory/:type/:slug/', (req, res) => {
   // 禁止缓存，确保后台修改后前台立即更新
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
   const { category, subcategory, type, slug } = req.params;
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   const product = products.find(p =>
     p.slug === slug && p.category_slug === category &&
     p.subcategory_slug === subcategory && p.type_slug === type
@@ -531,7 +531,7 @@ app.get('/products/:category/:subcategory/:type/:slug', (req, res) => {
 
 // 类型产品列表 /products/:cat/:sub/:type/
 app.get('/products/:category/:subcategory/:type/', (req, res) => {
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   const { category, subcategory, type } = req.params;
   const typeProducts = products.filter(p =>
     p.category_slug === category && p.subcategory_slug === subcategory && p.type_slug === type
@@ -546,7 +546,7 @@ app.get('/products/:category/:subcategory/:type/', (req, res) => {
 });
 // 子分类页 /products/:cat/:sub/
 app.get('/products/:category/:subcategory/', (req, res) => {
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   const { category, subcategory } = req.params;
   const subProducts = products.filter(p => p.category_slug === category && p.subcategory_slug === subcategory);
   const pageTitle = lang === 'zh' ? `${subcategory.replace(/-/g,' ')} 产品` : `${subcategory.replace(/-/g,' ')} Products`;
@@ -557,7 +557,7 @@ app.get('/products/:category/:subcategory/', (req, res) => {
 });
 // 父分类页 /products/:cat/
 app.get('/products/:category/', (req, res) => {
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   const { category } = req.params;
   const catProducts = products.filter(p => p.category_slug === category);
   const catNames = { 'cat-furniture': lang==='zh'?'猫家具':'Cat Furniture', 'pet-food': lang==='zh'?'宠物食品':'Pet Food', 'pet-toys': lang==='zh'?'宠物玩具':'Pet Toys', 'products': lang==='zh'?'产品':'Products' };
@@ -571,7 +571,7 @@ app.get('/products/:category/', (req, res) => {
 app.get('/products/', (req, res) => {
   // 禁止缓存产品列表页
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   const pageTitle = lang === 'zh' ? '产品列表' : 'All Products';
   const pageDesc = lang === 'zh'
     ? '浏览我们完整的宠物用品产品线，猫爬架、宠物床、宠物包、推车、玩具全品类'
@@ -583,14 +583,14 @@ app.get('/products/', (req, res) => {
 app.get('/blog/', (req, res) => {
   // 禁止缓存博客页
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   res.render('blog.ejs', { lang, news, article: null, pageTitle: lang === 'zh' ? '新闻动态' : 'News & Updates', pageDesc: lang === 'zh' ? '浏览sunlitpaws最新新闻、行业动态、产品发布和公司公告' : 'Latest pet industry news, product launches, and company updates from sunlitpaws' });
 });
 app.get('/blog/:slug/', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
   const article = news.find(n => n.slug === req.params.slug);
   if (!article) return res.status(404).send('Article not found');
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   res.render('news.ejs', { lang, news, article, _ssr: true });
 });
 app.get('/blog/:slug', (req, res) => {
@@ -600,12 +600,12 @@ app.get('/blog/:slug', (req, res) => {
 // 解决方案 SSR
 app.get('/solutions/', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   res.render('solutions.ejs', { lang, solutions, currentSolution: null, _ssr: true });
 });
 app.get('/solutions/:slug/', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   const s = solutions.find(x => x.slug === req.params.slug);
   if (!s) return res.status(404).send('Solution not found');
   res.render('solutions.ejs', { lang, solutions, currentSolution: s, _ssr: true });
@@ -617,17 +617,17 @@ app.get('/solutions/:slug', (req, res) => {
 // 案例/公司 SSR
 app.get('/company/', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   res.render('case.ejs', { lang, cases, currentCase: null, _ssr: true });
 });
 app.get('/company/cases/', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   res.render('case.ejs', { lang, cases, currentCase: null, _ssr: true });
 });
 app.get('/company/cases/:slug/', (req, res) => {
   res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   const c = cases.find(x => x.slug === req.params.slug);
   if (!c) return res.status(404).send('Case not found');
   res.render('case.ejs', { lang, cases, currentCase: c, _ssr: true });
@@ -638,7 +638,7 @@ app.get('/company/cases/:slug', (req, res) => {
 
 // FAQ SSR
 app.get('/resources/faq/', (req, res) => {
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   res.render('faq.ejs', { lang, faqs, _ssr: true });
 });
 
@@ -716,7 +716,7 @@ app.post('/api/set-lang', (req, res) => {
 
 // ─── 公开 API ─────────────────────────────────────────
 app.get('/api/site/products', (req, res) => {
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   const result = products.map(p => {
     if (lang === 'en') {
       return { ...p, name: p.name_en || p.name, desc: p.desc_en || p.desc, badge: p.badge_en || p.badge };
@@ -726,7 +726,7 @@ app.get('/api/site/products', (req, res) => {
   res.json(result);
 });
 app.get('/api/site/news', (req, res) => {
-  const lang = req.query.lang || req.cookies?.lang || 'zh';
+  const lang = req.query.lang || req.cookies?.lang || 'en';
   const result = news.map(n => {
     if (lang === 'en') {
       // 优先用 _en 字段，如果没有则用 _zh / 原始字段（不互换）
@@ -737,7 +737,7 @@ app.get('/api/site/news', (req, res) => {
   res.json(result);
 });
 app.get('/api/site/faqs', (req, res) => {
-  const lang = req.query.lang || 'zh';
+  const lang = req.query.lang || 'en';
   // Show all FAQs regardless of lang; pick content by language
   if (lang === 'en') {
     const result = faqs.map(f => ({
@@ -998,7 +998,7 @@ app.get('/api/modules', (req, res) => {
     if (forAdmin) {
       res.json(raw);
     } else {
-      const lang = req.query.lang || req.cookies?.lang || 'zh';
+      const lang = req.query.lang || req.cookies?.lang || 'en';
       const localized = localizeModules(raw, lang);
       res.json(localized);
     }
