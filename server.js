@@ -494,18 +494,19 @@ app.get('/api/site/news', (req, res) => {
 });
 app.get('/api/site/faqs', (req, res) => {
   const lang = req.query.lang || 'zh';
-  const filtered = faqs.filter(f => f.lang === lang);
-  // 英文模式：将 _en 字段注入到顶层，方便前端直接读取
+  // Show all FAQs regardless of lang; pick content by language
   if (lang === 'en') {
-    const result = filtered.map(f => ({
+    const result = faqs.map(f => ({
       ...f,
-      question: f.question_en || f.question || '',
-      answer: f.answer_en || f.answer || '',
-      section: f.section_en || f.section || ''
+      // Option A (old): lang='en' records have English directly in question
+      // Option B (new): lang='zh' records have English in question_en
+      question: f.question_en || (f.lang === 'en' ? f.question : '') || '',
+      answer:   f.answer_en   || (f.lang === 'en' ? f.answer   : '') || '',
+      section:  f.section_en   || (f.lang === 'en' ? f.section  : '') || ''
     }));
     return res.json(result);
   }
-  res.json(filtered);
+  res.json(faqs.filter(f => f.lang === 'zh'));
 });
 app.get('/api/site/cases', (req, res) => res.json(cases));
 app.get('/api/site/solutions', (req, res) => res.json(solutions));
