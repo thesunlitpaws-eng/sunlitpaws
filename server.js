@@ -135,6 +135,7 @@ function localizeModules(modules, lang) {
 // ═══════════════════════════════════════════════════════
 const i18nServer = {
   en: {
+    'nav.home': 'Home',
     'nav.about': 'About Us',
     'nav.products': 'Products',
     'nav.solutions': 'Solutions',
@@ -180,6 +181,7 @@ const i18nServer = {
     'cta.btn2': '💬 WhatsApp Us',
   },
   zh: {
+    'nav.home': '首页',
     'nav.about': '关于我们',
     'nav.products': '产品中心',
     'nav.solutions': '解决方案',

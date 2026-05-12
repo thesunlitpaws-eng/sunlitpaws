@@ -572,15 +572,17 @@ function switchLanguage(lang) {
   window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
 }
 
-// Init language from localStorage
+// Init language from SSR or saved preference
 const savedLang = localStorage.getItem('preferredLang');
-if (savedLang && i18n[savedLang]) {
-  document.querySelectorAll('.lang-option').forEach(o => {
-    o.classList.toggle('active', o.dataset.lang === savedLang);
-  });
-  document.getElementById('langBtn').querySelector('.lang-current').textContent = savedLang.toUpperCase();
-  switchLanguage(savedLang);
-}
+const ssrLang = window.__SSR_LANG__ || 'zh';
+const initLang = savedLang && i18n[savedLang] ? savedLang : ssrLang;
+// Mark correct button active
+document.querySelectorAll('.lang-option').forEach(o => {
+  o.classList.toggle('active', o.dataset.lang === initLang);
+});
+document.getElementById('langBtn').querySelector('.lang-current').textContent = initLang.toUpperCase();
+// Apply language - always call switchLanguage to ensure UI matches the intended language
+switchLanguage(initLang);
 
 
 // ─── PRODUCT FILTER & PAGINATION ──────────────────────────
