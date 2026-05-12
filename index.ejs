@@ -72,15 +72,15 @@
     </a>
 
     <nav class="nav" id="nav">
-      <a href="#home" class="nav-link active" data-i18n="nav.home"><%= t('nav.home', lang) %></a>
-      <a href="#about" class="nav-link" data-i18n="nav.about"><%= t('nav.about', lang) %></a>
+      <a href="#home" class="nav-link active"><%= t('nav.home', lang) %></a>
+      <a href="#about" class="nav-link"><%= t('nav.about', lang) %></a>
       
-      <a href="#products" class="nav-link" data-i18n="nav.products"><%= t('nav.products', lang) %></a>
-      <a href="#solutions" class="nav-link" data-i18n="nav.solutions"><%= t('nav.solutions', lang) %></a>
-      <a href="#cases" class="nav-link" data-i18n="nav.cases"><%= t('nav.cases', lang) %></a>
-      <a href="#news" class="nav-link" data-i18n="nav.news"><%= t('nav.news', lang) %></a>
-      <a href="#faq" class="nav-link" data-i18n="nav.faq"><%= t('nav.faq', lang) %></a>
-      <a href="#contact" class="nav-link" data-i18n="nav.contact"><%= t('nav.contact', lang) %></a>
+      <a href="#products" class="nav-link"><%= t('nav.products', lang) %></a>
+      <a href="#solutions" class="nav-link"><%= t('nav.solutions', lang) %></a>
+      <a href="#cases" class="nav-link"><%= t('nav.cases', lang) %></a>
+      <a href="#news" class="nav-link"><%= t('nav.news', lang) %></a>
+      <a href="#faq" class="nav-link"><%= t('nav.faq', lang) %></a>
+      <a href="#contact" class="nav-link"><%= t('nav.contact', lang) %></a>
     </nav>
 
     <div class="header-actions">
@@ -111,11 +111,11 @@
   <button class="hero-arrow hero-arrow-right" id="heroNext" aria-label="Next slide">&#10095;</button>
 
   <div class="container hero-content">
-    <h1 class="hero-title" data-i18n="hero.title"><%= (modules && modules.hero && modules.hero.title) ? modules.hero.title.replace(/\n/g, '<br>') : t('hero.title', lang).replace(/\n/g, '<br>') %></h1>
-    <p class="hero-sub" data-i18n="hero.sub"><%= (modules && modules.hero && modules.hero.subtitle) ? modules.hero.subtitle : t('hero.sub', lang) %></p>
+    <h1 class="hero-title"><%= (modules && modules.hero && modules.hero.title) ? modules.hero.title.replace(/\n/g, '<br>') : t('hero.title', lang).replace(/\n/g, '<br>') %></h1>
+    <p class="hero-sub"><%= (modules && modules.hero && modules.hero.subtitle) ? modules.hero.subtitle : t('hero.sub', lang) %></p>
     <div class="hero-btns">
-      <button class="btn btn-primary btn-lg" onclick="openInquiry()" data-i18n="hero.cta1"><%= t('hero.cta1', lang) %></button>
-      <a href="#contact" class="btn btn-contact-prominent btn-lg" data-i18n="hero.cta2" style="text-decoration:none;"><%= t('hero.cta2', lang) %></a>
+      <button class="btn btn-primary btn-lg" onclick="openInquiry()"><%= t('hero.cta1', lang) %></button>
+      <a href="#contact" class="btn btn-contact-prominent btn-lg" style="text-decoration:none;"><%= t('hero.cta2', lang) %></a>
     </div>
     <div class="hero-stats">
       <% if (modules && modules.hero && modules.hero.stats) { %>
@@ -129,17 +129,17 @@
       <% } else { %>
         <div class="hero-stat">
           <span class="stat-num">10+</span>
-          <span class="stat-label" data-i18n="hero.stat1"><%= t('hero.stat1', lang) %></span>
+          <span class="stat-label"><%= t('hero.stat1', lang) %></span>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
           <span class="stat-num">30+</span>
-          <span class="stat-label" data-i18n="hero.stat2"><%= t('hero.stat2', lang) %></span>
+          <span class="stat-label"><%= t('hero.stat2', lang) %></span>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
           <span class="stat-num">500+</span>
-          <span class="stat-label" data-i18n="hero.stat3"><%= t('hero.stat3', lang) %></span>
+          <span class="stat-label"><%= t('hero.stat3', lang) %></span>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
@@ -159,18 +159,18 @@
         <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=700&q=80" alt="sunlitpaws Factory" />
         <div class="about-img-badge">
           <span class="about-badge-num">10+</span>
-          <span data-i18n="about.badge"><%= t('about.badge', lang) %></span>
+          <span><%= t('about.badge', lang) %></span>
         </div>
       </div>
       <div class="about-text reveal" style="--delay:0.1s">
-        <span class="section-tag" data-i18n="about.tag"><%= t('about.tag', lang) %></span>
-        <h2 class="section-title" data-i18n="about.title"><%= t('about.title', lang) %></h2>
-        <p class="about-lead" data-i18n="about.lead"><%= t('about.lead', lang) %></p>
-        <p data-i18n="about.p1"><%= t('about.p1', lang) %></p>
-        <p data-i18n="about.p2"><%= t('about.p2', lang) %></p>
+        <span class="section-tag"><%= t('about.tag', lang) %></span>
+        <h2 class="section-title"><%= t('about.title', lang) %></h2>
+        <p class="about-lead"><%= t('about.lead', lang) %></p>
+        <p><%= t('about.p1', lang) %></p>
+        <p><%= t('about.p2', lang) %></p>
         <div class="about-btns">
-          <button class="btn btn-primary" onclick="openInquiry()" data-i18n="about.cta"><%= t('about.cta', lang) %></button>
-          <a href="#contact" class="btn btn-contact-prominent" data-i18n="about.contact" style="text-decoration:none;"><%= t('about.contact', lang) %></a>
+          <button class="btn btn-primary" onclick="openInquiry()"><%= t('about.cta', lang) %></button>
+          <a href="#contact" class="btn btn-contact-prominent" style="text-decoration:none;"><%= t('about.contact', lang) %></a>
         </div>
         
 </div></div></section>
@@ -179,9 +179,9 @@
 <!-- ===== FACTORY GALLERY ===== -->
 <div class="factory-in-about">
   <div class="section-header reveal">
-    <span class="section-tag" data-i18n="factory.tag"><%= t('factory.tag', lang) %></span>
-    <h2 class="section-title" data-i18n="factory.title"><%= t('factory.title', lang) %></h2>
-    <p class="section-sub" data-i18n="factory.sub"><%= t('factory.sub', lang) %></p>
+    <span class="section-tag"><%= t('factory.tag', lang) %></span>
+    <h2 class="section-title"><%= t('factory.title', lang) %></h2>
+    <p class="section-sub"><%= t('factory.sub', lang) %></p>
   </div>
   <div class="factory-grid reveal" id="factoryGrid">
     <div class="factory-card" data-index="0">
@@ -190,8 +190,8 @@
         <div class="factory-overlay">
           <div class="factory-info">
             <span class="factory-num">01</span>
-            <h3 class="factory-name" data-i18n="factory.card1.name"><%= t('factory.card1.name', lang) %></h3>
-            <p class="factory-desc" data-i18n="factory.card1.desc"><%= t('factory.card1.desc', lang) %></p>
+            <h3 class="factory-name"><%= t('factory.card1.name', lang) %></h3>
+            <p class="factory-desc"><%= t('factory.card1.desc', lang) %></p>
           </div>
         </div>
       </div>
@@ -202,8 +202,8 @@
         <div class="factory-overlay">
           <div class="factory-info">
             <span class="factory-num">02</span>
-            <h3 class="factory-name" data-i18n="factory.card2.name"><%= t('factory.card2.name', lang) %></h3>
-            <p class="factory-desc" data-i18n="factory.card2.desc"><%= t('factory.card2.desc', lang) %></p>
+            <h3 class="factory-name"><%= t('factory.card2.name', lang) %></h3>
+            <p class="factory-desc"><%= t('factory.card2.desc', lang) %></p>
           </div>
         </div>
       </div>
@@ -214,8 +214,8 @@
         <div class="factory-overlay">
           <div class="factory-info">
             <span class="factory-num">03</span>
-            <h3 class="factory-name" data-i18n="factory.card3.name"><%= t('factory.card3.name', lang) %></h3>
-            <p class="factory-desc" data-i18n="factory.card3.desc"><%= t('factory.card3.desc', lang) %></p>
+            <h3 class="factory-name"><%= t('factory.card3.name', lang) %></h3>
+            <p class="factory-desc"><%= t('factory.card3.desc', lang) %></p>
           </div>
         </div>
       </div>
@@ -250,9 +250,9 @@
 <section class="section advantages" id="advantages">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag" data-i18n="adv.tag"><%= t('adv.tag', lang) %></span>
-      <h2 class="section-title" data-i18n="adv.title"><%= t('adv.title', lang) %></h2>
-      <p class="section-sub" data-i18n="adv.sub"><%= t('adv.sub', lang) %></p>
+      <span class="section-tag"><%= t('adv.tag', lang) %></span>
+      <h2 class="section-title"><%= t('adv.title', lang) %></h2>
+      <p class="section-sub"><%= t('adv.sub', lang) %></p>
     </div>
     <div class="adv-grid">
       <div class="adv-card reveal">
@@ -262,8 +262,8 @@
             <path d="M11 16l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h3 data-i18n="adv.c1.title"><%= t('adv.c1.title', lang) %></h3>
-        <p data-i18n="adv.c1.desc"><%= t('adv.c1.desc', lang) %></p>
+        <h3><%= t('adv.c1.title', lang) %></h3>
+        <p><%= t('adv.c1.desc', lang) %></p>
       </div>
       <div class="adv-card reveal" style="--delay:0.1s">
         <div class="adv-icon">
@@ -272,8 +272,8 @@
             <path d="M10 16l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h3 data-i18n="adv.c2.title"><%= t('adv.c2.title', lang) %></h3>
-        <p data-i18n="adv.c2.desc"><%= t('adv.c2.desc', lang) %></p>
+        <h3><%= t('adv.c2.title', lang) %></h3>
+        <p><%= t('adv.c2.desc', lang) %></p>
       </div>
       <div class="adv-card reveal" style="--delay:0.2s">
         <div class="adv-icon">
@@ -282,8 +282,8 @@
             <path d="M16 8v8l5 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <h3 data-i18n="adv.c3.title"><%= t('adv.c3.title', lang) %></h3>
-        <p data-i18n="adv.c3.desc"><%= t('adv.c3.desc', lang) %></p>
+        <h3><%= t('adv.c3.title', lang) %></h3>
+        <p><%= t('adv.c3.desc', lang) %></p>
       </div>
       <div class="adv-card reveal" style="--delay:0.3s">
         <div class="adv-icon">
@@ -293,8 +293,8 @@
             <path d="M10 6L6 2M22 6l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <h3 data-i18n="adv.c4.title"><%= t('adv.c4.title', lang) %></h3>
-        <p data-i18n="adv.c4.desc"><%= t('adv.c4.desc', lang) %></p>
+        <h3><%= t('adv.c4.title', lang) %></h3>
+        <p><%= t('adv.c4.desc', lang) %></p>
       </div>
     </div>
 
@@ -306,26 +306,26 @@
 <section class="section products-section" id="products">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag" data-i18n="prod.tag"><%= t('prod.tag', lang) %></span>
-      <h2 class="section-title" data-i18n="prod.title"><%= t('prod.title', lang) %></h2>
-      <p class="section-sub" data-i18n="prod.sub"><%= t('prod.sub', lang) %></p>
+      <span class="section-tag"><%= t('prod.tag', lang) %></span>
+      <h2 class="section-title"><%= t('prod.title', lang) %></h2>
+      <p class="section-sub"><%= t('prod.sub', lang) %></p>
     </div>
 
     <div class="prod-filter reveal">
-      <button class="filter-btn active" data-cat="all" data-i18n="prod.filter.all"><%= t('prod.filter.all', lang) %></button>
+      <button class="filter-btn active" data-cat="all"><%= t('prod.filter.all', lang) %></button>
       <div class="filter-dropdown" id="filterDropdown">
-        <button class="filter-btn" data-cat="supplies" data-i18n="prod.filter.supplies"><%= t('prod.filter.supplies', lang) %> ▾</button>
+        <button class="filter-btn" data-cat="supplies"><%= t('prod.filter.supplies', lang) %> ▾</button>
         <div class="prod-subfilter" id="prodSubfilter">
-          <button class="filter-btn sub" data-cat="bed" data-i18n="prod.sup.bed"><%= t('prod.sup.bed', lang) %></button>
-          <button class="filter-btn sub" data-cat="cat-tree" data-i18n="prod.sup.catTree"><%= t('prod.sup.catTree', lang) %></button>
-          <button class="filter-btn sub" data-cat="carrier" data-i18n="prod.sup.carrier"><%= t('prod.sup.carrier', lang) %></button>
-          <button class="filter-btn sub" data-cat="stroller" data-i18n="prod.sup.stroller"><%= t('prod.sup.stroller', lang) %></button>
-          <button class="filter-btn sub" data-cat="car-seat" data-i18n="prod.sup.carSeat"><%= t('prod.sup.carSeat', lang) %></button>
-          <button class="filter-btn sub" data-cat="litter" data-i18n="prod.sup.litter"><%= t('prod.sup.litter', lang) %></button>
+          <button class="filter-btn sub" data-cat="bed"><%= t('prod.sup.bed', lang) %></button>
+          <button class="filter-btn sub" data-cat="cat-tree"><%= t('prod.sup.catTree', lang) %></button>
+          <button class="filter-btn sub" data-cat="carrier"><%= t('prod.sup.carrier', lang) %></button>
+          <button class="filter-btn sub" data-cat="stroller"><%= t('prod.sup.stroller', lang) %></button>
+          <button class="filter-btn sub" data-cat="car-seat"><%= t('prod.sup.carSeat', lang) %></button>
+          <button class="filter-btn sub" data-cat="litter"><%= t('prod.sup.litter', lang) %></button>
         </div>
       </div>
-      <button class="filter-btn" data-cat="toys" data-i18n="prod.filter.toys"><%= t('prod.filter.toys', lang) %></button>
-      <button class="filter-btn" data-cat="food" data-i18n="prod.filter.food"><%= t('prod.filter.food', lang) %></button>
+      <button class="filter-btn" data-cat="toys"><%= t('prod.filter.toys', lang) %></button>
+      <button class="filter-btn" data-cat="food"><%= t('prod.filter.food', lang) %></button>
     </div>
 
 <div class="prod-grid" id="prodGrid">
@@ -380,9 +380,9 @@
 <section class="section solutions-section" id="solutions">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag" data-i18n="sol.tag"><%= t('sol.tag', lang) %></span>
-      <h2 class="section-title" data-i18n="sol.title"><%= t('sol.title', lang) %></h2>
-      <p class="section-sub" data-i18n="sol.sub"><%= t('sol.sub', lang) %></p>
+      <span class="section-tag"><%= t('sol.tag', lang) %></span>
+      <h2 class="section-title"><%= t('sol.title', lang) %></h2>
+      <p class="section-sub"><%= t('sol.sub', lang) %></p>
     </div>
     <div class="sol-grid" id="solGrid">
       <div class="sol-card reveal" data-idx="0">
@@ -451,9 +451,9 @@
 <section class="section cases-section" id="cases">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag" data-i18n="case.tag"><%= t('case.tag', lang) %></span>
-      <h2 class="section-title" data-i18n="case.title"><%= t('case.title', lang) %></h2>
-      <p class="section-sub" data-i18n="case.sub"><%= t('case.sub', lang) %></p>
+      <span class="section-tag"><%= t('case.tag', lang) %></span>
+      <h2 class="section-title"><%= t('case.title', lang) %></h2>
+      <p class="section-sub"><%= t('case.sub', lang) %></p>
     </div>
 
     <div class="partner-logos reveal">
@@ -524,7 +524,7 @@
     </div>
 
     <div class="cases-cta reveal">
-      <button class="btn btn-primary" onclick="openInquiry()" data-i18n="case.cta"><%= t('case.cta', lang) %></button>
+      <button class="btn btn-primary" onclick="openInquiry()"><%= t('case.cta', lang) %></button>
     </div>
   </div>
 </section>
@@ -533,8 +533,8 @@
 <section class="section news-section" id="news">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag" data-i18n="news.tag"><%= t('news.tag', lang) %></span>
-      <h2 class="section-title" data-i18n="news.title"><%= t('news.title', lang) %></h2>
+      <span class="section-tag"><%= t('news.tag', lang) %></span>
+      <h2 class="section-title"><%= t('news.title', lang) %></h2>
     </div>
 
     <!-- 新闻分类切换 -->
@@ -757,9 +757,9 @@
 <section class="section contact-section" id="contact">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag" data-i18n="contact.tag"><%= t('contact.tag', lang) %></span>
-      <h2 class="section-title" data-i18n="contact.title"><%= t('contact.title', lang) %></h2>
-      <p class="section-sub" data-i18n="contact.sub"><%= t('contact.sub', lang) %></p>
+      <span class="section-tag"><%= t('contact.tag', lang) %></span>
+      <h2 class="section-title"><%= t('contact.title', lang) %></h2>
+      <p class="section-sub"><%= t('contact.sub', lang) %></p>
     </div>
     <div class="contact-layout">
       <div class="contact-info reveal visible" id="contactInfo">
@@ -770,26 +770,26 @@
         <form class="contact-form" id="contactForm" onsubmit="submitForm(event)">
           <div class="form-row">
             <div class="form-group">
-              <label data-i18n="form.name"><%= t('form.name', lang) %></label>
+              <label><%= t('form.name', lang) %></label>
               <input type="text" name="name" required placeholder="<%= t('form.name.ph', lang) %>" />
             </div>
             <div class="form-group">
-              <label data-i18n="form.email"><%= t('form.email', lang) %></label>
+              <label><%= t('form.email', lang) %></label>
               <input type="email" name="email" required placeholder="john@company.com" />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label data-i18n="form.company"><%= t('form.company', lang) %></label>
+              <label><%= t('form.company', lang) %></label>
               <input type="text" name="company" required placeholder="<%= t('form.company.ph', lang) %>" />
             </div>
             <div class="form-group">
-              <label data-i18n="form.country"><%= t('form.country', lang) %></label>
+              <label><%= t('form.country', lang) %></label>
               <input type="text" name="country" placeholder="<%= t('form.country.ph', lang) %>" />
             </div>
           </div>
           <div class="form-group">
-            <label data-i18n="form.interest"><%= t('form.interest', lang) %></label>
+            <label><%= t('form.interest', lang) %></label>
 
             <select name="interest">
 
@@ -806,11 +806,11 @@
             </select>
           </div>
           <div class="form-group">
-            <label data-i18n="form.message"><%= t('form.message', lang) %></label>
+            <label><%= t('form.message', lang) %></label>
             <textarea name="message" rows="4" required placeholder="<%= t('form.message.ph', lang) %>"></textarea>
           </div>
           <div class="form-group">
-            <label data-i18n="form.attach"><%= t('form.attach', lang) %></label>
+            <label><%= t('form.attach', lang) %></label>
               <div class="file-upload" id="fileUpload">
                 <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png" />
                 <label for="fileInput" class="file-label">
@@ -820,7 +820,7 @@
               </div>
             </div>
             <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn">
-              <span data-i18n="form.submit"><%= t('form.submit', lang) %></span>
+              <span><%= t('form.submit', lang) %></span>
             </button>
             <p class="form-note"><%= t('form.note', lang) %></p>
         </form>
@@ -840,7 +840,7 @@
           <span class="logo-cn">河北炳临科技</span>
         </div>
       </a>
-      <p class="footer-desc" data-i18n="footer.desc"><%= t('footer.desc', lang) %></p>
+      <p class="footer-desc"><%= t('footer.desc', lang) %></p>
       <div class="footer-certs">
         <span class="cert-badge">ISO 9001</span>
         <span class="cert-badge">ISO 22000</span>
@@ -869,7 +869,7 @@
         <a href="mailto:sales@bingling-tech.com">sales@bingling-tech.com</a>
         <a href="tel:+8631188888888">+86 311 8888 8888</a>
         <a href="https://wa.me/8613000000000" target="_blank">WhatsApp</a>
-        <a href="#contact" data-i18n="footer.inquiry"><%= t('footer.inquiry', lang) %></a>
+        <a href="#contact"><%= t('footer.inquiry', lang) %></a>
       </div>
     </div>
   </div>
@@ -901,29 +901,29 @@
   <div class="modal">
     <button class="modal-close" onclick="closeInquiry()">&times;</button>
     <div class="modal-header">
-      <h3 data-i18n="modal.title"><%= t('modal.title', lang) %></h3>
-      <p data-i18n="modal.sub"><%= t('modal.sub', lang) %></p>
+      <h3><%= t('modal.title', lang) %></h3>
+      <p><%= t('modal.sub', lang) %></p>
     </div>
     <form class="modal-form" onsubmit="submitModalForm(event)">
       <div class="form-row">
         <div class="form-group">
-          <label data-i18n="form.name"><%= t('form.name', lang) %></label>
+          <label><%= t('form.name', lang) %></label>
           <input type="text" required placeholder="<%= t('form.name.ph', lang) %>" />
         </div>
         <div class="form-group">
-          <label data-i18n="form.email"><%= t('form.email', lang) %></label>
+          <label><%= t('form.email', lang) %></label>
           <input type="email" required placeholder="john@company.com" />
         </div>
       </div>
       <div class="form-group">
-        <label data-i18n="form.company"><%= t('form.company', lang) %></label>
+        <label><%= t('form.company', lang) %></label>
         <input type="text" required placeholder="<%= t('form.company.ph', lang) %>" />
       </div>
       <div class="form-group">
-        <label data-i18n="form.message"><%= t('form.message', lang) %></label>
+        <label><%= t('form.message', lang) %></label>
         <textarea rows="3" required placeholder="<%= t('form.message.ph', lang) %>"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary btn-full" data-i18n="form.submit"><%= t('form.submit', lang) %></button>
+      <button type="submit" class="btn btn-primary btn-full"><%= t('form.submit', lang) %></button>
     </form>
   </div>
 </div>
@@ -932,8 +932,8 @@
 <div class="toast" id="toast">
   <div class="toast-icon">✅</div>
   <div>
-    <strong data-i18n="toast.title"><%= t('toast.title', lang) %></strong>
-    <p data-i18n="toast.msg"><%= t('toast.msg', lang) %></p>
+    <strong><%= t('toast.title', lang) %></strong>
+    <p><%= t('toast.msg', lang) %></p>
   </div>
 </div>
 
