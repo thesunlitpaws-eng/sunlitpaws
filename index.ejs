@@ -111,11 +111,11 @@
   <button class="hero-arrow hero-arrow-right" id="heroNext" aria-label="Next slide">&#10095;</button>
 
   <div class="container hero-content">
-    <h1 class="hero-title" data-i18n="hero.title"><%- (modules && modules.hero && modules.hero.title) ? modules.hero.title.replace(/\n/g, '<br>') : 'Professional Pet Products<br/>Manufacturer for Global Buyers' %></h1>
-    <p class="hero-sub" data-i18n="hero.sub"><%- (modules && modules.hero && modules.hero.subtitle) ? modules.hero.subtitle : '专注宠物家具、宠物用品研发生产10年，通过ISO/FDA等国际认证<br/>Serving 30+ countries with OEM/ODM capabilities.' %></p>
+    <h1 class="hero-title" data-i18n="hero.title"><%= (modules && modules.hero && modules.hero.title) ? modules.hero.title.replace(/\n/g, '<br>') : t('hero.title', lang).replace(/\n/g, '<br>') %></h1>
+    <p class="hero-sub" data-i18n="hero.sub"><%= (modules && modules.hero && modules.hero.subtitle) ? modules.hero.subtitle : t('hero.sub', lang) %></p>
     <div class="hero-btns">
-      <button class="btn btn-primary btn-lg" onclick="openInquiry()" data-i18n="hero.cta1">Get Product Catalog</button>
-      <a href="#contact" class="btn btn-contact-prominent btn-lg" data-i18n="hero.cta2" style="text-decoration:none;">Contact Us</a>
+      <button class="btn btn-primary btn-lg" onclick="openInquiry()" data-i18n="hero.cta1"><%= t('hero.cta1', lang) %></button>
+      <a href="#contact" class="btn btn-contact-prominent btn-lg" data-i18n="hero.cta2" style="text-decoration:none;"><%= t('hero.cta2', lang) %></a>
     </div>
     <div class="hero-stats">
       <% if (modules && modules.hero && modules.hero.stats) { %>
@@ -129,17 +129,17 @@
       <% } else { %>
         <div class="hero-stat">
           <span class="stat-num">10+</span>
-          <span class="stat-label">Years Experience</span>
+          <span class="stat-label" data-i18n="hero.stat1"><%= t('hero.stat1', lang) %></span>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
           <span class="stat-num">30+</span>
-          <span class="stat-label">Countries Served</span>
+          <span class="stat-label" data-i18n="hero.stat2"><%= t('hero.stat2', lang) %></span>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
           <span class="stat-num">500+</span>
-          <span class="stat-label">Product SKUs</span>
+          <span class="stat-label" data-i18n="hero.stat3"><%= t('hero.stat3', lang) %></span>
         </div>
         <div class="hero-stat-divider"></div>
         <div class="hero-stat">
@@ -159,18 +159,18 @@
         <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=700&q=80" alt="sunlitpaws Factory" />
         <div class="about-img-badge">
           <span class="about-badge-num">10+</span>
-          <span data-i18n="about.badge">Years of Excellence</span>
+          <span data-i18n="about.badge"><%= t('about.badge', lang) %></span>
         </div>
       </div>
       <div class="about-text reveal" style="--delay:0.1s">
-        <span class="section-tag" data-i18n="about.tag">About Us</span>
-        <h2 class="section-title" data-i18n="about.title">Your Trusted Manufacturing Partner in Pet Products</h2>
-        <p class="about-lead" data-i18n="about.lead">Founded in 2014, Hebei sunlitpaws has grown into a professional pet products manufacturer and exporter, serving 200+ global brands across 30+ countries.</p>
-        <p data-i18n="about.p1">Our 8,000m² production facility in Shijiazhuang, Hebei Province, is equipped with advanced automated production lines and a dedicated R&D center. We specialize in pet food, pet toys, and pet supplies — from cat trees and pet strollers to pet carriers and cat litter boxes.</p>
-        <p data-i18n="about.p2">Strict quality control — all products are manufactured under comprehensive quality management systems, meeting the highest international safety and quality standards.</p>
+        <span class="section-tag" data-i18n="about.tag"><%= t('about.tag', lang) %></span>
+        <h2 class="section-title" data-i18n="about.title"><%= t('about.title', lang) %></h2>
+        <p class="about-lead" data-i18n="about.lead"><%= t('about.lead', lang) %></p>
+        <p data-i18n="about.p1"><%= t('about.p1', lang) %></p>
+        <p data-i18n="about.p2"><%= t('about.p2', lang) %></p>
         <div class="about-btns">
-          <button class="btn btn-primary" onclick="openInquiry()" data-i18n="about.cta">Get a Custom Quote</button>
-          <a href="#contact" class="btn btn-contact-prominent" data-i18n="about.contact" style="text-decoration:none;">Contact Us</a>
+          <button class="btn btn-primary" onclick="openInquiry()" data-i18n="about.cta"><%= t('about.cta', lang) %></button>
+          <a href="#contact" class="btn btn-contact-prominent" data-i18n="about.contact" style="text-decoration:none;"><%= t('about.contact', lang) %></a>
         </div>
         
 </div></div></section>
@@ -179,9 +179,9 @@
 <!-- ===== FACTORY GALLERY ===== -->
 <div class="factory-in-about">
   <div class="section-header reveal">
-    <span class="section-tag" data-i18n="factory.tag">Factory Overview</span>
-    <h2 class="section-title" data-i18n="factory.title">Our Production Capabilities</h2>
-    <p class="section-sub" data-i18n="factory.sub">Take a look inside our 8,000m² manufacturing facility in Shijiazhuang</p>
+    <span class="section-tag" data-i18n="factory.tag"><%= t('factory.tag', lang) %></span>
+    <h2 class="section-title" data-i18n="factory.title"><%= t('factory.title', lang) %></h2>
+    <p class="section-sub" data-i18n="factory.sub"><%= t('factory.sub', lang) %></p>
   </div>
   <div class="factory-grid reveal" id="factoryGrid">
     <div class="factory-card" data-index="0">
@@ -190,8 +190,8 @@
         <div class="factory-overlay">
           <div class="factory-info">
             <span class="factory-num">01</span>
-            <h3 class="factory-name" data-i18n="factory.card1.name">Production Workshop</h3>
-            <p class="factory-desc" data-i18n="factory.card1.desc">8,000m² automated production lines with strict QC at every stage</p>
+            <h3 class="factory-name" data-i18n="factory.card1.name"><%= t('factory.card1.name', lang) %></h3>
+            <p class="factory-desc" data-i18n="factory.card1.desc"><%= t('factory.card1.desc', lang) %></p>
           </div>
         </div>
       </div>
@@ -202,8 +202,8 @@
         <div class="factory-overlay">
           <div class="factory-info">
             <span class="factory-num">02</span>
-            <h3 class="factory-name" data-i18n="factory.card2.name">Product Showroom</h3>
-            <p class="factory-desc" data-i18n="factory.card2.desc">5,000+ SKUs on display — cat trees, strollers, carriers</p>
+            <h3 class="factory-name" data-i18n="factory.card2.name"><%= t('factory.card2.name', lang) %></h3>
+            <p class="factory-desc" data-i18n="factory.card2.desc"><%= t('factory.card2.desc', lang) %></p>
           </div>
         </div>
       </div>
@@ -214,8 +214,8 @@
         <div class="factory-overlay">
           <div class="factory-info">
             <span class="factory-num">03</span>
-            <h3 class="factory-name" data-i18n="factory.card3.name">Global Shipping</h3>
-            <p class="factory-desc" data-i18n="factory.card3.desc">Weekly container shipments to 30+ countries worldwide</p>
+            <h3 class="factory-name" data-i18n="factory.card3.name"><%= t('factory.card3.name', lang) %></h3>
+            <p class="factory-desc" data-i18n="factory.card3.desc"><%= t('factory.card3.desc', lang) %></p>
           </div>
         </div>
       </div>
@@ -250,9 +250,9 @@
 <section class="section advantages" id="advantages">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag" data-i18n="adv.tag">Why Choose Us</span>
-      <h2 class="section-title" data-i18n="adv.title">Built on Trust, Driven by Quality</h2>
-      <p class="section-sub" data-i18n="adv.sub">Four pillars that make us the preferred manufacturing partner for global pet brands</p>
+      <span class="section-tag" data-i18n="adv.tag"><%= t('adv.tag', lang) %></span>
+      <h2 class="section-title" data-i18n="adv.title"><%= t('adv.title', lang) %></h2>
+      <p class="section-sub" data-i18n="adv.sub"><%= t('adv.sub', lang) %></p>
     </div>
     <div class="adv-grid">
       <div class="adv-card reveal">
@@ -262,8 +262,8 @@
             <path d="M11 16l3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h3 data-i18n="adv.c1.title">10+ Years Export Experience</h3>
-        <p data-i18n="adv.c1.desc">Serving global buyers across North America, Europe, Southeast Asia and beyond with deep understanding of international trade requirements.</p>
+        <h3 data-i18n="adv.c1.title"><%= t('adv.c1.title', lang) %></h3>
+        <p data-i18n="adv.c1.desc"><%= t('adv.c1.desc', lang) %></p>
       </div>
       <div class="adv-card reveal" style="--delay:0.1s">
         <div class="adv-icon">
@@ -272,8 +272,8 @@
             <path d="M10 16l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h3 data-i18n="adv.c2.title">International Certifications</h3>
-        <p data-i18n="adv.c2.desc">ISO 9001, ISO 22000, FDA, BSCI and more. Our comprehensive certification portfolio ensures compliance with global market standards.</p>
+        <h3 data-i18n="adv.c2.title"><%= t('adv.c2.title', lang) %></h3>
+        <p data-i18n="adv.c2.desc"><%= t('adv.c2.desc', lang) %></p>
       </div>
       <div class="adv-card reveal" style="--delay:0.2s">
         <div class="adv-icon">
@@ -282,8 +282,8 @@
             <path d="M16 8v8l5 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <h3 data-i18n="adv.c3.title">OEM/ODM Capabilities</h3>
-        <p data-i18n="adv.c3.desc">Full customization from product design to packaging. Our R&D team brings your brand vision to life with flexible MOQ and fast turnaround.</p>
+        <h3 data-i18n="adv.c3.title"><%= t('adv.c3.title', lang) %></h3>
+        <p data-i18n="adv.c3.desc"><%= t('adv.c3.desc', lang) %></p>
       </div>
       <div class="adv-card reveal" style="--delay:0.3s">
         <div class="adv-icon">
@@ -293,8 +293,8 @@
             <path d="M10 6L6 2M22 6l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
-        <h3 data-i18n="adv.c4.title">Strict Quality Control</h3>
-        <p data-i18n="adv.c4.desc">End-to-end quality management from raw materials to finished products. Every batch undergoes rigorous testing before shipment.</p>
+        <h3 data-i18n="adv.c4.title"><%= t('adv.c4.title', lang) %></h3>
+        <p data-i18n="adv.c4.desc"><%= t('adv.c4.desc', lang) %></p>
       </div>
     </div>
 
@@ -306,26 +306,26 @@
 <section class="section products-section" id="products">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag" data-i18n="prod.tag">Product Center</span>
-      <h2 class="section-title" data-i18n="prod.title">Full-Range Pet Products, One-Stop Sourcing</h2>
-      <p class="section-sub" data-i18n="prod.sub">From nutrition to lifestyle — everything your customers need for their beloved pets</p>
+      <span class="section-tag" data-i18n="prod.tag"><%= t('prod.tag', lang) %></span>
+      <h2 class="section-title" data-i18n="prod.title"><%= t('prod.title', lang) %></h2>
+      <p class="section-sub" data-i18n="prod.sub"><%= t('prod.sub', lang) %></p>
     </div>
 
     <div class="prod-filter reveal">
-      <button class="filter-btn active" data-cat="all" data-i18n="prod.all">All Products</button>
+      <button class="filter-btn active" data-cat="all" data-i18n="prod.filter.all"><%= t('prod.filter.all', lang) %></button>
       <div class="filter-dropdown" id="filterDropdown">
-        <button class="filter-btn" data-cat="supplies" data-i18n="prod.supplies">Pet Supplies ▾</button>
+        <button class="filter-btn" data-cat="supplies" data-i18n="prod.filter.supplies"><%= t('prod.filter.supplies', lang) %> ▾</button>
         <div class="prod-subfilter" id="prodSubfilter">
-          <button class="filter-btn sub" data-cat="bed" data-i18n="prod.sup.bed">宠物窝</button>
-          <button class="filter-btn sub" data-cat="cat-tree" data-i18n="prod.sup.catTree">猫爬架</button>
-          <button class="filter-btn sub" data-cat="carrier" data-i18n="prod.sup.carrier">宠物包</button>
-          <button class="filter-btn sub" data-cat="stroller" data-i18n="prod.sup.stroller">宠物推车</button>
-          <button class="filter-btn sub" data-cat="car-seat" data-i18n="prod.sup.carSeat">宠物汽车座椅</button>
-          <button class="filter-btn sub" data-cat="litter" data-i18n="prod.sup.litter">猫砂盆</button>
+          <button class="filter-btn sub" data-cat="bed" data-i18n="prod.sup.bed"><%= t('prod.sup.bed', lang) %></button>
+          <button class="filter-btn sub" data-cat="cat-tree" data-i18n="prod.sup.catTree"><%= t('prod.sup.catTree', lang) %></button>
+          <button class="filter-btn sub" data-cat="carrier" data-i18n="prod.sup.carrier"><%= t('prod.sup.carrier', lang) %></button>
+          <button class="filter-btn sub" data-cat="stroller" data-i18n="prod.sup.stroller"><%= t('prod.sup.stroller', lang) %></button>
+          <button class="filter-btn sub" data-cat="car-seat" data-i18n="prod.sup.carSeat"><%= t('prod.sup.carSeat', lang) %></button>
+          <button class="filter-btn sub" data-cat="litter" data-i18n="prod.sup.litter"><%= t('prod.sup.litter', lang) %></button>
         </div>
       </div>
-      <button class="filter-btn" data-cat="toys" data-i18n="prod.toys">Pet Toys</button>
-      <button class="filter-btn" data-cat="food" data-i18n="prod.food">Pet Food</button>
+      <button class="filter-btn" data-cat="toys" data-i18n="prod.filter.toys"><%= t('prod.filter.toys', lang) %></button>
+      <button class="filter-btn" data-cat="food" data-i18n="prod.filter.food"><%= t('prod.filter.food', lang) %></button>
     </div>
 
 <div class="prod-grid" id="prodGrid">
@@ -380,9 +380,9 @@
 <section class="section solutions-section" id="solutions">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag" data-i18n="sol.tag">Solutions</span>
-      <h2 class="section-title" data-i18n="sol.title">Tailored Solutions for Every Business Model</h2>
-      <p class="section-sub" data-i18n="sol.sub">We understand your unique challenges and deliver customized manufacturing partnerships</p>
+      <span class="section-tag" data-i18n="sol.tag"><%= t('sol.tag', lang) %></span>
+      <h2 class="section-title" data-i18n="sol.title"><%= t('sol.title', lang) %></h2>
+      <p class="section-sub" data-i18n="sol.sub"><%= t('sol.sub', lang) %></p>
     </div>
     <div class="sol-grid" id="solGrid">
       <div class="sol-card reveal" data-idx="0">
@@ -393,15 +393,15 @@
             <path d="M14 20l4 4 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h3 data-i18n="sol.c1.title">Brand OEM/ODM Solution</h3>
-        <p data-i18n="sol.c1.desc">For pet brands seeking reliable manufacturing partners. We handle product development, production, quality control, and custom packaging — you focus on your brand and market.</p>
+        <h3><%= t('sol.c1.title', lang) %></h3>
+        <p><%= t('sol.c1.desc', lang) %></p>
         <ul class="sol-list">
-          <li data-i18n="sol.c1.l1">Custom formulation & design</li>
-          <li data-i18n="sol.c1.l2">Private label packaging</li>
-          <li data-i18n="sol.c1.l3">Regulatory compliance support</li>
-          <li data-i18n="sol.c1.l4">Flexible MOQ from 200 units</li>
+          <li><%= t('sol.c1.l1', lang) %></li>
+          <li><%= t('sol.c1.l2', lang) %></li>
+          <li><%= t('sol.c1.l3', lang) %></li>
+          <li><%= t('sol.c1.l4', lang) %></li>
         </ul>
-        <button class="sol-link" onclick="location.href='/solutions/brand-oem-odm/'" data-i18n="sol.learn">了解更多 →</button>
+        <button class="sol-link" onclick="location.href='/solutions/brand-oem-odm/'" data-i18n="sol.learn"><%= t('faq.learnMore', lang) %></button>
       </div>
 
       <div class="sol-card reveal" style="--delay:0.15s" data-idx="1">
@@ -413,15 +413,15 @@
             <circle cx="9" cy="12" r="1.5" fill="currentColor"/>
           </svg>
         </div>
-        <h3 data-i18n="sol.c2.title">E-Commerce Supply Chain</h3>
-        <p data-i18n="sol.c2.desc">For Amazon, Shopify, and cross-border e-commerce sellers. Fast production cycles, competitive pricing, and FBA-ready packaging to keep your listings competitive.</p>
+        <h3><%= t('sol.c2.title', lang) %></h3>
+        <p><%= t('sol.c2.desc', lang) %></p>
         <ul class="sol-list">
-          <li data-i18n="sol.c2.l1">FBA-ready packaging & labeling</li>
-          <li data-i18n="sol.c2.l2">Fast 30-45 day lead time</li>
-          <li data-i18n="sol.c2.l3">Small batch trial orders</li>
-          <li data-i18n="sol.c2.l4">Competitive wholesale pricing</li>
+          <li><%= t('sol.c2.l1', lang) %></li>
+          <li><%= t('sol.c2.l2', lang) %></li>
+          <li><%= t('sol.c2.l3', lang) %></li>
+          <li><%= t('sol.c2.l4', lang) %></li>
         </ul>
-        <button class="sol-link" onclick="location.href='/solutions/ecommerce-supply-chain/'" data-i18n="sol.learn">了解更多 →</button>
+        <button class="sol-link" onclick="location.href='/solutions/ecommerce-supply-chain/'" data-i18n="sol.learn"><%= t('faq.learnMore', lang) %></button>
       </div>
 
       <div class="sol-card reveal" style="--delay:0.3s" data-idx="2">
@@ -433,15 +433,15 @@
             <path d="M20 22v10" stroke="currentColor" stroke-width="2"/>
           </svg>
         </div>
-        <h3 data-i18n="sol.c3.title">Retail Wholesale Program</h3>
-        <p data-i18n="sol.c3.desc">For pet store chains and distributors. Consistent quality, reliable delivery schedules, and comprehensive product range to stock your shelves year-round.</p>
+        <h3><%= t('sol.c3.title', lang) %></h3>
+        <p><%= t('sol.c3.desc', lang) %></p>
         <ul class="sol-list">
-          <li data-i18n="sol.c3.l1">Full product line sourcing</li>
-          <li data-i18n="sol.c3.l2">Seasonal collection planning</li>
-          <li data-i18n="sol.c3.l3">Dedicated account manager</li>
-          <li data-i18n="sol.c3.l4">Net 30/60 payment terms</li>
+          <li><%= t('sol.c3.l1', lang) %></li>
+          <li><%= t('sol.c3.l2', lang) %></li>
+          <li><%= t('sol.c3.l3', lang) %></li>
+          <li><%= t('sol.c3.l4', lang) %></li>
         </ul>
-        <button class="sol-link" onclick="location.href='/solutions/retail-wholesale-program/'" data-i18n="sol.learn">了解更多 →</button>
+        <button class="sol-link" onclick="location.href='/solutions/retail-wholesale-program/'" data-i18n="sol.learn"><%= t('faq.learnMore', lang) %></button>
       </div>
     </div>
   </div>
@@ -451,9 +451,9 @@
 <section class="section cases-section" id="cases">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag" data-i18n="case.tag">Success Cases</span>
-      <h2 class="section-title" data-i18n="case.title">Trusted by 200+ Global Partners</h2>
-      <p class="section-sub" data-i18n="case.sub">Real partnerships, real results — see how we've helped brands grow worldwide</p>
+      <span class="section-tag" data-i18n="case.tag"><%= t('case.tag', lang) %></span>
+      <h2 class="section-title" data-i18n="case.title"><%= t('case.title', lang) %></h2>
+      <p class="section-sub" data-i18n="case.sub"><%= t('case.sub', lang) %></p>
     </div>
 
     <div class="partner-logos reveal">
@@ -524,7 +524,7 @@
     </div>
 
     <div class="cases-cta reveal">
-      <button class="btn btn-primary" onclick="openInquiry()" data-i18n="case.cta">Become Our Next Success Story</button>
+      <button class="btn btn-primary" onclick="openInquiry()" data-i18n="case.cta"><%= t('case.cta', lang) %></button>
     </div>
   </div>
 </section>
@@ -533,15 +533,15 @@
 <section class="section news-section" id="news">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag" data-i18n="news.tag">News & Insights</span>
-      <h2 class="section-title" data-i18n="news.title">Stay Ahead in the Pet Industry</h2>
+      <span class="section-tag" data-i18n="news.tag"><%= t('news.tag', lang) %></span>
+      <h2 class="section-title" data-i18n="news.title"><%= t('news.title', lang) %></h2>
     </div>
 
     <!-- 新闻分类切换 -->
     <div class="news-tabs reveal">
-      <button type="button" class="news-tab active" data-cat="all">All</button>
-      <button type="button" class="news-tab" data-cat="company">Company</button>
-      <button type="button" class="news-tab" data-cat="industry">Industry</button>
+      <button type="button" class="news-tab active" data-cat="all"><%= t('news.all', lang) %></button>
+      <button type="button" class="news-tab" data-cat="company"><%= t('news.company', lang) %></button>
+      <button type="button" class="news-tab" data-cat="industry"><%= t('news.industry', lang) %></button>
     </div>
 
     <!-- 新闻列表 -->
@@ -566,7 +566,7 @@
     <span class="news-date"><%= nDate %></span>
     <h3><a href="/blog/<%= nSlug %>/"><%= nName %></a></h3>
     <p><%= nDesc.substring(0, 120) %><%= nDesc.length > 120 ? '...' : '' %></p>
-    <a href="/blog/<%= nSlug %>/" class="news-readmore"><%= lang === 'zh' ? '阅读更多 →' : 'Read More →' %></a>
+    <a href="/blog/<%= nSlug %>/" class="news-readmore"><%= t('news.readMore', lang) %></a>
   </div>
 </article>
 <% }); %>
@@ -580,14 +580,14 @@
   <div class="container">
     <!-- FAQ Tabs -->
     <div class="faq-tabs reveal" id="faqTabs">
-      <button class="faq-tab active" data-section="">全部</button>
-      <button class="faq-tab" data-section="工厂实力与资质">工厂实力</button>
-      <button class="faq-tab" data-section="产品与定制服务">产品定制</button>
-      <button class="faq-tab" data-section="质量控制与测试">品质控制</button>
-      <button class="faq-tab" data-section="生产与物流">生产物流</button>
-      <button class="faq-tab" data-section="商务条款与合作">商务合作</button>
-      <button class="faq-tab" data-section="出口服务与认证">出口认证</button>
-      <button class="faq-tab" data-section="合作流程与联系方式">合作流程</button>
+      <button class="faq-tab active" data-section=""><%= t('faq.tab.all', lang) %></button>
+      <button class="faq-tab" data-section="工厂实力与资质"><%= t('faq.tab.factory', lang) %></button>
+      <button class="faq-tab" data-section="产品与定制服务"><%= t('faq.tab.product', lang) %></button>
+      <button class="faq-tab" data-section="质量控制与测试"><%= t('faq.tab.quality', lang) %></button>
+      <button class="faq-tab" data-section="生产与物流"><%= t('faq.tab.production', lang) %></button>
+      <button class="faq-tab" data-section="商务条款与合作"><%= t('faq.tab.business', lang) %></button>
+      <button class="faq-tab" data-section="出口服务与认证"><%= t('faq.tab.export', lang) %></button>
+      <button class="faq-tab" data-section="合作流程与联系方式"><%= t('faq.tab.process', lang) %></button>
     </div>
     
     <!-- FAQ Content -->
@@ -757,9 +757,9 @@
 <section class="section contact-section" id="contact">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-tag" data-i18n="contact.tag">Contact Us</span>
-      <h2 class="section-title" data-i18n="contact.title">Let's Build Something Together</h2>
-      <p class="section-sub" data-i18n="contact.sub">Fill in your requirements and our team will get back to you within 24 hours</p>
+      <span class="section-tag" data-i18n="contact.tag"><%= t('contact.tag', lang) %></span>
+      <h2 class="section-title" data-i18n="contact.title"><%= t('contact.title', lang) %></h2>
+      <p class="section-sub" data-i18n="contact.sub"><%= t('contact.sub', lang) %></p>
     </div>
     <div class="contact-layout">
       <div class="contact-info reveal visible" id="contactInfo">
@@ -770,52 +770,59 @@
         <form class="contact-form" id="contactForm" onsubmit="submitForm(event)">
           <div class="form-row">
             <div class="form-group">
-              <label data-i18n="form.name">Full Name *</label>
-              <input type="text" name="name" required placeholder="John Smith" data-i18n-ph="form.name.ph" />
+              <label data-i18n="form.name"><%= t('form.name', lang) %></label>
+              <input type="text" name="name" required placeholder="<%= t('form.name.ph', lang) %>" />
             </div>
             <div class="form-group">
-              <label data-i18n="form.email">Email Address *</label>
+              <label data-i18n="form.email"><%= t('form.email', lang) %></label>
               <input type="email" name="email" required placeholder="john@company.com" />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label data-i18n="form.company">Company Name *</label>
-              <input type="text" name="company" required placeholder="Your Company Ltd." />
+              <label data-i18n="form.company"><%= t('form.company', lang) %></label>
+              <input type="text" name="company" required placeholder="<%= t('form.company.ph', lang) %>" />
             </div>
             <div class="form-group">
-              <label data-i18n="form.country">Country</label>
-              <input type="text" name="country" placeholder="United States" />
+              <label data-i18n="form.country"><%= t('form.country', lang) %></label>
+              <input type="text" name="country" placeholder="<%= t('form.country.ph', lang) %>" />
             </div>
           </div>
           <div class="form-group">
-            <label data-i18n="form.interest">Product Interest</label>
+            <label data-i18n="form.interest"><%= t('form.interest', lang) %></label>
+
             <select name="interest">
-              <option value="" data-i18n="form.interest.ph">Select product category...</option>
-              <option value="food" data-i18n="form.interest.food">Pet Food</option>
-              <option value="toys" data-i18n="form.interest.toys">Pet Toys</option>
-              <option value="supplies" data-i18n="form.interest.supplies">Pet Supplies</option>
-              <option value="all" data-i18n="form.interest.all">All Categories</option>
+
+              <option value=""><%= t('form.interest.ph', lang) %></option>
+
+              <option value="food"><%= t('form.interest.food', lang) %></option>
+
+              <option value="toys"><%= t('form.interest.toys', lang) %></option>
+
+              <option value="supplies"><%= t('form.interest.supplies', lang) %></option>
+
+              <option value="all"><%= t('form.interest.all', lang) %></option>
+
             </select>
           </div>
           <div class="form-group">
-            <label data-i18n="form.message">Your Requirements *</label>
-            <textarea name="message" rows="4" required placeholder="Please describe your product requirements, target quantity, and any specific needs..." data-i18n-ph="form.message.ph"></textarea>
+            <label data-i18n="form.message"><%= t('form.message', lang) %></label>
+            <textarea name="message" rows="4" required placeholder="<%= t('form.message.ph', lang) %>"></textarea>
           </div>
           <div class="form-group">
-            <label data-i18n="form.attach">Attachment (optional)</label>
-            <div class="file-upload" id="fileUpload">
-              <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png" />
-              <label for="fileInput" class="file-label">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3v10M6 7l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 14v1a2 2 0 002 2h10a2 2 0 002-2v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                <span data-i18n="form.attach.label">Upload file (PDF, DOC, XLS, JPG)</span>
-              </label>
+            <label data-i18n="form.attach"><%= t('form.attach', lang) %></label>
+              <div class="file-upload" id="fileUpload">
+                <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png" />
+                <label for="fileInput" class="file-label">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3v10M6 7l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 14v1a2 2 0 002 2h10a2 2 0 002-2v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                  <span><%= t('form.attach.label', lang) %></span>
+                </label>
+              </div>
             </div>
-          </div>
-          <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn">
-            <span data-i18n="form.submit">Send Inquiry</span>
-          </button>
-          <p class="form-note" data-i18n="form.note">🔒 Your information is secure. We respond within 24 business hours.</p>
+            <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn">
+              <span data-i18n="form.submit"><%= t('form.submit', lang) %></span>
+            </button>
+            <p class="form-note"><%= t('form.note', lang) %></p>
         </form>
       </div>
     </div>
@@ -833,7 +840,7 @@
           <span class="logo-cn">河北炳临科技</span>
         </div>
       </a>
-      <p class="footer-desc" data-i18n="footer.desc">Professional pet products manufacturer and exporter. Serving global buyers with quality, reliability, and innovation since 2014.</p>
+      <p class="footer-desc" data-i18n="footer.desc"><%= t('footer.desc', lang) %></p>
       <div class="footer-certs">
         <span class="cert-badge">ISO 9001</span>
         <span class="cert-badge">ISO 22000</span>
@@ -862,7 +869,7 @@
         <a href="mailto:sales@bingling-tech.com">sales@bingling-tech.com</a>
         <a href="tel:+8631188888888">+86 311 8888 8888</a>
         <a href="https://wa.me/8613000000000" target="_blank">WhatsApp</a>
-        <a href="#contact" data-i18n="footer.inquiry">Send Inquiry</a>
+        <a href="#contact" data-i18n="footer.inquiry"><%= t('footer.inquiry', lang) %></a>
       </div>
     </div>
   </div>
@@ -894,29 +901,29 @@
   <div class="modal">
     <button class="modal-close" onclick="closeInquiry()">&times;</button>
     <div class="modal-header">
-      <h3 data-i18n="modal.title">Send Your Inquiry</h3>
-      <p data-i18n="modal.sub">We'll respond within 24 business hours</p>
+      <h3 data-i18n="modal.title"><%= t('modal.title', lang) %></h3>
+      <p data-i18n="modal.sub"><%= t('modal.sub', lang) %></p>
     </div>
     <form class="modal-form" onsubmit="submitModalForm(event)">
       <div class="form-row">
         <div class="form-group">
-          <label data-i18n="form.name">Full Name *</label>
-          <input type="text" required placeholder="John Smith" />
+          <label data-i18n="form.name"><%= t('form.name', lang) %></label>
+          <input type="text" required placeholder="<%= t('form.name.ph', lang) %>" />
         </div>
         <div class="form-group">
-          <label data-i18n="form.email">Email *</label>
+          <label data-i18n="form.email"><%= t('form.email', lang) %></label>
           <input type="email" required placeholder="john@company.com" />
         </div>
       </div>
       <div class="form-group">
-        <label data-i18n="form.company">Company Name *</label>
-        <input type="text" required placeholder="Your Company Ltd." />
+        <label data-i18n="form.company"><%= t('form.company', lang) %></label>
+        <input type="text" required placeholder="<%= t('form.company.ph', lang) %>" />
       </div>
       <div class="form-group">
-        <label data-i18n="form.message">Requirements *</label>
-        <textarea rows="3" required placeholder="Describe your product needs..."></textarea>
+        <label data-i18n="form.message"><%= t('form.message', lang) %></label>
+        <textarea rows="3" required placeholder="<%= t('form.message.ph', lang) %>"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary btn-full" data-i18n="form.submit">Send Inquiry</button>
+      <button type="submit" class="btn btn-primary btn-full" data-i18n="form.submit"><%= t('form.submit', lang) %></button>
     </form>
   </div>
 </div>
@@ -925,8 +932,8 @@
 <div class="toast" id="toast">
   <div class="toast-icon">✅</div>
   <div>
-    <strong data-i18n="toast.title">Inquiry Sent!</strong>
-    <p data-i18n="toast.msg">We'll get back to you within 24 hours.</p>
+    <strong data-i18n="toast.title"><%= t('toast.title', lang) %></strong>
+    <p data-i18n="toast.msg"><%= t('toast.msg', lang) %></p>
   </div>
 </div>
 
