@@ -156,8 +156,15 @@ langDropdown.addEventListener('click', (e) => {
     body: JSON.stringify({ lang })
   }).catch(() => {});
 
-  // 产品详情页和案例详情页需要重新加载以获取正确语言的内容
-  if (window.location.pathname.startsWith('/products/') || window.location.pathname.startsWith('/company/cases/')) {
+  // 需要重新加载的页面：产品详情、案例详情、首页、新闻、FAQ等所有SSR页面
+  const needsReload = window.location.pathname.startsWith('/products/') 
+    || window.location.pathname.startsWith('/company/cases/')
+    || window.location.pathname === '/'
+    || window.location.pathname.startsWith('/news')
+    || window.location.pathname.startsWith('/resources/faq')
+    || window.location.pathname.startsWith('/about')
+    || window.location.pathname.startsWith('/contact');
+  if (needsReload) {
     const url = new URL(window.location);
     url.searchParams.set('lang', lang);
     window.location.href = url.toString();
