@@ -1414,19 +1414,23 @@
       "stats": [
         {
           "value": "15+",
-          "label": "年出口经验"
+          "label": "年出口经验",
+          "label_en": "Years Export Experience"
         },
         {
           "value": "30+",
-          "label": "服务国家"
+          "label": "服务国家",
+          "label_en": "Countries Served"
         },
         {
           "value": "600+",
-          "label": "产品sku"
+          "label": "产品sku",
+          "label_en": "Product SKUs"
         },
         {
           "value": "200+",
-          "label": "全球合作伙伴"
+          "label": "全球合作伙伴",
+          "label_en": "Global Partners"
         }
       ]
     },
