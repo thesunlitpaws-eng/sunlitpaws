@@ -392,12 +392,12 @@
             <div class="detail-moq">
               <div class="detail-moq-icon">📦</div>
               <div class="detail-moq-text">
-                <strong>MOQ: <%= product.moq || '可商议' %></strong><br>
-                <span>支持试单定制 · 可提供样品</span>
+                <strong>MOQ: <%= product.moq || (lang === 'zh' ? '可商议' : 'Negotiable') %></strong><br>
+                <span><%= lang === 'zh' ? '支持试单定制 · 可提供样品' : 'Support trial orders · Samples available' %></span>
               </div>
             </div>
             <div class="detail-params">
-              <h3>产品规格参数</h3>
+              <h3><%= lang === 'zh' ? '产品规格参数' : 'Product Specifications' %></h3>
               <div class="detail-params-grid">
                 <% pSpecs.forEach(function(s) { %>
                 <div class="detail-param">
@@ -408,12 +408,12 @@
               </div>
             </div>
             <div class="detail-btns">
-              <button class="btn btn-primary btn-lg" onclick="openInquiry()">💬 询价</button>
-              <button onclick="goBack()" class="btn btn-outline btn-lg">← 返回分类</button>
+              <button class="btn btn-primary btn-lg" onclick="openInquiry()"><%= lang === 'zh' ? '💬 询价' : '💬 Inquiry' %></button>
+              <button onclick="goBack()" class="btn btn-outline btn-lg"><%= lang === 'zh' ? '← 返回分类' : '← Back to Category' %></button>
             </div>
           </div>
           <% } else { %>
-          <p style="padding:40px;text-align:center">产品不存在</p>
+          <p style="padding:40px;text-align:center"><%= lang === 'zh' ? '产品不存在' : 'Product not found' %></p>
           <% } %>
         </div>
       </div>
@@ -553,13 +553,13 @@
         }
 
         if (!p) {
-          document.getElementById('detailGrid').innerHTML = '<p style="padding:40px;text-align:center">产品不存在</p>';
+          document.getElementById('detailGrid').innerHTML = '<p style="padding:40px;text-align:center">' + (lang === 'zh' ? '产品不存在' : 'Product not found') + '</p>';
           return;
         }
 
         renderDetail(p, allProducts.filter(x => x.id !== p.id).slice(0, 4));
       } catch(e) {
-        document.getElementById('detailGrid').innerHTML = '<p style="padding:40px;text-align:center">产品加载失败：' + e.message + '</p>';
+        document.getElementById('detailGrid').innerHTML = '<p style="padding:40px;text-align:center">' + (lang === 'zh' ? '产品加载失败：' : 'Failed to load product: ') + e.message + '</p>';
         document.getElementById('relatedGrid').innerHTML = '';
       }
     }
@@ -662,15 +662,15 @@
 })();
 
       const specs = [
-        { label: '产品尺寸', val: p.size || '-' },
-        { label: '产品重量', val: p.weight || '-' },
-        { label: '包装尺寸', val: p.packSize || '-' },
-        { label: '包装重量', val: p.packWeight || '-' },
-        { label: '材质', val: p.material || '-' },
-        { label: '认证', val: p.cert || '-' },
-        { label: 'MOQ 起订量', val: p.moq || '-' },
-        { label: '货期', val: p.lead || '-' },
-        { label: '包装方式', val: p.packaging || '-' },
+        { label: lang === 'zh' ? '产品尺寸' : 'Product Size', val: p.size || '-' },
+        { label: lang === 'zh' ? '产品重量' : 'Product Weight', val: p.weight || '-' },
+        { label: lang === 'zh' ? '包装尺寸' : 'Packaging Size', val: p.packSize || '-' },
+        { label: lang === 'zh' ? '包装重量' : 'Packaging Weight', val: p.packWeight || '-' },
+        { label: lang === 'zh' ? '材质' : 'Material', val: p.material || '-' },
+        { label: lang === 'zh' ? '认证' : 'Certification', val: p.cert || '-' },
+        { label: lang === 'zh' ? 'MOQ 起订量' : 'MOQ', val: p.moq || '-' },
+        { label: lang === 'zh' ? '货期' : 'Lead Time', val: p.lead || '-' },
+        { label: lang === 'zh' ? '包装方式' : 'Packaging', val: p.packaging || '-' },
       ];
 
       // features 变量已删除（产品特性区域已移除）
@@ -688,7 +688,7 @@
         backBtn.onclick = goBack;
       }
 
-      document.getElementById('detailGrid').innerHTML = '<div class="detail-gallery"><div class="detail-gallery-wrap"><img src="' + mainImg + '" alt="' + (p.name||'') + '" class="detail-main-img" id="mainImg"></div><div class="detail-thumbs">' + thumbs.map((t,i) => '<img src="' + t + '" class="detail-thumb ' + (i===0?'active':'') + '" onclick="changeImg(\'' + t.replace(/'/g, "\\'") + '\', this)">').join('') + '</div></div><div class="detail-info"><span class="detail-tag primary">' + ((lang === 'en' && p.badge_en) ? p.badge_en : (p.badge || p.category || '产品')) + '</span><h1>' + ((lang === 'en' && p.name_en) ? p.name_en : (p.name||'')) + '</h1><p class="detail-desc">' + ((lang === 'en' && p.desc_en) ? p.desc_en : (p.desc||'')) + '</p><div class="detail-moq"><div class="detail-moq-icon">📦</div><div class="detail-moq-text"><strong>MOQ: ' + (p.moq||'可议') + '</strong><br><span>支持试单定制 · 可提供样品</span></div></div><div class="detail-params"><h3>产品规格参数</h3><div class="detail-params-grid">' + specs.map(s => '<div class="detail-param"><span class="detail-param-label">' + s.label + '</span><span class="detail-param-val">' + s.val + '</span></div>').join('') + '</div></div><div class="detail-btns"><button class="btn btn-primary btn-lg" onclick="openInquiry()">💬 询价</button><button onclick="goBack()" class="btn btn-outline btn-lg">← 返回分类</button></div></div>';
+      document.getElementById('detailGrid').innerHTML = '<div class="detail-gallery"><div class="detail-gallery-wrap"><img src="' + mainImg + '" alt="' + (p.name||'') + '" class="detail-main-img" id="mainImg"></div><div class="detail-thumbs">' + thumbs.map((t,i) => '<img src="' + t + '" class="detail-thumb ' + (i===0?'active':'') + '" onclick="changeImg(\'' + t.replace(/'/g, "\\'") + '\', this)">').join('') + '</div></div><div class="detail-info"><span class="detail-tag primary">' + ((lang === 'en' && p.badge_en) ? p.badge_en : (p.badge || p.category || (lang==='zh'?'产品':'Product'))) + '</span><h1>' + ((lang === 'en' && p.name_en) ? p.name_en : (p.name||'')) + '</h1><p class="detail-desc">' + ((lang === 'en' && p.desc_en) ? p.desc_en : (p.desc||'')) + '</p><div class="detail-moq"><div class="detail-moq-icon">📦</div><div class="detail-moq-text"><strong>MOQ: ' + (p.moq||(lang==='zh'?'可商议':'Negotiable')) + '</strong><br><span>' + (lang==='zh'?'支持试单定制 · 可提供样品':'Support trial orders · Samples available') + '</span></div></div><div class="detail-params"><h3>' + (lang==='zh'?'产品规格参数':'Product Specifications') + '</h3><div class="detail-params-grid">' + specs.map(s => '<div class="detail-param"><span class="detail-param-label">' + s.label + '</span><span class="detail-param-val">' + s.val + '</span></div>').join('') + '</div></div><div class="detail-btns"><button class="btn btn-primary btn-lg" onclick="openInquiry()">' + (lang==='zh'?'💬 询价':'💬 Inquiry') + '</button><button onclick="goBack()" class="btn btn-outline btn-lg">' + (lang==='zh'?'← 返回分类':'← Back to Category')</button></div></div>';
 
       // 相关产品已由 SSR 渲染，无需 JS 重复渲染
     }
