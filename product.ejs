@@ -368,11 +368,11 @@
               { label: lang === 'zh' ? '产品重量' : 'Product Weight', val: product.weight || '-' },
               { label: lang === 'zh' ? '包装尺寸' : 'Packaging Size', val: product.packSize || '-' },
               { label: lang === 'zh' ? '包装重量' : 'Packaging Weight', val: product.packWeight || '-' },
-              { label: lang === 'zh' ? '材质' : 'Material', val: product.material || '-' },
-              { label: lang === 'zh' ? '认证' : 'Certification', val: product.cert || '-' },
+              { label: lang === 'zh' ? '材质' : 'Material', val: (lang === 'en' && product.material_en) ? product.material_en : (product.material || '-') },
+              { label: lang === 'zh' ? '认证' : 'Certification', val: (lang === 'en' && product.cert_en) ? product.cert_en : (product.cert || '-') },
               { label: lang === 'zh' ? 'MOQ 起订量' : 'MOQ', val: product.moq || '-' },
-              { label: lang === 'zh' ? '货期' : 'Lead Time', val: product.lead || '-' },
-              { label: lang === 'zh' ? '包装方式' : 'Packaging', val: product.packaging || '-' }
+              { label: lang === 'zh' ? '货期' : 'Lead Time', val: (lang === 'en' && product.lead_en) ? product.lead_en : (product.lead || '-') },
+              { label: lang === 'zh' ? '包装方式' : 'Packaging', val: (lang === 'en' && product.packaging_en) ? product.packaging_en : (product.packaging || '-') }
             ];
           %>
           <div class="detail-gallery">
@@ -666,11 +666,11 @@
         { label: lang === 'zh' ? '产品重量' : 'Product Weight', val: p.weight || '-' },
         { label: lang === 'zh' ? '包装尺寸' : 'Packaging Size', val: p.packSize || '-' },
         { label: lang === 'zh' ? '包装重量' : 'Packaging Weight', val: p.packWeight || '-' },
-        { label: lang === 'zh' ? '材质' : 'Material', val: p.material || '-' },
-        { label: lang === 'zh' ? '认证' : 'Certification', val: p.cert || '-' },
+        { label: lang === 'zh' ? '材质' : 'Material', val: (lang === 'en' && p.material_en) ? p.material_en : (p.material || '-') },
+        { label: lang === 'zh' ? '认证' : 'Certification', val: (lang === 'en' && p.cert_en) ? p.cert_en : (p.cert || '-') },
         { label: lang === 'zh' ? 'MOQ 起订量' : 'MOQ', val: p.moq || '-' },
-        { label: lang === 'zh' ? '货期' : 'Lead Time', val: p.lead || '-' },
-        { label: lang === 'zh' ? '包装方式' : 'Packaging', val: p.packaging || '-' },
+        { label: lang === 'zh' ? '货期' : 'Lead Time', val: (lang === 'en' && p.lead_en) ? p.lead_en : (p.lead || '-') },
+        { label: lang === 'zh' ? '包装方式' : 'Packaging', val: (lang === 'en' && p.packaging_en) ? p.packaging_en : (p.packaging || '-') },
       ];
 
       // features 变量已删除（产品特性区域已移除）

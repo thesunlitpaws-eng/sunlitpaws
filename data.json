@@ -31,7 +31,10 @@
       "slug": "multi-level-cat-tree",
       "category_slug": "cat-furniture",
       "subcategory_slug": "cat-trees",
-      "type_slug": "multi-level-cat-trees"
+      "type_slug": "multi-level-cat-trees",
+      "material_en": "FSC-Certified Wood + Plush Fabric",
+      "lead_en": "7 days",
+      "packaging_en": "Flat Pack / Color Box"
     },
     {
       "id": "d45b3f99-3c4d-42f9-aeff-cac5bb3d7645",
@@ -59,7 +62,11 @@
       "category_slug": "cat-furniture",
       "subcategory_slug": "pet-carriers",
       "type_slug": "standard-pet-carriers",
-      "images": null
+      "images": null,
+      "material_en": "Oxford Cloth + Mesh",
+      "lead_en": "25-35 days",
+      "packaging_en": "Hang Card / Poly Bag",
+      "cert_en": "IATA, FAA Certified"
     },
     {
       "id": "b2f15f87-d4b5-4146-9489-627f67df7836",
@@ -86,7 +93,10 @@
       "slug": "memory-foam-pet-bed",
       "category_slug": "cat-furniture",
       "subcategory_slug": "pet-beds",
-      "type_slug": "orthopedic-pet-beds"
+      "type_slug": "orthopedic-pet-beds",
+      "material_en": "Memory Foam + Ultra-Soft Plush",
+      "lead_en": "25-35 days",
+      "packaging_en": "Color Box / Vacuum Compressed"
     },
     {
       "id": "1fe69017-3685-4b10-aff6-1ac2d16dc5ac",
@@ -113,7 +123,10 @@
       "slug": "4-wheel-pet-stroller",
       "category_slug": "cat-furniture",
       "subcategory_slug": "pet-strollers",
-      "type_slug": "4-wheel-pet-strollers"
+      "type_slug": "4-wheel-pet-strollers",
+      "material_en": "Aluminum Frame + Oxford Cloth",
+      "lead_en": "30-45 days",
+      "packaging_en": "Color Box"
     },
     {
       "id": "2f2e00c2-0702-4f42-88e5-cbf8bb5169c7",
@@ -140,7 +153,11 @@
       "slug": "pet-car-safety-seat",
       "category_slug": "cat-furniture",
       "subcategory_slug": "car-seats",
-      "type_slug": "safety-car-seats"
+      "type_slug": "safety-car-seats",
+      "material_en": "Oxford Cloth + Sponge Cushion",
+      "lead_en": "25-35 days",
+      "packaging_en": "Color Box",
+      "cert_en": "FMVSS 213 Compliant"
     },
     {
       "id": "1aa03999-4dec-498f-8d71-e7b54f5108e4",
@@ -167,7 +184,10 @@
       "slug": "enclosed-cat-litter-box",
       "category_slug": "cat-furniture",
       "subcategory_slug": "cat-litter-boxes",
-      "type_slug": "enclosed-litter-boxes"
+      "type_slug": "enclosed-litter-boxes",
+      "material_en": "BPA-Free PP Plastic",
+      "lead_en": "20-30 days",
+      "packaging_en": "Color Box / Poly Bag"
     },
     {
       "id": "604536b9-a9c0-4834-a329-36c2e45f3a8e",
@@ -194,7 +214,10 @@
       "slug": "premium-formula",
       "category_slug": "pet-food",
       "subcategory_slug": "dry-food",
-      "type_slug": "grain-free-dry-food"
+      "type_slug": "grain-free-dry-food",
+      "material_en": "Natural Poultry & Grains",
+      "lead_en": "30-45 days",
+      "packaging_en": "Bag / Can / Stand-up Pouch"
     },
     {
       "id": "c02e17dd-7e13-4f30-9e73-705aaa813210",
@@ -221,7 +244,10 @@
       "slug": "premium-wet",
       "category_slug": "pet-food",
       "subcategory_slug": "wet-food",
-      "type_slug": "variety-wet-food"
+      "type_slug": "variety-wet-food",
+      "material_en": "Real Meat & Fish",
+      "lead_en": "30-45 days",
+      "packaging_en": "Canned / Stand-up Pouch"
     },
     {
       "id": "ec310d88-7681-4661-907d-b7ed78df8aba",
@@ -248,7 +274,10 @@
       "slug": "interactive-puzzle",
       "category_slug": "pet-toys",
       "subcategory_slug": "puzzle-toys",
-      "type_slug": "interactive-puzzle-toys"
+      "type_slug": "interactive-puzzle-toys",
+      "material_en": "BPA-Free ABS Plastic",
+      "lead_en": "25-35 days",
+      "packaging_en": "Blister / Color Box"
     },
     {
       "id": "c6550662-01ca-4d37-ad6d-91aff485af84",
@@ -275,7 +304,10 @@
       "slug": "feather-wand",
       "category_slug": "pet-toys",
       "subcategory_slug": "wand-toys",
-      "type_slug": "feather-wand-toys"
+      "type_slug": "feather-wand-toys",
+      "material_en": "Natural Feathers & PP",
+      "lead_en": "20-30 days",
+      "packaging_en": "Hang Card / Blister"
     },
     {
       "id": "8e957ced-1611-407f-8838-5767ba0f9f2a",
@@ -305,7 +337,10 @@
       "slug": "multi-level-cat-tree-2",
       "category_slug": "supplies",
       "subcategory_slug": "cat-tree",
-      "type_slug": "standard"
+      "type_slug": "standard",
+      "material_en": "FSC-Certified Wood + Plush Fabric",
+      "lead_en": "12 days",
+      "packaging_en": "Generic / OEM Packaging"
     },
     {
       "id": "b85afce1-56a5-4edc-b218-636fdcfa99f2",
@@ -335,7 +370,10 @@
         "large": "/uploads/large/4dfc1099-7653-498f-acf2-7cdedfd57bb3.jpg",
         "medium": "/uploads/medium/4dfc1099-7653-498f-acf2-7cdedfd57bb3.jpg",
         "thumb": "/uploads/thumb/4dfc1099-7653-498f-acf2-7cdedfd57bb3.jpg"
-      }
+      },
+      "material_en": "FSC-Certified Wood + Plush Fabric",
+      "lead_en": "7 days",
+      "packaging_en": "Generic / OEM Packaging"
     },
     {
       "name": "多层猫爬架",
@@ -365,7 +403,10 @@
       "slug": "multi-layer-cat-climb-frame-1",
       "category_slug": "supplies",
       "subcategory_slug": "cat-tree",
-      "type_slug": "standard"
+      "type_slug": "standard",
+      "material_en": "FSC-Certified Wood + Plush Fabric",
+      "lead_en": "5 days",
+      "packaging_en": "Generic / OEM Packaging"
     },
     {
       "name": "多层猫爬架",
@@ -395,7 +436,10 @@
       "slug": "multi-layer-cat-climb-frame-2",
       "category_slug": "supplies",
       "subcategory_slug": "cat-tree",
-      "type_slug": "standard"
+      "type_slug": "standard",
+      "material_en": "FSC-Certified Wood + Plush Fabric",
+      "lead_en": "5 days",
+      "packaging_en": "Generic / OEM Packaging"
     },
     {
       "name": "多层猫爬架",
@@ -425,7 +469,10 @@
       "slug": "multi-layer-cat-climb-frame-3",
       "category_slug": "supplies",
       "subcategory_slug": "litter",
-      "type_slug": "standard"
+      "type_slug": "standard",
+      "material_en": "FSC-Certified Wood + Plush Fabric",
+      "lead_en": "7 days",
+      "packaging_en": "Generic / OEM Packaging"
     },
     {
       "name": "多层猫爬架",
@@ -455,7 +502,10 @@
       "slug": "multi-layer-cat-climb-frame-4",
       "category_slug": "supplies",
       "subcategory_slug": "cat-tree",
-      "type_slug": "standard"
+      "type_slug": "standard",
+      "material_en": "FSC-Certified Wood + Plush Fabric",
+      "lead_en": "7 days",
+      "packaging_en": "Flat Pack / Color Box"
     },
     {
       "name": "多层猫爬架",
@@ -485,7 +535,10 @@
       "slug": "multi-layer-cat-climb-frame-5",
       "category_slug": "supplies",
       "subcategory_slug": "cat-tree",
-      "type_slug": "standard"
+      "type_slug": "standard",
+      "material_en": "FSC-Certified Wood + Plush Fabric",
+      "lead_en": "5 days",
+      "packaging_en": "Generic / OEM Packaging"
     }
   ],
   "news": [
