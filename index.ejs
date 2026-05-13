@@ -111,8 +111,8 @@
   <button class="hero-arrow hero-arrow-right" id="heroNext" aria-label="Next slide">&#10095;</button>
 
   <div class="container hero-content">
-    <h1 class="hero-title"><%= (modules && modules.hero && modules.hero.title) ? modules.hero.title.replace(/\n/g, '<br>') : t('hero.title', lang).replace(/\n/g, '<br>') %></h1>
-    <p class="hero-sub"><%= (modules && modules.hero && modules.hero.subtitle) ? modules.hero.subtitle : t('hero.sub', lang) %></p>
+    <h1 class="hero-title"><%= t('hero.title', lang).replace(/\n/g, '<br>') %></h1>
+    <p class="hero-sub"><%= t('hero.sub', lang) %></p>
     <div class="hero-btns">
       <button class="btn btn-primary btn-lg" onclick="openInquiry()"><%= t('hero.cta1', lang) %></button>
       <a href="#contact" class="btn btn-contact-prominent btn-lg" style="text-decoration:none;"><%= t('hero.cta2', lang) %></a>
