@@ -839,7 +839,8 @@ async function loadDashboard() {
   document.getElementById('statContacts').textContent = stats.contacts || 0;
   try { const ana = await api('/api/analytics'); document.getElementById('statViews').textContent = ana.todayViews || 0; } catch(e) {}
   const contacts = await api('/api/admin/contacts');
-  document.getElementById('recentContacts').innerHTML = (contacts.slice(0, 5) || []).map(c => '<tr><td>' + (c.name || '-') + '</td><td>' + (c.email || '-') + '</td><td>' + (c.product || '-') + '</td><td>' + (c.createdAt || '-').substring(0, 10) + '</td><td><span class="badge ' + (c.status === 'new' ? 'badge-new' : 'badge-read') + '">' + (c.status === 'new' ? '新' : '已读') + '</span></td></tr>').join('') || '<tr><td colspan="5">暂无数据</td></tr>';
+  const contactsTpl = (contacts.slice(0, 5) || []).map(c => `<tr><td>${c.name || '-'}</td><td>${c.email || '-'}</td><td>${c.product || '-'}</td><td>${(c.createdAt || '-').substring(0, 10)}</td><td><span class="badge ${c.status === 'new' ? 'badge-new' : 'badge-read'}">${c.status === 'new' ? '新' : '已读'}</span></td></tr>`).join('') || '<tr><td colspan="5">暂无数据</td></tr>';
+  document.getElementById('recentContacts').innerHTML = contactsTpl;
 }
 
 async function loadHero() {

@@ -730,7 +730,7 @@ app.get('/api/site/news', (req, res) => {
   const result = news.map(n => {
     if (lang === 'en') {
       // 优先用 _en 字段，如果没有则用 _zh / 原始字段（不互换）
-      return { ...n, title: n.title_en || n.title_zh || n.title, excerpt: n.excerpt_en || n.excerpt_zh || n.excerpt, content: n.content_en || n.content_zh || n.content };
+      return { ...n, title: (n.title_en && n.title_en !== n.title) ? n.title_en : 'Sunlitpaws News', excerpt: n.excerpt_en || n.excerpt_zh || n.excerpt, content: n.content_en || n.content_zh || n.content };
     }
     return n;
   });
