@@ -350,7 +350,7 @@
             var pMainImg = (product.images && product.images.original) ? product.images.original : (product.images && product.images.large) ? product.images.large : (product.image || 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=800&q=80');
             var pName = (pLang === 'en' && product.name_en) ? product.name_en : (product.name || 'Product');
             var pDesc = (pLang === 'en' && product.desc_en) ? product.desc_en : (product.desc || '');
-            var pBadge = (pLang === 'en' && product.badge_en) ? product.badge_en : (product.badge || product.category || '产品');
+            var pBadge = (pLang === 'en' && product.badge_en) ? product.badge_en : (product.badge || product.category || (pLang === 'zh' ? '产品' : 'Product'));
             var pCatSlug = product.category_slug || 'products';
             var pSubSlug = product.subcategory_slug || 'general';
             var pTypeSlug = product.type_slug || 'standard';
@@ -364,15 +364,15 @@
             }
             if (pThumbs.length === 0) pThumbs.push(pMainImg);
             var pSpecs = [
-              { label: '产品尺寸', val: product.size || '-' },
-              { label: '产品重量', val: product.weight || '-' },
-              { label: '包装尺寸', val: product.packSize || '-' },
-              { label: '包装重量', val: product.packWeight || '-' },
-              { label: '材质', val: product.material || '-' },
-              { label: '认证', val: product.cert || '-' },
-              { label: 'MOQ 起订量', val: product.moq || '-' },
-              { label: '货期', val: product.lead || '-' },
-              { label: '包装方式', val: product.packaging || '-' }
+              { label: lang === 'zh' ? '产品尺寸' : 'Product Size', val: product.size || '-' },
+              { label: lang === 'zh' ? '产品重量' : 'Product Weight', val: product.weight || '-' },
+              { label: lang === 'zh' ? '包装尺寸' : 'Packaging Size', val: product.packSize || '-' },
+              { label: lang === 'zh' ? '包装重量' : 'Packaging Weight', val: product.packWeight || '-' },
+              { label: lang === 'zh' ? '材质' : 'Material', val: product.material || '-' },
+              { label: lang === 'zh' ? '认证' : 'Certification', val: product.cert || '-' },
+              { label: lang === 'zh' ? 'MOQ 起订量' : 'MOQ', val: product.moq || '-' },
+              { label: lang === 'zh' ? '货期' : 'Lead Time', val: product.lead || '-' },
+              { label: lang === 'zh' ? '包装方式' : 'Packaging', val: product.packaging || '-' }
             ];
           %>
           <div class="detail-gallery">
