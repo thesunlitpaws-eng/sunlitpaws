@@ -123,7 +123,7 @@
           <% if (i > 0) { %><div class="hero-stat-divider"></div><% } %>
           <div class="hero-stat">
             <span class="stat-num"><%= stat.value %></span>
-            <span class="stat-label"><%= stat.label_en || stat.label %></span>
+            <span class="stat-label"><%= lang === 'en' ? (stat.label_en || stat.label) : stat.label %></span>
           </div>
         <% }); %>
       <% } else { %>
