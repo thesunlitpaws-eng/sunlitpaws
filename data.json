@@ -1141,7 +1141,9 @@
       },
       "narrative_zh": "我们与美国猫爬架初创企业合作，从零开始打造其高端自有品牌产品线。从200件的试单起步，在12个月内将月订单量提升至3000件，成为北美增长最快的高端宠物品牌之一。",
       "desc": "We partnered with a US cat tree startup to build their premium private-label product line from scratch. Starting with a trial order of 200 units, they scaled to 3,000 units per month within 12 months,...",
-      "desc_en": "We partnered with a US cat tree startup to build their premium private-label product line from scratch. Starting with a trial order of 200 units, they scaled to 3,000 units per month within 12 months,..."
+      "desc_en": "We partnered with a US cat tree startup to build their premium private-label product line from scratch. Starting with a trial order of 200 units, they scaled to 3,000 units per month within 12 months,...",
+      "results_en": "12 months | 200→3,000 orders/mo | 8 SKUs",
+      "testimonials_en": "sunlitpaws turned our vision into reality. Their deep product expertise and high-quality manufacturing helped us pass market validation with flying colors, and the product quickly earned outstanding user feedback. — CEO, North American Pet Products Brand"
     },
     {
       "id": "eu-distributor",
@@ -1181,7 +1183,9 @@
       },
       "narrative_zh": "一家准备拓展欧洲市场的德国宠物用品公司需要能够进行多SKU生产、符合严格欧盟法规并满足亚马逊FBA包装要求的制造商。sunlitpaws提供了包括产品规划、生产排期和交期管理在内的全面解决方案。客户收到样品后对品质超出预期，同步在欧盟零售渠道上架了120个SKU。",
       "desc": "A German pet products company preparing to expand into the European pet market needed a manufacturer capable of multi-SKU production, strict EU compliance, and Amazon FBA packaging. sunlitpaws deliver...",
-      "desc_en": "A German pet products company preparing to expand into the European pet market needed a manufacturer capable of multi-SKU production, strict EU compliance, and Amazon FBA packaging. sunlitpaws deliver..."
+      "desc_en": "A German pet products company preparing to expand into the European pet market needed a manufacturer capable of multi-SKU production, strict EU compliance, and Amazon FBA packaging. sunlitpaws deliver...",
+      "results_en": "120 SKUs | 5 markets expanded | 98% on-time rate",
+      "testimonials_en": "\"Their understanding of EU regulations saved us months of trial and error. Quality across all 120+ products was impeccable.\" — Procurement Director, German Pet Distributor"
     }
   ],
   "solutions": [

@@ -114,8 +114,9 @@
       <% if (currentCase) { %>
         <!-- SSR 渲染案例内容 -->
         <% if (currentCase.results) { %>
+          <% var resultsStr = lang === 'en' && currentCase.results_en ? currentCase.results_en : currentCase.results; %>
           <div class="case-result-grid">
-            <% currentCase.results.split('|').forEach(function(r) { %>
+            <% resultsStr.split('|').forEach(function(r) { %>
               <% var parts = r.trim().split(' '); %>
               <div class="case-result-card"><div class="num"><%= parts[0] || '' %></div><div class="lbl"><%= parts.slice(1).join(' ') || '' %></div></div>
             <% }); %>
@@ -140,7 +141,7 @@
           <% } %>
         </div>
         <% if (currentCase.testimonials) { %>
-          <blockquote class="case-testimonial"><p><%= currentCase.testimonials %></p></blockquote>
+          <blockquote class="case-testimonial"><p><%= lang === 'en' && currentCase.testimonials_en ? currentCase.testimonials_en : currentCase.testimonials %></p></blockquote>
         <% } %>
       <% } %>
     </div>
@@ -234,7 +235,8 @@
             }
 
             if (body) {
-              var resultsStr = typeof c.results === 'string' ? c.results : '';
+              var caseLang = localStorage.getItem('preferredLang') || 'en';
+              var resultsStr = (caseLang === 'en' && c.results_en) ? c.results_en : (typeof c.results === 'string' ? c.results : '');
               var resultsHtml = resultsStr ? resultsStr.split('|').map(function(r) {
                 var parts = r.trim().split(' ');
                 var num = parts[0] || '';
@@ -242,10 +244,19 @@
                 return '<div class="case-result-card"><div class="num">' + num + '</div><div class="lbl">' + lbl + '</div></div>';
               }).join('') : '';
 
-              var challengesHtml = Array.isArray(c.challenges) ? c.challenges.map(function(x) { return '<li>' + x + '</li>'; }).join('') : '';
-              var outcomesHtml = Array.isArray(c.outcomes) ? c.outcomes.map(function(x) { return '<li>' + x + '</li>'; }).join('') : '';
+              var challengesList = caseLang === 'en' && c.challenges_en ? c.challenges_en : (c.challenges || []);
+              var outcomesList = caseLang === 'en' && c.outcomes_en ? c.outcomes_en : (c.outcomes || []);
+              var challengesHtml = Array.isArray(challengesList) ? challengesList.map(function(x) { return '<li>' + x + '</li>'; }).join('') : '';
+              var outcomesHtml = Array.isArray(outcomesList) ? outcomesList.map(function(x) { return '<li>' + x + '</li>'; }).join('') : '';
+              var testimonialTxt = caseLang === 'en' && c.testimonials_en ? c.testimonials_en : (c.testimonials || '');
 
-              body.innerHTML = '<div class="case-result-grid">' + resultsHtml + '</div><div class="case-narrative"><h2>Project Overview</h2><p>' + (c.narrative || '') + '</p></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px"><div class="case-detail-sect"><h3><%= lang === 'zh' ? '面临的挑战' : 'The Challenge' %></h3><ul>' + challengesHtml + '</ul></div><div class="case-detail-sect"><h3><%= lang === 'zh' ? '成果与收获' : 'The Outcome' %></h3><ul>' + outcomesHtml + '</ul></div></div>' + (c.testimonials ? '<blockquote class="case-testimonial"><p>' + c.testimonials + '</p></blockquote>' : '');
+              body.innerHTML = '<div class="case-result-grid">' + resultsHtml + '</div>' +
+                '<div class="case-narrative"><h2>' + (caseLang === 'zh' ? '项目概述' : 'Project Overview') + '</h2><p>' + (caseLang === 'en' && c.narrative_en ? c.narrative_en : (c.narrative || '')) + '</p></div>' +
+                '<div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px">' +
+                '<div class="case-detail-sect"><h3>' + (caseLang === 'zh' ? '面临的挑战' : 'The Challenge') + '</h3><ul class="case-challenges">' + challengesHtml + '</ul></div>' +
+                '<div class="case-detail-sect"><h3>' + (caseLang === 'zh' ? '成果与收获' : 'The Outcome') + '</h3><ul class="case-results-list">' + outcomesHtml + '</ul></div>' +
+                '</div>' +
+                (testimonialTxt ? '<blockquote class="case-testimonial"><p>' + testimonialTxt + '</p></blockquote>' : '');
             }
 
             var nav = document.getElementById('caseNav');
