@@ -113,11 +113,11 @@
             <div class="sol-detail-img"><img src="<%= currentSolution.img || '' %>" alt="<%= currentSolution.title || '' %>"></div>
             <div class="sol-detail-text">
               <h2><%= lang === 'en' && currentSolution.title_en ? currentSolution.title_en : currentSolution.title %></h2>
-              <% if (currentSolution.subtitle) { %><p style="font-size:14px;color:#FF6B35;font-weight:600;margin-bottom:8px;"><%= currentSolution.subtitle %></p><% } %>
+              <% if (currentSolution.subtitle) { %><p style="font-size:14px;color:#FF6B35;font-weight:600;margin-bottom:8px;"><%= lang === 'en' && currentSolution.subtitle_en ? currentSolution.subtitle_en : currentSolution.subtitle %></p><% } %>
               <p><%= lang === 'en' && currentSolution.desc_en ? currentSolution.desc_en : currentSolution.desc %></p>
               <% if (currentSolution.items && currentSolution.items.length) { %>
                 <ul class="sol-detail-list">
-                  <% currentSolution.items.forEach(function(item) { %><li><%= item %></li><% }); %>
+                  <% currentSolution.items.forEach(function(item, i) { %><li><%= lang === 'en' && currentSolution.items_en && currentSolution.items_en[i] ? currentSolution.items_en[i] : item %></li><% }); %>
                 </ul>
               <% } %>
               <a href="/#contact" class="btn btn-primary"><%= lang === 'zh' ? '获取专属报价' : 'Request Custom Plan' %> →</a>
@@ -267,16 +267,21 @@
             var itemsHtml = '';
             if (Array.isArray(s.items)) {
               for (var m = 0; m < s.items.length; m++) {
-                itemsHtml += '<li>' + s.items[m] + '</li>';
+                var itemLang = window.__SOLUTION_LANG === 'en' && s.items_en ? s.items_en[m] : s.items[m];
+                if (itemLang) itemsHtml += '<li>' + itemLang + '</li>';
               }
             }
 
-            grid.innerHTML = '<div class="sol-detail-img"><img src="' + (s.img || '') + '" alt="' + (s.title || '') + '"></div>' +
-              '<div class="sol-detail-text"><h2>' + (s.title || '') + '</h2>' +
-              '<p style="font-size:14px;color:#FF6B35;font-weight:600;margin-bottom:8px;">' + (s.subtitle || '') + '</p>' +
-              '<p>' + (s.desc || '') + '</p>' +
+            var sTitle = window.__SOLUTION_LANG === 'en' && s.title_en ? s.title_en : (s.title || '');
+            var sSubtitle = window.__SOLUTION_LANG === 'en' && s.subtitle_en ? s.subtitle_en : (s.subtitle || '');
+            var sDesc = window.__SOLUTION_LANG === 'en' && s.desc_en ? s.desc_en : (s.desc || '');
+
+            grid.innerHTML = '<div class="sol-detail-img"><img src="' + (s.img || '') + '" alt="' + sTitle + '"></div>' +
+              '<div class="sol-detail-text"><h2>' + sTitle + '</h2>' +
+              '<p style="font-size:14px;color:#FF6B35;font-weight:600;margin-bottom:8px;">' + sSubtitle + '</p>' +
+              '<p>' + sDesc + '</p>' +
               '<ul class="sol-detail-list">' + itemsHtml + '</ul>' +
-              '<a href="/#contact" class="btn btn-primary">' + (window.__SOLUTION_LANG === 'en' ? 'Request Custom Plan' : 'Request Custom Plan') + ' →</a></div>';
+              '<a href="/#contact" class="btn btn-primary">' + (window.__SOLUTION_LANG === 'en' ? 'Request Custom Plan' : '获取专属报价') + ' →</a></div>';
           };
 
           // SEO 更新函数
