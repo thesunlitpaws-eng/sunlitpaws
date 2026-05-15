@@ -1143,7 +1143,17 @@
       "desc": "We partnered with a US cat tree startup to build their premium private-label product line from scratch. Starting with a trial order of 200 units, they scaled to 3,000 units per month within 12 months,...",
       "desc_en": "We partnered with a US cat tree startup to build their premium private-label product line from scratch. Starting with a trial order of 200 units, they scaled to 3,000 units per month within 12 months,...",
       "results_en": "12 months | 200→3,000 orders/mo | 8 SKUs",
-      "testimonials_en": "sunlitpaws turned our vision into reality. Their deep product expertise and high-quality manufacturing helped us pass market validation with flying colors, and the product quickly earned outstanding user feedback. — CEO, North American Pet Products Brand"
+      "testimonials_en": "sunlitpaws turned our vision into reality. Their deep product expertise and high-quality manufacturing helped us pass market validation with flying colors, and the product quickly earned outstanding user feedback. — CEO, North American Pet Products Brand",
+      "challenges_zh": [
+        "寻找具备美国市场合规经验的制造商",
+        "应对FDA和CA Prop 65合规要求",
+        "在规模化生产中保持稳定的品质"
+      ],
+      "outcomes_zh": [
+        "首批产品即完全符合美国安全标准",
+        "专属生产线并设立质量检查点",
+        "全程保持平均18天生产交期"
+      ]
     },
     {
       "id": "eu-distributor",
@@ -1185,7 +1195,17 @@
       "desc": "A German pet products company preparing to expand into the European pet market needed a manufacturer capable of multi-SKU production, strict EU compliance, and Amazon FBA packaging. sunlitpaws deliver...",
       "desc_en": "A German pet products company preparing to expand into the European pet market needed a manufacturer capable of multi-SKU production, strict EU compliance, and Amazon FBA packaging. sunlitpaws deliver...",
       "results_en": "120 SKUs | 5 markets expanded | 98% on-time rate",
-      "testimonials_en": "\"Their understanding of EU regulations saved us months of trial and error. Quality across all 120+ products was impeccable.\" — Procurement Director, German Pet Distributor"
+      "testimonials_en": "\"Their understanding of EU regulations saved us months of trial and error. Quality across all 120+ products was impeccable.\" — Procurement Director, German Pet Distributor",
+      "challenges_zh": [
+        "满足欧盟EN71玩具安全标准",
+        "协调多SKU生产和包装",
+        "符合德国/法国/意大利亚马逊FBA合规要求"
+      ],
+      "outcomes_zh": [
+        "6周内完成所有认证",
+        "包装按欧盟零售展示要求重新设计",
+        "上线时签署12个月返单承诺协议"
+      ]
     }
   ],
   "solutions": [

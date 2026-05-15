@@ -130,13 +130,13 @@
           <% if (currentCase.challenges && currentCase.challenges.length) { %>
             <div class="case-detail-sect">
               <h3><%= lang === 'zh' ? '面临的挑战' : 'The Challenge' %></h3>
-              <ul class="case-challenges"><% (lang === 'zh' ? currentCase.challenges : (currentCase.challenges_en && currentCase.challenges_en.length ? currentCase.challenges_en : currentCase.challenges)).forEach(function(x) { %><li><%= x %></li><% }); %></ul>
+              <ul class="case-challenges"><% (lang === 'zh' ? (currentCase.challenges_zh || currentCase.challenges) : currentCase.challenges).forEach(function(x) { %><li><%= x %></li><% }); %></ul>
             </div>
           <% } %>
           <% if (currentCase.outcomes && currentCase.outcomes.length) { %>
             <div class="case-detail-sect">
               <h3><%= lang === 'zh' ? '成果与收获' : 'The Outcome' %></h3>
-              <ul class="case-results-list"><% (lang === 'zh' ? currentCase.outcomes : (currentCase.outcomes_en && currentCase.outcomes_en.length ? currentCase.outcomes_en : currentCase.outcomes)).forEach(function(x) { %><li><%= x %></li><% }); %></ul>
+              <ul class="case-results-list"><% (lang === 'zh' ? (currentCase.outcomes_zh || currentCase.outcomes) : currentCase.outcomes).forEach(function(x) { %><li><%= x %></li><% }); %></ul>
             </div>
           <% } %>
         </div>
@@ -244,8 +244,8 @@
                 return '<div class="case-result-card"><div class="num">' + num + '</div><div class="lbl">' + lbl + '</div></div>';
               }).join('') : '';
 
-              var challengesList = caseLang === 'en' && c.challenges_en ? c.challenges_en : (c.challenges || []);
-              var outcomesList = caseLang === 'en' && c.outcomes_en ? c.outcomes_en : (c.outcomes || []);
+              var challengesList = caseLang === 'en' ? (c.challenges || []) : (c.challenges_zh || c.challenges || []);
+              var outcomesList = caseLang === 'en' ? (c.outcomes || []) : (c.outcomes_zh || c.outcomes || []);
               var challengesHtml = Array.isArray(challengesList) ? challengesList.map(function(x) { return '<li>' + x + '</li>'; }).join('') : '';
               var outcomesHtml = Array.isArray(outcomesList) ? outcomesList.map(function(x) { return '<li>' + x + '</li>'; }).join('') : '';
               var testimonialTxt = caseLang === 'en' && c.testimonials_en ? c.testimonials_en : (c.testimonials || '');
