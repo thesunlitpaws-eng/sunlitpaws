@@ -373,6 +373,15 @@ const i18n = {
     'modal.sub': 'We\'ll respond within 24 business hours',
     'toast.title': 'Inquiry Sent!',
     'toast.msg': 'We\'ll get back to you within 24 hours.',
+    'tab.all': 'All',
+    'section.工厂实力与资质': '🏭 Factory & Credentials',
+    'section.产品与定制服务': '📦 Products & Customization',
+    'section.质量控制与测试': '🔧 Quality Control',
+    'section.生产与物流': '🚛 Production & Logistics',
+    'section.商务条款与合作': '💰 Business & Cooperation',
+    'section.出口服务与认证': '🌍 Export & Certification',
+    'section.市场信息与趋势': '📊 Market Insights',
+    'section.合作流程与联系方式': '🤝 Cooperation & Contact',
   },
 
   zh: {
@@ -556,6 +565,15 @@ const i18n = {
     'modal.sub': '我们将在24个工作小时内回复',
     'toast.title': '提交成功！',
     'toast.msg': '我们将在24小时内与您联系。',
+    'tab.all': '全部',
+    'section.工厂实力与资质': '🏭 工厂实力',
+    'section.产品与定制服务': '📦 产品定制',
+    'section.质量控制与测试': '🔧 质量控制',
+    'section.生产与物流': '🚛 物流运输',
+    'section.商务条款与合作': '💰 商务合作',
+    'section.出口服务与认证': '🌍 出口认证',
+    'section.市场信息与趋势': '📊 市场信息',
+    'section.合作流程与联系方式': '🤝 合作流程',
   },
 };
 
