@@ -382,6 +382,10 @@ const i18n = {
     'section.出口服务与认证': '🌍 Export & Certification',
     'section.市场信息与趋势': '📊 Market Insights',
     'section.合作流程与联系方式': '🤝 Cooperation & Contact',
+    'news.related': 'More News',
+    'news.back': '← Back to News',
+    'news.notFound': 'News not found. <a href="/#news">Back to News</a>',
+    'news.loadError': 'Failed to load news. <a href="/#news">Back to News</a>',
   },
 
   zh: {
@@ -574,6 +578,10 @@ const i18n = {
     'section.出口服务与认证': '🌍 出口认证',
     'section.市场信息与趋势': '📊 市场信息',
     'section.合作流程与联系方式': '🤝 合作流程',
+    'news.related': '更多新闻',
+    'news.back': '← 返回新闻',
+    'news.notFound': '未找到新闻。<a href="/#news">返回新闻</a>',
+    'news.loadError': '加载新闻失败。<a href="/#news">返回新闻</a>',
   },
 };
 

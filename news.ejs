@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= lang %>">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -112,17 +112,20 @@
         </div>
       </a>
       <nav class="nav" id="nav">
-        <a href="/#home" class="nav-link">Home</a>
-        <a href="/#about" class="nav-link">About Us</a>
-        <a href="/#products" class="nav-link">Products</a>
-        <a href="/#solutions" class="nav-link">Solutions</a>
-        <a href="/#cases" class="nav-link">Cases</a>
-        <a href="/#news" class="nav-link active">News</a>
-        <a href="/#contact" class="nav-link">Contact</a>
+        <a href="/#home" class="nav-link" data-i18n="nav.home"><%= t('nav.home', lang) %></a>
+        <a href="/#about" class="nav-link" data-i18n="nav.about"><%= t('nav.about', lang) %></a>
+        <a href="/#products" class="nav-link" data-i18n="nav.products"><%= t('nav.products', lang) %></a>
+        <a href="/#solutions" class="nav-link" data-i18n="nav.solutions"><%= t('nav.solutions', lang) %></a>
+        <a href="/#cases" class="nav-link" data-i18n="nav.cases"><%= t('nav.cases', lang) %></a>
+        <a href="/#news" class="nav-link active" data-i18n="nav.news"><%= t('nav.news', lang) %></a>
+        <a href="/#contact" class="nav-link" data-i18n="nav.contact"><%= t('nav.contact', lang) %></a>
       </nav>
       <div class="header-actions">
         <div class="lang-switcher" id="langSwitcher">
-          <button class="lang-btn" id="langBtn">🌐 EN</button>
+          <button class="lang-btn" id="langBtn">
+            <span class="lang-flag">🌐</span>
+            <span class="lang-current"><%= lang === 'zh' ? '中文' : 'EN' %></span>
+          </button>
           <div class="lang-dropdown" id="langDropdown">
             <button onclick="setLang('en')">English</button>
             <button onclick="setLang('zh')">中文</button>
@@ -137,9 +140,10 @@
     <section class="news-detail-hero">
       <div class="container" id="newsHero">
         <% if (article) { %>
-          <% var artTitle = (lang === 'zh' && article.title_zh) ? article.title_zh : (article.title || 'News'); %>
-          <% var artContent = (lang === 'zh' && article.content_zh) ? article.content_zh : (article.content || article.excerpt || ''); %>
-          <a href="/#news" style="display:inline-flex;align-items:center;gap:8px;color:var(--primary);font-size:14px;text-decoration:none;margin-bottom:24px;">← Back to News</a>
+          <% var artTitle = lang === 'en' ? (article.title_en || article.title) : (article.title_zh || article.title); %>
+          <% var artExcerpt = lang === 'en' ? (article.excerpt_en || article.excerpt) : (article.excerpt_zh || article.excerpt); %>
+          <% var artContent = lang === 'en' ? (article.content_en || article.content) : (article.content_zh || article.content); %>
+          <a href="/#news" style="display:inline-flex;align-items:center;gap:8px;color:var(--primary);font-size:14px;text-decoration:none;margin-bottom:24px;" data-i18n="news.back"><%= t('news.back', lang) %></a>
           <span class="news-detail-cat"><%= article.category || 'News' %></span>
           <h1><%= artTitle %></h1>
           <div class="news-detail-meta"><span>📅 <%= article.date || '' %></span></div>
@@ -158,7 +162,7 @@
     </div>
     <section class="news-related">
       <div class="container">
-        <h2 style="font-size:28px;font-weight:700;">More News</h2>
+        <h2 style="font-size:28px;font-weight:700;" data-i18n="news.related"><%= t('news.related', lang) %></h2>
         <div class="news-related-grid" id="relatedNews"></div>
       </div>
     </section>
@@ -176,7 +180,7 @@
         </a>
       </div>
       <div class="footer-bottom">
-        <p>© 2024 Sunlitpaws Co., Ltd. All Rights Reserved.</p>
+        <p data-i18n="footer.copy"><%= t('footer.copy', lang) %></p>
       </div>
     </div>
   </footer>
@@ -208,7 +212,7 @@
         }
 
         if (!news) {
-          document.getElementById('newsHero').innerHTML = '<p style="color:var(--text-muted)">News not found. <a href="/#news">Back to News</a></p>';
+          document.getElementById('newsHero').innerHTML = '<p style="color:var(--text-muted)">' + (window.i18n && window.i18n[currentLang] ? window.i18n[currentLang]['news.notFound'] : 'News not found. <a href="/#news">Back to News</a>') + '</p>';
           return;
         }
 
@@ -217,10 +221,10 @@
 
         // Update page
         const lang = localStorage.getItem('preferredLang') || 'zh';
-        const title = (lang === 'zh' && news.title_zh) ? news.title_zh : news.title;
-        const displayContent = (lang === 'zh' && news.content_zh) ? news.content_zh : (news.content || news.excerpt || '');
+        const title = lang === 'en' ? (news.title_en || news.title) : (news.title_zh || news.title);
+        const displayContent = lang === 'en' ? (news.content_en || news.content) : (news.content_zh || news.content || news.excerpt || '');
         document.getElementById('newsHero').innerHTML = `
-          <a href="/#news" style="display:inline-flex;align-items:center;gap:8px;color:var(--primary);font-size:14px;text-decoration:none;margin-bottom:24px;">← Back to News</a>
+          <a href="/#news" style="display:inline-flex;align-items:center;gap:8px;color:var(--primary);font-size:14px;text-decoration:none;margin-bottom:24px;">← ${window.i18n && window.i18n[currentLang] ? window.i18n[currentLang]['news.back'] : 'Back to News'}</a>
           <span class="news-detail-cat">${news.category || 'News'}</span>
           <h1>${title}</h1>
           <div class="news-detail-meta"><span>📅 ${news.date || ''}</span></div>
@@ -232,17 +236,18 @@
         document.getElementById('relatedNews').innerHTML = related.map(n => {
           const nSlug = n.slug || n.id;
           const nUrl = '/blog/' + nSlug + '/';
+          const nTitle = lang === 'en' ? (n.title_en || n.title) : (n.title_zh || n.title);
           return `<a href="${nUrl}" class="news-related-card">
-            <div class="img-wrap"><img src="${n.image || ''}" alt="${n.title}"></div>
+            <div class="img-wrap"><img src="${n.image || ''}" alt="${nTitle}"></div>
             <div class="news-related-card-body">
               <div class="date">${n.date || ''}</div>
-              <h4>${n.title}</h4>
+              <h4>${nTitle}</h4>
             </div>
           </a>`;
         }).join('');
       } catch (e) {
         console.error(e);
-        document.getElementById('newsHero').innerHTML = '<p style="color:var(--text-muted)">Failed to load news. <a href="/#news">Back to News</a></p>';
+        document.getElementById('newsHero').innerHTML = '<p style="color:var(--text-muted)">' + (window.i18n && window.i18n[currentLang] ? window.i18n[currentLang]['news.loadError'] : 'Failed to load news. <a href="/#news">Back to News</a>') + '</p>';
       }
     }
 
