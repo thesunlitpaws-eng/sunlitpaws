@@ -111,7 +111,7 @@
   <button class="hero-arrow hero-arrow-right" id="heroNext" aria-label="Next slide">&#10095;</button>
 
   <div class="container hero-content">
-    <h1 class="hero-title"><%= t('hero.title', lang).replace(/\n/g, '<br>') %></h1>
+    <h1 class="hero-title" style="white-space:pre-line;"><%= t('hero.title', lang) %></h1>
     <p class="hero-sub"><%= t('hero.sub', lang) %></p>
     <div class="hero-btns">
       <button class="btn btn-primary btn-lg" onclick="openInquiry()"><%= t('hero.cta1', lang) %></button>
